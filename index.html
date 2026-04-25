@@ -2,10 +2,93 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>我的第一个网站</title>
+    <title>我的文档站 - 站内搜索</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .result {
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+        }
+        .result a {
+            font-size: 18px;
+            text-decoration: none;
+            color: #0366d6;
+        }
+        .result a:hover {
+            text-decoration: underline;
+        }
+        .result p {
+            margin: 5px 0 0;
+            color: #586069;
+        }
+        .no-result {
+            color: #999;
+        }
+    </style>
 </head>
 <body>
-    <h1>🎉 网站上线啦！</h1>
-    <p>这是我用 GitHub Pages 做的第一个网站。</p>
+    <h1>📁 站内搜索</h1>
+    <input type="text" id="searchInput" placeholder="输入关键词，搜索我仓库里的文件..." onkeyup="search()">
+
+    <div id="results"></div>
+
+    <script>
+        // 这里是你仓库里所有可搜索的“文件链接列表”
+        // 格式：{ title: "显示标题", url: "实际路径", description: "简短描述（可选）" }
+        const files = [
+            { title: "首页", url: "index.html", description: "当前网站首页" },
+            { title: "关于我", url: "about.html", description: "个人介绍（如果你有）" },
+            { title: "项目清单", url: "projects.html", description: "我的GitHub项目列表" },
+            { title: "学习笔记 - HTML基础", url: "notes/html-basics.html", description: "HTML入门知识点" },
+            { title: "学习笔记 - CSS布局", url: "notes/css-layout.html", description: "Flexbox和Grid" },
+            // 你可以继续添加更多文件，一行一个
+        ];
+
+        function search() {
+            const keyword = document.getElementById('searchInput').value.trim().toLowerCase();
+            const resultsDiv = document.getElementById('results');
+            
+            if (keyword === "") {
+                resultsDiv.innerHTML = '<div class="no-result">✨ 输入关键词开始搜索</div>';
+                return;
+            }
+
+            // 过滤匹配的文件（标题或描述包含关键词）
+            const matched = files.filter(file => 
+                file.title.toLowerCase().includes(keyword) || 
+                (file.description && file.description.toLowerCase().includes(keyword))
+            );
+
+            if (matched.length === 0) {
+                resultsDiv.innerHTML = '<div class="no-result">😢 没有找到相关文件，试试其他关键词</div>';
+                return;
+            }
+
+            // 显示搜索结果
+            let html = '';
+            matched.forEach(file => {
+                html += `
+                    <div class="result">
+                        <a href="${file.url}" target="_blank">📄 ${file.title}</a>
+                        <p>${file.description || '点击查看详情'}</p>
+                    </div>
+                `;
+            });
+            resultsDiv.innerHTML = html;
+        }
+    </script>
 </body>
 </html>
