@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>镜玄·资源搜索 | 管理员持久化 + 快捷标签</title>
     <style>
-        /* ========== 完整样式（与之前完全一致） ========== */
         * {
             margin: 0;
             padding: 0;
@@ -46,7 +45,7 @@
             background-position: center !important;
             background-repeat: no-repeat !important;
         }
-        .sidebar, .card, .search-box, .group-btn, .no-results, .palette-panel, .modal-content, .view-toggle-btn, .sort-select {
+        .sidebar, .card, .search-box, .group-btn, .no-results, .palette-panel, .modal-content, .view-toggle-btn, .sort-select, .tag-btn {
             border-radius: 20px !important;
         }
         .color-swatch {
@@ -133,6 +132,65 @@
         body[data-theme="black"] .group-btn.active {
             background: var(--theme-accent);
             color: #12151c;
+        }
+        /* 独立标签筛选区域 */
+        .tag-section {
+            margin-top: 24px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            padding-top: 16px;
+        }
+        body[data-theme="black"] .tag-section {
+            border-top-color: rgba(255,255,255,0.15);
+        }
+        .tag-section-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #1f2d3d;
+        }
+        body[data-theme="black"] .tag-section-title {
+            color: #f5f0e0;
+        }
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .tag-btn {
+            background: rgba(255,255,240,0.3);
+            border: none;
+            padding: 6px 12px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.1s;
+            color: #1f2937;
+            white-space: nowrap;
+        }
+        body[data-theme="black"] .tag-btn {
+            background: rgba(60, 68, 84, 0.6);
+            color: #f5f0e0;
+        }
+        .tag-btn:hover {
+            background: rgba(255,255,240,0.6);
+            transform: scale(0.96);
+        }
+        .tag-btn.active {
+            background: var(--theme-accent);
+            color: white;
+        }
+        .clear-tag-btn {
+            background: rgba(255,80,80,0.3);
+            border: none;
+            padding: 6px 12px;
+            font-size: 0.7rem;
+            border-radius: 40px;
+            cursor: pointer;
+            color: #eee;
         }
         .main {
             flex: 1;
@@ -524,7 +582,6 @@
             min-height: 80px;
             resize: vertical;
         }
-        /* 快捷标签按钮组 */
         .quick-tags {
             display: flex;
             gap: 10px;
@@ -739,6 +796,7 @@
             .sidebar { position: static; width: 100%; }
             .group-buttons { flex-direction: row; flex-wrap: wrap; }
             .group-btn { flex: 1; text-align: center; }
+            .tag-list { justify-content: center; }
             .palette-panel { width: 280px; right: 0; left: auto; top: 65px; }
             .card-actions { opacity: 1; top: 8px; right: 8px; }
             .cards-grid.list-view .card {
@@ -759,6 +817,13 @@
     <aside class="sidebar">
         <div class="sidebar-header">📁 分组导航</div>
         <div class="group-buttons" id="groupButtonsContainer"></div>
+        
+        <!-- 独立标签筛选区域 -->
+        <div class="tag-section">
+            <div class="tag-section-title">🏷️ 快捷标签</div>
+            <div class="tag-list" id="tagListContainer"></div>
+            <button id="clearTagFilterBtn" class="clear-tag-btn" style="display: none;">✖️ 清除筛选</button>
+        </div>
     </aside>
 
     <div class="main">
@@ -805,7 +870,7 @@
     </div>
 </div>
 
-<!-- 编辑/新增卡片的模态框，添加快捷标签按钮 -->
+<!-- 编辑/新增卡片的模态框 -->
 <div id="cardModal" class="modal">
     <div class="modal-content">
         <h3 id="modalTitle">编辑卡片</h3>
@@ -814,7 +879,6 @@
         <textarea id="cardDesc" placeholder="描述"></textarea>
         <input type="text" id="cardAuthor" placeholder="作者">
         <input type="text" id="cardTags" placeholder="标签 (用英文逗号分隔，例如: Fabric, 库)" autocomplete="off">
-        <!-- 快捷标签按钮组 -->
         <div class="quick-tags">
             <button type="button" class="quick-tag-btn" data-tag="Fabric">🔹 Fabric 织物</button>
             <button type="button" class="quick-tag-btn" data-tag="Forge">⚙️ Forge 锻造</button>
@@ -847,6 +911,7 @@
     let isListView = false;
     let hasLocalChanges = false;
     let currentSort = 'title-asc';
+    let currentTagFilter = null;      // 当前筛选的标签，null表示无筛选
 
     // DOM 元素
     const groupContainer = document.getElementById('groupButtonsContainer');
@@ -875,36 +940,87 @@
     const modalSave = document.getElementById('modalSave');
     const viewToggleBtn = document.getElementById('viewToggleBtn');
     const sortSelect = document.getElementById('sortSelect');
+    const tagListContainer = document.getElementById('tagListContainer');
+    const clearTagFilterBtn = document.getElementById('clearTagFilterBtn');
 
-    // 快捷标签按钮功能
-    function addTagToInput(tag) {
-        let currentTags = cardTagsInput.value.trim();
-        if (currentTags === "") {
-            cardTagsInput.value = tag;
-        } else {
-            let tagsArray = currentTags.split(',').map(s => s.trim());
-            if (!tagsArray.includes(tag)) {
-                tagsArray.push(tag);
-                cardTagsInput.value = tagsArray.join(', ');
-            } else {
-                // 可选：给出提示或忽略
-                console.log(`标签 "${tag}" 已存在`);
+    // 提取所有卡片中出现的标签，并统计次数
+    function extractAllTags() {
+        const tagCount = new Map();
+        for (const group of groupsData) {
+            for (const item of group.items) {
+                if (item.tags && Array.isArray(item.tags)) {
+                    for (const tag of item.tags) {
+                        const key = tag.trim();
+                        if (key) {
+                            tagCount.set(key, (tagCount.get(key) || 0) + 1);
+                        }
+                    }
+                }
             }
         }
-    }
-    // 绑定快捷标签按钮事件（在模态框打开时绑定）
-    function bindQuickTagButtons() {
-        document.querySelectorAll('.quick-tag-btn').forEach(btn => {
-            btn.removeEventListener('click', quickTagHandler);
-            btn.addEventListener('click', quickTagHandler);
-        });
-    }
-    function quickTagHandler(e) {
-        const tag = e.currentTarget.getAttribute('data-tag');
-        if (tag) addTagToInput(tag);
+        // 转为数组并按使用次数降序排序
+        const sortedTags = Array.from(tagCount.entries()).sort((a, b) => b[1] - a[1]);
+        return sortedTags;
     }
 
-    // 通用函数
+    // 渲染左侧标签列表
+    function renderTagList() {
+        const tags = extractAllTags();
+        if (tags.length === 0) {
+            tagListContainer.innerHTML = '<div style="font-size:0.7rem; color:var(--text-muted);">暂无标签</div>';
+            clearTagFilterBtn.style.display = 'none';
+            return;
+        }
+        let html = '';
+        for (const [tag, count] of tags) {
+            const activeClass = (currentTagFilter === tag) ? 'active' : '';
+            html += `<button class="tag-btn ${activeClass}" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)} (${count})</button>`;
+        }
+        tagListContainer.innerHTML = html;
+        clearTagFilterBtn.style.display = currentTagFilter ? 'block' : 'none';
+        // 绑定标签点击事件
+        document.querySelectorAll('.tag-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const tag = btn.getAttribute('data-tag');
+                if (currentTagFilter === tag) {
+                    // 如果点击已激活的标签，则清除筛选
+                    clearTagFilter();
+                } else {
+                    currentTagFilter = tag;
+                    renderTagList();   // 重新渲染以高亮当前标签
+                    renderCards();     // 重新渲染卡片
+                }
+            });
+        });
+    }
+
+    function clearTagFilter() {
+        currentTagFilter = null;
+        renderTagList();
+        renderCards();
+    }
+
+    // 获取当前要显示的卡片列表（根据分组或标签筛选）
+    function getDisplayItems() {
+        if (currentTagFilter) {
+            // 全局标签筛选：收集所有分组中包含该标签的卡片
+            const allItems = [];
+            for (const group of groupsData) {
+                for (const item of group.items) {
+                    if (item.tags && item.tags.includes(currentTagFilter)) {
+                        allItems.push(item);
+                    }
+                }
+            }
+            return allItems;
+        } else {
+            // 正常分组显示
+            const group = groupsData[currentGroupIndex];
+            return group ? group.items : [];
+        }
+    }
+
+    // 其他通用函数
     function updateDataSourceIndicator() {
         const container = document.getElementById('dataSourceIndicator');
         const dot = container?.querySelector('.indicator-dot');
@@ -933,6 +1049,8 @@
             currentDataSource = 'local';
         }
         updateDataSourceIndicator();
+        // 数据变化后重新提取标签并渲染
+        renderTagList();
     }
 
     function sortItems(items) {
@@ -956,7 +1074,6 @@
     async function loadInitialData() {
         const autoAdmin = sessionStorage.getItem('adminModeAuto') === 'true';
         if (autoAdmin) {
-            // 管理员模式：直接从 localStorage 读取，不发起云端请求
             const stored = localStorage.getItem('editable_groups_data');
             if (stored) {
                 try {
@@ -981,7 +1098,6 @@
             return;
         }
         
-        // 非管理员模式：正常从云端加载
         let cloudLoaded = false;
         try {
             const response = await fetch('data.json?v=' + Date.now());
@@ -1032,6 +1148,7 @@
             currentGroupIndex = 0;
             currentKeyword = '';
             searchInput.value = '';
+            currentTagFilter = null;
             renderAll();
             alert('已重置为默认数据，如需永久保存请手动导出并替换 data.json');
         }
@@ -1062,7 +1179,6 @@
         cardDownloadsInput.value = card.stats?.downloads || '';
         cardUpdatedInput.value = card.stats?.updated || '';
         modal.classList.add('active');
-        // 绑定快捷标签按钮（每次打开模态框时重新绑定，确保事件有效）
         bindQuickTagButtons();
     }
 
@@ -1156,9 +1272,7 @@
     }
 
     function getFilteredAndSortedItems() {
-        const group = groupsData[currentGroupIndex];
-        if(!group) return [];
-        let items = [...group.items];
+        let items = getDisplayItems();
         const kw = currentKeyword.trim().toLowerCase();
         if (kw) {
             items = items.filter(it => 
@@ -1182,8 +1296,16 @@
         }
         let html = '';
         items.forEach((item, idx) => {
-            const realIdx = groupsData[currentGroupIndex].items.findIndex(i => i === item);
-            html += renderCard(item, currentGroupIndex, realIdx);
+            // 为了编辑和删除，需要知道原始分组和索引。如果是全局标签筛选，临时构造一个虚拟索引，但编辑/删除需要定位到真实位置
+            // 由于标签筛选模式下，卡片可能来自不同分组，编辑/删除需要找到原分组和索引。
+            // 方便起见，我们在标签筛选模式下，给每个卡片添加 data-group 和 data-card 属性，实际值在点击时从 groupsData 中查找。
+            // 但为了简化，可以先不在标签筛选模式下支持编辑？但管理员模式下应该支持。我们保留功能：点击编辑时，通过遍历 groupsData 找到该卡片。
+            // 简单方法：在卡片中存储额外的 data-original-group-index 和 data-original-card-index，在渲染时从真实数据中获取。
+            // 这里我们采用查找函数 getCardLocation(item) 来定位。
+            const location = getCardLocation(item);
+            const groupIdx = location.groupIdx;
+            const cardIdx = location.cardIdx;
+            html += renderCard(item, groupIdx, cardIdx);
         });
         cardsContainer.innerHTML = html;
 
@@ -1213,17 +1335,36 @@
         }
     }
 
+    // 辅助：根据卡片对象查找其在 groupsData 中的位置
+    function getCardLocation(targetCard) {
+        for (let g = 0; g < groupsData.length; g++) {
+            const group = groupsData[g];
+            for (let i = 0; i < group.items.length; i++) {
+                if (group.items[i] === targetCard) {
+                    return { groupIdx: g, cardIdx: i };
+                }
+            }
+        }
+        return { groupIdx: -1, cardIdx: -1 };
+    }
+
     function renderGroupButtons() {
         let html = '';
         groupsData.forEach((g, idx) => {
-            html += `<button class="group-btn ${idx === currentGroupIndex ? 'active' : ''}" data-idx="${idx}">${escapeHtml(g.groupName)}</button>`;
+            const activeClass = (idx === currentGroupIndex && !currentTagFilter) ? 'active' : '';
+            html += `<button class="group-btn ${activeClass}" data-idx="${idx}">${escapeHtml(g.groupName)}</button>`;
         });
         groupContainer.innerHTML = html;
-        dynamicTitle.textContent = groupsData[currentGroupIndex].groupName;
+        dynamicTitle.textContent = currentTagFilter ? `标签: ${currentTagFilter}` : groupsData[currentGroupIndex].groupName;
         document.querySelectorAll('.group-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const idx = parseInt(btn.dataset.idx);
                 if(!isNaN(idx) && idx !== currentGroupIndex) {
+                    // 点击分组时，清除标签筛选
+                    if (currentTagFilter) {
+                        currentTagFilter = null;
+                        renderTagList();
+                    }
                     currentGroupIndex = idx;
                     currentKeyword = '';
                     searchInput.value = '';
@@ -1237,6 +1378,7 @@
     function renderAll() {
         renderGroupButtons();
         renderCards();
+        renderTagList();   // 每次数据变化重新提取标签
     }
 
     function toggleView() {
@@ -1275,8 +1417,36 @@
         }
     }
     function addNewCard() {
+        // 如果当前有标签筛选，建议清除筛选后再新增，或者新增到当前分组（按 currentGroupIndex）
         openEditModal(currentGroupIndex, undefined, { title: '', url: '', description: '', author: '', tags: [], version: '', stats: { downloads: '—', updated: '' } });
     }
+
+    function bindQuickTagButtons() {
+        document.querySelectorAll('.quick-tag-btn').forEach(btn => {
+            btn.removeEventListener('click', quickTagHandler);
+            btn.addEventListener('click', quickTagHandler);
+        });
+    }
+    function quickTagHandler(e) {
+        const tag = e.currentTarget.getAttribute('data-tag');
+        if (tag) {
+            let currentTags = cardTagsInput.value.trim();
+            if (currentTags === "") {
+                cardTagsInput.value = tag;
+            } else {
+                let tagsArray = currentTags.split(',').map(s => s.trim());
+                if (!tagsArray.includes(tag)) {
+                    tagsArray.push(tag);
+                    cardTagsInput.value = tagsArray.join(', ');
+                }
+            }
+        }
+    }
+
+    // 清除标签筛选按钮
+    clearTagFilterBtn.addEventListener('click', () => {
+        clearTagFilter();
+    });
 
     // ========== 壁纸上传优化 ==========
     function compressImage(file, maxWidth = 1920, quality = 0.8) {
@@ -1348,7 +1518,6 @@
         }
     }
 
-    // 主题与壁纸控制
     const solidPresets = [
         { color: "#eef2f8", theme: "white" }, { color: "#12151c", theme: "black" },
         { color: "#fce9e6", theme: "white" }, { color: "#fef0e0", theme: "white" },
@@ -1467,6 +1636,7 @@
         initControls();
         renderGroupButtons();
         renderCards();
+        renderTagList();
         searchInput.addEventListener('input', (e) => { currentKeyword = e.target.value; renderCards(); });
         viewToggleBtn.addEventListener('click', toggleView);
         sortSelect.addEventListener('change', changeSort);
