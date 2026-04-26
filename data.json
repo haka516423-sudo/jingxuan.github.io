@@ -1,1 +1,225 @@
-[]
+[
+  {
+    "groupName": "🎮 Minecraft 模组",
+    "items": [
+      {
+        "title": "Fabric API",
+        "url": "https://modrinth.com/mod/fabric-api",
+        "description": "轻量级且模块化的API，提供通用钩子和互操作性，供 Fabric 模组使用。",
+        "author": "Modmuss50",
+        "tags": [
+          "Fabric",
+          "库"
+        ],
+        "stats": {
+          "downloads": "162M",
+          "updated": "4天前"
+        },
+        "version": "0.16.5"
+      },
+      {
+        "title": "Sodium (钠)",
+        "url": "https://modrinth.com/mod/sodium",
+        "description": "Minecraft 最快且最兼容的渲染优化模组，支持 Fabric 和 NeoForge。",
+        "author": "CaffeineMC",
+        "tags": [
+          "Fabric",
+          "NeoForge",
+          "优化"
+        ],
+        "stats": {
+          "downloads": "147M",
+          "updated": "55分钟前"
+        },
+        "version": "0.5.8"
+      },
+      {
+        "title": "Iris Shaders",
+        "url": "https://modrinth.com/mod/iris",
+        "description": "现代 Minecraft 光影加载器，兼容 OptiFine 光影包。",
+        "author": "coderbot",
+        "tags": [
+          "Fabric",
+          "NeoForge",
+          "视觉"
+        ],
+        "stats": {
+          "downloads": "115M",
+          "updated": "3周前"
+        },
+        "version": "1.7.0"
+      },
+      {
+        "title": "Cloth Config API",
+        "url": "https://modrinth.com/mod/cloth-config",
+        "description": "Minecraft 模组配置库，提供通用的配置界面。",
+        "author": "shedaniel",
+        "tags": [
+          "Fabric",
+          "Forge",
+          "库"
+        ],
+        "stats": {
+          "downloads": "115M",
+          "updated": "上个月"
+        },
+        "version": "11.1.118"
+      },
+      {
+        "title": "ReplayMod (重播模组)",
+        "url": "https://modrinth.com/mod/replaymod",
+        "description": "记录并分享游戏体验的模组。",
+        "author": "Johni0702",
+        "tags": [
+          "Fabric",
+          "Forge",
+          "实用",
+          "视频创作者工具"
+        ],
+        "stats": {
+          "downloads": "—",
+          "updated": "上个月"
+        },
+        "version": "1.20.4-2.6.14"
+      },
+      {
+        "title": "Visible Barriers (可视化屏障方块)",
+        "url": "https://modrinth.com/mod/visiblebarriers",
+        "description": "让屏障方块、光源方块等可见，对地图制作很有帮助。",
+        "author": "AmyMialee's Mods",
+        "tags": [
+          "Fabric",
+          "实用",
+          "辅助"
+        ],
+        "stats": {
+          "downloads": "—",
+          "updated": "上个月"
+        },
+        "version": "1.0.2"
+      },
+      {
+        "title": "JEI (Just Enough Items)",
+        "url": "https://modrinth.com/mod/jei",
+        "description": "查看物品合成表，模组必备。",
+        "author": "mezz",
+        "tags": [
+          "Fabric",
+          "Forge",
+          "实用",
+          "物品管理"
+        ],
+        "version": "15.3.0.8",
+        "stats": {
+          "downloads": "200M",
+          "updated": "2周前"
+        }
+      },
+      {
+        "title": "Live Texture Editor  （实时纹理编辑器）",
+        "url": "https://modrinth.com/mod/livetextureeditor",
+        "description": "在不离开 Minecraft 的情况下编辑和创建资源包",
+        "author": "zeesea",
+        "tags": [
+          "Fabric ，创作者工具"
+        ],
+        "version": "1.21—1.21.11",
+        "stats": {
+          "downloads": "—",
+          "updated": ""
+        }
+      },
+      {
+        "title": "version（实时纹理编辑器）",
+        "url": "https://modrinth.com/mod/livetextureeditor/version/2.1.1",
+        "description": "",
+        "author": "",
+        "tags": [],
+        "stats": {
+          "downloads": "—",
+          "updated": ""
+        }
+      }
+    ]
+  },
+  {
+    "groupName": "🌐 常用开发网站",
+    "items": [
+      {
+        "title": "GitHub 官网",
+        "url": "https://github.com",
+        "description": "全球最大的开发者平台，托管代码、协作开发。",
+        "author": "GitHub",
+        "tags": [
+          "开发",
+          "工具"
+        ],
+        "stats": {
+          "downloads": "—",
+          "updated": "在线"
+        }
+      },
+      {
+        "title": "MDN Web Docs",
+        "url": "https://developer.mozilla.org/zh-CN/",
+        "description": "权威的 Web 技术文档，HTML、CSS、JavaScript 应有尽有。",
+        "author": "Mozilla",
+        "tags": [
+          "文档",
+          "前端"
+        ],
+        "stats": {
+          "downloads": "—",
+          "updated": "持续更新"
+        }
+      },
+      {
+        "title": "Stack Overflow",
+        "url": "https://stackoverflow.com",
+        "description": "程序员问答社区，遇到 bug 时的救星。",
+        "author": "Stack Exchange",
+        "tags": [
+          "社区",
+          "问答"
+        ],
+        "stats": {
+          "downloads": "—",
+          "updated": "活跃"
+        }
+      }
+    ]
+  },
+  {
+    "groupName": "📺 视频&学习",
+    "items": [
+      {
+        "title": "哔哩哔哩",
+        "url": "https://www.bilibili.com",
+        "description": "中文弹幕视频网站，大量编程教程和模组展示。",
+        "author": "Bilibili",
+        "tags": [
+          "视频",
+          "学习"
+        ],
+        "stats": {
+          "downloads": "—",
+          "updated": "每日更新"
+        }
+      },
+      {
+        "title": "YouTube",
+        "url": "https://www.youtube.com",
+        "description": "全球最大视频平台，无数技术讲座和模组介绍。",
+        "author": "Google",
+        "tags": [
+          "视频",
+          "教程"
+        ],
+        "stats": {
+          "downloads": "—",
+          "updated": "实时"
+        }
+      }
+    ]
+  }
+]
