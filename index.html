@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>镜玄·资源搜索 | 本地草稿 + 云端同步</title>
+    <title>镜玄·资源搜索 | 本地草稿+云端同步</title>
     <style>
         * {
             margin: 0;
@@ -214,7 +214,7 @@
         body[data-theme="black"] .data-source-indicator {
             background: rgba(0,0,0,0.7);
         }
-        /* 搜索栏 + 视图切换（统一玻璃风格） */
+        /* 搜索栏 + 视图切换 */
         .search-bar {
             display: flex;
             gap: 12px;
@@ -537,8 +537,6 @@
         }
         .card-title a {
             text-decoration: none;
-            color: #1e293b;
-            font-weight: 600;
         }
         .badge-group {
             display: flex;
@@ -552,7 +550,6 @@
             border-radius: 40px;
             font-size: 0.7rem;
             font-weight: 500;
-            color: #1f2937;
         }
         .version-info {
             background: rgba(0,0,0,0.08);
@@ -561,12 +558,10 @@
             font-size: 0.7rem;
             width: fit-content;
             margin-bottom: 14px;
-            color: #1f2937;
         }
         .card-description {
             font-size: 0.85rem;
             line-height: 1.5;
-            color: #374151;
             margin-bottom: 18px;
         }
         .card-footer {
@@ -575,7 +570,6 @@
             display: flex;
             justify-content: space-between;
             font-size: 0.7rem;
-            color: #4b5563;
             flex-wrap: wrap;
             gap: 8px;
         }
@@ -597,16 +591,15 @@
             border-radius: 20px;
             color: #4b5563;
         }
-        body[data-theme="black"] .no-results {
-            color: #f0e6d2;
-            background: rgba(0,0,0,0.4);
-        }
+        /* 深色主题强制米白色文字（覆盖所有可能遗漏） */
         body[data-theme="black"] .card-title a,
         body[data-theme="black"] .badge,
         body[data-theme="black"] .version-info,
         body[data-theme="black"] .card-description,
         body[data-theme="black"] .card-footer,
-        body[data-theme="black"] .stats span {
+        body[data-theme="black"] .stats span,
+        body[data-theme="black"] .author,
+        body[data-theme="black"] .data-source-badge {
             color: #f0e6d2 !important;
         }
         body[data-theme="black"] .badge {
@@ -614,6 +607,10 @@
         }
         body[data-theme="black"] .version-info {
             background: rgba(210, 220, 250, 0.25) !important;
+        }
+        body[data-theme="black"] .no-results {
+            color: #f0e6d2;
+            background: rgba(0,0,0,0.4);
         }
         @media (max-width: 780px) {
             body { padding: 16px; }
@@ -767,7 +764,6 @@
     function saveDataToStorage() {
         localStorage.setItem('editable_groups_data', JSON.stringify(groupsData));
         hasLocalChanges = true;
-        // 如果当前数据源不是云端（或者已经有本地修改），状态变为 local
         if (currentDataSource !== 'cloud') {
             currentDataSource = 'local';
         }
@@ -804,21 +800,20 @@
         }
         updateDataSourceIndicator();
 
-        // 后台尝试从云端获取，但仅用于对比，不自动覆盖（除非用户主动点击同步按钮）
+        // 后台尝试从云端获取，但仅用于对比，不自动覆盖（除非用户主动点击同步）
         try {
             const response = await fetch('data.json?v=' + Date.now());
             if (response.ok) {
                 const remoteData = await response.json();
                 if (remoteData && Array.isArray(remoteData)) {
-                    // 将云端数据暂存，但不覆盖当前 groupsData
                     window._cloudData = remoteData;
-                    // 如果当前没有本地修改，可以提示用户有云端更新
+                    // 如果当前没有本地修改，提示用户加载云端数据
                     if (!hasLocalChanges) {
                         if (confirm('检测到云端有最新数据，是否加载？\n（加载会覆盖当前本地内容）')) {
                             groupsData = remoteData;
                             currentDataSource = 'cloud';
                             hasLocalChanges = false;
-                            saveDataToStorage();
+                            saveDataToStorage();  // 存储为本地缓存，但标记无修改
                             updateDataSourceIndicator();
                             renderAll();
                         }
@@ -868,6 +863,8 @@
                 currentDataSource = 'cloud';
                 hasLocalChanges = false;
                 updateDataSourceIndicator();
+                // 同时将同步后的数据存入 localStorage，并清除草稿标记
+                localStorage.setItem('editable_groups_data', JSON.stringify(groupsData));
             } else {
                 const err = await updateResp.json();
                 alert(`同步失败: ${err.message}`);
@@ -961,7 +958,7 @@
         editingCardInfo = null;
     }
 
-    // ========== 渲染相关（卡片中增加数据来源角标） ==========
+    // ========== 渲染相关 ==========
     function escapeHtml(s) { if(!s) return ''; return s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
     function getFavicon(url) { return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(url)}`; }
 
@@ -971,7 +968,7 @@
         const downloads = item.stats?.downloads || '';
         const updated = item.stats?.updated || '';
         let sourceBadge = '';
-        if (hasLocalChanges || currentDataSource === 'local') {
+        if (hasLocalChanges) {
             sourceBadge = `<span class="data-source-badge">💾 本地草稿</span>`;
         } else if (currentDataSource === 'cloud') {
             sourceBadge = `<span class="data-source-badge">☁️ 云端</span>`;
@@ -998,7 +995,7 @@
                 </div>
                 <div class="card-description">${escapeHtml(item.description)}</div>
                 <div class="card-footer">
-                    <span>👤 ${escapeHtml(item.author)}</span>
+                    <span class="author">👤 ${escapeHtml(item.author)}</span>
                     <div class="stats">
                         ${downloads ? `<span>📥 ${downloads}</span>` : ''}
                         ${updated ? `<span>🕒 ${updated}</span>` : ''}
