@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>镜玄·资源搜索 | 管理员持久化 + 壁纸压缩</title>
+    <title>镜玄·资源搜索 | 管理员持久化 + 快捷标签</title>
     <style>
+        /* ========== 完整样式（与之前完全一致） ========== */
         * {
             margin: 0;
             padding: 0;
@@ -152,9 +153,8 @@
             font-size: 1.85rem;
             font-weight: 700;
             margin: 0;
-            color: #1e293b;  /* 浅色主题默认深色 */
+            color: #1e293b;
         }
-        /* 深色主题下标题改为米白色 */
         body[data-theme="black"] .title-section h1,
         body[data-theme="ocean"] .title-section h1,
         body[data-theme="midnight"] .title-section h1,
@@ -199,7 +199,6 @@
         .admin-btn:active, .palette-btn:active {
             transform: scale(0.96);
         }
-        /* 数据源指示器 */
         .data-source-indicator {
             display: inline-flex;
             align-items: center;
@@ -223,7 +222,6 @@
         body[data-theme="black"] .data-source-indicator {
             background: rgba(0,0,0,0.7);
         }
-        /* 搜索栏 + 视图切换 + 排序 */
         .search-bar {
             display: flex;
             gap: 12px;
@@ -281,7 +279,6 @@
             background-repeat: no-repeat;
             background-position: right 12px center;
         }
-        /* 调色板面板 */
         .palette-panel {
             position: absolute;
             top: 60px;
@@ -527,6 +524,27 @@
             min-height: 80px;
             resize: vertical;
         }
+        /* 快捷标签按钮组 */
+        .quick-tags {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        .quick-tag-btn {
+            background: rgba(255,255,240,0.3);
+            border: 1px solid rgba(255,255,255,0.4);
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: 0.1s;
+            color: #eee;
+        }
+        .quick-tag-btn:hover {
+            background: rgba(255,255,240,0.6);
+            transform: scale(0.96);
+        }
         .modal-buttons {
             display: flex;
             justify-content: flex-end;
@@ -542,7 +560,6 @@
         .save-btn { background: #10b981; color: white; }
         .cancel-btn { background: #6b7280; color: white; }
         
-        /* 卡片内部基础样式 */
         .card-title {
             font-size: 1.2rem;
             font-weight: 600;
@@ -621,7 +638,7 @@
             color: #4b5563;
         }
         
-        /* 深色主题强制米白色文字（涵盖所有深色背景主题） */
+        /* 深色主题强制米白色文字 */
         body[data-theme="black"] .card-title a,
         body[data-theme="black"] .card-title a:link,
         body[data-theme="black"] .card-title a:visited,
@@ -748,7 +765,7 @@
         <div class="header-area">
             <div class="title-section">
                 <h1 id="dynamicTitle">🎮 Minecraft 模组</h1>
-                <p>自定义壁纸 | 通透模糊 | 管理员持久化</p>
+                <p>自定义壁纸 | 通透模糊 | 管理员持久化 | 快捷标签</p>
             </div>
             <div class="action-buttons">
                 <div id="dataSourceIndicator" class="data-source-indicator" style="display: none;">
@@ -788,6 +805,7 @@
     </div>
 </div>
 
+<!-- 编辑/新增卡片的模态框，添加快捷标签按钮 -->
 <div id="cardModal" class="modal">
     <div class="modal-content">
         <h3 id="modalTitle">编辑卡片</h3>
@@ -796,6 +814,12 @@
         <textarea id="cardDesc" placeholder="描述"></textarea>
         <input type="text" id="cardAuthor" placeholder="作者">
         <input type="text" id="cardTags" placeholder="标签 (用英文逗号分隔，例如: Fabric, 库)" autocomplete="off">
+        <!-- 快捷标签按钮组 -->
+        <div class="quick-tags">
+            <button type="button" class="quick-tag-btn" data-tag="Fabric">🔹 Fabric 织物</button>
+            <button type="button" class="quick-tag-btn" data-tag="Forge">⚙️ Forge 锻造</button>
+            <button type="button" class="quick-tag-btn" data-tag="NeoForge">✨ NeoForge 新锻造</button>
+        </div>
         <input type="text" id="cardVersion" placeholder="版本 (可选)" autocomplete="off">
         <input type="text" id="cardDownloads" placeholder="下载量 (可选)" autocomplete="off">
         <input type="text" id="cardUpdated" placeholder="更新时间 (可选)" autocomplete="off">
@@ -851,6 +875,34 @@
     const modalSave = document.getElementById('modalSave');
     const viewToggleBtn = document.getElementById('viewToggleBtn');
     const sortSelect = document.getElementById('sortSelect');
+
+    // 快捷标签按钮功能
+    function addTagToInput(tag) {
+        let currentTags = cardTagsInput.value.trim();
+        if (currentTags === "") {
+            cardTagsInput.value = tag;
+        } else {
+            let tagsArray = currentTags.split(',').map(s => s.trim());
+            if (!tagsArray.includes(tag)) {
+                tagsArray.push(tag);
+                cardTagsInput.value = tagsArray.join(', ');
+            } else {
+                // 可选：给出提示或忽略
+                console.log(`标签 "${tag}" 已存在`);
+            }
+        }
+    }
+    // 绑定快捷标签按钮事件（在模态框打开时绑定）
+    function bindQuickTagButtons() {
+        document.querySelectorAll('.quick-tag-btn').forEach(btn => {
+            btn.removeEventListener('click', quickTagHandler);
+            btn.addEventListener('click', quickTagHandler);
+        });
+    }
+    function quickTagHandler(e) {
+        const tag = e.currentTarget.getAttribute('data-tag');
+        if (tag) addTagToInput(tag);
+    }
 
     // 通用函数
     function updateDataSourceIndicator() {
@@ -920,7 +972,6 @@
                     }
                 } catch(e) {}
             }
-            // 没有本地数据，使用默认
             groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
             currentDataSource = 'default';
             hasLocalChanges = false;
@@ -1011,6 +1062,8 @@
         cardDownloadsInput.value = card.stats?.downloads || '';
         cardUpdatedInput.value = card.stats?.updated || '';
         modal.classList.add('active');
+        // 绑定快捷标签按钮（每次打开模态框时重新绑定，确保事件有效）
+        bindQuickTagButtons();
     }
 
     function saveCardFromModal() {
@@ -1225,7 +1278,7 @@
         openEditModal(currentGroupIndex, undefined, { title: '', url: '', description: '', author: '', tags: [], version: '', stats: { downloads: '—', updated: '' } });
     }
 
-    // ========== 壁纸上传优化（压缩+大小警告） ==========
+    // ========== 壁纸上传优化 ==========
     function compressImage(file, maxWidth = 1920, quality = 0.8) {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -1295,7 +1348,7 @@
         }
     }
 
-    // 主题与壁纸控制（其余部分）
+    // 主题与壁纸控制
     const solidPresets = [
         { color: "#eef2f8", theme: "white" }, { color: "#12151c", theme: "black" },
         { color: "#fce9e6", theme: "white" }, { color: "#fef0e0", theme: "white" },
