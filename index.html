@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>琉璃·圆矩形｜渐变玻璃主题库</title>
+    <title>琉璃·圆矩形｜自定义玻璃主题库</title>
     <style>
         * {
             margin: 0;
@@ -11,17 +11,17 @@
             box-sizing: border-box;
         }
 
-        /* 基础载体 */
         body {
             font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
             min-height: 100vh;
             background-attachment: fixed;
             transition: background 0.25s ease;
             padding: 28px;
+            --glass-opacity: 0.22;   /* 可动态调整的透明度 */
+            --gradient-angle: 135deg;
         }
 
-        /* ----- 主题定义（纯色低饱和 + 热门渐变）----- */
-        /* 纯色主题 */
+        /* 基础主题背景（纯色+渐变）通过 data-theme 切换 */
         body[data-theme="white"]  { background: #eef2f8; --theme-accent: #5b6e8c; }
         body[data-theme="black"]  { background: #12151c; --theme-accent: #8e9aaf; }
         body[data-theme="red"]    { background: #fce9e6; --theme-accent: #c2675e; }
@@ -31,26 +31,21 @@
         body[data-theme="cyan"]   { background: #e0f2f5; --theme-accent: #3f7a85; }
         body[data-theme="blue"]   { background: #e3edfa; --theme-accent: #4a6fa5; }
         body[data-theme="purple"] { background: #f0e9fc; --theme-accent: #8b6cb0; }
+        body[data-theme="sunset"]    { background: linear-gradient(var(--gradient-angle), #ff9a9e 0%, #fecfef 100%); --theme-accent: #d96c6e; }
+        body[data-theme="aurora"]    { background: linear-gradient(var(--gradient-angle), #a1c4fd 0%, #c2e9fb 100%); --theme-accent: #3b82f6; }
+        body[data-theme="ocean"]     { background: linear-gradient(var(--gradient-angle), #2b5876 0%, #4e4376 100%); --theme-accent: #7c83b9; }
+        body[data-theme="sakura"]    { background: linear-gradient(var(--gradient-angle), #fbc2eb 0%, #a6c1ee 100%); --theme-accent: #c45692; }
+        body[data-theme="forest"]    { background: linear-gradient(var(--gradient-angle), #b5d6a7 0%, #9bbd8c 100%); --theme-accent: #5c8a4a; }
+        body[data-theme="midnight"]  { background: linear-gradient(var(--gradient-angle), #1f1c2c 0%, #2a2a4a 100%); --theme-accent: #9c88ff; }
+        body[data-theme="peach"]     { background: linear-gradient(var(--gradient-angle), #ffe29a 0%, #ffb7b2 100%); --theme-accent: #d97846; }
+        body[data-theme="mint"]      { background: linear-gradient(var(--gradient-angle), #c7e9fb 0%, #b6e0fe 100%); --theme-accent: #4a9e7c; }
 
-        /* 渐变色主题（热门） */
-        body[data-theme="sunset"]    { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); --theme-accent: #d96c6e; }
-        body[data-theme="aurora"]    { background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%); --theme-accent: #3b82f6; }
-        body[data-theme="ocean"]     { background: linear-gradient(135deg, #2b5876 0%, #4e4376 100%); --theme-accent: #7c83b9; }
-        body[data-theme="sakura"]    { background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%); --theme-accent: #c45692; }
-        body[data-theme="forest"]    { background: linear-gradient(135deg, #b5d6a7 0%, #9bbd8c 100%); --theme-accent: #5c8a4a; }
-        body[data-theme="midnight"]  { background: linear-gradient(135deg, #1f1c2c 0%, #2a2a4a 100%); --theme-accent: #9c88ff; }
-        body[data-theme="peach"]     { background: linear-gradient(135deg, #ffe29a 0%, #ffb7b2 100%); --theme-accent: #d97846; }
-        body[data-theme="mint"]      { background: linear-gradient(135deg, #c7e9fb 0%, #b6e0fe 100%); --theme-accent: #4a9e7c; }
-
-        /* 统一圆角标准（所有矩形组件） */
-        .sidebar, .header-area, .card, .search-box, .theme-selector, .group-btn, .expand-btn, .no-results {
+        /* 统一圆角矩形 */
+        .sidebar, .header-area, .card, .search-box, .theme-selector, .group-btn, .expand-btn, .no-results, .palette-panel {
             border-radius: 20px !important;
         }
-        /* 主题色块改成圆角矩形 */
-        .theme-option {
-            border-radius: 12px !important;
-            width: 36px;
-            height: 36px;
+        .color-swatch {
+            border-radius: 12px;
         }
 
         /* 主布局 */
@@ -62,22 +57,22 @@
             align-items: flex-start;
         }
 
-        /* 左侧分组导航 - 透明玻璃层 (增强透明度) */
+        /* 左侧导航 - 玻璃层 (透明度用变量) */
         .sidebar {
             flex: 0 0 280px;
-            background: rgba(255, 255, 255, 0.22);
+            background: rgba(255, 255, 255, var(--glass-opacity));
             backdrop-filter: blur(18px);
             border: 1px solid rgba(255, 255, 255, 0.5);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255,255,255,0.4);
             padding: 24px 16px;
             position: sticky;
             top: 28px;
-            transition: 0.2s;
+            transition: background 0.2s;
         }
         body[data-theme="black"] .sidebar,
         body[data-theme="ocean"] .sidebar,
         body[data-theme="midnight"] .sidebar {
-            background: rgba(0, 0, 0, 0.35);
+            background: rgba(0, 0, 0, calc(var(--glass-opacity) + 0.1));
             border-color: rgba(255, 255, 255, 0.2);
         }
         .sidebar-header {
@@ -98,14 +93,14 @@
             border-bottom-color: rgba(255,255,255,0.15);
         }
 
-        /* 分组按钮（圆矩形） */
+        /* 分组按钮 → 按下动画 (向内缩放) */
         .group-buttons {
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
         .group-btn {
-            background: rgba(255, 255, 235, 0.5);
+            background: rgba(255, 255, 235, 0.6);
             backdrop-filter: blur(6px);
             border: none;
             padding: 10px 18px;
@@ -114,22 +109,29 @@
             text-align: left;
             color: #1f2937;
             cursor: pointer;
-            transition: 0.2s;
+            transition: transform 0.1s, background 0.2s;
+            transform: scale(1);
         }
-        body[data-theme="black"] .group-btn,
-        body[data-theme="ocean"] .group-btn,
-        body[data-theme="midnight"] .group-btn {
-            background: rgba(60, 68, 84, 0.6);
-            color: #e2e8f0;
+        .group-btn:active {
+            transform: scale(0.96);
+            background: rgba(0, 0, 0, 0.15);
         }
         .group-btn:hover {
-            background: rgba(255,255,250,0.9);
-            transform: translateX(4px);
+            background: rgba(255,255,250,0.85);
         }
         .group-btn.active {
             background: var(--theme-accent);
             color: white;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        body[data-theme="black"] .group-btn,
+        body[data-theme="ocean"] .group-btn,
+        body[data-theme="midnight"] .group-btn {
+            background: rgba(60, 68, 84, 0.7);
+            color: #e2e8f0;
+        }
+        body[data-theme="black"] .group-btn:active {
+            background: rgba(0,0,0,0.3);
         }
 
         /* 右侧主区域 */
@@ -149,12 +151,7 @@
             backdrop-filter: blur(16px);
             border: 1px solid rgba(255,255,255,0.5);
             padding: 16px 24px;
-        }
-        body[data-theme="black"] .header-area,
-        body[data-theme="ocean"] .header-area,
-        body[data-theme="midnight"] .header-area {
-            background: rgba(20, 25, 35, 0.45);
-            border-color: rgba(255,255,255,0.2);
+            position: relative;
         }
         .title-section h1 {
             font-size: 1.85rem;
@@ -168,48 +165,76 @@
             color: #4b5563;
             font-size: 0.8rem;
         }
-        body[data-theme="black"] .title-section p,
-        body[data-theme="ocean"] .title-section p,
-        body[data-theme="midnight"] .title-section p {
-            color: #cbd5e1;
-        }
 
-        /* 主题切换器（圆矩形玻璃） */
-        .theme-selector {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            background: rgba(255,255,255,0.38);
-            backdrop-filter: blur(10px);
-            padding: 8px 16px;
-            border: 1px solid rgba(255,255,255,0.6);
-        }
-        .theme-option {
+        /* 调色板按钮 及 弹出面板 */
+        .palette-btn {
+            background: rgba(255,255,240,0.7);
+            border: none;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-weight: 500;
             cursor: pointer;
-            transition: 0.1s;
-            border: 2px solid rgba(255,255,255,0.9);
-            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+            backdrop-filter: blur(4px);
         }
-        .theme-option:hover { transform: scale(1.06); }
-        .theme-option.active { border-color: #ffffff; box-shadow: 0 0 0 2px #3b82f6; }
-        /* 色块颜色（渐变主题色块用代表性色） */
-        .theme-option[data-theme="white"]  { background: #e9ecef; }
-        .theme-option[data-theme="black"]  { background: #1e293b; }
-        .theme-option[data-theme="red"]    { background: #f3b3a2; }
-        .theme-option[data-theme="orange"] { background: #f6cd9e; }
-        .theme-option[data-theme="yellow"] { background: #f1e2a5; }
-        .theme-option[data-theme="green"]  { background: #c0dbc2; }
-        .theme-option[data-theme="cyan"]   { background: #b8dfe6; }
-        .theme-option[data-theme="blue"]   { background: #b9cef0; }
-        .theme-option[data-theme="purple"] { background: #dac8f0; }
-        .theme-option[data-theme="sunset"]   { background: linear-gradient(135deg, #ff9a9e, #fecfef); }
-        .theme-option[data-theme="aurora"]   { background: linear-gradient(135deg, #a1c4fd, #c2e9fb); }
-        .theme-option[data-theme="ocean"]    { background: linear-gradient(135deg, #2b5876, #4e4376); }
-        .theme-option[data-theme="sakura"]   { background: linear-gradient(135deg, #fbc2eb, #a6c1ee); }
-        .theme-option[data-theme="forest"]   { background: linear-gradient(135deg, #b5d6a7, #9bbd8c); }
-        .theme-option[data-theme="midnight"] { background: linear-gradient(135deg, #1f1c2c, #2a2a4a); }
-        .theme-option[data-theme="peach"]    { background: linear-gradient(135deg, #ffe29a, #ffb7b2); }
-        .theme-option[data-theme="mint"]     { background: linear-gradient(135deg, #c7e9fb, #b6e0fe); }
+        .palette-panel {
+            position: absolute;
+            top: 70px;
+            right: 0;
+            width: 320px;
+            background: rgba(30, 30, 40, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 16px;
+            z-index: 100;
+            display: none;
+            flex-direction: column;
+            gap: 16px;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+        }
+        .palette-panel.show {
+            display: flex;
+        }
+        .section-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #ddd;
+            margin-bottom: 8px;
+        }
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 8px;
+        }
+        .color-swatch {
+            height: 40px;
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.5);
+            transition: 0.1s;
+        }
+        .color-swatch:hover {
+            transform: scale(1.05);
+            border-color: white;
+        }
+        .gradient-swatch {
+            background-size: cover;
+        }
+        .slider-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .slider-container label {
+            font-size: 0.7rem;
+            color: #ccc;
+        }
+        input[type="range"] {
+            width: 100%;
+        }
+        .value-display {
+            font-size: 0.7rem;
+            color: #ddd;
+            text-align: right;
+        }
 
         /* 搜索框玻璃层 */
         .search-box {
@@ -221,13 +246,6 @@
             font-size: 0.95rem;
             color: #1f2937;
             transition: 0.2s;
-        }
-        body[data-theme="black"] .search-box,
-        body[data-theme="ocean"] .search-box,
-        body[data-theme="midnight"] .search-box {
-            background: rgba(35, 42, 56, 0.55);
-            color: #eef2ff;
-            border-color: rgba(255,255,255,0.2);
         }
         .search-box:focus {
             outline: none;
@@ -243,9 +261,9 @@
             margin-top: 8px;
         }
 
-        /* 卡片：超透玻璃 + 高模糊 (层次分明) */
+        /* 卡片超透玻璃 */
         .card {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, calc(var(--glass-opacity) - 0.02));
             backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.5);
             padding: 22px;
@@ -254,62 +272,27 @@
             display: flex;
             flex-direction: column;
         }
-        body[data-theme="black"] .card,
-        body[data-theme="ocean"] .card,
-        body[data-theme="midnight"] .card {
-            background: rgba(10, 14, 23, 0.45);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
         .card:hover {
             transform: translateY(-4px);
             border-color: var(--theme-accent);
-            background: rgba(255, 255, 255, 0.35);
+            background: rgba(255, 255, 255, calc(var(--glass-opacity) + 0.1));
         }
-        body[data-theme="black"] .card:hover,
-        body[data-theme="ocean"] .card:hover,
-        body[data-theme="midnight"] .card:hover {
-            background: rgba(35, 45, 65, 0.6);
+        body[data-theme="black"] .card,
+        body[data-theme="ocean"] .card,
+        body[data-theme="midnight"] .card {
+            background: rgba(10, 14, 23, calc(var(--glass-opacity) + 0.1));
+            border-color: rgba(255, 255, 255, 0.2);
         }
-
-        /* 卡片内部样式 - 深色模式文字修复 */
-        .card-title {
-            font-size: 1.22rem;
-            font-weight: 600;
-            margin-bottom: 14px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .card-title img {
-            width: 22px;
-            height: 22px;
-            border-radius: 6px;
-            background: rgba(255,255,255,0.5);
-        }
-        .card-title a {
-            text-decoration: none;
-            color: #1e293b;
-        }
+        /* 卡片内部文字深色兼容 */
+        .card-title a { text-decoration: none; color: #1e293b; }
         body[data-theme="black"] .card-title a,
         body[data-theme="ocean"] .card-title a,
-        body[data-theme="midnight"] .card-title a {
-            color: #f1f5f9;
-        }
-        .card-title a:hover {
-            color: var(--theme-accent);
-        }
-        .badge-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
+        body[data-theme="midnight"] .card-title a { color: #f1f5f9; }
         .badge {
             background: rgba(0,0,0,0.12);
             padding: 4px 12px;
             border-radius: 40px;
             font-size: 0.7rem;
-            font-weight: 500;
             color: #1f2937;
         }
         body[data-theme="black"] .badge,
@@ -338,10 +321,6 @@
             line-height: 1.5;
             color: #374151;
             margin-bottom: 18px;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
         }
         body[data-theme="black"] .card-description,
         body[data-theme="ocean"] .card-description,
@@ -355,12 +334,8 @@
             justify-content: space-between;
             font-size: 0.7rem;
             color: #4b5563;
-            flex-wrap: wrap;
-            gap: 8px;
         }
-        body[data-theme="black"] .card-footer,
-        body[data-theme="ocean"] .card-footer,
-        body[data-theme="midnight"] .card-footer {
+        body[data-theme="black"] .card-footer {
             border-top-color: rgba(255,255,255,0.12);
             color: #9ca3af;
         }
@@ -369,7 +344,6 @@
             padding: 60px 20px;
             background: rgba(255,255,255,0.3);
             backdrop-filter: blur(12px);
-            color: #4b5563;
         }
         @media (max-width: 780px) {
             body { padding: 16px; }
@@ -377,6 +351,7 @@
             .sidebar { position: static; width: 100%; }
             .group-buttons { flex-direction: row; flex-wrap: wrap; }
             .group-btn { flex: 1; text-align: center; }
+            .palette-panel { width: 280px; right: 0; left: auto; }
         }
     </style>
 </head>
@@ -391,28 +366,26 @@
         <div class="header-area">
             <div class="title-section">
                 <h1>💎 圆矩形·琉璃库</h1>
-                <p>超透玻璃 | 17种主题 | 统一圆角</p>
+                <p>玻璃自定义 | 按下动画 | 矩形色板</p>
             </div>
-            <div class="theme-selector" id="themeSelector">
-                <!-- 纯色主题 -->
-                <div class="theme-option" data-theme="white" title="纯白"></div>
-                <div class="theme-option" data-theme="black" title="墨黑"></div>
-                <div class="theme-option" data-theme="red" title="淡红"></div>
-                <div class="theme-option" data-theme="orange" title="杏色"></div>
-                <div class="theme-option" data-theme="yellow" title="浅黄"></div>
-                <div class="theme-option" data-theme="green" title="草绿"></div>
-                <div class="theme-option" data-theme="cyan" title="水蓝"></div>
-                <div class="theme-option" data-theme="blue" title="天蓝"></div>
-                <div class="theme-option" data-theme="purple" title="淡紫"></div>
-                <!-- 渐变色主题 -->
-                <div class="theme-option" data-theme="sunset" title="日落霞光"></div>
-                <div class="theme-option" data-theme="aurora" title="极光幻境"></div>
-                <div class="theme-option" data-theme="ocean" title="深海幽蓝"></div>
-                <div class="theme-option" data-theme="sakura" title="樱花朦胧"></div>
-                <div class="theme-option" data-theme="forest" title="森林呼吸"></div>
-                <div class="theme-option" data-theme="midnight" title="午夜星轨"></div>
-                <div class="theme-option" data-theme="peach" title="蜜桃暖阳"></div>
-                <div class="theme-option" data-theme="mint" title="薄荷之晨"></div>
+            <button class="palette-btn" id="paletteBtn">🎨 调色板</button>
+            <div class="palette-panel" id="palettePanel">
+                <div>
+                    <div class="section-title">🎨 纯色预设</div>
+                    <div class="color-grid" id="solidColorGrid"></div>
+                </div>
+                <div>
+                    <div class="section-title">🌈 渐变预设</div>
+                    <div class="color-grid" id="gradientColorGrid"></div>
+                </div>
+                <div class="slider-container">
+                    <label>🔮 玻璃透明度 <span id="opacityValue">0.22</span></label>
+                    <input type="range" id="opacitySlider" min="0.1" max="0.6" step="0.01" value="0.22">
+                </div>
+                <div class="slider-container">
+                    <label>🔄 渐变角度 (渐变主题生效) <span id="angleValue">135°</span></label>
+                    <input type="range" id="angleSlider" min="0" max="360" step="1" value="135">
+                </div>
             </div>
         </div>
 
@@ -425,35 +398,11 @@
 </div>
 
 <script>
-    // ---------- 数据（完整保留）----------
+    // ========== 数据（保持不变） ==========
     const groupsData = [
-        {
-            groupName: "🎮 Minecraft 模组",
-            items: [
-                { title: "Fabric API", url: "https://modrinth.com/mod/fabric-api", description: "轻量级且模块化的API，提供通用钩子和互操作性，供 Fabric 模组使用。", author: "Modmuss50", tags: ["Fabric", "库"], stats: { downloads: "162M", updated: "4天前" }, version: "0.16.5" },
-                { title: "Sodium (钠)", url: "https://modrinth.com/mod/sodium", description: "Minecraft 最快且最兼容的渲染优化模组，支持 Fabric 和 NeoForge。", author: "CaffeineMC", tags: ["Fabric", "NeoForge", "优化"], stats: { downloads: "147M", updated: "55分钟前" }, version: "0.5.8" },
-                { title: "Iris Shaders", url: "https://modrinth.com/mod/iris", description: "现代 Minecraft 光影加载器，兼容 OptiFine 光影包。", author: "coderbot", tags: ["Fabric", "NeoForge", "视觉"], stats: { downloads: "115M", updated: "3周前" }, version: "1.7.0" },
-                { title: "Cloth Config API", url: "https://modrinth.com/mod/cloth-config", description: "Minecraft 模组配置库，提供通用的配置界面。", author: "shedaniel", tags: ["Fabric", "Forge", "库"], stats: { downloads: "115M", updated: "上个月" }, version: "11.1.118" },
-                { title: "ReplayMod (重播模组)", url: "https://modrinth.com/mod/replaymod", description: "一个可以记录、重温并分享你体验的 Minecraft 模组。", author: "Johni0702", tags: ["Fabric", "Forge", "实用","视频创作者工具"], stats: { downloads: "—", updated: "上个月" }, version: "1.20.4-2.6.14" },
-                { title: "Visible Barriers (可视化屏障方块)", url: "https://modrinth.com/mod/visiblebarriers", description: "让屏障方块、光源方块等可见，对地图制作很有帮助。", author: "AmyMialee's Mods", tags: ["Fabric", "实用","辅助"], stats: { downloads: "—", updated: "上个月" }, version: "1.0.2" },
-                { title: "JEI (Just Enough Items)", url: "https://modrinth.com/mod/jei", description: "查看物品合成表，模组必备。", author: "mezz", tags: ["Fabric", "Forge", "实用"], stats: { downloads: "200M", updated: "2周前" }, version: "15.3.0.8" }
-            ]
-        },
-        {
-            groupName: "🌐 常用开发网站",
-            items: [
-                { title: "GitHub 官网", url: "https://github.com", description: "全球最大的开发者平台，托管代码、协作开发。", author: "GitHub", tags: ["开发", "工具"], stats: { downloads: "—", updated: "在线" } },
-                { title: "MDN Web Docs", url: "https://developer.mozilla.org/zh-CN/", description: "权威的 Web 技术文档，HTML、CSS、JavaScript 应有尽有。", author: "Mozilla", tags: ["文档", "前端"], stats: { downloads: "—", updated: "持续更新" } },
-                { title: "Stack Overflow", url: "https://stackoverflow.com", description: "程序员问答社区，遇到 bug 时的救星。", author: "Stack Exchange", tags: ["社区", "问答"], stats: { downloads: "—", updated: "活跃" } }
-            ]
-        },
-        {
-            groupName: "📺 视频&学习",
-            items: [
-                { title: "哔哩哔哩", url: "https://www.bilibili.com", description: "中文弹幕视频网站，大量编程教程和模组展示。", author: "Bilibili", tags: ["视频", "学习"], stats: { downloads: "—", updated: "每日更新" } },
-                { title: "YouTube", url: "https://www.youtube.com", description: "全球最大视频平台，无数技术讲座和模组介绍。", author: "Google", tags: ["视频", "教程"], stats: { downloads: "—", updated: "实时" } }
-            ]
-        }
+        { groupName: "🎮 Minecraft 模组", items: [ { title: "Fabric API", url: "https://modrinth.com/mod/fabric-api", description: "轻量级且模块化的API...", author: "Modmuss50", tags: ["Fabric", "库"], stats: { downloads: "162M", updated: "4天前" }, version: "0.16.5" }, { title: "Sodium (钠)", url: "https://modrinth.com/mod/sodium", description: "Minecraft 最快且最兼容的渲染优化模组...", author: "CaffeineMC", tags: ["Fabric", "NeoForge", "优化"], stats: { downloads: "147M", updated: "55分钟前" }, version: "0.5.8" }, { title: "Iris Shaders", url: "https://modrinth.com/mod/iris", description: "现代 Minecraft 光影加载器...", author: "coderbot", tags: ["Fabric", "NeoForge", "视觉"], stats: { downloads: "115M", updated: "3周前" }, version: "1.7.0" }, { title: "Cloth Config API", url: "https://modrinth.com/mod/cloth-config", description: "Minecraft 模组配置库...", author: "shedaniel", tags: ["Fabric", "Forge", "库"], stats: { downloads: "115M", updated: "上个月" }, version: "11.1.118" }, { title: "ReplayMod (重播模组)", url: "https://modrinth.com/mod/replaymod", description: "记录并分享游戏体验...", author: "Johni0702", tags: ["Fabric", "Forge", "实用","视频创作者工具"], stats: { downloads: "—", updated: "上个月" }, version: "1.20.4-2.6.14" }, { title: "Visible Barriers (可视化屏障方块)", url: "https://modrinth.com/mod/visiblebarriers", description: "让屏障方块等可见...", author: "AmyMialee's Mods", tags: ["Fabric", "实用","辅助"], stats: { downloads: "—", updated: "上个月" }, version: "1.0.2" }, { title: "JEI (Just Enough Items)", url: "https://modrinth.com/mod/jei", description: "查看物品合成表", author: "mezz", tags: ["Fabric", "Forge", "实用"], stats: { downloads: "200M", updated: "2周前" }, version: "15.3.0.8" } ] },
+        { groupName: "🌐 常用开发网站", items: [ { title: "GitHub 官网", url: "https://github.com", description: "全球开发者平台", author: "GitHub", tags: ["开发", "工具"], stats: { downloads: "—", updated: "在线" } }, { title: "MDN Web Docs", url: "https://developer.mozilla.org/zh-CN/", description: "权威Web文档", author: "Mozilla", tags: ["文档", "前端"], stats: { downloads: "—", updated: "持续更新" } }, { title: "Stack Overflow", url: "https://stackoverflow.com", description: "程序员问答社区", author: "Stack Exchange", tags: ["社区", "问答"], stats: { downloads: "—", updated: "活跃" } } ] },
+        { groupName: "📺 视频&学习", items: [ { title: "哔哩哔哩", url: "https://www.bilibili.com", description: "中文弹幕视频网站", author: "Bilibili", tags: ["视频", "学习"], stats: { downloads: "—", updated: "每日更新" } }, { title: "YouTube", url: "https://www.youtube.com", description: "全球最大视频平台", author: "Google", tags: ["视频", "教程"], stats: { downloads: "—", updated: "实时" } } ] }
     ];
 
     let currentGroupIndex = 0;
@@ -461,6 +410,26 @@
     const groupContainer = document.getElementById('groupButtonsContainer');
     const cardsContainer = document.getElementById('cardsContainer');
     const searchInput = document.getElementById('searchInput');
+    const paletteBtn = document.getElementById('paletteBtn');
+    const palettePanel = document.getElementById('palettePanel');
+    const opacitySlider = document.getElementById('opacitySlider');
+    const opacityValue = document.getElementById('opacityValue');
+    const angleSlider = document.getElementById('angleSlider');
+    const angleValue = document.getElementById('angleValue');
+
+    // 纯色预设列表
+    const solidPresets = [
+        "#eef2f8", "#12151c", "#fce9e6", "#fef0e0", "#fef9e0", "#eaf4ea",
+        "#e0f2f5", "#e3edfa", "#f0e9fc", "#ffe0f0", "#d9e6f2", "#f5e6d3"
+    ];
+    const gradientPresets = [
+        "linear-gradient(135deg, #ff9a9e, #fecfef)", "linear-gradient(135deg, #a1c4fd, #c2e9fb)",
+        "linear-gradient(135deg, #2b5876, #4e4376)", "linear-gradient(135deg, #fbc2eb, #a6c1ee)",
+        "linear-gradient(135deg, #b5d6a7, #9bbd8c)", "linear-gradient(135deg, #1f1c2c, #2a2a4a)",
+        "linear-gradient(135deg, #ffe29a, #ffb7b2)", "linear-gradient(135deg, #c7e9fb, #b6e0fe)"
+    ];
+    // 映射渐变名称
+    const gradientThemeNames = ["sunset","aurora","ocean","sakura","forest","midnight","peach","mint"];
 
     function escapeHtml(s) { if(!s) return ''; return s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
     function getFavicon(url) { return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(url)}`; }
@@ -470,24 +439,7 @@
         const versionHtml = item.version ? `<div class="version-info">📌 版本 ${escapeHtml(item.version)}</div>` : '';
         const downloads = item.stats?.downloads || '';
         const updated = item.stats?.updated || '';
-        return `
-            <div class="card">
-                <div class="card-title">
-                    <img src="${getFavicon(item.url)}" alt="icon" loading="lazy">
-                    <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener">${escapeHtml(item.title)}</a>
-                </div>
-                <div class="badge-group">${tagsHtml}</div>
-                ${versionHtml}
-                <div class="card-description">${escapeHtml(item.description)}</div>
-                <div class="card-footer">
-                    <span>👤 ${escapeHtml(item.author)}</span>
-                    <div class="stats">
-                        ${downloads ? `<span>📥 ${downloads}</span>` : ''}
-                        ${updated ? `<span>🕒 ${updated}</span>` : ''}
-                    </div>
-                </div>
-            </div>
-        `;
+        return `<div class="card"><div class="card-title"><img src="${getFavicon(item.url)}" alt="icon" loading="lazy"><a href="${escapeHtml(item.url)}" target="_blank">${escapeHtml(item.title)}</a></div><div class="badge-group">${tagsHtml}</div>${versionHtml}<div class="card-description">${escapeHtml(item.description)}</div><div class="card-footer"><span>👤 ${escapeHtml(item.author)}</span><div class="stats">${downloads ? `<span>📥 ${downloads}</span>` : ''}${updated ? `<span>🕒 ${updated}</span>` : ''}</div></div></div>`;
     }
 
     function getFilteredItems() {
@@ -495,86 +447,102 @@
         if(!group) return [];
         const kw = currentKeyword.trim().toLowerCase();
         if(!kw) return group.items;
-        return group.items.filter(it =>
-            it.title.toLowerCase().includes(kw) ||
-            it.description.toLowerCase().includes(kw) ||
-            it.author.toLowerCase().includes(kw) ||
-            (it.tags && it.tags.some(t => t.toLowerCase().includes(kw))) ||
-            (it.version && it.version.toLowerCase().includes(kw)) ||
-            (it.stats?.downloads && it.stats.downloads.toLowerCase().includes(kw)) ||
-            (it.stats?.updated && it.stats.updated.toLowerCase().includes(kw))
-        );
+        return group.items.filter(it => it.title.toLowerCase().includes(kw) || it.description.toLowerCase().includes(kw) || it.author.toLowerCase().includes(kw) || (it.tags && it.tags.some(t => t.toLowerCase().includes(kw))) || (it.version && it.version.toLowerCase().includes(kw)));
     }
 
     function renderCards() {
         const items = getFilteredItems();
-        if(!items.length) {
-            cardsContainer.innerHTML = `<div class="no-results">✨ 没有找到 “${escapeHtml(currentKeyword)}” 相关内容</div>`;
-            return;
-        }
+        if(!items.length) { cardsContainer.innerHTML = `<div class="no-results">✨ 没有找到 “${escapeHtml(currentKeyword)}” 相关内容</div>`; return; }
         cardsContainer.innerHTML = items.map(renderCard).join('');
     }
 
     function renderGroupButtons() {
         let html = '';
-        groupsData.forEach((g, idx) => {
-            html += `<button class="group-btn ${idx === currentGroupIndex ? 'active' : ''}" data-idx="${idx}">${escapeHtml(g.groupName)}</button>`;
-        });
+        groupsData.forEach((g, idx) => { html += `<button class="group-btn ${idx === currentGroupIndex ? 'active' : ''}" data-idx="${idx}">${escapeHtml(g.groupName)}</button>`; });
         groupContainer.innerHTML = html;
-        document.querySelectorAll('.group-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const idx = parseInt(btn.dataset.idx);
-                if(!isNaN(idx) && idx !== currentGroupIndex) {
-                    currentGroupIndex = idx;
-                    currentKeyword = '';
-                    searchInput.value = '';
-                    renderGroupButtons();
-                    renderCards();
-                }
-            });
-        });
+        document.querySelectorAll('.group-btn').forEach(btn => { btn.addEventListener('click', () => { const idx = parseInt(btn.dataset.idx); if(!isNaN(idx) && idx !== currentGroupIndex) { currentGroupIndex = idx; currentKeyword = ''; searchInput.value = ''; renderGroupButtons(); renderCards(); } }); });
     }
 
-    searchInput.addEventListener('input', (e) => {
-        currentKeyword = e.target.value;
-        renderCards();
-    });
+    searchInput.addEventListener('input', (e) => { currentKeyword = e.target.value; renderCards(); });
 
-    // 主题切换（支持纯色+渐变色）
-    function setTheme(themeName) {
+    // 主题切换
+    function setTheme(themeName, isGradient = false) {
         document.body.setAttribute('data-theme', themeName);
-        // 动态计算强调色（部分渐变色已内置在CSS中，无需额外）
-        const accentMap = {
-            white: '#5b6e8c', black: '#8e9aaf', red: '#c2675e', orange: '#d98c2b', yellow: '#c9a12b',
-            green: '#4f7a5e', cyan: '#3f7a85', blue: '#4a6fa5', purple: '#8b6cb0',
-            sunset: '#d96c6e', aurora: '#3b82f6', ocean: '#7c83b9', sakura: '#c45692',
-            forest: '#5c8a4a', midnight: '#9c88ff', peach: '#d97846', mint: '#4a9e7c'
-        };
+        const accentMap = { white:'#5b6e8c', black:'#8e9aaf', red:'#c2675e', orange:'#d98c2b', yellow:'#c9a12b', green:'#4f7a5e', cyan:'#3f7a85', blue:'#4a6fa5', purple:'#8b6cb0', sunset:'#d96c6e', aurora:'#3b82f6', ocean:'#7c83b9', sakura:'#c45692', forest:'#5c8a4a', midnight:'#9c88ff', peach:'#d97846', mint:'#4a9e7c' };
         document.body.style.setProperty('--theme-accent', accentMap[themeName] || '#5b6e8c');
-        localStorage.setItem('glass_unified_theme', themeName);
-        document.querySelectorAll('.theme-option').forEach(opt => {
-            if(opt.dataset.theme === themeName) opt.classList.add('active');
-            else opt.classList.remove('active');
+        localStorage.setItem('glass_custom_theme', themeName);
+    }
+
+    // 动态生成色板
+    function buildPalette() {
+        const solidGrid = document.getElementById('solidColorGrid');
+        solidGrid.innerHTML = '';
+        solidPresets.forEach(color => {
+            const swatch = document.createElement('div');
+            swatch.className = 'color-swatch';
+            swatch.style.backgroundColor = color;
+            swatch.addEventListener('click', () => {
+                document.body.style.background = color;
+                document.body.setAttribute('data-theme', 'white'); // fallback
+                localStorage.setItem('glass_custom_theme', 'white');
+                // 移除渐变标记
+            });
+            solidGrid.appendChild(swatch);
+        });
+        const gradGrid = document.getElementById('gradientColorGrid');
+        gradGrid.innerHTML = '';
+        gradientPresets.forEach((grad, idx) => {
+            const swatch = document.createElement('div');
+            swatch.className = 'color-swatch gradient-swatch';
+            swatch.style.background = grad;
+            swatch.addEventListener('click', () => {
+                const themeName = gradientThemeNames[idx];
+                setTheme(themeName, true);
+                document.body.setAttribute('data-theme', themeName);
+            });
+            gradGrid.appendChild(swatch);
         });
     }
 
+    // 透明度与角度控制
+    function updateOpacity(value) {
+        document.body.style.setProperty('--glass-opacity', value);
+        opacityValue.innerText = value;
+        localStorage.setItem('glass_opacity', value);
+    }
+    function updateAngle(value) {
+        document.body.style.setProperty('--gradient-angle', value + 'deg');
+        angleValue.innerText = value + '°';
+        localStorage.setItem('gradient_angle', value);
+    }
+
+    // 初始化面板事件
+    function initControls() {
+        paletteBtn.addEventListener('click', (e) => { e.stopPropagation(); palettePanel.classList.toggle('show'); });
+        document.addEventListener('click', (e) => { if(!palettePanel.contains(e.target) && e.target !== paletteBtn) palettePanel.classList.remove('show'); });
+        opacitySlider.addEventListener('input', (e) => { updateOpacity(parseFloat(e.target.value)); });
+        angleSlider.addEventListener('input', (e) => { updateAngle(parseInt(e.target.value)); });
+        const savedOpacity = localStorage.getItem('glass_opacity');
+        if(savedOpacity) updateOpacity(parseFloat(savedOpacity)); else updateOpacity(0.22);
+        const savedAngle = localStorage.getItem('gradient_angle');
+        if(savedAngle) updateAngle(parseInt(savedAngle)); else updateAngle(135);
+        opacitySlider.value = parseFloat(getComputedStyle(document.body).getPropertyValue('--glass-opacity')) || 0.22;
+        angleSlider.value = 135;
+    }
+
+    // 恢复上次主题
     function initTheme() {
-        const saved = localStorage.getItem('glass_unified_theme');
-        const validThemes = ['white','black','red','orange','yellow','green','cyan','blue','purple','sunset','aurora','ocean','sakura','forest','midnight','peach','mint'];
-        if(saved && validThemes.includes(saved)) setTheme(saved);
+        const saved = localStorage.getItem('glass_custom_theme');
+        const valid = ['white','black','red','orange','yellow','green','cyan','blue','purple','sunset','aurora','ocean','sakura','forest','midnight','peach','mint'];
+        if(saved && valid.includes(saved)) setTheme(saved);
         else setTheme('white');
-    }
-
-    function bindThemeButtons() {
-        document.querySelectorAll('.theme-option').forEach(opt => {
-            opt.addEventListener('click', () => setTheme(opt.dataset.theme));
-        });
     }
 
     renderGroupButtons();
     renderCards();
     initTheme();
-    bindThemeButtons();
+    buildPalette();
+    initControls();
 </script>
 </body>
 </html>
