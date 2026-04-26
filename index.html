@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>镜玄·资源搜索 | 可新增分组 + 标签网格排列</title>
+    <title>镜玄·资源搜索 | 标签网格 + 列表视图优化</title>
     <style>
         * {
             margin: 0;
@@ -159,10 +159,15 @@
         body[data-theme="black"] .tag-section {
             border-top-color: rgba(255,255,255,0.15);
         }
+        .tag-section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
         .tag-section-title {
             font-size: 0.9rem;
             font-weight: 600;
-            margin-bottom: 12px;
             display: flex;
             align-items: center;
             gap: 6px;
@@ -175,7 +180,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
-            margin-bottom: 12px;
+            margin-bottom: 0;
         }
         .tag-btn {
             background: rgba(255,255,240,0.25);
@@ -190,6 +195,7 @@
             line-height: 1.3;
             word-break: keep-all;
             white-space: normal;
+            border-radius: 20px !important;
         }
         body[data-theme="black"] .tag-btn,
         body[data-theme="ocean"] .tag-btn,
@@ -217,13 +223,15 @@
         .clear-tag-btn {
             background: rgba(255,80,80,0.3);
             border: none;
-            padding: 8px 12px;
+            padding: 4px 12px;
             font-size: 0.7rem;
             border-radius: 40px;
             cursor: pointer;
             color: #eee;
-            width: 100%;
-            margin-top: 4px;
+            white-space: nowrap;
+        }
+        .clear-tag-btn:hover {
+            background: rgba(255,80,80,0.5);
         }
         .main {
             flex: 1;
@@ -459,6 +467,7 @@
             gap: 28px;
             margin-top: 8px;
         }
+        /* 列表视图优化: 描述、作者、统计数据等横向排列 */
         .cards-grid.list-view {
             display: flex;
             flex-direction: column;
@@ -470,26 +479,34 @@
             align-items: center;
             gap: 20px;
             padding: 16px 20px;
+            flex-wrap: wrap;
         }
         .cards-grid.list-view .card .card-title {
             min-width: 200px;
             margin-bottom: 0;
+            flex-shrink: 0;
         }
         .cards-grid.list-view .card .badge-group {
             margin-bottom: 0;
+            flex-shrink: 0;
         }
         .cards-grid.list-view .card .version-info {
             margin-bottom: 0;
+            flex-shrink: 0;
         }
         .cards-grid.list-view .card .card-description {
             margin-bottom: 0;
             flex: 2;
+            min-width: 150px;
         }
         .cards-grid.list-view .card .card-footer {
             margin-top: 0;
             border-top: none;
             padding-top: 0;
-            min-width: 120px;
+            min-width: 140px;
+            display: flex;
+            flex-direction: row;
+            gap: 12px;
         }
         .card {
             background: rgba(255, 255, 255, calc(var(--glass-opacity) - 0.05));
@@ -866,9 +883,11 @@
         </div>
         <div class="group-buttons" id="groupButtonsContainer"></div>
         <div class="tag-section">
-            <div class="tag-section-title">🏷️ 快捷标签</div>
+            <div class="tag-section-header">
+                <div class="tag-section-title">🏷️ 快捷标签</div>
+                <button id="clearTagFilterBtn" class="clear-tag-btn" style="display: none;">✖️ 清除</button>
+            </div>
             <div class="tag-list" id="tagListContainer"></div>
-            <button id="clearTagFilterBtn" class="clear-tag-btn" style="display: none;">✖️ 清除筛选</button>
         </div>
     </aside>
 
@@ -993,6 +1012,7 @@
     const tagListContainer = document.getElementById('tagListContainer');
     const clearTagFilterBtn = document.getElementById('clearTagFilterBtn');
     const dynamicTagList = document.getElementById('dynamicTagList');
+    const clearFilterBtnInHeader = clearTagFilterBtn; // 清除按钮现在在标题旁
 
     // 归一化标签
     function normalizeTags(tags) {
@@ -1240,7 +1260,6 @@
         alert('数据已导出到本地文件，请手动上传到 GitHub 仓库覆盖 data.json 以实现云端同步。');
     }
 
-    // 新增分组
     function addNewGroup() {
         let newName = prompt('请输入新分组名称：', '新分组');
         if (!newName) return;
@@ -1255,7 +1274,6 @@
         }
         groupsData.push({ groupName: newName, items: [] });
         saveDataToStorage();
-        // 切换到新分组
         currentGroupIndex = groupsData.length - 1;
         currentTagFilter = null;
         renderAll();
