@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>分组链接库 · 可折叠</title>
+    <title>分组链接库 · 卡片默认显示前6个</title>
     <style>
         * {
             margin: 0;
@@ -23,7 +23,6 @@
             margin: 0 auto;
         }
 
-        /* 头部 */
         .header {
             text-align: center;
             margin-bottom: 32px;
@@ -41,7 +40,6 @@
             margin-top: 8px;
         }
 
-        /* 搜索框 */
         .search-wrapper {
             margin-bottom: 32px;
         }
@@ -111,15 +109,35 @@
         .group-content.collapsed {
             display: none;
         }
-        /* 卡片网格 (内嵌在分组中) */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
             gap: 24px;
             padding: 24px;
         }
+        /* 展开/收起按钮区域 */
+        .expand-btn-wrapper {
+            padding: 8px 24px 24px 24px;
+            text-align: center;
+            border-top: 1px solid #eef2f6;
+        }
+        .expand-btn {
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #1e40af;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .expand-btn:hover {
+            background: #e2e8f0;
+            transform: scale(0.98);
+        }
 
-        /* 单个卡片（样式不变） */
+        /* 卡片样式 */
         .card {
             background: white;
             border-radius: 20px;
@@ -227,6 +245,7 @@
             body { padding: 20px 16px; }
             .cards-grid { grid-template-columns: 1fr; padding: 16px; }
             .group-header { padding: 12px 16px; }
+            .expand-btn-wrapper { padding: 8px 16px 16px 16px; }
         }
     </style>
 </head>
@@ -236,7 +255,7 @@
 
     <div class="header">
         <h1>📦 我的资源库</h1>
-        <p>分组管理 · 点击组名折叠/展开 · 支持实时搜索</p>
+        <p>每组默认显示前6个卡片 · 点击「展开更多」查看全部 · 支持分组折叠和实时搜索</p>
     </div>
 
     <div class="search-wrapper">
@@ -248,95 +267,34 @@
 
 <script>
     // ==================================================
-    // 📁 分组数据结构（维护这里）
-    // 每个分组可以独立折叠，分组内的卡片格式与之前完全一致
+    // 📁 分组数据（在这里维护你的链接）
     // ==================================================
     const groupsData = [
         {
             groupName: "🎮 Minecraft 模组",
             items: [
-                {
-                    title: "Fabric API",
-                    url: "https://modrinth.com/mod/fabric-api",
-                    description: "轻量级且模块化的API，提供通用钩子和互操作性，供 Fabric 模组使用。",
-                    author: "Modmuss50",
-                    tags: ["Fabric", "库"],
-                    stats: { downloads: "162M", updated: "4天前" }
-                },
-                {
-                    title: "Sodium (钠)",
-                    url: "https://modrinth.com/mod/sodium",
-                    description: "Minecraft 最快且最兼容的渲染优化模组，支持 Fabric 和 NeoForge。",
-                    author: "CaffeineMC",
-                    tags: ["Fabric", "NeoForge", "优化"],
-                    stats: { downloads: "147M", updated: "55分钟前" }
-                },
-                {
-                    title: "Iris Shaders",
-                    url: "https://modrinth.com/mod/iris",
-                    description: "现代 Minecraft 光影加载器，兼容 OptiFine 光影包。",
-                    author: "coderbot",
-                    tags: ["Fabric", "NeoForge", "视觉"],
-                    stats: { downloads: "115M", updated: "3周前" }
-                },
-                {
-                    title: "Cloth Config API",
-                    url: "https://modrinth.com/mod/cloth-config",
-                    description: "Minecraft 模组配置库，提供通用的配置界面。",
-                    author: "shedaniel",
-                    tags: ["Fabric", "Forge", "库"],
-                    stats: { downloads: "115M", updated: "上个月" }
-                }
+                { title: "Fabric API", url: "https://modrinth.com/mod/fabric-api", description: "轻量级且模块化的API...", author: "Modmuss50", tags: ["Fabric", "库"], stats: { downloads: "162M", updated: "4天前" } },
+                { title: "Sodium (钠)", url: "https://modrinth.com/mod/sodium", description: "最快渲染优化模组...", author: "CaffeineMC", tags: ["Fabric", "NeoForge", "优化"], stats: { downloads: "147M", updated: "55分钟前" } },
+                { title: "Iris Shaders", url: "https://modrinth.com/mod/iris", description: "现代光影加载器...", author: "coderbot", tags: ["Fabric", "NeoForge", "视觉"], stats: { downloads: "115M", updated: "3周前" } },
+                { title: "Cloth Config API", url: "https://modrinth.com/mod/cloth-config", description: "配置库...", author: "shedaniel", tags: ["Fabric", "Forge", "库"], stats: { downloads: "115M", updated: "上个月" } },
+                { title: "第一额外卡片", url: "#", description: "演示超过6个时出现展开按钮", author: "Demo", tags: ["示例"], stats: { downloads: "1", updated: "刚刚" } },
+                { title: "第二额外卡片", url: "#", description: "这是第6个之后的卡片，默认隐藏", author: "Demo", tags: ["示例"], stats: { downloads: "2", updated: "稍早" } }
             ]
         },
         {
             groupName: "🌐 常用开发网站",
             items: [
-                {
-                    title: "GitHub 官网",
-                    url: "https://github.com",
-                    description: "全球最大的开发者平台，托管代码、协作开发。",
-                    author: "GitHub",
-                    tags: ["开发", "工具"],
-                    stats: { downloads: "—", updated: "在线" }
-                },
-                {
-                    title: "MDN Web Docs",
-                    url: "https://developer.mozilla.org/zh-CN/",
-                    description: "权威的 Web 技术文档，HTML、CSS、JavaScript 应有尽有。",
-                    author: "Mozilla",
-                    tags: ["文档", "前端"],
-                    stats: { downloads: "—", updated: "持续更新" }
-                },
-                {
-                    title: "Stack Overflow",
-                    url: "https://stackoverflow.com",
-                    description: "程序员问答社区，遇到 bug 时的救星。",
-                    author: "Stack Exchange",
-                    tags: ["社区", "问答"],
-                    stats: { downloads: "—", updated: "活跃" }
-                }
+                { title: "GitHub 官网", url: "https://github.com", description: "全球最大开发者平台", author: "GitHub", tags: ["开发", "工具"], stats: { downloads: "—", updated: "在线" } },
+                { title: "MDN Web Docs", url: "https://developer.mozilla.org/zh-CN/", description: "权威Web文档", author: "Mozilla", tags: ["文档", "前端"], stats: { downloads: "—", updated: "持续更新" } },
+                { title: "Stack Overflow", url: "https://stackoverflow.com", description: "程序员问答社区", author: "Stack Exchange", tags: ["社区", "问答"], stats: { downloads: "—", updated: "活跃" } }
+                // 只有3个卡片，不会显示展开按钮
             ]
         },
         {
             groupName: "📺 视频&学习",
             items: [
-                {
-                    title: "哔哩哔哩",
-                    url: "https://www.bilibili.com",
-                    description: "中文弹幕视频网站，大量编程教程和模组展示。",
-                    author: "Bilibili",
-                    tags: ["视频", "学习"],
-                    stats: { downloads: "—", updated: "每日更新" }
-                },
-                {
-                    title: "YouTube",
-                    url: "https://www.youtube.com",
-                    description: "全球最大视频平台，无数技术讲座和模组介绍。",
-                    author: "Google",
-                    tags: ["视频", "教程"],
-                    stats: { downloads: "—", updated: "实时" }
-                }
+                { title: "哔哩哔哩", url: "https://www.bilibili.com", description: "中文弹幕视频网站", author: "Bilibili", tags: ["视频", "学习"], stats: { downloads: "—", updated: "每日更新" } },
+                { title: "YouTube", url: "https://www.youtube.com", description: "全球最大视频平台", author: "Google", tags: ["视频", "教程"], stats: { downloads: "—", updated: "实时" } }
             ]
         }
     ];
@@ -345,10 +303,11 @@
     const searchInput = document.getElementById('searchInput');
     const groupsContainer = document.getElementById('groupsContainer');
 
-    // 存储每个分组的折叠状态（默认 false = 展开）
-    let collapsedState = {};
+    // 各个组的卡片“是否展开所有卡片”的状态（默认 false = 只显示前6个）
+    let cardExpandedState = {};
+    // 各个组的分组折叠状态（默认 false = 组展开）
+    let groupCollapsedState = {};
 
-    // 辅助：转义HTML
     function escapeHtml(str) {
         return str.replace(/[&<>]/g, function(m) {
             if (m === '&') return '&amp;';
@@ -358,7 +317,6 @@
         });
     }
 
-    // 渲染单个卡片（与之前相同）
     function renderCard(item) {
         const safeTitle = escapeHtml(item.title);
         const safeUrl = escapeHtml(item.url);
@@ -370,9 +328,7 @@
         return `
             <div class="card">
                 <div class="card-header">
-                    <div class="card-title">
-                        <a href="${safeUrl}" target="_blank" rel="noopener noreferrer">${safeTitle}</a>
-                    </div>
+                    <div class="card-title"><a href="${safeUrl}" target="_blank" rel="noopener noreferrer">${safeTitle}</a></div>
                     <div class="badge-group">${tagsHtml}</div>
                 </div>
                 <div class="card-description">${safeDesc}</div>
@@ -387,11 +343,10 @@
         `;
     }
 
-    // 根据搜索词过滤分组，返回 { group, itemsFiltered, hasMatch }
+    // 过滤分组（根据搜索词）
     function filterGroupsByKeyword(keyword) {
         const term = keyword.trim().toLowerCase();
         if (term === '') {
-            // 无搜索词：返回所有原始分组及其全部 items
             return groupsData.map(group => ({
                 group: group,
                 itemsFiltered: group.items,
@@ -399,7 +354,7 @@
             }));
         }
         return groupsData.map(group => {
-            const filteredItems = group.items.filter(item => 
+            const filteredItems = group.items.filter(item =>
                 item.title.toLowerCase().includes(term) ||
                 item.description.toLowerCase().includes(term) ||
                 item.author.toLowerCase().includes(term) ||
@@ -415,7 +370,7 @@
         });
     }
 
-    // 渲染整个页面（根据当前搜索词和折叠状态）
+    // 渲染页面
     function renderPage() {
         const keyword = searchInput.value;
         const filteredGroups = filterGroupsByKeyword(keyword);
@@ -423,30 +378,49 @@
         let html = '';
         for (let i = 0; i < filteredGroups.length; i++) {
             const { group, itemsFiltered, hasMatch } = filteredGroups[i];
-            if (!hasMatch) continue; // 没有匹配卡片的组直接隐藏
+            if (!hasMatch) continue;
 
-            const groupId = `group_${i}`;
-            // 如果折叠状态未初始化，默认展开（false）
-            if (collapsedState[groupId] === undefined) {
-                collapsedState[groupId] = false;
+            const groupName = group.groupName;
+            // 初始化分组折叠状态
+            if (groupCollapsedState[groupName] === undefined) groupCollapsedState[groupName] = false;
+            const isGroupCollapsed = groupCollapsedState[groupName];
+            const groupIcon = isGroupCollapsed ? '▶' : '▼';
+
+            // 卡片展示数量逻辑
+            const total = itemsFiltered.length;
+            const defaultShow = 6;
+            // 初始化卡片展开状态（如果没定义）
+            if (cardExpandedState[groupName] === undefined) cardExpandedState[groupName] = false;
+            const isCardsExpanded = cardExpandedState[groupName];
+            let showCount = total;
+            let showExpandButton = false;
+            if (total > defaultShow) {
+                showExpandButton = true;
+                showCount = isCardsExpanded ? total : defaultShow;
             }
-            const isCollapsed = collapsedState[groupId];
-            const icon = isCollapsed ? '▶' : '▼';
-            const cardsHtml = itemsFiltered.map(item => renderCard(item)).join('');
-            
+            const displayedItems = itemsFiltered.slice(0, showCount);
+            const cardsHtml = displayedItems.map(item => renderCard(item)).join('');
+
             html += `
-                <div class="group" data-group-id="${groupId}">
-                    <div class="group-header" data-toggle="${groupId}">
+                <div class="group" data-group-name="${escapeHtml(groupName)}">
+                    <div class="group-header" data-group-toggle="${escapeHtml(groupName)}">
                         <div class="group-title">
-                            ${group.groupName}
-                            <span class="count">${itemsFiltered.length}</span>
+                            ${escapeHtml(groupName)}
+                            <span class="count">${total}</span>
                         </div>
-                        <div class="toggle-icon">${icon}</div>
+                        <div class="toggle-icon">${groupIcon}</div>
                     </div>
-                    <div class="group-content ${isCollapsed ? 'collapsed' : ''}">
+                    <div class="group-content ${isGroupCollapsed ? 'collapsed' : ''}">
                         <div class="cards-grid">
                             ${cardsHtml}
                         </div>
+                        ${showExpandButton ? `
+                        <div class="expand-btn-wrapper">
+                            <button class="expand-btn" data-group-expand="${escapeHtml(groupName)}">
+                                ${isCardsExpanded ? '收起 ▲' : '展开更多 ▼'}
+                            </button>
+                        </div>
+                        ` : ''}
                     </div>
                 </div>
             `;
@@ -458,26 +432,37 @@
             groupsContainer.innerHTML = html;
         }
 
-        // 重新绑定折叠事件
+        // 绑定分组折叠事件
         document.querySelectorAll('.group-header').forEach(header => {
-            const groupId = header.getAttribute('data-toggle');
+            const groupName = header.getAttribute('data-group-toggle');
             header.addEventListener('click', (e) => {
                 e.stopPropagation();
-                // 切换折叠状态
-                collapsedState[groupId] = !collapsedState[groupId];
-                // 重新渲染以应用新的折叠状态（但保留当前搜索词）
+                groupCollapsedState[groupName] = !groupCollapsedState[groupName];
+                renderPage();
+            });
+        });
+
+        // 绑定卡片展开/收起按钮事件
+        document.querySelectorAll('.expand-btn').forEach(btn => {
+            const groupName = btn.getAttribute('data-group-expand');
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                cardExpandedState[groupName] = !cardExpandedState[groupName];
                 renderPage();
             });
         });
     }
 
-    // 监听搜索输入
+    // 搜索事件：重置所有组的卡片展开状态（只显示前6个），并且重置分组折叠状态为展开
     searchInput.addEventListener('input', () => {
-        // 搜索时，重置所有折叠状态为展开（方便查看匹配结果）
-        // 这样用户不需要手动一个个展开
-        for (let i = 0; i < groupsData.length; i++) {
-            collapsedState[`group_${i}`] = false;
-        }
+        // 重置所有组「卡片展开状态」为 false（即只显示前6个）
+        groupsData.forEach(group => {
+            cardExpandedState[group.groupName] = false;
+        });
+        // 重置所有组「分组折叠状态」为 false（即展开组）
+        groupsData.forEach(group => {
+            groupCollapsedState[group.groupName] = false;
+        });
         renderPage();
     });
 
