@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>净色·分组导航库 | 低饱和彩虹主题</title>
+    <title>液态玻璃 · 分组链接库</title>
     <style>
         /* ---------- 全局重置 ---------- */
         * {
@@ -12,37 +12,27 @@
             box-sizing: border-box;
         }
 
-        /* 基础背景层：会随主题变化（纯色低饱和 + 极微噪点，但无复杂渐变） */
+        /* 基础背景层级（随主题变化，但始终保持液态感） */
         body {
             font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
             min-height: 100vh;
             background-attachment: fixed;
-            transition: background-color 0.2s ease;
-            padding: 24px;
+            transition: background-color 0.25s ease;
+            padding: 28px;
         }
 
-        /* 每个主题只改变 body 的背景色和辅助色 */
-        /* 默认浅灰（白） */
-        body[data-theme="white"] {
-            background-color: #f2f4f8;
-            --theme-accent: #5b6e8c;
-            --theme-soft: #eef2f6;
-        }
-        body[data-theme="black"] {
-            background-color: #1a1d23;
-            --theme-accent: #8e9aaf;
-            --theme-soft: #2a2e36;
-        }
-        /* 彩虹七色：低饱和 */
-        body[data-theme="red"]   { background-color: #fbe9e7; --theme-accent: #c2675e; --theme-soft: #f5e0de; }
-        body[data-theme="orange"]{ background-color: #fff0e0; --theme-accent: #d98c2b; --theme-soft: #ffe6d0; }
-        body[data-theme="yellow"]{ background-color: #fef7e0; --theme-accent: #c9a12b; --theme-soft: #fcf0cc; }
-        body[data-theme="green"] { background-color: #e8f0ea; --theme-accent: #4f7a5e; --theme-soft: #e2ede4; }
-        body[data-theme="cyan"]  { background-color: #e3f0f2; --theme-accent: #3f7a85; --theme-soft: #d9ebed; }
-        body[data-theme="blue"]  { background-color: #e6edf7; --theme-accent: #4a6fa5; --theme-soft: #dfe8f3; }
-        body[data-theme="purple"]{ background-color: #f0eaf7; --theme-accent: #8b6cb0; --theme-soft: #ede4f5; }
+        /* 9种主题背景色（低饱和 + 柔光） */
+        body[data-theme="white"]  { background-color: #eef2f8; }
+        body[data-theme="black"]  { background-color: #12151c; }
+        body[data-theme="red"]    { background-color: #fce9e6; }
+        body[data-theme="orange"] { background-color: #fef0e0; }
+        body[data-theme="yellow"] { background-color: #fef9e0; }
+        body[data-theme="green"]  { background-color: #eaf4ea; }
+        body[data-theme="cyan"]   { background-color: #e0f2f5; }
+        body[data-theme="blue"]   { background-color: #e3edfa; }
+        body[data-theme="purple"] { background-color: #f0e9fc; }
 
-        /* 让主体内容区不设大面积玻璃，直接平铺 */
+        /* 全局容器 */
         .app {
             max-width: 1400px;
             margin: 0 auto;
@@ -51,83 +41,87 @@
             align-items: flex-start;
         }
 
-        /* 左侧分组导航 — 唯一保留的圆角玻璃框 */
+        /* ========= 液态玻璃核心样式 ========= */
+        /* 完全统一的圆角矩形（32px）及玻璃特质 */
+        .sidebar, .header-area, .card, .search-box, .theme-selector {
+            border-radius: 32px !important;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        /* 左侧边栏 - 玻璃面板 */
         .sidebar {
             flex: 0 0 280px;
-            background: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(12px);
-            border-radius: 32px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255,255,255,0.5);
             padding: 24px 16px;
             position: sticky;
-            top: 24px;
-            transition: all 0.2s;
+            top: 28px;
         }
         body[data-theme="black"] .sidebar {
-            background: rgba(30, 30, 40, 0.6);
+            background: rgba(25, 30, 40, 0.55);
             border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
         .sidebar-header {
             font-size: 1.3rem;
             font-weight: 600;
-            color: #1e293b;
             padding: 0 12px 16px 12px;
-            border-bottom: 1px solid rgba(0,0,0,0.08);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
             margin-bottom: 20px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            color: #1e293b;
         }
         body[data-theme="black"] .sidebar-header {
             color: #eef2ff;
             border-bottom-color: rgba(255,255,255,0.15);
         }
+
+        /* 分组按钮（液态微光） */
         .group-buttons {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
         .group-btn {
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255,255,240,0.55);
+            backdrop-filter: blur(4px);
             border: none;
-            border-radius: 40px;
-            padding: 10px 16px;
+            border-radius: 60px;
+            padding: 10px 18px;
             font-size: 0.95rem;
             font-weight: 500;
             text-align: left;
-            color: #1e293b;
+            color: #1f2937;
             cursor: pointer;
             transition: all 0.2s;
-            backdrop-filter: blur(4px);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
         }
         body[data-theme="black"] .group-btn {
-            background: rgba(45, 50, 60, 0.7);
+            background: rgba(60, 68, 84, 0.6);
             color: #e2e8f0;
         }
         .group-btn:hover {
-            background: rgba(255,255,240,0.9);
+            background: rgba(255,255,250,0.9);
             transform: translateX(4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         .group-btn.active {
             background: var(--theme-accent);
             color: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        body[data-theme="white"] .group-btn.active,
-        body[data-theme="black"] .group-btn.active {
-            background: var(--theme-accent);
-            color: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
-        /* 右侧区域：完全平铺，无背景玻璃层 */
+        /* 右侧主区域（无额外玻璃背景，依靠内部卡片） */
         .main {
             flex: 1;
             background: transparent;
-            padding: 0;
         }
 
-        /* 头部、搜索框使用半透卡片风格但不突兀 */
+        /* 头部区域 - 液态横条 */
         .header-area {
             display: flex;
             justify-content: space-between;
@@ -135,18 +129,20 @@
             flex-wrap: wrap;
             gap: 20px;
             margin-bottom: 28px;
-            background: rgba(255,255,255,0.3);
-            backdrop-filter: blur(8px);
-            border-radius: 28px;
+            background: rgba(255, 255, 255, 0.38);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.5);
             padding: 16px 24px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
         body[data-theme="black"] .header-area {
-            background: rgba(30,30,40,0.4);
+            background: rgba(20, 25, 35, 0.55);
+            border-color: rgba(255,255,255,0.15);
         }
         .title-section h1 {
-            font-size: 1.8rem;
+            font-size: 1.85rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #2c3e50, var(--theme-accent));
+            background: linear-gradient(125deg, #2c3e50, var(--theme-accent));
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
@@ -159,114 +155,118 @@
             color: #b9c7d9;
         }
 
-        /* 彩虹色选择器 + 黑白 */
+        /* 主题切换器色块 - 保持玻璃容器 */
         .theme-selector {
             display: flex;
-            gap: 8px;
+            gap: 10px;
             flex-wrap: wrap;
-            background: rgba(255,255,255,0.3);
-            padding: 6px 12px;
-            border-radius: 60px;
-            backdrop-filter: blur(4px);
+            background: rgba(255,255,255,0.45);
+            backdrop-filter: blur(8px);
+            padding: 8px 16px;
+            border: 1px solid rgba(255,255,255,0.6);
         }
         .theme-option {
             width: 32px;
             height: 32px;
             border-radius: 32px;
             cursor: pointer;
-            transition: transform 0.1s;
-            border: 2px solid rgba(255,255,255,0.8);
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            transition: 0.1s;
+            border: 2px solid rgba(255,255,255,0.9);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
         }
         .theme-option:hover { transform: scale(1.08); }
         .theme-option.active { border-color: #ffffff; box-shadow: 0 0 0 2px #3b82f6; }
+        /* 色块颜色 */
         .theme-option[data-theme="white"]  { background: #e9ecef; }
         .theme-option[data-theme="black"]  { background: #1e293b; }
         .theme-option[data-theme="red"]    { background: #f3b3a2; }
-        .theme-option[data-theme="orange"] { background: #f5cb9c; }
-        .theme-option[data-theme="yellow"] { background: #f0e0a0; }
-        .theme-option[data-theme="green"]  { background: #bdd9bf; }
+        .theme-option[data-theme="orange"] { background: #f6cd9e; }
+        .theme-option[data-theme="yellow"] { background: #f1e2a5; }
+        .theme-option[data-theme="green"]  { background: #c0dbc2; }
         .theme-option[data-theme="cyan"]   { background: #b8dfe6; }
         .theme-option[data-theme="blue"]   { background: #b9cef0; }
         .theme-option[data-theme="purple"] { background: #dac8f0; }
 
-        /* 搜索框 */
-        .search-wrapper {
-            margin-bottom: 28px;
-        }
+        /* 搜索框液态玻璃 */
         .search-box {
             width: 100%;
-            padding: 14px 20px;
-            background: rgba(255,255,255,0.4);
-            backdrop-filter: blur(6px);
-            border: 1px solid rgba(255,255,255,0.8);
-            border-radius: 60px;
-            font-size: 0.9rem;
-            color: #1e293b;
+            padding: 16px 24px;
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            color: #1f2937;
             transition: all 0.2s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
         }
         body[data-theme="black"] .search-box {
-            background: rgba(40,45,58,0.5);
+            background: rgba(45, 52, 68, 0.55);
             color: #eef2ff;
             border-color: rgba(255,255,255,0.2);
         }
         .search-box:focus {
             outline: none;
             border-color: var(--theme-accent);
-            background: rgba(255,255,255,0.7);
+            background: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
         }
 
-        /* 卡片网格 — 平铺，无大背景玻璃 */
+        /* 卡片网格 - 使用液态玻璃卡片 */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+            gap: 28px;
+            margin-top: 8px;
         }
-
-        /* 卡片：纯白底/深色底，圆角清晰，无模糊高亮问题 */
+        /* 核心液态卡片：圆角32px，半透玻璃，内光泽，悬浮时流动感 */
         .card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(0px);  /* 不模糊，保证文字清晰 */
-            border-radius: 24px;         /* 圆角适中，R角明显 */
-            padding: 20px;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.65);
+            border-radius: 32px;
+            padding: 22px;
+            transition: transform 0.25s ease, box-shadow 0.3s ease, border-color 0.2s;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255,255,255,0.7);
             display: flex;
             flex-direction: column;
-            word-break: break-word;
         }
         body[data-theme="black"] .card {
-            background: rgba(35, 40, 52, 0.9);
-            border-color: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            background: rgba(35, 42, 56, 0.65);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
         }
         .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 16px 24px -8px rgba(0, 0, 0, 0.2);
+            transform: translateY(-6px);
             border-color: var(--theme-accent);
+            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255,255,255,0.6);
+            background: rgba(255, 255, 255, 0.65);
+        }
+        body[data-theme="black"] .card:hover {
+            background: rgba(55, 65, 85, 0.7);
         }
 
+        /* 卡片内部样式 */
         .card-title {
-            font-size: 1.2rem;
+            font-size: 1.22rem;
             font-weight: 600;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
         .card-title img {
-            width: 20px;
-            height: 20px;
-            border-radius: 4px;
-            background: #f0f0f0;
+            width: 22px;
+            height: 22px;
+            border-radius: 8px;
+            background: #fff;
         }
         .card-title a {
             text-decoration: none;
             color: #1e293b;
+            transition: color 0.2s;
         }
         body[data-theme="black"] .card-title a {
-            color: #e2e8f0;
+            color: #eef2ff;
         }
         .card-title a:hover {
             color: var(--theme-accent);
@@ -278,7 +278,7 @@
             margin-bottom: 12px;
         }
         .badge {
-            background: var(--theme-soft);
+            background: rgba(0,0,0,0.08);
             padding: 4px 12px;
             border-radius: 40px;
             font-size: 0.7rem;
@@ -286,17 +286,21 @@
             color: #2c3e50;
         }
         body[data-theme="black"] .badge {
-            color: #cbd5e6;
-            background: rgba(100, 116, 139, 0.4);
+            background: rgba(255,255,240,0.12);
+            color: #ccd6f0;
         }
         .version-info {
-            background: var(--theme-soft);
-            padding: 2px 8px;
-            border-radius: 30px;
+            background: rgba(0,0,0,0.06);
+            padding: 3px 10px;
+            border-radius: 32px;
             font-size: 0.7rem;
             width: fit-content;
             margin-bottom: 12px;
             color: #2c3e50;
+        }
+        body[data-theme="black"] .version-info {
+            background: rgba(255,255,240,0.1);
+            color: #b9c7d9;
         }
         .card-description {
             font-size: 0.85rem;
@@ -312,7 +316,7 @@
             color: #cbd5e1;
         }
         .card-footer {
-            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
             padding-top: 12px;
             display: flex;
             justify-content: space-between;
@@ -329,24 +333,26 @@
             text-align: center;
             padding: 60px 20px;
             background: rgba(255,255,255,0.5);
+            backdrop-filter: blur(12px);
             border-radius: 32px;
             color: #4b5563;
         }
 
         @media (max-width: 780px) {
+            body { padding: 16px; }
             .app { flex-direction: column; }
             .sidebar { position: static; width: 100%; }
             .group-buttons { flex-direction: row; flex-wrap: wrap; }
             .group-btn { flex: 1; text-align: center; }
         }
     </style>
+    <!-- 主题变量跟随 body 的 --theme-accent 在 js 中动态注入 -->
 </head>
 <body data-theme="white">
 <div class="app">
-    <!-- 左侧圆角玻璃框导航 -->
     <aside class="sidebar">
         <div class="sidebar-header">
-            <span>📁</span> 分组导航
+            <span>💧</span> 液态导航
         </div>
         <div class="group-buttons" id="groupButtonsContainer"></div>
     </aside>
@@ -354,8 +360,8 @@
     <div class="main">
         <div class="header-area">
             <div class="title-section">
-                <h1>📦 净色链接库</h1>
-                <p>分组管理 · 低饱和彩虹主题 · 卡片圆润清晰</p>
+                <h1>🌊 液态链接库</h1>
+                <p>磨砂流光 · 彩虹低饱和主题 · 全圆角玻璃</p>
             </div>
             <div class="theme-selector" id="themeSelector">
                 <div class="theme-option" data-theme="white" title="纯白"></div>
@@ -379,7 +385,7 @@
 </div>
 
 <script>
-    // 数据定义（保持与之前相同的结构，支持版本、下载量等）
+    // ========== 数据（与原版一致） ==========
     const groupsData = [
         {
             groupName: "🎮 Minecraft 模组",
@@ -413,46 +419,30 @@
     // 全局状态
     let currentGroupIndex = 0;
     let currentKeyword = '';
-
     const groupContainer = document.getElementById('groupButtonsContainer');
     const cardsContainer = document.getElementById('cardsContainer');
     const searchInput = document.getElementById('searchInput');
 
-    function escapeHtml(s) {
-        if (!s) return '';
-        return s.replace(/[&<>]/g, function(ch) {
-            if (ch === '&') return '&amp;';
-            if (ch === '<') return '&lt;';
-            if (ch === '>') return '&gt;';
-            return ch;
-        });
-    }
-
-    function getFavicon(url) {
-        return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(url)}`;
-    }
+    // 辅助函数
+    function escapeHtml(s) { if(!s) return ''; return s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+    function getFavicon(url) { return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(url)}`; }
 
     function renderCard(item) {
-        const title = escapeHtml(item.title);
-        const url = escapeHtml(item.url);
-        const desc = escapeHtml(item.description);
-        const author = escapeHtml(item.author);
         const tagsHtml = (item.tags || []).map(t => `<span class="badge">${escapeHtml(t)}</span>`).join('');
         const versionHtml = item.version ? `<div class="version-info">📌 版本 ${escapeHtml(item.version)}</div>` : '';
         const downloads = item.stats?.downloads || '';
         const updated = item.stats?.updated || '';
-        const favicon = getFavicon(url);
         return `
             <div class="card">
                 <div class="card-title">
-                    <img src="${favicon}" alt="icon" loading="lazy">
-                    <a href="${url}" target="_blank" rel="noopener">${title}</a>
+                    <img src="${getFavicon(item.url)}" alt="icon" loading="lazy">
+                    <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener">${escapeHtml(item.title)}</a>
                 </div>
                 <div class="badge-group">${tagsHtml}</div>
                 ${versionHtml}
-                <div class="card-description">${desc}</div>
+                <div class="card-description">${escapeHtml(item.description)}</div>
                 <div class="card-footer">
-                    <span>👤 ${author}</span>
+                    <span>👤 ${escapeHtml(item.author)}</span>
                     <div class="stats">
                         ${downloads ? `<span>📥 ${downloads}</span>` : ''}
                         ${updated ? `<span>🕒 ${updated}</span>` : ''}
@@ -464,9 +454,9 @@
 
     function getFilteredItems() {
         const group = groupsData[currentGroupIndex];
-        if (!group) return [];
+        if(!group) return [];
         const kw = currentKeyword.trim().toLowerCase();
-        if (!kw) return group.items;
+        if(!kw) return group.items;
         return group.items.filter(it =>
             it.title.toLowerCase().includes(kw) ||
             it.description.toLowerCase().includes(kw) ||
@@ -480,8 +470,8 @@
 
     function renderCards() {
         const items = getFilteredItems();
-        if (items.length === 0) {
-            cardsContainer.innerHTML = `<div class="no-results">😢 没有找到 “${escapeHtml(currentKeyword)}” 相关的内容</div>`;
+        if(!items.length) {
+            cardsContainer.innerHTML = `<div class="no-results">✨ 没有找到 “${escapeHtml(currentKeyword)}” 相关内容</div>`;
             return;
         }
         cardsContainer.innerHTML = items.map(renderCard).join('');
@@ -490,14 +480,13 @@
     function renderGroupButtons() {
         let html = '';
         groupsData.forEach((g, idx) => {
-            const activeClass = idx === currentGroupIndex ? 'active' : '';
-            html += `<button class="group-btn ${activeClass}" data-idx="${idx}">${escapeHtml(g.groupName)}</button>`;
+            html += `<button class="group-btn ${idx === currentGroupIndex ? 'active' : ''}" data-idx="${idx}">${escapeHtml(g.groupName)}</button>`;
         });
         groupContainer.innerHTML = html;
         document.querySelectorAll('.group-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
+            btn.addEventListener('click', () => {
                 const idx = parseInt(btn.dataset.idx);
-                if (!isNaN(idx) && idx !== currentGroupIndex) {
+                if(!isNaN(idx) && idx !== currentGroupIndex) {
                     currentGroupIndex = idx;
                     currentKeyword = '';
                     searchInput.value = '';
@@ -513,40 +502,34 @@
         renderCards();
     });
 
-    // ----- 主题切换逻辑（彩虹+黑白）-----
+    // ----- 主题管理（同时设置 --theme-accent 变量）-----
+    const themeAccentMap = {
+        white: '#5b6e8c', black: '#8e9aaf', red: '#c2675e', orange: '#d98c2b',
+        yellow: '#c9a12b', green: '#4f7a5e', cyan: '#3f7a85', blue: '#4a6fa5', purple: '#8b6cb0'
+    };
     function setTheme(themeName) {
         document.body.setAttribute('data-theme', themeName);
-        localStorage.setItem('preferred_theme', themeName);
-        // 高亮当前选中小圆点
+        const accent = themeAccentMap[themeName] || '#5b6e8c';
+        document.body.style.setProperty('--theme-accent', accent);
+        localStorage.setItem('liquid_theme', themeName);
         document.querySelectorAll('.theme-option').forEach(opt => {
-            if (opt.getAttribute('data-theme') === themeName) {
-                opt.classList.add('active');
-            } else {
-                opt.classList.remove('active');
-            }
+            if(opt.dataset.theme === themeName) opt.classList.add('active');
+            else opt.classList.remove('active');
         });
     }
-
     function initTheme() {
-        const saved = localStorage.getItem('preferred_theme');
+        const saved = localStorage.getItem('liquid_theme');
         const valid = ['white','black','red','orange','yellow','green','cyan','blue','purple'];
-        if (saved && valid.includes(saved)) {
-            setTheme(saved);
-        } else {
-            setTheme('white');
-        }
+        if(saved && valid.includes(saved)) setTheme(saved);
+        else setTheme('white');
     }
-
     function bindThemeButtons() {
         document.querySelectorAll('.theme-option').forEach(opt => {
-            opt.addEventListener('click', () => {
-                const theme = opt.getAttribute('data-theme');
-                if (theme) setTheme(theme);
-            });
+            opt.addEventListener('click', () => { setTheme(opt.dataset.theme); });
         });
     }
 
-    // 启动应用
+    // 启动
     renderGroupButtons();
     renderCards();
     initTheme();
