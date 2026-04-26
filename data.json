@@ -130,11 +130,42 @@
         }
       },
       {
-        "title": "version（实时纹理编辑器）",
-        "url": "https://modrinth.com/mod/livetextureeditor/version/2.1.1",
-        "description": "",
-        "author": "",
-        "tags": [],
+        "title": "VillEdit（自定义村民交易）",
+        "url": "https://modrinth.com/datapack/villedit",
+        "description": "用 VillEdit 数据包创建自定义村民！这是一个简单的自定义村民创建器，无需模组即可使用。",
+        "author": "Silabear",
+        "tags": [
+          "自定义，交易，diy"
+        ],
+        "version": "1.17-1.21.11",
+        "stats": {
+          "downloads": "—",
+          "updated": ""
+        }
+      },
+      {
+        "title": "Graphene-谷歌浏览器",
+        "url": "https://modrinth.com/mod/grapheneui",
+        "description": "Graphene 是 Minecraft 客户端 UI（Fabric）库，允许模组开发者构建与网络技术相关的界面。",
+        "author": "Tytoo",
+        "tags": [
+          "Fabric，前置，库，浏览器"
+        ],
+        "version": "1.21.11",
+        "stats": {
+          "downloads": "—",
+          "updated": ""
+        }
+      },
+      {
+        "title": "Cinematic Smoothness-电影比例UI",
+        "url": "https://modrinth.com/mod/cinematic-smoothness",
+        "description": "一个轻量级模组，可自定义和增强 Minecraft 的电影摄像机，实现可变平滑度、信箱条和设置菜单。",
+        "author": "naw7",
+        "tags": [
+          "视觉效果，优化"
+        ],
+        "version": "1.21.11",
         "stats": {
           "downloads": "—",
           "updated": ""
