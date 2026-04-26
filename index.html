@@ -23,7 +23,7 @@
 
         /* 默认纯色背景 */
         body[data-theme="white"]  { background: #eef2f8; --theme-accent: #5b6e8c; }
-        body[data-theme="black"]  { background: #12151c; --theme-accent: #8e9aaf; }
+        body[data-theme="black"]  { background: #12151c; --theme-accent: #c0b7a6; }  /* 调整为暖灰 */
         body[data-theme="red"]    { background: #fce9e6; --theme-accent: #c2675e; }
         body[data-theme="orange"] { background: #fef0e0; --theme-accent: #d98c2b; }
         body[data-theme="yellow"] { background: #fef9e0; --theme-accent: #c9a12b; }
@@ -97,7 +97,7 @@
         body[data-theme="black"] .sidebar-header,
         body[data-theme="ocean"] .sidebar-header,
         body[data-theme="midnight"] .sidebar-header {
-            color: #eef2ff;
+            color: #f5f0e0;
             border-bottom-color: rgba(255,255,255,0.2);
         }
 
@@ -136,7 +136,11 @@
         body[data-theme="ocean"] .group-btn,
         body[data-theme="midnight"] .group-btn {
             background: rgba(60, 68, 84, 0.8);
-            color: #e2e8f0;
+            color: #f5f0e0;
+        }
+        body[data-theme="black"] .group-btn.active {
+            background: var(--theme-accent);
+            color: #12151c;
         }
 
         /* 右侧主区域 */
@@ -152,7 +156,7 @@
             flex-wrap: wrap;
             gap: 20px;
             margin-bottom: 28px;
-            background: transparent;   /* 去掉玻璃背景 */
+            background: transparent;
             padding: 0 0 16px 0;
             position: relative;
             overflow: visible;
@@ -172,7 +176,7 @@
             margin-top: 4px;
         }
         body[data-theme="black"] .title-section p {
-            color: #cbd5e1;
+            color: #c0b7a6;
         }
 
         /* 调色板按钮与面板 */
@@ -187,6 +191,11 @@
             transition: 0.1s;
             z-index: 20;
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            color: #1f2d3d;
+        }
+        body[data-theme="black"] .palette-btn {
+            background: rgba(30, 30, 35, 0.8);
+            color: #f5f0e0;
         }
         .palette-btn:active {
             transform: scale(0.96);
@@ -208,6 +217,7 @@
             gap: 18px;
             box-shadow: 0 20px 35px rgba(0,0,0,0.4);
             border-radius: 20px;
+            color: #eef2ff;
         }
         .palette-panel.show {
             display: flex;
@@ -291,7 +301,7 @@
         }
         body[data-theme="black"] .search-box {
             background: rgba(35, 42, 56, 0.6);
-            color: #eef2ff;
+            color: #f5f0e0;
             border-color: rgba(255,255,255,0.3);
         }
 
@@ -303,7 +313,7 @@
             margin-top: 8px;
         }
 
-        /* 卡片：纯透明模糊，深色下提升对比 */
+        /* 卡片：纯透明模糊 */
         .card {
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(16px);
@@ -320,7 +330,7 @@
             background: rgba(255, 255, 255, 0.3);
             box-shadow: 0 20px 30px rgba(0, 0, 0, 0.12);
         }
-        /* 深色主题卡片背景加深，文字变亮 */
+        /* 深色主题卡片背景加深，所有文字使用米白色系 */
         body[data-theme="black"] .card,
         body[data-theme="ocean"] .card,
         body[data-theme="midnight"] .card {
@@ -334,7 +344,7 @@
             background: rgba(30, 40, 55, 0.75);
         }
 
-        /* 卡片内部文字样式 — 深色下高对比 */
+        /* 卡片内部文字 — 黑色主题下统一米白色 */
         .card-title {
             font-size: 1.2rem;
             font-weight: 600;
@@ -357,7 +367,7 @@
         body[data-theme="black"] .card-title a,
         body[data-theme="ocean"] .card-title a,
         body[data-theme="midnight"] .card-title a {
-            color: #ffffff;
+            color: #f5f0e0;
         }
         .badge-group {
             display: flex;
@@ -377,7 +387,7 @@
         body[data-theme="ocean"] .badge,
         body[data-theme="midnight"] .badge {
             background: rgba(255,255,240,0.25);
-            color: #f1f5f9;
+            color: #f0e6d2;
         }
         .version-info {
             background: rgba(0,0,0,0.08);
@@ -392,7 +402,7 @@
         body[data-theme="ocean"] .version-info,
         body[data-theme="midnight"] .version-info {
             background: rgba(210, 220, 250, 0.25);
-            color: #e2e8f0;
+            color: #f0e6d2;
         }
         .card-description {
             font-size: 0.85rem;
@@ -403,7 +413,7 @@
         body[data-theme="black"] .card-description,
         body[data-theme="ocean"] .card-description,
         body[data-theme="midnight"] .card-description {
-            color: #e2e8f0;
+            color: #f0e6d2;
         }
         .card-footer {
             border-top: 1px solid rgba(0, 0, 0, 0.1);
@@ -417,7 +427,7 @@
         }
         body[data-theme="black"] .card-footer {
             border-top-color: rgba(255,255,255,0.2);
-            color: #cbd5e1;
+            color: #e6dcc8;
         }
         .no-results {
             text-align: center;
@@ -426,6 +436,10 @@
             backdrop-filter: blur(12px);
             border-radius: 20px;
             color: #4b5563;
+        }
+        body[data-theme="black"] .no-results {
+            color: #f0e6d2;
+            background: rgba(0,0,0,0.4);
         }
         @media (max-width: 780px) {
             body { padding: 16px; }
@@ -475,7 +489,7 @@
                         <button class="upload-btn" id="uploadBgBtn">📁 选择图片</button>
                         <button class="upload-btn reset-bg" id="resetBgBtn">🗑️ 重置背景</button>
                     </div>
-                    <div class="hint-text">支持 JPG/PNG，上传后自动铺满背景</div>
+                    <div class="hint-text">支持 JPG/PNG，上传后自动铺满背景并永久保存</div>
                 </div>
                 <div class="hint-text">点击色板换肤 | 滑块调节玻璃强度</div>
             </div>
@@ -562,7 +576,7 @@
     // 主题切换
     function setTheme(themeName, keepBgImage = false) {
         document.body.setAttribute('data-theme', themeName);
-        const accentMap = { white:'#5b6e8c', black:'#8e9aaf', red:'#c2675e', orange:'#d98c2b', yellow:'#c9a12b', green:'#4f7a5e', cyan:'#3f7a85', blue:'#4a6fa5', purple:'#8b6cb0', sunset:'#d96c6e', aurora:'#3b82f6', ocean:'#7c83b9', sakura:'#c45692', forest:'#5c8a4a', midnight:'#9c88ff', peach:'#d97846', mint:'#4a9e7c' };
+        const accentMap = { white:'#5b6e8c', black:'#c0b7a6', red:'#c2675e', orange:'#d98c2b', yellow:'#c9a12b', green:'#4f7a5e', cyan:'#3f7a85', blue:'#4a6fa5', purple:'#8b6cb0', sunset:'#d96c6e', aurora:'#3b82f6', ocean:'#7c83b9', sakura:'#c45692', forest:'#5c8a4a', midnight:'#9c88ff', peach:'#d97846', mint:'#4a9e7c' };
         document.body.style.setProperty('--theme-accent', accentMap[themeName] || '#5b6e8c');
         if (!keepBgImage) {
             document.body.classList.remove('custom-bg');
@@ -617,10 +631,10 @@
         localStorage.setItem('gradient_angle', value);
     }
 
-    // 壁纸上传统逻辑
+    // 壁纸上传统逻辑（永久保留至localStorage）
     function initBackground() {
         const savedImage = localStorage.getItem('custom_bg_image');
-        if (savedImage) {
+        if (savedImage && savedImage.startsWith('data:image')) {
             document.body.style.backgroundImage = `url(${savedImage})`;
             document.body.style.backgroundSize = 'cover';
             document.body.style.backgroundPosition = 'center';
@@ -648,7 +662,6 @@
                 document.body.classList.add('custom-bg');
                 localStorage.setItem('custom_bg_image', imgUrl);
                 localStorage.removeItem('custom_bg_color');
-                // 可选：reset theme marker
             };
             reader.readAsDataURL(file);
         }
@@ -664,7 +677,6 @@
             if (savedColor) document.body.style.background = savedColor;
             else document.body.style.background = '#eef2f8';
         } else {
-            // 重新应用主题变量
             document.body.style.background = '';
             setTheme(currentTheme, true);
         }
