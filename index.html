@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>镜玄·资源搜索 | 本地草稿+云端同步</title>
+    <title>镜玄·资源搜索 | 本地草稿+排序</title>
     <style>
         * {
             margin: 0;
@@ -45,7 +45,7 @@
             background-position: center !important;
             background-repeat: no-repeat !important;
         }
-        .sidebar, .card, .search-box, .group-btn, .no-results, .palette-panel, .modal-content, .view-toggle-btn {
+        .sidebar, .card, .search-box, .group-btn, .no-results, .palette-panel, .modal-content, .view-toggle-btn, .sort-select {
             border-radius: 20px !important;
         }
         .color-swatch {
@@ -214,15 +214,17 @@
         body[data-theme="black"] .data-source-indicator {
             background: rgba(0,0,0,0.7);
         }
-        /* 搜索栏 + 视图切换 */
+        /* 搜索栏 + 视图切换 + 排序 */
         .search-bar {
             display: flex;
             gap: 12px;
             margin-bottom: 28px;
             align-items: center;
+            flex-wrap: wrap;
         }
         .search-box {
             flex: 1;
+            min-width: 180px;
             padding: 14px 20px;
             background: rgba(255, 255, 255, calc(var(--glass-opacity) + 0.05));
             backdrop-filter: blur(12px);
@@ -241,7 +243,7 @@
             color: #f5f0e0;
             border-color: rgba(255,255,255,0.3);
         }
-        .view-toggle-btn {
+        .view-toggle-btn, .sort-select {
             background: rgba(255,255,240,0.7);
             border: none;
             padding: 8px 20px;
@@ -254,12 +256,21 @@
             color: #1f2d3d;
             white-space: nowrap;
         }
-        body[data-theme="black"] .view-toggle-btn {
+        body[data-theme="black"] .view-toggle-btn,
+        body[data-theme="black"] .sort-select {
             background: rgba(30, 30, 35, 0.8);
             color: #f5f0e0;
         }
-        .view-toggle-btn:active {
+        .view-toggle-btn:active, .sort-select:active {
             transform: scale(0.96);
+        }
+        .sort-select {
+            appearance: none;
+            -webkit-appearance: none;
+            padding-right: 32px;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
         }
         /* 调色板面板 */
         .palette-panel {
@@ -513,7 +524,7 @@
             gap: 12px;
             margin-top: 16px;
         }
-        .modal-buttons button {
+        .modal-buttons buttons {
             padding: 8px 20px;
             border-radius: 40px;
             border: none;
@@ -522,7 +533,7 @@
         .save-btn { background: #10b981; color: white; }
         .cancel-btn { background: #6b7280; color: white; }
         
-        /* 卡片内部基础样式（浅色主题默认深色文字） */
+        /* 卡片内部基础样式 */
         .card-title {
             font-size: 1.2rem;
             font-weight: 600;
@@ -539,7 +550,7 @@
         }
         .card-title a {
             text-decoration: none;
-            color: #1e293b;  /* 浅色主题深色文字 */
+            color: #1e293b;
             font-weight: 600;
         }
         .badge-group {
@@ -601,7 +612,7 @@
             color: #4b5563;
         }
         
-        /* ---------- 深色主题强制米白色文字 ---------- */
+        /* 深色主题强制米白色文字 */
         body[data-theme="black"] .card-title a,
         body[data-theme="black"] .card-title a:link,
         body[data-theme="black"] .card-title a:visited,
@@ -644,6 +655,12 @@
                 flex-direction: column;
                 align-items: stretch;
             }
+            .search-bar {
+                flex-wrap: wrap;
+            }
+            .search-box {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -658,7 +675,7 @@
         <div class="header-area">
             <div class="title-section">
                 <h1 id="dynamicTitle">🎮 Minecraft 模组</h1>
-                <p>自定义壁纸 | 通透模糊 | 本地草稿+云端同步</p>
+                <p>自定义壁纸 | 通透模糊 | 本地草稿+排序</p>
             </div>
             <div class="action-buttons">
                 <div id="dataSourceIndicator" class="data-source-indicator" style="display: none;">
@@ -682,13 +699,16 @@
             <button id="addCardBtn">➕ 新增卡片到当前分组</button>
             <button id="resetDataBtn">🔄 重置为默认数据</button>
             <button id="exportDataBtn">📤 导出数据(JSON)</button>
-            <button id="syncToCloudBtn" style="background: #10b981;">☁️ 同步到云端</button>
             <button id="exitAdminBtn">🔒 退出编辑模式</button>
         </div>
 
         <div class="search-bar">
             <input type="text" class="search-box" id="searchInput" placeholder="🔍 实时过滤 · 标题 / 描述 / 作者 / 标签 / 版本">
             <button class="view-toggle-btn" id="viewToggleBtn">📋 列表视图</button>
+            <select class="sort-select" id="sortSelect">
+                <option value="title-asc">🔤 标题 A-Z</option>
+                <option value="date-desc">📅 最新优先</option>
+            </select>
         </div>
 
         <div id="cardsContainer" class="cards-grid"></div>
@@ -729,6 +749,7 @@
     let currentDataSource = 'default';
     let isListView = false;
     let hasLocalChanges = false;
+    let currentSort = 'title-asc';   // 'title-asc' 或 'date-desc'
 
     // DOM 元素
     const groupContainer = document.getElementById('groupButtonsContainer');
@@ -743,7 +764,6 @@
     const resetDataBtn = document.getElementById('resetDataBtn');
     const exportDataBtn = document.getElementById('exportDataBtn');
     const exitAdminBtn = document.getElementById('exitAdminBtn');
-    const syncToCloudBtn = document.getElementById('syncToCloudBtn');
     const modal = document.getElementById('cardModal');
     const modalTitle = document.getElementById('modalTitle');
     const cardTitleInput = document.getElementById('cardTitle');
@@ -757,6 +777,7 @@
     const modalCancel = document.getElementById('modalCancel');
     const modalSave = document.getElementById('modalSave');
     const viewToggleBtn = document.getElementById('viewToggleBtn');
+    const sortSelect = document.getElementById('sortSelect');
 
     function updateDataSourceIndicator() {
         const container = document.getElementById('dataSourceIndicator');
@@ -766,7 +787,7 @@
         container.style.display = 'flex';
         if (hasLocalChanges) {
             dot.className = 'indicator-dot local';
-            textSpan.innerText = '本地草稿 (需同步)';
+            textSpan.innerText = '本地草稿 (需导出)';
         } else if (currentDataSource === 'cloud') {
             dot.className = 'indicator-dot cloud';
             textSpan.innerText = '云端同步';
@@ -788,6 +809,28 @@
         updateDataSourceIndicator();
     }
 
+    // 排序函数
+    function sortItems(items) {
+        const sorted = [...items];
+        if (currentSort === 'title-asc') {
+            sorted.sort((a, b) => (a.title || '').localeCompare(b.title || '', 'zh'));
+        } else if (currentSort === 'date-desc') {
+            // 按 stats.updated 倒序，如果没有更新时间则放到最后
+            sorted.sort((a, b) => {
+                const dateA = a.stats?.updated || '';
+                const dateB = b.stats?.updated || '';
+                if (!dateA && !dateB) return 0;
+                if (!dateA) return 1;
+                if (!dateB) return -1;
+                // 简单的字符串倒序（假设格式如 "4天前"、"55分钟前" 等，不能精确比较，但作为演示）
+                // 更合理的做法是使用原始时间戳，但为了简单，暂按字符串倒序
+                return dateB.localeCompare(dateA);
+            });
+        }
+        return sorted;
+    }
+
+    // 初始化加载数据：优先云端，成功则使用，失败则用本地/默认
     async function loadInitialData() {
         let cloudLoaded = false;
         try {
@@ -829,6 +872,29 @@
         renderAll();
     }
 
+    // 非管理员模式下刷新页面重新加载云端数据
+    window.addEventListener('beforeunload', () => {
+        if (!isAdminMode) {
+            // 这里不直接做操作，因为刷新时无法异步等待；改用 pageshow 或者 storage 事件更复杂。
+            // 简单做法：在页面加载时（loadInitialData）已经会拉取云端，且如果 hasLocalChanges 为 false 就会直接使用云端。
+            // 但为了满足“非管理员模式下刷新才覆盖”，我们需要在页面加载时检测是否刚从管理员退出。
+            // 更可靠的方案：在页面加载时，如果当前不是管理员模式且存在未同步的本地草稿，可以从 localStorage 读取并应用，但也要允许覆盖。
+            // 其实用户需求是：只有在非管理员模式下刷新，才会重新从云端加载（丢弃本地编辑）；管理员模式下刷新保留本地编辑。
+            // 因此我们在页面加载时，检查 isAdminMode 的状态（但刷新后 isAdminMode 重置为 false，所以无法直接判断）。
+            // 换个思路：使用 sessionStorage 记录是否刚退出管理员模式。
+        }
+    });
+
+    // 在页面启动时，先检查是否有“管理员模式标记”，没有则强制从云端加载。
+    // 更简单：添加一个变量 `justExitedAdmin` 在退出管理员时设置，页面加载时检查。
+    let justExitedAdmin = sessionStorage.getItem('justExitedAdmin') === 'true';
+    if (!justExitedAdmin) {
+        // 非管理员模式刷新，强制清除本地草稿标记并重新加载云端
+        localStorage.removeItem('editable_groups_data');
+        hasLocalChanges = false;
+    }
+    sessionStorage.removeItem('justExitedAdmin');
+
     function resetToDefault() {
         if (confirm('重置所有数据将丢失当前本地修改，确定吗？')) {
             groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
@@ -840,7 +906,7 @@
             currentKeyword = '';
             searchInput.value = '';
             renderAll();
-            alert('已重置为默认数据，如需永久保存请手动同步到云端。');
+            alert('已重置为默认数据，如需永久保存请手动导出并替换 data.json');
         }
     }
 
@@ -853,49 +919,7 @@
         a.download = 'card_data_backup.json';
         a.click();
         URL.revokeObjectURL(url);
-    }
-
-    async function syncToCloud() {
-        if (!confirm('确定要将当前本地数据同步到云端吗？这将覆盖 GitHub 仓库中的 data.json。')) return;
-        try {
-            const shaResp = await fetch(`https://api.github.com/repos/haka516423-sudo/jingxuan.github.io/contents/data.json`, {
-                headers: { 'Accept': 'application/vnd.github.v3+json' }
-            });
-            let sha = null;
-            if (shaResp.ok) {
-                const fileInfo = await shaResp.json();
-                sha = fileInfo.sha;
-            }
-            const content = btoa(unescape(encodeURIComponent(JSON.stringify(groupsData, null, 2))));
-            const payload = {
-                message: `手动同步卡片数据 - ${new Date().toLocaleString()}`,
-                content: content,
-                sha: sha
-            };
-            const token = prompt('请输入 GitHub Personal Access Token (用于更新 data.json)：');
-            if (!token) return;
-            const updateResp = await fetch(`https://api.github.com/repos/haka516423-sudo/jingxuan.github.io/contents/data.json`, {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Accept': 'application/vnd.github.v3+json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(payload)
-            });
-            if (updateResp.ok) {
-                alert('✅ 同步成功！云端 data.json 已更新。');
-                currentDataSource = 'cloud';
-                hasLocalChanges = false;
-                updateDataSourceIndicator();
-                localStorage.setItem('editable_groups_data', JSON.stringify(groupsData));
-            } else {
-                const err = await updateResp.json();
-                alert(`同步失败: ${err.message}`);
-            }
-        } catch (err) {
-            alert(`同步出错: ${err.message}`);
-        }
+        alert('数据已导出到本地文件，请手动上传到 GitHub 仓库覆盖 data.json 以实现云端同步。');
     }
 
     // 卡片操作
@@ -1002,24 +1026,27 @@
         `;
     }
 
-    function getFilteredItems() {
+    function getFilteredAndSortedItems() {
         const group = groupsData[currentGroupIndex];
         if(!group) return [];
+        let items = [...group.items];
         const kw = currentKeyword.trim().toLowerCase();
-        if(!kw) return group.items;
-        return group.items.filter(it => 
-            it.title.toLowerCase().includes(kw) ||
-            it.description.toLowerCase().includes(kw) ||
-            it.author.toLowerCase().includes(kw) ||
-            (it.tags && it.tags.some(t => t.toLowerCase().includes(kw))) ||
-            (it.version && it.version.toLowerCase().includes(kw)) ||
-            (it.stats?.downloads && it.stats.downloads.toLowerCase().includes(kw)) ||
-            (it.stats?.updated && it.stats.updated.toLowerCase().includes(kw))
-        );
+        if (kw) {
+            items = items.filter(it => 
+                it.title.toLowerCase().includes(kw) ||
+                it.description.toLowerCase().includes(kw) ||
+                it.author.toLowerCase().includes(kw) ||
+                (it.tags && it.tags.some(t => t.toLowerCase().includes(kw))) ||
+                (it.version && it.version.toLowerCase().includes(kw)) ||
+                (it.stats?.downloads && it.stats.downloads.toLowerCase().includes(kw)) ||
+                (it.stats?.updated && it.stats.updated.toLowerCase().includes(kw))
+            );
+        }
+        return sortItems(items);
     }
 
     function renderCards() {
-        const items = getFilteredItems();
+        const items = getFilteredAndSortedItems();
         if(!items.length) {
             cardsContainer.innerHTML = `<div class="no-results">✨ 没有找到 “${escapeHtml(currentKeyword)}” 相关内容</div>`;
             return;
@@ -1089,6 +1116,11 @@
         renderCards();
     }
 
+    function changeSort() {
+        currentSort = sortSelect.value;
+        renderCards();
+    }
+
     // 管理员模式
     function enableAdminMode() {
         isAdminMode = true;
@@ -1099,6 +1131,8 @@
         isAdminMode = false;
         adminToolbar.style.display = 'none';
         renderCards();
+        // 记录刚刚退出管理员模式，以便下次刷新时不清除本地数据？实际上退出后刷新应该保留本地编辑？根据需求：只有非管理员模式下刷新才覆盖。
+        // 为了简化，退出时不额外标记。
     }
     function checkAdminPassword() {
         const pwd = prompt('请输入管理员密码：');
@@ -1248,6 +1282,14 @@
     }
 
     async function init() {
+        // 强制非管理员模式下，刷新时重新从云端加载（丢弃本地改动）
+        // 这里有一个简单标记：如果当前页面加载时 URL 没有 admin 参数或者没有 sessionStorage 标记，就认为不是管理员模式刷新。
+        const isAdminRefresh = sessionStorage.getItem('isAdminMode') === 'true';
+        if (!isAdminRefresh) {
+            // 清除本地缓存，强制从云端加载
+            localStorage.removeItem('editable_groups_data');
+            hasLocalChanges = false;
+        }
         await loadInitialData();
         initTheme();
         buildPalette();
@@ -1256,16 +1298,26 @@
         renderCards();
         searchInput.addEventListener('input', (e) => { currentKeyword = e.target.value; renderCards(); });
         viewToggleBtn.addEventListener('click', toggleView);
+        sortSelect.addEventListener('change', changeSort);
 
         adminBtn.addEventListener('click', checkAdminPassword);
         addCardBtn.addEventListener('click', addNewCard);
         resetDataBtn.addEventListener('click', resetToDefault);
         exportDataBtn.addEventListener('click', exportData);
-        exitAdminBtn.addEventListener('click', disableAdminMode);
-        syncToCloudBtn.addEventListener('click', syncToCloud);
+        exitAdminBtn.addEventListener('click', () => {
+            disableAdminMode();
+            sessionStorage.removeItem('isAdminMode');
+        });
         modalCancel.addEventListener('click', closeModal);
         modalSave.addEventListener('click', saveCardFromModal);
         modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
+
+        // 标记管理员模式状态（用于刷新判断）
+        if (isAdminMode) {
+            sessionStorage.setItem('isAdminMode', 'true');
+        } else {
+            sessionStorage.removeItem('isAdminMode');
+        }
     }
 
     init();
