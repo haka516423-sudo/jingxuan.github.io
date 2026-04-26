@@ -3,19 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>镜玄·资源搜素 | 手动同步数据</title>
+    <title>镜玄·资源搜索 | 手动同步数据</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
-        /* 强制垂直滚动条，防止页面左右抖动 */
         html {
             overflow-y: scroll;
         }
-
         body {
             font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
             min-height: 100vh;
@@ -25,8 +22,7 @@
             --glass-opacity: 0.35;
             --gradient-angle: 135deg;
         }
-
-        /* 默认纯色背景 */
+        /* 主题色 */
         body[data-theme="white"]  { background: #eef2f8; --theme-accent: #5b6e8c; }
         body[data-theme="black"]  { background: #12151c; --theme-accent: #c0b7a6; }
         body[data-theme="red"]    { background: #fce9e6; --theme-accent: #c2675e; }
@@ -44,23 +40,17 @@
         body[data-theme="midnight"]  { background: linear-gradient(var(--gradient-angle), #1f1c2c 0%, #2a2a4a 100%); --theme-accent: #9c88ff; }
         body[data-theme="peach"]     { background: linear-gradient(var(--gradient-angle), #ffe29a 0%, #ffb7b2 100%); --theme-accent: #d97846; }
         body[data-theme="mint"]      { background: linear-gradient(var(--gradient-angle), #c7e9fb 0%, #b6e0fe 100%); --theme-accent: #4a9e7c; }
-
-        /* 自定义壁纸覆盖 */
         body.custom-bg {
             background-size: cover !important;
             background-position: center !important;
             background-repeat: no-repeat !important;
         }
-
-        /* 统一圆角矩形 */
         .sidebar, .card, .search-box, .group-btn, .no-results, .palette-panel, .modal-content {
             border-radius: 20px !important;
         }
         .color-swatch {
             border-radius: 12px;
         }
-
-        /* 布局 */
         .app {
             max-width: 1400px;
             margin: 0 auto;
@@ -68,8 +58,7 @@
             gap: 28px;
             align-items: flex-start;
         }
-
-        /* 左侧导航 - 玻璃层 (使用变量透明度) */
+        /* 左侧导航 */
         .sidebar {
             flex: 0 0 280px;
             background: rgba(255, 255, 255, var(--glass-opacity));
@@ -105,8 +94,6 @@
             color: #f5f0e0;
             border-bottom-color: rgba(255,255,255,0.2);
         }
-
-        /* 分组按钮 — 按下动画 */
         .group-buttons {
             display: flex;
             flex-direction: column;
@@ -147,13 +134,9 @@
             background: var(--theme-accent);
             color: #12151c;
         }
-
-        /* 右侧主区域 */
         .main {
             flex: 1;
         }
-
-        /* 头部区域 */
         .header-area {
             display: flex;
             justify-content: space-between;
@@ -183,8 +166,6 @@
         body[data-theme="black"] .title-section p {
             color: #c0b7a6;
         }
-
-        /* 按钮组（调色板，管理员） */
         .action-buttons {
             display: flex;
             gap: 10px;
@@ -210,7 +191,30 @@
         .admin-btn:active, .palette-btn:active {
             transform: scale(0.96);
         }
-
+        /* 数据源指示器样式 */
+        .data-source-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.7rem;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            padding: 4px 10px;
+            border-radius: 40px;
+            color: #eee;
+        }
+        .indicator-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 10px;
+            background: gray;
+        }
+        .indicator-dot.cloud { background: #10b981; box-shadow: 0 0 4px #10b981; }
+        .indicator-dot.local { background: #f59e0b; box-shadow: 0 0 4px #f59e0b; }
+        .indicator-dot.default { background: #9ca3af; }
+        body[data-theme="black"] .data-source-indicator {
+            background: rgba(0,0,0,0.7);
+        }
         /* 调色板面板 */
         .palette-panel {
             position: absolute;
@@ -231,9 +235,7 @@
             border-radius: 20px;
             color: #eef2ff;
         }
-        .palette-panel.show {
-            display: flex;
-        }
+        .palette-panel.show { display: flex; }
         .section-title {
             font-size: 0.85rem;
             font-weight: 600;
@@ -250,6 +252,7 @@
             cursor: pointer;
             border: 1px solid rgba(255,255,255,0.5);
             transition: 0.1s;
+            border-radius: 12px;
         }
         .color-swatch:hover {
             transform: scale(1.05);
@@ -294,7 +297,6 @@
             color: #aaa;
             text-align: right;
         }
-
         /* 搜索框 */
         .search-box {
             width: 100%;
@@ -316,16 +318,12 @@
             color: #f5f0e0;
             border-color: rgba(255,255,255,0.3);
         }
-
-        /* 卡片网格 */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
             gap: 28px;
             margin-top: 8px;
         }
-
-        /* 卡片样式 */
         .card {
             background: rgba(255, 255, 255, calc(var(--glass-opacity) - 0.05));
             backdrop-filter: blur(16px);
@@ -343,7 +341,6 @@
             background: rgba(255, 255, 255, calc(var(--glass-opacity) + 0.1));
             box-shadow: 0 20px 30px rgba(0, 0, 0, 0.12);
         }
-        /* 深色主题卡片背景加深 */
         body[data-theme="black"] .card,
         body[data-theme="ocean"] .card,
         body[data-theme="midnight"] .card {
@@ -356,8 +353,6 @@
         body[data-theme="midnight"] .card:hover {
             background: rgba(30, 40, 55, 0.75);
         }
-
-        /* 编辑模式下的卡片操作按钮 */
         .card-actions {
             position: absolute;
             top: 12px;
@@ -392,8 +387,6 @@
         body[data-theme="black"] .delete-btn {
             background: rgba(30,30,40,0.9);
         }
-
-        /* 管理员工具栏 */
         .admin-toolbar {
             display: flex;
             gap: 12px;
@@ -413,8 +406,6 @@
             cursor: pointer;
             font-size: 0.8rem;
         }
-
-        /* 模态框样式 */
         .modal {
             display: none;
             position: fixed;
@@ -437,6 +428,7 @@
             padding: 24px;
             border: 1px solid rgba(255,255,255,0.3);
             color: #eee;
+            border-radius: 20px;
         }
         .modal-content h3 {
             margin-bottom: 16px;
@@ -469,8 +461,6 @@
         }
         .save-btn { background: #10b981; color: white; }
         .cancel-btn { background: #6b7280; color: white; }
-
-        /* 其他样式 */
         .card-title {
             font-size: 1.2rem;
             font-weight: 600;
@@ -541,8 +531,6 @@
             color: #f0e6d2;
             background: rgba(0,0,0,0.4);
         }
-
-        /* 黑色主题强制文字颜色 */
         body[data-theme="black"] .card-title a,
         body[data-theme="black"] .badge,
         body[data-theme="black"] .version-info,
@@ -557,7 +545,6 @@
         body[data-theme="black"] .version-info {
             background: rgba(210, 220, 250, 0.25) !important;
         }
-
         @media (max-width: 780px) {
             body { padding: 16px; }
             .app { flex-direction: column; }
@@ -583,40 +570,23 @@
                 <p>自定义壁纸 | 通透模糊 | 云端优先</p>
             </div>
             <div class="action-buttons">
+                <div id="dataSourceIndicator" class="data-source-indicator" style="display: none;">
+                    <span class="indicator-dot"></span>
+                    <span id="sourceText">云端</span>
+                </div>
                 <button class="palette-btn" id="paletteBtn">🎨 调色板</button>
                 <button class="admin-btn" id="adminBtn">🔐 管理员</button>
             </div>
             <div class="palette-panel" id="palettePanel">
-                <div>
-                    <div class="section-title">🎨 纯色预设</div>
-                    <div class="color-grid" id="solidColorGrid"></div>
-                </div>
-                <div>
-                    <div class="section-title">🌈 渐变预设</div>
-                    <div class="color-grid" id="gradientColorGrid"></div>
-                </div>
-                <div class="slider-container">
-                    <label>🔮 玻璃透明度 <span id="opacityValue">0.20</span></label>
-                    <input type="range" id="opacitySlider" min="0.1" max="0.5" step="0.01" value="0.20">
-                </div>
-                <div class="slider-container">
-                    <label>🔄 渐变角度 <span id="angleValue">135°</span> <span style="font-weight: normal;">(仅渐变主题)</span></label>
-                    <input type="range" id="angleSlider" min="0" max="360" step="1" value="135">
-                </div>
-                <div>
-                    <div class="section-title">🖼️ 自定义壁纸</div>
-                    <div class="file-upload-area">
-                        <input type="file" id="bgUpload" accept="image/*" style="display: none;">
-                        <button class="upload-btn" id="uploadBgBtn">📁 选择图片</button>
-                        <button class="upload-btn reset-bg" id="resetBgBtn">🗑️ 重置背景</button>
-                    </div>
-                    <div class="hint-text">支持 JPG/PNG，上传后自动铺满背景并永久保存</div>
-                </div>
+                <div><div class="section-title">🎨 纯色预设</div><div class="color-grid" id="solidColorGrid"></div></div>
+                <div><div class="section-title">🌈 渐变预设</div><div class="color-grid" id="gradientColorGrid"></div></div>
+                <div class="slider-container"><label>🔮 玻璃透明度 <span id="opacityValue">0.20</span></label><input type="range" id="opacitySlider" min="0.1" max="0.5" step="0.01" value="0.20"></div>
+                <div class="slider-container"><label>🔄 渐变角度 <span id="angleValue">135°</span> <span style="font-weight: normal;">(仅渐变主题)</span></label><input type="range" id="angleSlider" min="0" max="360" step="1" value="135"></div>
+                <div><div class="section-title">🖼️ 自定义壁纸</div><div class="file-upload-area"><input type="file" id="bgUpload" accept="image/*" style="display: none;"><button class="upload-btn" id="uploadBgBtn">📁 选择图片</button><button class="upload-btn reset-bg" id="resetBgBtn">🗑️ 重置背景</button></div><div class="hint-text">支持 JPG/PNG，上传后自动铺满背景并永久保存</div></div>
                 <div class="hint-text">点击色板换肤 | 滑块调节玻璃强度</div>
             </div>
         </div>
 
-        <!-- 管理员工具栏（默认隐藏） -->
         <div id="adminToolbar" class="admin-toolbar" style="display: none;">
             <button id="addCardBtn">➕ 新增卡片到当前分组</button>
             <button id="resetDataBtn">🔄 重置为默认数据</button>
@@ -632,7 +602,6 @@
     </div>
 </div>
 
-<!-- 编辑/新增卡片的模态框 -->
 <div id="cardModal" class="modal">
     <div class="modal-content">
         <h3 id="modalTitle">编辑卡片</h3>
@@ -652,7 +621,7 @@
 </div>
 
 <script>
-    // ========== 默认数据（完整的初始结构） ==========
+    // ========== 默认数据（初始结构） ==========
     const DEFAULT_GROUPS_DATA = [
         { groupName: "🎮 Minecraft 模组", items: [ { title: "Fabric API", url: "https://modrinth.com/mod/fabric-api", description: "轻量级且模块化的API，提供通用钩子和互操作性，供 Fabric 模组使用。", author: "Modmuss50", tags: ["Fabric", "库"], stats: { downloads: "162M", updated: "4天前" }, version: "0.16.5" }, { title: "Sodium (钠)", url: "https://modrinth.com/mod/sodium", description: "Minecraft 最快且最兼容的渲染优化模组，支持 Fabric 和 NeoForge。", author: "CaffeineMC", tags: ["Fabric", "NeoForge", "优化"], stats: { downloads: "147M", updated: "55分钟前" }, version: "0.5.8" }, { title: "Iris Shaders", url: "https://modrinth.com/mod/iris", description: "现代 Minecraft 光影加载器，兼容 OptiFine 光影包。", author: "coderbot", tags: ["Fabric", "NeoForge", "视觉"], stats: { downloads: "115M", updated: "3周前" }, version: "1.7.0" }, { title: "Cloth Config API", url: "https://modrinth.com/mod/cloth-config", description: "Minecraft 模组配置库，提供通用的配置界面。", author: "shedaniel", tags: ["Fabric", "Forge", "库"], stats: { downloads: "115M", updated: "上个月" }, version: "11.1.118" }, { title: "ReplayMod (重播模组)", url: "https://modrinth.com/mod/replaymod", description: "记录并分享游戏体验的模组。", author: "Johni0702", tags: ["Fabric", "Forge", "实用","视频创作者工具"], stats: { downloads: "—", updated: "上个月" }, version: "1.20.4-2.6.14" }, { title: "Visible Barriers (可视化屏障方块)", url: "https://modrinth.com/mod/visiblebarriers", description: "让屏障方块、光源方块等可见，对地图制作很有帮助。", author: "AmyMialee's Mods", tags: ["Fabric", "实用","辅助"], stats: { downloads: "—", updated: "上个月" }, version: "1.0.2" }, { title: "JEI (Just Enough Items)", url: "https://modrinth.com/mod/jei", description: "查看物品合成表，模组必备。", author: "mezz", tags: ["Fabric", "Forge", "实用"], stats: { downloads: "200M", updated: "2周前" }, version: "15.3.0.8" } ] },
         { groupName: "🌐 常用开发网站", items: [ { title: "GitHub 官网", url: "https://github.com", description: "全球最大的开发者平台，托管代码、协作开发。", author: "GitHub", tags: ["开发", "工具"], stats: { downloads: "—", updated: "在线" } }, { title: "MDN Web Docs", url: "https://developer.mozilla.org/zh-CN/", description: "权威的 Web 技术文档，HTML、CSS、JavaScript 应有尽有。", author: "Mozilla", tags: ["文档", "前端"], stats: { downloads: "—", updated: "持续更新" } }, { title: "Stack Overflow", url: "https://stackoverflow.com", description: "程序员问答社区，遇到 bug 时的救星。", author: "Stack Exchange", tags: ["社区", "问答"], stats: { downloads: "—", updated: "活跃" } } ] },
@@ -665,6 +634,7 @@
     let currentKeyword = '';
     let isAdminMode = false;
     let editingCardInfo = null;
+    let currentDataSource = 'default';   // 'cloud', 'local', 'default'
 
     // DOM 元素
     const groupContainer = document.getElementById('groupButtonsContainer');
@@ -692,16 +662,35 @@
     const modalCancel = document.getElementById('modalCancel');
     const modalSave = document.getElementById('modalSave');
 
+    // 更新数据源指示器
+    function updateDataSourceIndicator() {
+        const container = document.getElementById('dataSourceIndicator');
+        const dot = container?.querySelector('.indicator-dot');
+        const textSpan = document.getElementById('sourceText');
+        if (!container) return;
+        container.style.display = 'flex';
+        if (currentDataSource === 'cloud') {
+            dot.className = 'indicator-dot cloud';
+            textSpan.innerText = '云端数据';
+        } else if (currentDataSource === 'local') {
+            dot.className = 'indicator-dot local';
+            textSpan.innerText = '本地缓存 (需导出同步)';
+        } else {
+            dot.className = 'indicator-dot default';
+            textSpan.innerText = '默认数据';
+        }
+    }
+
     // ========== 数据持久化（云端优先） ==========
     async function loadDataFromGitHub() {
         try {
-            // 添加时间戳避免浏览器缓存
             const response = await fetch('data.json?v=' + Date.now());
             if (response.ok) {
                 const remoteData = await response.json();
                 if (remoteData && Array.isArray(remoteData)) {
                     groupsData = remoteData;
                     localStorage.setItem('editable_groups_data', JSON.stringify(groupsData));
+                    currentDataSource = 'cloud';
                     console.log('✅ 已从 data.json 加载最新数据');
                     return true;
                 }
@@ -713,24 +702,34 @@
             if (stored) {
                 try {
                     groupsData = JSON.parse(stored);
+                    currentDataSource = 'local';
                     console.log('📦 使用 localStorage 缓存数据');
                     return true;
                 } catch(e) {}
             }
             groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
+            currentDataSource = 'default';
             console.log('📄 使用默认数据');
             return false;
+        } finally {
+            updateDataSourceIndicator();
         }
     }
 
     function saveDataToStorage() {
         localStorage.setItem('editable_groups_data', JSON.stringify(groupsData));
+        if (currentDataSource !== 'cloud') {
+            currentDataSource = 'local';
+            updateDataSourceIndicator();
+        }
     }
 
     function resetToDefault() {
         if (confirm('重置所有数据将丢失当前本地修改，确定吗？')) {
             groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
             saveDataToStorage();
+            currentDataSource = 'default';
+            updateDataSourceIndicator();
             currentGroupIndex = 0;
             currentKeyword = '';
             searchInput.value = '';
@@ -1077,7 +1076,7 @@
         else setTheme('white');
     }
 
-    // ========== 初始化（异步加载 data.json） ==========
+    // ========== 初始化 ==========
     async function init() {
         await loadDataFromGitHub();   // 先加载云端数据
         initTheme();
