@@ -3,41 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>玻璃叠层 · 圆矩形链接库</title>
+    <title>琉璃·圆矩形｜渐变玻璃主题库</title>
     <style>
-        /* ---------- 全局重置 ---------- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* 基础背景：纯色低饱和 (随主题变化) */
+        /* 基础载体 */
         body {
             font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
             min-height: 100vh;
             background-attachment: fixed;
-            transition: background-color 0.2s;
+            transition: background 0.25s ease;
             padding: 28px;
         }
 
-        /* 9种主题背景色 */
-        body[data-theme="white"]  { background-color: #eef2f8; }
-        body[data-theme="black"]  { background-color: #12151c; }
-        body[data-theme="red"]    { background-color: #fce9e6; }
-        body[data-theme="orange"] { background-color: #fef0e0; }
-        body[data-theme="yellow"] { background-color: #fef9e0; }
-        body[data-theme="green"]  { background-color: #eaf4ea; }
-        body[data-theme="cyan"]   { background-color: #e0f2f5; }
-        body[data-theme="blue"]   { background-color: #e3edfa; }
-        body[data-theme="purple"] { background-color: #f0e9fc; }
+        /* ----- 主题定义（纯色低饱和 + 热门渐变）----- */
+        /* 纯色主题 */
+        body[data-theme="white"]  { background: #eef2f8; --theme-accent: #5b6e8c; }
+        body[data-theme="black"]  { background: #12151c; --theme-accent: #8e9aaf; }
+        body[data-theme="red"]    { background: #fce9e6; --theme-accent: #c2675e; }
+        body[data-theme="orange"] { background: #fef0e0; --theme-accent: #d98c2b; }
+        body[data-theme="yellow"] { background: #fef9e0; --theme-accent: #c9a12b; }
+        body[data-theme="green"]  { background: #eaf4ea; --theme-accent: #4f7a5e; }
+        body[data-theme="cyan"]   { background: #e0f2f5; --theme-accent: #3f7a85; }
+        body[data-theme="blue"]   { background: #e3edfa; --theme-accent: #4a6fa5; }
+        body[data-theme="purple"] { background: #f0e9fc; --theme-accent: #8b6cb0; }
 
-        /* 统一圆矩形尺寸 */
+        /* 渐变色主题（热门） */
+        body[data-theme="sunset"]    { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); --theme-accent: #d96c6e; }
+        body[data-theme="aurora"]    { background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%); --theme-accent: #3b82f6; }
+        body[data-theme="ocean"]     { background: linear-gradient(135deg, #2b5876 0%, #4e4376 100%); --theme-accent: #7c83b9; }
+        body[data-theme="sakura"]    { background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%); --theme-accent: #c45692; }
+        body[data-theme="forest"]    { background: linear-gradient(135deg, #b5d6a7 0%, #9bbd8c 100%); --theme-accent: #5c8a4a; }
+        body[data-theme="midnight"]  { background: linear-gradient(135deg, #1f1c2c 0%, #2a2a4a 100%); --theme-accent: #9c88ff; }
+        body[data-theme="peach"]     { background: linear-gradient(135deg, #ffe29a 0%, #ffb7b2 100%); --theme-accent: #d97846; }
+        body[data-theme="mint"]      { background: linear-gradient(135deg, #c7e9fb 0%, #b6e0fe 100%); --theme-accent: #4a9e7c; }
+
+        /* 统一圆角标准（所有矩形组件） */
         .sidebar, .header-area, .card, .search-box, .theme-selector, .group-btn, .expand-btn, .no-results {
             border-radius: 20px !important;
         }
+        /* 主题色块改成圆角矩形 */
+        .theme-option {
+            border-radius: 12px !important;
+            width: 36px;
+            height: 36px;
+        }
 
-        /* 主布局 flex */
+        /* 主布局 */
         .app {
             max-width: 1400px;
             margin: 0 auto;
@@ -46,48 +62,51 @@
             align-items: flex-start;
         }
 
-        /* ------ 左侧分组导航（透明玻璃层）------ */
+        /* 左侧分组导航 - 透明玻璃层 (增强透明度) */
         .sidebar {
             flex: 0 0 280px;
-            background: rgba(255, 255, 255, 0.28);
-            backdrop-filter: blur(16px);
+            background: rgba(255, 255, 255, 0.22);
+            backdrop-filter: blur(18px);
             border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255,255,255,0.4);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255,255,255,0.4);
             padding: 24px 16px;
             position: sticky;
             top: 28px;
-            transition: all 0.2s;
+            transition: 0.2s;
         }
-        body[data-theme="black"] .sidebar {
-            background: rgba(20, 25, 35, 0.45);
+        body[data-theme="black"] .sidebar,
+        body[data-theme="ocean"] .sidebar,
+        body[data-theme="midnight"] .sidebar {
+            background: rgba(0, 0, 0, 0.35);
             border-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
         .sidebar-header {
             font-size: 1.3rem;
             font-weight: 600;
             padding: 0 12px 16px 12px;
-            border-bottom: 1px solid rgba(0,0,0,0.08);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
             margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 8px;
-            color: #1e293b;
+            color: #1f2d3d;
         }
-        body[data-theme="black"] .sidebar-header {
+        body[data-theme="black"] .sidebar-header,
+        body[data-theme="ocean"] .sidebar-header,
+        body[data-theme="midnight"] .sidebar-header {
             color: #eef2ff;
-            border-bottom-color: rgba(255,255,255,0.12);
+            border-bottom-color: rgba(255,255,255,0.15);
         }
 
-        /* 分组按钮圆矩形 + 轻度透明 */
+        /* 分组按钮（圆矩形） */
         .group-buttons {
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
         .group-btn {
-            background: rgba(255, 255, 240, 0.55);
-            backdrop-filter: blur(4px);
+            background: rgba(255, 255, 235, 0.5);
+            backdrop-filter: blur(6px);
             border: none;
             padding: 10px 18px;
             font-size: 0.95rem;
@@ -96,20 +115,21 @@
             color: #1f2937;
             cursor: pointer;
             transition: 0.2s;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
         }
-        body[data-theme="black"] .group-btn {
+        body[data-theme="black"] .group-btn,
+        body[data-theme="ocean"] .group-btn,
+        body[data-theme="midnight"] .group-btn {
             background: rgba(60, 68, 84, 0.6);
             color: #e2e8f0;
         }
         .group-btn:hover {
-            background: rgba(255,255,250,0.85);
+            background: rgba(255,255,250,0.9);
             transform: translateX(4px);
         }
         .group-btn.active {
             background: var(--theme-accent);
             color: white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
         /* 右侧主区域 */
@@ -117,7 +137,7 @@
             flex: 1;
         }
 
-        /* 头部区域（玻璃层） */
+        /* 头部区域 */
         .header-area {
             display: flex;
             justify-content: space-between;
@@ -125,15 +145,16 @@
             flex-wrap: wrap;
             gap: 20px;
             margin-bottom: 28px;
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(16px);
             border: 1px solid rgba(255,255,255,0.5);
             padding: 16px 24px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
         }
-        body[data-theme="black"] .header-area {
-            background: rgba(20, 25, 35, 0.5);
-            border-color: rgba(255,255,255,0.15);
+        body[data-theme="black"] .header-area,
+        body[data-theme="ocean"] .header-area,
+        body[data-theme="midnight"] .header-area {
+            background: rgba(20, 25, 35, 0.45);
+            border-color: rgba(255,255,255,0.2);
         }
         .title-section h1 {
             font-size: 1.85rem;
@@ -147,32 +168,31 @@
             color: #4b5563;
             font-size: 0.8rem;
         }
-        body[data-theme="black"] .title-section p {
-            color: #b9c7d9;
+        body[data-theme="black"] .title-section p,
+        body[data-theme="ocean"] .title-section p,
+        body[data-theme="midnight"] .title-section p {
+            color: #cbd5e1;
         }
 
-        /* 主题切换器色块容器（圆矩形玻璃） */
+        /* 主题切换器（圆矩形玻璃） */
         .theme-selector {
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
-            background: rgba(255,255,255,0.4);
-            backdrop-filter: blur(8px);
+            background: rgba(255,255,255,0.38);
+            backdrop-filter: blur(10px);
             padding: 8px 16px;
             border: 1px solid rgba(255,255,255,0.6);
         }
         .theme-option {
-            width: 32px;
-            height: 32px;
-            border-radius: 32px;
             cursor: pointer;
             transition: 0.1s;
             border: 2px solid rgba(255,255,255,0.9);
             box-shadow: 0 1px 4px rgba(0,0,0,0.1);
         }
-        .theme-option:hover { transform: scale(1.08); }
+        .theme-option:hover { transform: scale(1.06); }
         .theme-option.active { border-color: #ffffff; box-shadow: 0 0 0 2px #3b82f6; }
-        /* 色块颜色 */
+        /* 色块颜色（渐变主题色块用代表性色） */
         .theme-option[data-theme="white"]  { background: #e9ecef; }
         .theme-option[data-theme="black"]  { background: #1e293b; }
         .theme-option[data-theme="red"]    { background: #f3b3a2; }
@@ -182,29 +202,37 @@
         .theme-option[data-theme="cyan"]   { background: #b8dfe6; }
         .theme-option[data-theme="blue"]   { background: #b9cef0; }
         .theme-option[data-theme="purple"] { background: #dac8f0; }
+        .theme-option[data-theme="sunset"]   { background: linear-gradient(135deg, #ff9a9e, #fecfef); }
+        .theme-option[data-theme="aurora"]   { background: linear-gradient(135deg, #a1c4fd, #c2e9fb); }
+        .theme-option[data-theme="ocean"]    { background: linear-gradient(135deg, #2b5876, #4e4376); }
+        .theme-option[data-theme="sakura"]   { background: linear-gradient(135deg, #fbc2eb, #a6c1ee); }
+        .theme-option[data-theme="forest"]   { background: linear-gradient(135deg, #b5d6a7, #9bbd8c); }
+        .theme-option[data-theme="midnight"] { background: linear-gradient(135deg, #1f1c2c, #2a2a4a); }
+        .theme-option[data-theme="peach"]    { background: linear-gradient(135deg, #ffe29a, #ffb7b2); }
+        .theme-option[data-theme="mint"]     { background: linear-gradient(135deg, #c7e9fb, #b6e0fe); }
 
-        /* 搜索框 */
+        /* 搜索框玻璃层 */
         .search-box {
             width: 100%;
             padding: 16px 24px;
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(14px);
             border: 1px solid rgba(255, 255, 255, 0.7);
             font-size: 0.95rem;
             color: #1f2937;
             transition: 0.2s;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
         }
-        body[data-theme="black"] .search-box {
-            background: rgba(45, 52, 68, 0.55);
+        body[data-theme="black"] .search-box,
+        body[data-theme="ocean"] .search-box,
+        body[data-theme="midnight"] .search-box {
+            background: rgba(35, 42, 56, 0.55);
             color: #eef2ff;
             border-color: rgba(255,255,255,0.2);
         }
         .search-box:focus {
             outline: none;
             border-color: var(--theme-accent);
-            background: rgba(255, 255, 255, 0.7);
-            box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
+            background: rgba(255, 255, 255, 0.6);
         }
 
         /* 卡片网格 */
@@ -215,33 +243,35 @@
             margin-top: 8px;
         }
 
-        /* 卡片：更透明的玻璃层（比侧边栏更透）营造层次 */
+        /* 卡片：超透玻璃 + 高模糊 (层次分明) */
         .card {
-            background: rgba(255, 255, 255, 0.28);
-            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.5);
             padding: 22px;
             transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255,255,255,0.3);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255,255,255,0.3);
             display: flex;
             flex-direction: column;
         }
-        body[data-theme="black"] .card {
-            background: rgba(30, 36, 48, 0.5);
+        body[data-theme="black"] .card,
+        body[data-theme="ocean"] .card,
+        body[data-theme="midnight"] .card {
+            background: rgba(10, 14, 23, 0.45);
             border-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
         .card:hover {
             transform: translateY(-4px);
             border-color: var(--theme-accent);
-            background: rgba(255, 255, 255, 0.45);
-            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.35);
         }
-        body[data-theme="black"] .card:hover {
-            background: rgba(45, 55, 72, 0.65);
+        body[data-theme="black"] .card:hover,
+        body[data-theme="ocean"] .card:hover,
+        body[data-theme="midnight"] .card:hover {
+            background: rgba(35, 45, 65, 0.6);
         }
 
-        /* 卡片内部样式 */
+        /* 卡片内部样式 - 深色模式文字修复 */
         .card-title {
             font-size: 1.22rem;
             font-weight: 600;
@@ -253,15 +283,17 @@
         .card-title img {
             width: 22px;
             height: 22px;
-            border-radius: 8px;
-            background: rgba(255,255,255,0.6);
+            border-radius: 6px;
+            background: rgba(255,255,255,0.5);
         }
         .card-title a {
             text-decoration: none;
             color: #1e293b;
         }
-        body[data-theme="black"] .card-title a {
-            color: #eef2ff;
+        body[data-theme="black"] .card-title a,
+        body[data-theme="ocean"] .card-title a,
+        body[data-theme="midnight"] .card-title a {
+            color: #f1f5f9;
         }
         .card-title a:hover {
             color: var(--theme-accent);
@@ -273,37 +305,48 @@
             margin-bottom: 12px;
         }
         .badge {
-            background: rgba(0,0,0,0.08);
+            background: rgba(0,0,0,0.12);
             padding: 4px 12px;
             border-radius: 40px;
             font-size: 0.7rem;
             font-weight: 500;
-            color: #2c3e50;
+            color: #1f2937;
         }
-        body[data-theme="black"] .badge {
-            background: rgba(255,255,240,0.12);
-            color: #ccd6f0;
+        body[data-theme="black"] .badge,
+        body[data-theme="ocean"] .badge,
+        body[data-theme="midnight"] .badge {
+            background: rgba(255,255,240,0.18);
+            color: #e2e8f0;
         }
         .version-info {
-            background: rgba(0,0,0,0.06);
+            background: rgba(0,0,0,0.08);
             padding: 3px 10px;
             border-radius: 40px;
             font-size: 0.7rem;
             width: fit-content;
             margin-bottom: 12px;
+            color: #1f2937;
+        }
+        body[data-theme="black"] .version-info,
+        body[data-theme="ocean"] .version-info,
+        body[data-theme="midnight"] .version-info {
+            background: rgba(210, 220, 250, 0.2);
+            color: #cbd5e6;
         }
         .card-description {
             font-size: 0.85rem;
             line-height: 1.5;
-            color: #4b5563;
+            color: #374151;
             margin-bottom: 18px;
             display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
-        body[data-theme="black"] .card-description {
-            color: #cbd5e1;
+        body[data-theme="black"] .card-description,
+        body[data-theme="ocean"] .card-description,
+        body[data-theme="midnight"] .card-description {
+            color: #cbd5e6;
         }
         .card-footer {
             border-top: 1px solid rgba(0, 0, 0, 0.1);
@@ -311,22 +354,23 @@
             display: flex;
             justify-content: space-between;
             font-size: 0.7rem;
-            color: #5b6e8c;
+            color: #4b5563;
             flex-wrap: wrap;
             gap: 8px;
         }
-        body[data-theme="black"] .card-footer {
-            border-top-color: rgba(255,255,255,0.1);
+        body[data-theme="black"] .card-footer,
+        body[data-theme="ocean"] .card-footer,
+        body[data-theme="midnight"] .card-footer {
+            border-top-color: rgba(255,255,255,0.12);
             color: #9ca3af;
         }
         .no-results {
             text-align: center;
             padding: 60px 20px;
-            background: rgba(255,255,255,0.4);
+            background: rgba(255,255,255,0.3);
             backdrop-filter: blur(12px);
             color: #4b5563;
         }
-
         @media (max-width: 780px) {
             body { padding: 16px; }
             .app { flex-direction: column; }
@@ -346,10 +390,11 @@
     <div class="main">
         <div class="header-area">
             <div class="title-section">
-                <h1>🧊 叠层链接库</h1>
-                <p>圆矩形·透明度层次·9色主题</p>
+                <h1>💎 圆矩形·琉璃库</h1>
+                <p>超透玻璃 | 17种主题 | 统一圆角</p>
             </div>
             <div class="theme-selector" id="themeSelector">
+                <!-- 纯色主题 -->
                 <div class="theme-option" data-theme="white" title="纯白"></div>
                 <div class="theme-option" data-theme="black" title="墨黑"></div>
                 <div class="theme-option" data-theme="red" title="淡红"></div>
@@ -359,6 +404,15 @@
                 <div class="theme-option" data-theme="cyan" title="水蓝"></div>
                 <div class="theme-option" data-theme="blue" title="天蓝"></div>
                 <div class="theme-option" data-theme="purple" title="淡紫"></div>
+                <!-- 渐变色主题 -->
+                <div class="theme-option" data-theme="sunset" title="日落霞光"></div>
+                <div class="theme-option" data-theme="aurora" title="极光幻境"></div>
+                <div class="theme-option" data-theme="ocean" title="深海幽蓝"></div>
+                <div class="theme-option" data-theme="sakura" title="樱花朦胧"></div>
+                <div class="theme-option" data-theme="forest" title="森林呼吸"></div>
+                <div class="theme-option" data-theme="midnight" title="午夜星轨"></div>
+                <div class="theme-option" data-theme="peach" title="蜜桃暖阳"></div>
+                <div class="theme-option" data-theme="mint" title="薄荷之晨"></div>
             </div>
         </div>
 
@@ -371,7 +425,7 @@
 </div>
 
 <script>
-    // ---------- 数据（与之前一致）----------
+    // ---------- 数据（完整保留）----------
     const groupsData = [
         {
             groupName: "🎮 Minecraft 模组",
@@ -486,26 +540,31 @@
         renderCards();
     });
 
-    // 主题切换 (带强调色)
-    const themeAccentMap = {
-        white: '#5b6e8c', black: '#8e9aaf', red: '#c2675e', orange: '#d98c2b',
-        yellow: '#c9a12b', green: '#4f7a5e', cyan: '#3f7a85', blue: '#4a6fa5', purple: '#8b6cb0'
-    };
+    // 主题切换（支持纯色+渐变色）
     function setTheme(themeName) {
         document.body.setAttribute('data-theme', themeName);
-        document.body.style.setProperty('--theme-accent', themeAccentMap[themeName]);
-        localStorage.setItem('glass_layer_theme', themeName);
+        // 动态计算强调色（部分渐变色已内置在CSS中，无需额外）
+        const accentMap = {
+            white: '#5b6e8c', black: '#8e9aaf', red: '#c2675e', orange: '#d98c2b', yellow: '#c9a12b',
+            green: '#4f7a5e', cyan: '#3f7a85', blue: '#4a6fa5', purple: '#8b6cb0',
+            sunset: '#d96c6e', aurora: '#3b82f6', ocean: '#7c83b9', sakura: '#c45692',
+            forest: '#5c8a4a', midnight: '#9c88ff', peach: '#d97846', mint: '#4a9e7c'
+        };
+        document.body.style.setProperty('--theme-accent', accentMap[themeName] || '#5b6e8c');
+        localStorage.setItem('glass_unified_theme', themeName);
         document.querySelectorAll('.theme-option').forEach(opt => {
             if(opt.dataset.theme === themeName) opt.classList.add('active');
             else opt.classList.remove('active');
         });
     }
+
     function initTheme() {
-        const saved = localStorage.getItem('glass_layer_theme');
-        const valid = ['white','black','red','orange','yellow','green','cyan','blue','purple'];
-        if(saved && valid.includes(saved)) setTheme(saved);
+        const saved = localStorage.getItem('glass_unified_theme');
+        const validThemes = ['white','black','red','orange','yellow','green','cyan','blue','purple','sunset','aurora','ocean','sakura','forest','midnight','peach','mint'];
+        if(saved && validThemes.includes(saved)) setTheme(saved);
         else setTheme('white');
     }
+
     function bindThemeButtons() {
         document.querySelectorAll('.theme-option').forEach(opt => {
             opt.addEventListener('click', () => setTheme(opt.dataset.theme));
