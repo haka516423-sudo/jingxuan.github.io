@@ -3,12 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>琉璃·云端同步版 | 多设备共享</title>
+    <title>琉璃·可编辑卡片库 | 密钥验证+本地存储</title>
     <style>
-        /* 样式与之前保持完全一致，为了保持代码简洁，此处省略，您可以从之前版本中直接复制 */
-        /* ... 所有CSS样式保持不变 ... */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { overflow-y: scroll; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* 强制垂直滚动条，防止页面左右抖动 */
+        html {
+            overflow-y: scroll;
+        }
+
         body {
             font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
             min-height: 100vh;
@@ -18,6 +25,7 @@
             --glass-opacity: 0.35;
             --gradient-angle: 135deg;
         }
+
         /* 默认纯色背景 */
         body[data-theme="white"]  { background: #eef2f8; --theme-accent: #5b6e8c; }
         body[data-theme="black"]  { background: #12151c; --theme-accent: #c0b7a6; }
@@ -36,16 +44,32 @@
         body[data-theme="midnight"]  { background: linear-gradient(var(--gradient-angle), #1f1c2c 0%, #2a2a4a 100%); --theme-accent: #9c88ff; }
         body[data-theme="peach"]     { background: linear-gradient(var(--gradient-angle), #ffe29a 0%, #ffb7b2 100%); --theme-accent: #d97846; }
         body[data-theme="mint"]      { background: linear-gradient(var(--gradient-angle), #c7e9fb 0%, #b6e0fe 100%); --theme-accent: #4a9e7c; }
+
+        /* 自定义壁纸覆盖 */
         body.custom-bg {
             background-size: cover !important;
             background-position: center !important;
             background-repeat: no-repeat !important;
         }
+
+        /* 统一圆角矩形 */
         .sidebar, .card, .search-box, .group-btn, .no-results, .palette-panel, .modal-content {
             border-radius: 20px !important;
         }
-        .color-swatch { border-radius: 12px; }
-        .app { max-width: 1400px; margin: 0 auto; display: flex; gap: 28px; align-items: flex-start; }
+        .color-swatch {
+            border-radius: 12px;
+        }
+
+        /* 布局 */
+        .app {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 28px;
+            align-items: flex-start;
+        }
+
+        /* 左侧导航 - 玻璃层 (使用变量透明度) */
         .sidebar {
             flex: 0 0 280px;
             background: rgba(255, 255, 255, var(--glass-opacity));
@@ -81,6 +105,8 @@
             color: #f5f0e0;
             border-bottom-color: rgba(255,255,255,0.2);
         }
+
+        /* 分组按钮 — 按下动画 */
         .group-buttons {
             display: flex;
             flex-direction: column;
@@ -103,7 +129,9 @@
             transform: scale(0.96);
             background: rgba(0, 0, 0, 0.15);
         }
-        .group-btn:hover { background: rgba(255,255,250,0.9); }
+        .group-btn:hover {
+            background: rgba(255,255,250,0.9);
+        }
         .group-btn.active {
             background: var(--theme-accent);
             color: white;
@@ -119,7 +147,13 @@
             background: var(--theme-accent);
             color: #12151c;
         }
-        .main { flex: 1; }
+
+        /* 右侧主区域 */
+        .main {
+            flex: 1;
+        }
+
+        /* 头部区域 */
         .header-area {
             display: flex;
             justify-content: space-between;
@@ -146,9 +180,17 @@
             font-size: 0.8rem;
             margin-top: 4px;
         }
-        body[data-theme="black"] .title-section p { color: #c0b7a6; }
-        .action-buttons { display: flex; gap: 10px; align-items: center; }
-        .admin-btn, .palette-btn, .sync-btn {
+        body[data-theme="black"] .title-section p {
+            color: #c0b7a6;
+        }
+
+        /* 按钮组（调色板，管理员） */
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .admin-btn, .palette-btn {
             background: rgba(255,255,240,0.8);
             border: none;
             padding: 8px 18px;
@@ -161,12 +203,15 @@
             color: #1f2d3d;
         }
         body[data-theme="black"] .admin-btn,
-        body[data-theme="black"] .palette-btn,
-        body[data-theme="black"] .sync-btn {
+        body[data-theme="black"] .palette-btn {
             background: rgba(30, 30, 35, 0.8);
             color: #f5f0e0;
         }
-        .admin-btn:active, .palette-btn:active { transform: scale(0.96); }
+        .admin-btn:active, .palette-btn:active {
+            transform: scale(0.96);
+        }
+
+        /* 调色板面板 */
         .palette-panel {
             position: absolute;
             top: 60px;
@@ -186,7 +231,9 @@
             border-radius: 20px;
             color: #eef2ff;
         }
-        .palette-panel.show { display: flex; }
+        .palette-panel.show {
+            display: flex;
+        }
         .section-title {
             font-size: 0.85rem;
             font-weight: 600;
@@ -204,7 +251,10 @@
             border: 1px solid rgba(255,255,255,0.5);
             transition: 0.1s;
         }
-        .color-swatch:hover { transform: scale(1.05); border-color: white; }
+        .color-swatch:hover {
+            transform: scale(1.05);
+            border-color: white;
+        }
         .slider-container {
             display: flex;
             flex-direction: column;
@@ -216,7 +266,10 @@
             display: flex;
             justify-content: space-between;
         }
-        input[type="range"] { width: 100%; cursor: pointer; }
+        input[type="range"] {
+            width: 100%;
+            cursor: pointer;
+        }
         .file-upload-area {
             display: flex;
             gap: 12px;
@@ -233,12 +286,16 @@
             cursor: pointer;
             color: #eee;
         }
-        .reset-bg { background: rgba(255,80,80,0.3); }
+        .reset-bg {
+            background: rgba(255,80,80,0.3);
+        }
         .hint-text {
             font-size: 0.7rem;
             color: #aaa;
             text-align: right;
         }
+
+        /* 搜索框 */
         .search-box {
             width: 100%;
             padding: 16px 24px;
@@ -259,12 +316,16 @@
             color: #f5f0e0;
             border-color: rgba(255,255,255,0.3);
         }
+
+        /* 卡片网格 */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
             gap: 28px;
             margin-top: 8px;
         }
+
+        /* 卡片样式 */
         .card {
             background: rgba(255, 255, 255, calc(var(--glass-opacity) - 0.05));
             backdrop-filter: blur(16px);
@@ -282,6 +343,7 @@
             background: rgba(255, 255, 255, calc(var(--glass-opacity) + 0.1));
             box-shadow: 0 20px 30px rgba(0, 0, 0, 0.12);
         }
+        /* 深色主题卡片背景加深 */
         body[data-theme="black"] .card,
         body[data-theme="ocean"] .card,
         body[data-theme="midnight"] .card {
@@ -294,6 +356,8 @@
         body[data-theme="midnight"] .card:hover {
             background: rgba(30, 40, 55, 0.75);
         }
+
+        /* 编辑模式下的卡片操作按钮 */
         .card-actions {
             position: absolute;
             top: 12px;
@@ -304,7 +368,9 @@
             transition: opacity 0.2s;
             z-index: 10;
         }
-        .card:hover .card-actions { opacity: 1; }
+        .card:hover .card-actions {
+            opacity: 1;
+        }
         .edit-btn, .delete-btn {
             background: rgba(0,0,0,0.6);
             backdrop-filter: blur(4px);
@@ -322,6 +388,12 @@
         }
         .edit-btn:hover { background: #3b82f6; }
         .delete-btn:hover { background: #ef4444; }
+        body[data-theme="black"] .edit-btn,
+        body[data-theme="black"] .delete-btn {
+            background: rgba(30,30,40,0.9);
+        }
+
+        /* 管理员工具栏 */
         .admin-toolbar {
             display: flex;
             gap: 12px;
@@ -341,6 +413,8 @@
             cursor: pointer;
             font-size: 0.8rem;
         }
+
+        /* 模态框样式 */
         .modal {
             display: none;
             position: fixed;
@@ -352,7 +426,9 @@
             justify-content: center;
             align-items: center;
         }
-        .modal.active { display: flex; }
+        .modal.active {
+            display: flex;
+        }
         .modal-content {
             background: rgba(30,30,40,0.95);
             backdrop-filter: blur(20px);
@@ -362,7 +438,9 @@
             border: 1px solid rgba(255,255,255,0.3);
             color: #eee;
         }
-        .modal-content h3 { margin-bottom: 16px; }
+        .modal-content h3 {
+            margin-bottom: 16px;
+        }
         .modal-content input, .modal-content textarea {
             width: 100%;
             padding: 10px;
@@ -373,7 +451,10 @@
             color: #fff;
             font-size: 0.9rem;
         }
-        .modal-content textarea { min-height: 80px; resize: vertical; }
+        .modal-content textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
         .modal-buttons {
             display: flex;
             justify-content: flex-end;
@@ -388,6 +469,8 @@
         }
         .save-btn { background: #10b981; color: white; }
         .cancel-btn { background: #6b7280; color: white; }
+
+        /* 其他样式 */
         .card-title {
             font-size: 1.2rem;
             font-weight: 600;
@@ -406,20 +489,6 @@
             text-decoration: none;
             color: #1e293b;
             font-weight: 600;
-        }
-        body[data-theme="black"] .card-title a,
-        body[data-theme="black"] .badge,
-        body[data-theme="black"] .version-info,
-        body[data-theme="black"] .card-description,
-        body[data-theme="black"] .card-footer,
-        body[data-theme="black"] .stats span {
-            color: #f0e6d2 !important;
-        }
-        body[data-theme="black"] .badge {
-            background: rgba(255,255,240,0.25) !important;
-        }
-        body[data-theme="black"] .version-info {
-            background: rgba(210, 220, 250, 0.25) !important;
         }
         .badge-group {
             display: flex;
@@ -472,6 +541,23 @@
             color: #f0e6d2;
             background: rgba(0,0,0,0.4);
         }
+
+        /* 黑色主题强制文字颜色 */
+        body[data-theme="black"] .card-title a,
+        body[data-theme="black"] .badge,
+        body[data-theme="black"] .version-info,
+        body[data-theme="black"] .card-description,
+        body[data-theme="black"] .card-footer,
+        body[data-theme="black"] .stats span {
+            color: #f0e6d2 !important;
+        }
+        body[data-theme="black"] .badge {
+            background: rgba(255,255,240,0.25) !important;
+        }
+        body[data-theme="black"] .version-info {
+            background: rgba(210, 220, 250, 0.25) !important;
+        }
+
         @media (max-width: 780px) {
             body { padding: 16px; }
             .app { flex-direction: column; }
@@ -494,7 +580,7 @@
         <div class="header-area">
             <div class="title-section">
                 <h1 id="dynamicTitle">🎮 Minecraft 模组</h1>
-                <p>云端同步 | 跨设备共享 | 玻璃主题</p>
+                <p>自定义壁纸 | 通透模糊 | 可编辑卡片</p>
             </div>
             <div class="action-buttons">
                 <button class="palette-btn" id="paletteBtn">🎨 调色板</button>
@@ -534,8 +620,7 @@
         <div id="adminToolbar" class="admin-toolbar" style="display: none;">
             <button id="addCardBtn">➕ 新增卡片到当前分组</button>
             <button id="resetDataBtn">🔄 重置为默认数据</button>
-            <button id="exportDataBtn">📤 导出数据备份</button>
-            <button id="syncToGitBtn">☁️ 同步到云端</button>
+            <button id="exportDataBtn">📤 导出数据(JSON)</button>
             <button id="exitAdminBtn">🔒 退出编辑模式</button>
         </div>
 
@@ -567,16 +652,7 @@
 </div>
 
 <script>
-    // ================== GitHub 配置区域 ==================
-    const GITHUB_CONFIG = {
-        owner: 'haka516423-sudo',      // 改成你的 GitHub 用户名
-        repo: 'jingxuan.github.io',    // 改成你的仓库名
-        filePath: 'data.json',         // 固定文件名，不要改
-        token: '你的_GitHub_Personal_Access_Token'  // 【必填】填入你生成的 token，注意不要泄露
-    };
-    // ===================================================
-
-    // 默认数据（与之前完全一致）
+    // ========== 默认数据（与之前完全一致） ==========
     const DEFAULT_GROUPS_DATA = [
         { groupName: "🎮 Minecraft 模组", items: [ { title: "Fabric API", url: "https://modrinth.com/mod/fabric-api", description: "轻量级且模块化的API，提供通用钩子和互操作性，供 Fabric 模组使用。", author: "Modmuss50", tags: ["Fabric", "库"], stats: { downloads: "162M", updated: "4天前" }, version: "0.16.5" }, { title: "Sodium (钠)", url: "https://modrinth.com/mod/sodium", description: "Minecraft 最快且最兼容的渲染优化模组，支持 Fabric 和 NeoForge。", author: "CaffeineMC", tags: ["Fabric", "NeoForge", "优化"], stats: { downloads: "147M", updated: "55分钟前" }, version: "0.5.8" }, { title: "Iris Shaders", url: "https://modrinth.com/mod/iris", description: "现代 Minecraft 光影加载器，兼容 OptiFine 光影包。", author: "coderbot", tags: ["Fabric", "NeoForge", "视觉"], stats: { downloads: "115M", updated: "3周前" }, version: "1.7.0" }, { title: "Cloth Config API", url: "https://modrinth.com/mod/cloth-config", description: "Minecraft 模组配置库，提供通用的配置界面。", author: "shedaniel", tags: ["Fabric", "Forge", "库"], stats: { downloads: "115M", updated: "上个月" }, version: "11.1.118" }, { title: "ReplayMod (重播模组)", url: "https://modrinth.com/mod/replaymod", description: "记录并分享游戏体验的模组。", author: "Johni0702", tags: ["Fabric", "Forge", "实用","视频创作者工具"], stats: { downloads: "—", updated: "上个月" }, version: "1.20.4-2.6.14" }, { title: "Visible Barriers (可视化屏障方块)", url: "https://modrinth.com/mod/visiblebarriers", description: "让屏障方块、光源方块等可见，对地图制作很有帮助。", author: "AmyMialee's Mods", tags: ["Fabric", "实用","辅助"], stats: { downloads: "—", updated: "上个月" }, version: "1.0.2" }, { title: "JEI (Just Enough Items)", url: "https://modrinth.com/mod/jei", description: "查看物品合成表，模组必备。", author: "mezz", tags: ["Fabric", "Forge", "实用"], stats: { downloads: "200M", updated: "2周前" }, version: "15.3.0.8" } ] },
         { groupName: "🌐 常用开发网站", items: [ { title: "GitHub 官网", url: "https://github.com", description: "全球最大的开发者平台，托管代码、协作开发。", author: "GitHub", tags: ["开发", "工具"], stats: { downloads: "—", updated: "在线" } }, { title: "MDN Web Docs", url: "https://developer.mozilla.org/zh-CN/", description: "权威的 Web 技术文档，HTML、CSS、JavaScript 应有尽有。", author: "Mozilla", tags: ["文档", "前端"], stats: { downloads: "—", updated: "持续更新" } }, { title: "Stack Overflow", url: "https://stackoverflow.com", description: "程序员问答社区，遇到 bug 时的救星。", author: "Stack Exchange", tags: ["社区", "问答"], stats: { downloads: "—", updated: "活跃" } } ] },
@@ -603,7 +679,6 @@
     const resetDataBtn = document.getElementById('resetDataBtn');
     const exportDataBtn = document.getElementById('exportDataBtn');
     const exitAdminBtn = document.getElementById('exitAdminBtn');
-    const syncToGitBtn = document.getElementById('syncToGitBtn');
     const modal = document.getElementById('cardModal');
     const modalTitle = document.getElementById('modalTitle');
     const cardTitleInput = document.getElementById('cardTitle');
@@ -617,72 +692,8 @@
     const modalCancel = document.getElementById('modalCancel');
     const modalSave = document.getElementById('modalSave');
 
-    // ========== GitHub API 同步函数 ==========
-    async function getFileSha() {
-        // 1. 获取文件的 SHA 值 (更新必须)
-        const url = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.filePath}`;
-        try {
-            const response = await fetch(url, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${GITHUB_CONFIG.token}`,
-                    'Accept': 'application/vnd.github+json'
-                }
-            });
-            if (!response.ok) {
-                if (response.status === 404) return null; // 文件不存在
-                throw new Error(`HTTP ${response.status}`);
-            }
-            const data = await response.json();
-            return data.sha;
-        } catch (error) {
-            console.error('获取文件 SHA 失败:', error);
-            return null;
-        }
-    }
-
-    async function updateGitHubFile(content) {
-        try {
-            // 2. 获取当前文件的 SHA
-            const currentSha = await getFileSha();
-            // 3. 将内容转为 Base64 (注意 UTF-8 编码)
-            const encoder = new TextEncoder();
-            const encodedContent = btoa(String.fromCharCode(...new Uint8Array(encoder.encode(JSON.stringify(content, null, 2)))));
-            // 4. 构建请求体
-            const requestBody = {
-                message: `更新卡片数据 - ${new Date().toLocaleString()}`,
-                content: encodedContent,
-                sha: currentSha  // 更新时必须提供 sha
-            };
-            // 5. 发送 PUT 请求
-            const url = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.filePath}`;
-            const response = await fetch(url, {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `Bearer ${GITHUB_CONFIG.token}`,
-                    'Accept': 'application/vnd.github+json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(requestBody)
-            });
-            if (!response.ok) {
-                const error = await response.json();
-                throw new Error(error.message || `HTTP ${response.status}`);
-            }
-            const result = await response.json();
-            console.log('同步成功！提交链接:', result.commit.html_url);
-            alert('✅ 数据已成功同步到云端！');
-            return true;
-        } catch (error) {
-            console.error('同步失败:', error);
-            alert(`❌ 同步失败: ${error.message}`);
-            return false;
-        }
-    }
-
-    // ========== 数据持久化（本地存储 + 云端）==========
+    // ========== 数据持久化 ==========
     function loadDataFromStorage() {
-        // 优先读取 localStorage 缓存
         const stored = localStorage.getItem('editable_groups_data');
         if (stored) {
             try {
@@ -700,26 +711,13 @@
         localStorage.setItem('editable_groups_data', JSON.stringify(groupsData));
     }
 
-    async function syncToCloud() {
-        // 提示用户确认
-        if (confirm('确定要将当前所有数据同步到 GitHub 仓库吗？\n这将覆盖云端数据，其他设备将同步此版本。')) {
-            await updateGitHubFile(groupsData);
-        }
-    }
-
-    async function resetToDefault() {
-        if (confirm('重置所有数据将丢失当前修改，确定吗？')) {
-            groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
-            saveDataToStorage();
-            currentGroupIndex = 0;
-            currentKeyword = '';
-            searchInput.value = '';
-            renderAll();
-            // 可选：同步重置后的数据到云端
-            if (confirm('是否同时将默认数据同步到云端？')) {
-                await updateGitHubFile(groupsData);
-            }
-        }
+    function resetToDefault() {
+        groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
+        saveDataToStorage();
+        currentGroupIndex = 0;
+        currentKeyword = '';
+        searchInput.value = '';
+        renderAll();
     }
 
     function exportData() {
@@ -768,13 +766,15 @@
             return;
         }
         if (cardIdx === undefined) {
+            // 新增
             groupsData[groupIdx].items.push(newCard);
         } else {
+            // 编辑
             groupsData[groupIdx].items[cardIdx] = newCard;
         }
         saveDataToStorage();
         closeModal();
-        renderAll();
+        renderAll(); // 重新渲染
     }
 
     function deleteCard(groupIdx, cardIdx) {
@@ -850,11 +850,13 @@
         }
         let html = '';
         items.forEach((item, idx) => {
+            // 注意：原始索引需要从 groupsData[currentGroupIndex].items 中找真实位置
             const realIdx = groupsData[currentGroupIndex].items.findIndex(i => i === item);
             html += renderCard(item, currentGroupIndex, realIdx);
         });
         cardsContainer.innerHTML = html;
 
+        // 绑定编辑/删除事件（仅管理员模式下）
         if (isAdminMode) {
             document.querySelectorAll('.edit-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
@@ -906,7 +908,7 @@
     function enableAdminMode() {
         isAdminMode = true;
         adminToolbar.style.display = 'flex';
-        renderCards();
+        renderCards(); // 重新渲染卡片以显示编辑按钮
     }
     function disableAdminMode() {
         isAdminMode = false;
@@ -915,17 +917,20 @@
     }
     function checkAdminPassword() {
         const pwd = prompt('请输入管理员密码：');
+        // 预设密码 admin123，您可自行修改
         if (pwd === 'admin123') {
             enableAdminMode();
         } else {
             alert('密码错误，无法进入编辑模式');
         }
     }
+
+    // 新增卡片（当前分组）
     function addNewCard() {
         openEditModal(currentGroupIndex, undefined, { title: '', url: '', description: '', author: '', tags: [], version: '', stats: { downloads: '—', updated: '' } });
     }
 
-    // ========== 主题与壁纸控制 ==========
+    // ========== 主题与壁纸控制（不变） ==========
     const solidPresets = [
         { color: "#eef2f8", theme: "white" }, { color: "#12151c", theme: "black" },
         { color: "#fce9e6", theme: "white" }, { color: "#fef0e0", theme: "white" },
@@ -1073,12 +1078,12 @@
         // 管理员相关事件
         adminBtn.addEventListener('click', checkAdminPassword);
         addCardBtn.addEventListener('click', addNewCard);
-        resetDataBtn.addEventListener('click', resetToDefault);
+        resetDataBtn.addEventListener('click', () => { if(confirm('重置所有数据将丢失当前修改，确定吗？')) resetToDefault(); });
         exportDataBtn.addEventListener('click', exportData);
         exitAdminBtn.addEventListener('click', disableAdminMode);
-        syncToGitBtn.addEventListener('click', syncToCloud);
         modalCancel.addEventListener('click', closeModal);
         modalSave.addEventListener('click', saveCardFromModal);
+        // 点击模态框背景关闭
         modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
     }
 
