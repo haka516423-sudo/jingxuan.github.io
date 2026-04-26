@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>镜玄·资源搜索 | 本地草稿+排序+深色文字优化</title>
+    <title>镜玄·资源搜索 | 管理员模式保留编辑</title>
     <style>
         * {
             margin: 0;
@@ -612,7 +612,7 @@
             color: #4b5563;
         }
         
-        /* 深色主题强制米白色文字（涵盖所有深色背景主题） */
+        /* 深色主题强制米白色文字 */
         body[data-theme="black"] .card-title a,
         body[data-theme="black"] .card-title a:link,
         body[data-theme="black"] .card-title a:visited,
@@ -813,7 +813,7 @@
     let currentDataSource = 'default';
     let isListView = false;
     let hasLocalChanges = false;
-    let currentSort = 'title-asc';   // 'title-asc' 或 'date-desc'
+    let currentSort = 'title-asc';
 
     // DOM 元素
     const groupContainer = document.getElementById('groupButtonsContainer');
@@ -890,8 +890,37 @@
         return sorted;
     }
 
-    // 加载数据：优先云端，失败则本地/默认
+    // 加载数据：管理员模式直接从 localStorage 读取，非管理员模式从云端拉取
     async function loadInitialData() {
+        const autoAdmin = sessionStorage.getItem('adminModeAuto') === 'true';
+        if (autoAdmin) {
+            // 管理员模式：只从 localStorage 读取，不请求云端
+            const stored = localStorage.getItem('editable_groups_data');
+            if (stored) {
+                try {
+                    const parsed = JSON.parse(stored);
+                    if (parsed && Array.isArray(parsed)) {
+                        groupsData = parsed;
+                        currentDataSource = 'local';
+                        hasLocalChanges = true;   // 视为有草稿
+                        console.log('📦 管理员模式：从 localStorage 加载草稿');
+                        updateDataSourceIndicator();
+                        renderAll();
+                        return;
+                    }
+                } catch(e) {}
+            }
+            // 没有本地数据则用默认
+            groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
+            currentDataSource = 'default';
+            hasLocalChanges = false;
+            console.log('📄 管理员模式：无缓存，使用默认数据');
+            updateDataSourceIndicator();
+            renderAll();
+            return;
+        }
+        
+        // 非管理员模式：正常从云端加载
         let cloudLoaded = false;
         try {
             const response = await fetch('data.json?v=' + Date.now());
@@ -903,7 +932,7 @@
                     hasLocalChanges = false;
                     localStorage.setItem('editable_groups_data', JSON.stringify(groupsData));
                     cloudLoaded = true;
-                    console.log('✅ 已从云端加载数据');
+                    console.log('✅ 非管理员模式：从云端加载数据');
                 }
             }
         } catch (err) {
@@ -918,14 +947,14 @@
                         groupsData = parsed;
                         currentDataSource = 'local';
                         hasLocalChanges = false;
-                        console.log('📦 从本地缓存加载');
+                        console.log('📦 非管理员模式：从本地缓存加载');
                     }
                 } catch(e) {}
             } else {
                 groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
                 currentDataSource = 'default';
                 hasLocalChanges = false;
-                console.log('📄 使用默认数据');
+                console.log('📄 非管理员模式：使用默认数据');
             }
         }
         updateDataSourceIndicator();
@@ -956,7 +985,7 @@
         a.download = 'card_data_backup.json';
         a.click();
         URL.revokeObjectURL(url);
-        alert('数据已导出到本地文件，请手动上传到 GitHub 仓库覆盖 data.json 以实现云端同步。');
+        alert('数据已导出到本地文件，请手动上传到 GitHub 仓库覆盖 data.json 以实现永久同步。');
     }
 
     // 卡片操作
@@ -1158,12 +1187,11 @@
         renderCards();
     }
 
-    // 管理员模式（刷新后自动恢复）
+    // 管理员模式
     function enableAdminMode() {
         isAdminMode = true;
         adminToolbar.style.display = 'flex';
         renderCards();
-        // 存储标记，刷新后自动恢复
         sessionStorage.setItem('adminModeAuto', 'true');
     }
     function disableAdminMode() {
@@ -1171,6 +1199,8 @@
         adminToolbar.style.display = 'none';
         renderCards();
         sessionStorage.removeItem('adminModeAuto');
+        // 退出管理员模式后，可选择刷新页面以重新从云端加载？不自动刷新，保持当前数据。但用户可手动刷新。
+        // 如果希望退出后立即同步云端，可以调用 location.reload()，但可能引起不便。根据需求，不自动刷新。
     }
     function checkAdminPassword() {
         const pwd = prompt('请输入管理员密码：');
@@ -1320,23 +1350,8 @@
     }
 
     async function init() {
-        // 如果存在管理员自动恢复标记，则在加载数据后自动进入管理员模式
-        const autoAdmin = sessionStorage.getItem('adminModeAuto') === 'true';
-        await loadInitialData();
-        if (autoAdmin) {
-            enableAdminMode();
-        } else {
-            // 确保非管理员模式下刷新时，重新从云端加载并清除本地草稿标记（保留数据但标记为无草稿）
-            // 但 loadInitialData 已经处理了云端优先，如果云端有数据且 hasLocalChanges 为 false，已经覆盖。
-            // 如果用户之前进入了管理员模式但未退出，刷新后因为 adminModeAuto 标记而恢复管理模式，并且数据不会丢失。
-            // 如果用户通过点击“退出编辑模式”退出了，那么 sessionStorage 会被清除，刷新后不会进入管理员模式，且数据将重新从云端加载（如果有）。
-            // 为了确保非管理员模式下刷新不会保留本地草稿，我们在非管理员模式下且没有 autoAdmin 标记时，强制清除 hasLocalChanges 并重新加载云端。
-            if (!autoAdmin) {
-                // 清除可能残存的本地草稿标记，但不删除数据（因为数据可能还在本地存储，但下次加载云端会覆盖）
-                // 由于 loadInitialData 已经优先云端，所以这里不需要额外操作。
-                // 但为了让指示器正确，我们调用一次 loadInitialData 已经足够。
-            }
-        }
+        // 如果 sessionStorage 有管理员标记，直接加载本地数据；否则从云端加载
+        await loadInitialData();   // 根据标记选择数据源
         initTheme();
         buildPalette();
         initControls();
