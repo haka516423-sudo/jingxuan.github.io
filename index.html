@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>镜玄·资源搜索 | 标签筛选 + 自动拆分</title>
+    <title>镜玄·资源搜索 | 标签拆分 + 渐变持久化</title>
     <style>
         * {
             margin: 0;
@@ -171,7 +171,11 @@
             color: #1f2937;
             white-space: nowrap;
         }
-        body[data-theme="black"] .tag-btn {
+        body[data-theme="black"] .tag-btn,
+        body[data-theme="ocean"] .tag-btn,
+        body[data-theme="midnight"] .tag-btn,
+        body[data-theme="forest"] .tag-btn,
+        body[data-theme="sakura"] .tag-btn {
             background: rgba(60, 68, 84, 0.6);
             color: #f5f0e0 !important;
         }
@@ -179,7 +183,11 @@
             background: rgba(255,255,240,0.6);
             transform: scale(0.96);
         }
-        body[data-theme="black"] .tag-btn:hover {
+        body[data-theme="black"] .tag-btn:hover,
+        body[data-theme="ocean"] .tag-btn:hover,
+        body[data-theme="midnight"] .tag-btn:hover,
+        body[data-theme="forest"] .tag-btn:hover,
+        body[data-theme="sakura"] .tag-btn:hover {
             background: rgba(100, 110, 130, 0.8);
         }
         .tag-btn.active {
@@ -821,7 +829,6 @@
         <div class="sidebar-header">📁 分组导航</div>
         <div class="group-buttons" id="groupButtonsContainer"></div>
         
-        <!-- 独立标签筛选区域 -->
         <div class="tag-section">
             <div class="tag-section-title">🏷️ 快捷标签</div>
             <div class="tag-list" id="tagListContainer"></div>
@@ -945,17 +952,20 @@
     const tagListContainer = document.getElementById('tagListContainer');
     const clearTagFilterBtn = document.getElementById('clearTagFilterBtn');
 
-    // 辅助函数：将卡片中的 tags 字段规范化（无论是数组还是逗号分隔字符串，都转为数组）
+    // 辅助函数：将标签统一转换为数组（支持中英文逗号分隔）
     function normalizeTags(tags) {
         if (!tags) return [];
         if (Array.isArray(tags)) return tags;
         if (typeof tags === 'string') {
-            return tags.split(',').map(s => s.trim()).filter(s => s);
+            // 支持中文逗号, 英文逗号, 以及混合分隔
+            let str = tags.replace(/，/g, ',');   // 中文逗号替换为英文逗号
+            let parts = str.split(',').map(s => s.trim()).filter(s => s);
+            return parts;
         }
         return [];
     }
 
-    // 提取所有卡片中出现的标签，并统计次数（支持拆分逗号分隔的字符串）
+    // 提取所有卡片中的标签并统计次数
     function extractAllTags() {
         const tagCount = new Map();
         for (const group of groupsData) {
@@ -996,6 +1006,7 @@
                     currentTagFilter = tag;
                     renderTagList();
                     renderCards();
+                    renderGroupButtons(); // 更新分组高亮
                 }
             });
         });
@@ -1005,7 +1016,7 @@
         currentTagFilter = null;
         renderTagList();
         renderCards();
-        renderGroupButtons(); // 更新分组高亮
+        renderGroupButtons();
     }
 
     function getDisplayItems() {
@@ -1444,7 +1455,25 @@
 
     clearTagFilterBtn.addEventListener('click', clearTagFilter);
 
-    // 壁纸压缩
+    // ========== 壁纸 / 主题持久化修复 ==========
+    // 渐变主题列表
+    const GRADIENT_THEMES = ["sunset","aurora","ocean","sakura","forest","midnight","peach","mint"];
+    
+    // 重写 setTheme，同时清除冲突的壁纸/纯色存储
+    function setTheme(themeName) {
+        document.body.setAttribute('data-theme', themeName);
+        const accentMap = { white:'#5b6e8c', black:'#c0b7a6', red:'#c2675e', orange:'#d98c2b', yellow:'#c9a12b', green:'#4f7a5e', cyan:'#3f7a85', blue:'#4a6fa5', purple:'#8b6cb0', sunset:'#d96c6e', aurora:'#3b82f6', ocean:'#7c83b9', sakura:'#c45692', forest:'#5c8a4a', midnight:'#9c88ff', peach:'#d97846', mint:'#4a9e7c' };
+        document.body.style.setProperty('--theme-accent', accentMap[themeName] || '#5b6e8c');
+        localStorage.setItem('glass_custom_theme', themeName);
+        // 如果是渐变主题，清除壁纸和纯色背景的记录，避免覆盖
+        if (GRADIENT_THEMES.includes(themeName)) {
+            localStorage.removeItem('custom_bg_image');
+            localStorage.removeItem('custom_bg_color');
+            document.body.classList.remove('custom-bg');
+        }
+    }
+
+    // 壁纸压缩相关函数保持不变
     function compressImage(file, maxWidth = 1920, quality = 0.8) {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -1481,6 +1510,8 @@
                 alert('图片过大（超过4.5MB），请选择更小的图片或降低分辨率。');
                 return false;
             }
+            // 应用壁纸时，清除渐变主题记录，并设置 custom_bg_image
+            setTheme('white'); // 临时设为白色主题，实际后面会覆盖背景
             localStorage.setItem('custom_bg_image', compressedDataUrl);
             document.body.style.backgroundImage = `url(${compressedDataUrl})`;
             document.body.style.backgroundSize = 'cover';
@@ -1488,6 +1519,7 @@
             document.body.style.backgroundAttachment = 'fixed';
             document.body.classList.add('custom-bg');
             localStorage.removeItem('custom_bg_color');
+            localStorage.removeItem('glass_custom_theme'); // 清除主题记录，避免冲突
             alert('壁纸设置成功（已自动压缩）');
             return true;
         } catch (err) {
@@ -1505,12 +1537,22 @@
             document.body.style.backgroundPosition = 'center';
             document.body.style.backgroundAttachment = 'fixed';
             document.body.classList.add('custom-bg');
+            return;
+        }
+        const savedColor = localStorage.getItem('custom_bg_color');
+        if (savedColor) {
+            document.body.style.background = savedColor;
+            setTheme(isDarkColor(savedColor) ? 'black' : 'white');
+            return;
+        }
+        // 没有壁纸和纯色，尝试加载渐变主题
+        const savedTheme = localStorage.getItem('glass_custom_theme');
+        if (savedTheme && GRADIENT_THEMES.includes(savedTheme)) {
+            setTheme(savedTheme);
+        } else if (savedTheme) {
+            setTheme(savedTheme);
         } else {
-            const savedColor = localStorage.getItem('custom_bg_color');
-            if (savedColor) {
-                document.body.style.background = savedColor;
-                setTheme(isDarkColor(savedColor) ? 'black' : 'white');
-            }
+            setTheme('white');
         }
     }
 
@@ -1530,16 +1572,11 @@
     ];
     const gradientThemeNames = ["sunset","aurora","ocean","sakura","forest","midnight","peach","mint"];
 
-    function setTheme(themeName) {
-        document.body.setAttribute('data-theme', themeName);
-        const accentMap = { white:'#5b6e8c', black:'#c0b7a6', red:'#c2675e', orange:'#d98c2b', yellow:'#c9a12b', green:'#4f7a5e', cyan:'#3f7a85', blue:'#4a6fa5', purple:'#8b6cb0', sunset:'#d96c6e', aurora:'#3b82f6', ocean:'#7c83b9', sakura:'#c45692', forest:'#5c8a4a', midnight:'#9c88ff', peach:'#d97846', mint:'#4a9e7c' };
-        document.body.style.setProperty('--theme-accent', accentMap[themeName] || '#5b6e8c');
-        localStorage.setItem('glass_custom_theme', themeName);
-    }
     function isDarkColor(hex) {
         let r = parseInt(hex.slice(1,3), 16), g = parseInt(hex.slice(3,5), 16), b = parseInt(hex.slice(5,7), 16);
         return (r * 0.299 + g * 0.587 + b * 0.114) < 128;
     }
+
     function buildPalette() {
         const solidGrid = document.getElementById('solidColorGrid');
         solidGrid.innerHTML = '';
@@ -1548,6 +1585,7 @@
             swatch.className = 'color-swatch';
             swatch.style.backgroundColor = preset.color;
             swatch.addEventListener('click', () => {
+                // 纯色预设：清除壁纸和渐变主题记录
                 localStorage.removeItem('custom_bg_image');
                 document.body.classList.remove('custom-bg');
                 document.body.style.background = preset.color;
@@ -1563,14 +1601,18 @@
             swatch.className = 'color-swatch gradient-swatch';
             swatch.style.background = grad;
             swatch.addEventListener('click', () => {
+                const themeName = gradientThemeNames[idx];
+                // 渐变预设：清除壁纸和纯色背景，直接设置主题
                 localStorage.removeItem('custom_bg_image');
+                localStorage.removeItem('custom_bg_color');
                 document.body.classList.remove('custom-bg');
-                setTheme(gradientThemeNames[idx]);
+                setTheme(themeName);
                 document.body.style.background = '';
             });
             gradGrid.appendChild(swatch);
         });
     }
+
     function updateOpacity(value) {
         document.body.style.setProperty('--glass-opacity', value);
         document.getElementById('opacityValue').innerText = value;
@@ -1612,21 +1654,17 @@
                 document.body.style.background = savedColor;
                 setTheme(isDarkColor(savedColor) ? 'black' : 'white');
             } else {
-                setTheme('white');
-                document.body.style.background = '#eef2f8';
+                const savedTheme = localStorage.getItem('glass_custom_theme');
+                if (savedTheme) setTheme(savedTheme);
+                else setTheme('white');
             }
         });
-    }
-    function initTheme() {
-        const saved = localStorage.getItem('glass_custom_theme');
-        const valid = ['white','black','red','orange','yellow','green','cyan','blue','purple','sunset','aurora','ocean','sakura','forest','midnight','peach','mint'];
-        if(saved && valid.includes(saved)) setTheme(saved);
-        else setTheme('white');
     }
 
     async function init() {
         await loadInitialData();
-        initTheme();
+        // 初始化主题和背景（使用修复后的 initBackground）
+        initBackground();
         buildPalette();
         initControls();
         renderGroupButtons();
