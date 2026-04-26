@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>镜玄·资源搜索 | 标签置顶 + 网格排列</title>
+    <title>镜玄·资源搜索 | 可新增分组 + 标签网格排列</title>
     <style>
         * {
             margin: 0;
@@ -83,15 +83,33 @@
             border-bottom: 1px solid rgba(0,0,0,0.08);
             margin-bottom: 20px;
             display: flex;
+            justify-content: space-between;
             align-items: center;
             gap: 8px;
             color: #1f2d3d;
         }
-        body[data-theme="black"] .sidebar-header,
-        body[data-theme="ocean"] .sidebar-header,
-        body[data-theme="midnight"] .sidebar-header {
+        body[data-theme="black"] .sidebar-header {
             color: #f5f0e0;
             border-bottom-color: rgba(255,255,255,0.2);
+        }
+        .add-group-btn {
+            background: rgba(255,255,240,0.2);
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 28px;
+            font-size: 1.2rem;
+            font-weight: normal;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.1s;
+            color: inherit;
+        }
+        .add-group-btn:hover {
+            background: rgba(255,255,240,0.5);
+            transform: scale(0.96);
         }
         .group-buttons {
             display: flex;
@@ -99,7 +117,7 @@
             gap: 12px;
         }
         .group-btn {
-            background: rgba(255, 255, 235, 0.7);
+            background: rgba(255, 255, 235, 0.4);
             backdrop-filter: blur(6px);
             border: none;
             padding: 10px 18px;
@@ -116,7 +134,7 @@
             background: rgba(0, 0, 0, 0.15);
         }
         .group-btn:hover {
-            background: rgba(255,255,250,0.9);
+            background: rgba(255,255,250,0.7);
         }
         .group-btn.active {
             background: var(--theme-accent);
@@ -126,7 +144,7 @@
         body[data-theme="black"] .group-btn,
         body[data-theme="ocean"] .group-btn,
         body[data-theme="midnight"] .group-btn {
-            background: rgba(60, 68, 84, 0.8);
+            background: rgba(60, 68, 84, 0.5);
             color: #f5f0e0;
         }
         body[data-theme="black"] .group-btn.active {
@@ -153,33 +171,32 @@
         body[data-theme="black"] .tag-section-title {
             color: #f5f0e0;
         }
-        /* 修改：使用网格布局让标签整齐排列 */
         .tag-list {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
+            gap: 10px;
             margin-bottom: 12px;
         }
         .tag-btn {
-            background: rgba(255,255,240,0.3);
+            background: rgba(255,255,240,0.25);
             border: none;
-            padding: 6px 4px;
-            font-size: 0.7rem;
+            padding: 8px 4px;
+            font-size: 0.75rem;
             font-weight: 500;
             cursor: pointer;
             transition: 0.1s;
             color: #1f2937;
-            white-space: normal;
             text-align: center;
             line-height: 1.3;
             word-break: keep-all;
+            white-space: normal;
         }
         body[data-theme="black"] .tag-btn,
         body[data-theme="ocean"] .tag-btn,
         body[data-theme="midnight"] .tag-btn,
         body[data-theme="forest"] .tag-btn,
         body[data-theme="sakura"] .tag-btn {
-            background: rgba(60, 68, 84, 0.6);
+            background: rgba(60, 68, 84, 0.5);
             color: #f5f0e0 !important;
         }
         .tag-btn:hover {
@@ -200,7 +217,7 @@
         .clear-tag-btn {
             background: rgba(255,80,80,0.3);
             border: none;
-            padding: 6px 12px;
+            padding: 8px 12px;
             font-size: 0.7rem;
             border-radius: 40px;
             cursor: pointer;
@@ -370,7 +387,6 @@
             flex-direction: column;
             gap: 18px;
             box-shadow: 0 20px 35px rgba(0,0,0,0.4);
-            border-radius: 20px;
             color: #eef2ff;
         }
         .palette-panel.show {
@@ -844,7 +860,10 @@
 <body data-theme="white">
 <div class="app">
     <aside class="sidebar">
-        <div class="sidebar-header">📁 分组导航</div>
+        <div class="sidebar-header">
+            📁 分组导航
+            <button id="addGroupBtn" class="add-group-btn" style="display: none;">➕</button>
+        </div>
         <div class="group-buttons" id="groupButtonsContainer"></div>
         <div class="tag-section">
             <div class="tag-section-title">🏷️ 快捷标签</div>
@@ -956,6 +975,7 @@
     const resetDataBtn = document.getElementById('resetDataBtn');
     const exportDataBtn = document.getElementById('exportDataBtn');
     const exitAdminBtn = document.getElementById('exitAdminBtn');
+    const addGroupBtn = document.getElementById('addGroupBtn');
     const modal = document.getElementById('cardModal');
     const modalTitle = document.getElementById('modalTitle');
     const cardTitleInput = document.getElementById('cardTitle');
@@ -974,7 +994,7 @@
     const clearTagFilterBtn = document.getElementById('clearTagFilterBtn');
     const dynamicTagList = document.getElementById('dynamicTagList');
 
-    // 归一化标签（支持中英文逗号）
+    // 归一化标签
     function normalizeTags(tags) {
         if (!tags) return [];
         if (Array.isArray(tags)) return tags;
@@ -999,7 +1019,6 @@
         return Array.from(tagCount.entries()).sort((a, b) => b[1] - a[1]);
     }
 
-    // 渲染左侧标签（Fabric/Forge/NeoForge 置顶）
     function renderTagList() {
         const tags = extractAllTags();
         if (tags.length === 0) {
@@ -1044,7 +1063,6 @@
         renderGroupButtons();
     }
 
-    // 动态渲染编辑框中的常用标签（排除 Fabric/Forge/NeoForge）
     function renderDynamicTags() {
         if (!dynamicTagList) return;
         const allTags = extractAllTags().map(([tag]) => tag);
@@ -1220,6 +1238,28 @@
         a.click();
         URL.revokeObjectURL(url);
         alert('数据已导出到本地文件，请手动上传到 GitHub 仓库覆盖 data.json 以实现云端同步。');
+    }
+
+    // 新增分组
+    function addNewGroup() {
+        let newName = prompt('请输入新分组名称：', '新分组');
+        if (!newName) return;
+        newName = newName.trim();
+        if (newName === "") {
+            alert('分组名称不能为空');
+            return;
+        }
+        if (groupsData.some(g => g.groupName === newName)) {
+            alert('分组名称已存在，请使用其他名称');
+            return;
+        }
+        groupsData.push({ groupName: newName, items: [] });
+        saveDataToStorage();
+        // 切换到新分组
+        currentGroupIndex = groupsData.length - 1;
+        currentTagFilter = null;
+        renderAll();
+        alert(`分组“${newName}”已添加，可以开始添加卡片。`);
     }
 
     function openEditModal(groupIdx, cardIdx, card) {
@@ -1429,12 +1469,14 @@
     function enableAdminMode() {
         isAdminMode = true;
         adminToolbar.style.display = 'flex';
+        addGroupBtn.style.display = 'inline-flex';
         renderCards();
         sessionStorage.setItem('adminModeAuto', 'true');
     }
     function disableAdminMode() {
         isAdminMode = false;
         adminToolbar.style.display = 'none';
+        addGroupBtn.style.display = 'none';
         renderCards();
         sessionStorage.removeItem('adminModeAuto');
         if (confirm('退出编辑模式，是否重新从云端加载最新数据？\n（若选择“否”，将保留当前本地数据但不再显示编辑按钮）')) location.reload();
@@ -1470,6 +1512,7 @@
     }
 
     clearTagFilterBtn.addEventListener('click', clearTagFilter);
+    addGroupBtn.addEventListener('click', addNewGroup);
 
     // 壁纸/主题持久化逻辑
     const GRADIENT_THEMES = ["sunset","aurora","ocean","sakura","forest","midnight","peach","mint"];
