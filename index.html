@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>镜玄·资源搜索 | 云端优先 + 视图切换</title>
+    <title>镜玄·资源搜索 | 本地草稿 + 云端同步</title>
     <style>
         * {
             margin: 0;
@@ -58,7 +58,6 @@
             gap: 28px;
             align-items: flex-start;
         }
-        /* 左侧导航 */
         .sidebar {
             flex: 0 0 280px;
             background: rgba(255, 255, 255, var(--glass-opacity));
@@ -191,7 +190,7 @@
         .admin-btn:active, .palette-btn:active {
             transform: scale(0.96);
         }
-        /* 数据源指示器样式 */
+        /* 数据源指示器 */
         .data-source-indicator {
             display: inline-flex;
             align-items: center;
@@ -215,7 +214,7 @@
         body[data-theme="black"] .data-source-indicator {
             background: rgba(0,0,0,0.7);
         }
-        /* 搜索栏 + 视图切换 */
+        /* 搜索栏 + 视图切换（统一玻璃风格） */
         .search-bar {
             display: flex;
             gap: 12px;
@@ -245,7 +244,7 @@
         .view-toggle-btn {
             background: rgba(255,255,240,0.7);
             border: none;
-            padding: 8px 16px;
+            padding: 8px 20px;
             font-size: 0.9rem;
             font-weight: 500;
             cursor: pointer;
@@ -262,14 +261,97 @@
         .view-toggle-btn:active {
             transform: scale(0.96);
         }
-        /* 卡片网格 */
+        /* 调色板面板修复溢出 */
+        .palette-panel {
+            position: absolute;
+            top: 60px;
+            right: 0;
+            width: 320px;
+            max-width: calc(100vw - 40px);
+            max-height: 80vh;
+            overflow-y: auto;
+            background: rgba(20, 22, 27, 0.94);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255,255,255,0.4);
+            padding: 18px;
+            z-index: 300;
+            display: none;
+            flex-direction: column;
+            gap: 18px;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.4);
+            border-radius: 20px;
+            color: #eef2ff;
+        }
+        .palette-panel.show {
+            display: flex;
+        }
+        .section-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #eef2ff;
+            margin-bottom: 10px;
+        }
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 8px;
+        }
+        .color-swatch {
+            height: 42px;
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.5);
+            transition: 0.1s;
+            border-radius: 12px;
+        }
+        .color-swatch:hover {
+            transform: scale(1.05);
+            border-color: white;
+        }
+        .slider-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .slider-container label {
+            font-size: 0.75rem;
+            color: #ddd;
+            display: flex;
+            justify-content: space-between;
+        }
+        input[type="range"] {
+            width: 100%;
+            cursor: pointer;
+        }
+        .file-upload-area {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+        .upload-btn {
+            background: rgba(255,255,240,0.2);
+            border: 1px solid rgba(255,255,255,0.4);
+            padding: 6px 12px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            color: #eee;
+        }
+        .reset-bg {
+            background: rgba(255,80,80,0.3);
+        }
+        .hint-text {
+            font-size: 0.7rem;
+            color: #aaa;
+            text-align: right;
+        }
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
             gap: 28px;
             margin-top: 8px;
         }
-        /* 列表视图 */
         .cards-grid.list-view {
             display: flex;
             flex-direction: column;
@@ -288,7 +370,6 @@
         }
         .cards-grid.list-view .card .badge-group {
             margin-bottom: 0;
-            flex-wrap: wrap;
         }
         .cards-grid.list-view .card .version-info {
             margin-bottom: 0;
@@ -303,7 +384,6 @@
             padding-top: 0;
             min-width: 120px;
         }
-        /* 卡片样式 */
         .card {
             background: rgba(255, 255, 255, calc(var(--glass-opacity) - 0.05));
             backdrop-filter: blur(16px);
@@ -561,7 +641,7 @@
         <div class="header-area">
             <div class="title-section">
                 <h1 id="dynamicTitle">🎮 Minecraft 模组</h1>
-                <p>自定义壁纸 | 通透模糊 | 云端优先</p>
+                <p>自定义壁纸 | 通透模糊 | 本地草稿+云端同步</p>
             </div>
             <div class="action-buttons">
                 <div id="dataSourceIndicator" class="data-source-indicator" style="display: none;">
@@ -585,10 +665,10 @@
             <button id="addCardBtn">➕ 新增卡片到当前分组</button>
             <button id="resetDataBtn">🔄 重置为默认数据</button>
             <button id="exportDataBtn">📤 导出数据(JSON)</button>
+            <button id="syncToCloudBtn" style="background: #10b981;">☁️ 同步到云端</button>
             <button id="exitAdminBtn">🔒 退出编辑模式</button>
         </div>
 
-        <!-- 搜索栏 + 视图切换按钮 -->
         <div class="search-bar">
             <input type="text" class="search-box" id="searchInput" placeholder="🔍 实时过滤 · 标题 / 描述 / 作者 / 标签 / 版本">
             <button class="view-toggle-btn" id="viewToggleBtn">📋 列表视图</button>
@@ -624,14 +704,14 @@
         { groupName: "📺 视频&学习", items: [ { title: "哔哩哔哩", url: "https://www.bilibili.com", description: "中文弹幕视频网站，大量编程教程和模组展示。", author: "Bilibili", tags: ["视频", "学习"], stats: { downloads: "—", updated: "每日更新" } }, { title: "YouTube", url: "https://www.youtube.com", description: "全球最大视频平台，无数技术讲座和模组介绍。", author: "Google", tags: ["视频", "教程"], stats: { downloads: "—", updated: "实时" } } ] }
     ];
 
-    // 全局变量
     let groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
     let currentGroupIndex = 0;
     let currentKeyword = '';
     let isAdminMode = false;
     let editingCardInfo = null;
     let currentDataSource = 'default';   // 'cloud', 'local', 'default'
-    let isListView = false;               // 视图模式：false=卡片网格，true=列表
+    let isListView = false;
+    let hasLocalChanges = false;          // 标记是否有未同步的本地修改
 
     // DOM 元素
     const groupContainer = document.getElementById('groupButtonsContainer');
@@ -646,6 +726,7 @@
     const resetDataBtn = document.getElementById('resetDataBtn');
     const exportDataBtn = document.getElementById('exportDataBtn');
     const exitAdminBtn = document.getElementById('exitAdminBtn');
+    const syncToCloudBtn = document.getElementById('syncToCloudBtn');
     const modal = document.getElementById('cardModal');
     const modalTitle = document.getElementById('modalTitle');
     const cardTitleInput = document.getElementById('cardTitle');
@@ -660,81 +741,155 @@
     const modalSave = document.getElementById('modalSave');
     const viewToggleBtn = document.getElementById('viewToggleBtn');
 
-    // 更新数据源指示器（右上角圆点）
+    // 更新数据源指示器（右上角）
     function updateDataSourceIndicator() {
         const container = document.getElementById('dataSourceIndicator');
         const dot = container?.querySelector('.indicator-dot');
         const textSpan = document.getElementById('sourceText');
         if (!container) return;
         container.style.display = 'flex';
-        if (currentDataSource === 'cloud') {
+        if (hasLocalChanges) {
+            dot.className = 'indicator-dot local';
+            textSpan.innerText = '本地草稿 (需同步)';
+        } else if (currentDataSource === 'cloud') {
             dot.className = 'indicator-dot cloud';
-            textSpan.innerText = '云端数据';
+            textSpan.innerText = '云端同步';
         } else if (currentDataSource === 'local') {
             dot.className = 'indicator-dot local';
-            textSpan.innerText = '本地缓存 (需导出同步)';
+            textSpan.innerText = '本地缓存';
         } else {
             dot.className = 'indicator-dot default';
             textSpan.innerText = '默认数据';
         }
     }
 
-    // ========== 数据持久化（云端优先） ==========
-    async function loadDataFromGitHub() {
+    // 保存到 localStorage（标记为有本地修改）
+    function saveDataToStorage() {
+        localStorage.setItem('editable_groups_data', JSON.stringify(groupsData));
+        hasLocalChanges = true;
+        // 如果当前数据源不是云端（或者已经有本地修改），状态变为 local
+        if (currentDataSource !== 'cloud') {
+            currentDataSource = 'local';
+        }
+        updateDataSourceIndicator();
+    }
+
+    // 重置本地修改标记（当用户手动同步或重置时调用）
+    function clearLocalChangesFlag() {
+        hasLocalChanges = false;
+        updateDataSourceIndicator();
+    }
+
+    // 初始化加载数据：优先读 localStorage 中的草稿，同时尝试后台拉取云端数据（但不覆盖草稿）
+    async function loadInitialData() {
+        const stored = localStorage.getItem('editable_groups_data');
+        let hasStored = false;
+        if (stored) {
+            try {
+                const parsed = JSON.parse(stored);
+                if (parsed && Array.isArray(parsed)) {
+                    groupsData = parsed;
+                    currentDataSource = 'local';
+                    hasLocalChanges = true;   // 已有本地数据视为有未同步修改
+                    hasStored = true;
+                    console.log('📦 从 localStorage 加载草稿');
+                }
+            } catch(e) {}
+        }
+        if (!hasStored) {
+            groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
+            currentDataSource = 'default';
+            hasLocalChanges = false;
+            console.log('📄 使用默认数据');
+        }
+        updateDataSourceIndicator();
+
+        // 后台尝试从云端获取，但仅用于对比，不自动覆盖（除非用户主动点击同步按钮）
         try {
             const response = await fetch('data.json?v=' + Date.now());
             if (response.ok) {
                 const remoteData = await response.json();
                 if (remoteData && Array.isArray(remoteData)) {
-                    groupsData = remoteData;
-                    localStorage.setItem('editable_groups_data', JSON.stringify(groupsData));
-                    currentDataSource = 'cloud';
-                    console.log('✅ 已从 data.json 加载最新数据');
-                    return true;
+                    // 将云端数据暂存，但不覆盖当前 groupsData
+                    window._cloudData = remoteData;
+                    // 如果当前没有本地修改，可以提示用户有云端更新
+                    if (!hasLocalChanges) {
+                        if (confirm('检测到云端有最新数据，是否加载？\n（加载会覆盖当前本地内容）')) {
+                            groupsData = remoteData;
+                            currentDataSource = 'cloud';
+                            hasLocalChanges = false;
+                            saveDataToStorage();
+                            updateDataSourceIndicator();
+                            renderAll();
+                        }
+                    } else {
+                        console.log('☁️ 云端数据可用，当前有本地草稿，不会自动覆盖。');
+                    }
                 }
             }
-            throw new Error('data.json 无效');
         } catch (err) {
-            console.warn('⚠️ 从 data.json 加载失败，尝试使用本地缓存', err);
-            const stored = localStorage.getItem('editable_groups_data');
-            if (stored) {
-                try {
-                    groupsData = JSON.parse(stored);
-                    currentDataSource = 'local';
-                    console.log('📦 使用 localStorage 缓存数据');
-                    return true;
-                } catch(e) {}
+            console.warn('云端加载失败，使用本地数据');
+        }
+        renderAll();
+    }
+
+    // 手动同步当前本地数据到云端（覆盖 data.json）
+    async function syncToCloud() {
+        if (!confirm('确定要将当前本地数据同步到云端吗？这将覆盖 GitHub 仓库中的 data.json。')) return;
+        try {
+            // 获取当前文件的 SHA
+            const shaResp = await fetch(`https://api.github.com/repos/haka516423-sudo/jingxuan.github.io/contents/data.json`, {
+                headers: { 'Accept': 'application/vnd.github.v3+json' }
+            });
+            let sha = null;
+            if (shaResp.ok) {
+                const fileInfo = await shaResp.json();
+                sha = fileInfo.sha;
             }
-            groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
-            currentDataSource = 'default';
-            console.log('📄 使用默认数据');
-            return false;
-        } finally {
-            updateDataSourceIndicator();
-            // 刷新视图
-            renderAll();
+            const content = btoa(unescape(encodeURIComponent(JSON.stringify(groupsData, null, 2))));
+            const payload = {
+                message: `手动同步卡片数据 - ${new Date().toLocaleString()}`,
+                content: content,
+                sha: sha
+            };
+            const token = prompt('请输入 GitHub Personal Access Token (用于更新 data.json)：');
+            if (!token) return;
+            const updateResp = await fetch(`https://api.github.com/repos/haka516423-sudo/jingxuan.github.io/contents/data.json`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+            if (updateResp.ok) {
+                alert('✅ 同步成功！云端 data.json 已更新。');
+                currentDataSource = 'cloud';
+                hasLocalChanges = false;
+                updateDataSourceIndicator();
+            } else {
+                const err = await updateResp.json();
+                alert(`同步失败: ${err.message}`);
+            }
+        } catch (err) {
+            alert(`同步出错: ${err.message}`);
         }
     }
 
-    function saveDataToStorage() {
-        localStorage.setItem('editable_groups_data', JSON.stringify(groupsData));
-        if (currentDataSource !== 'cloud') {
-            currentDataSource = 'local';
-            updateDataSourceIndicator();
-        }
-    }
-
+    // 重置为默认数据（会清除本地草稿）
     function resetToDefault() {
         if (confirm('重置所有数据将丢失当前本地修改，确定吗？')) {
             groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
             saveDataToStorage();
             currentDataSource = 'default';
+            hasLocalChanges = false;
             updateDataSourceIndicator();
             currentGroupIndex = 0;
             currentKeyword = '';
             searchInput.value = '';
             renderAll();
-            alert('已重置为默认数据，如需永久保存请手动导出并替换 data.json');
+            alert('已重置为默认数据，如需永久保存请手动同步到云端。');
         }
     }
 
@@ -749,7 +904,7 @@
         URL.revokeObjectURL(url);
     }
 
-    // ========== 卡片增删改 ==========
+    // ========== 卡片增删改（都会调用 saveDataToStorage） ==========
     function openEditModal(groupIdx, cardIdx, card) {
         editingCardInfo = { groupIdx, cardIdx, card: { ...card } };
         modalTitle.innerText = cardIdx === undefined ? '新增卡片' : '编辑卡片';
@@ -815,12 +970,11 @@
         const versionHtml = item.version ? `<div class="version-info">📌 版本 ${escapeHtml(item.version)}</div>` : '';
         const downloads = item.stats?.downloads || '';
         const updated = item.stats?.updated || '';
-        // 数据来源角标（小卡片版本信息增加）
         let sourceBadge = '';
-        if (currentDataSource === 'cloud') {
+        if (hasLocalChanges || currentDataSource === 'local') {
+            sourceBadge = `<span class="data-source-badge">💾 本地草稿</span>`;
+        } else if (currentDataSource === 'cloud') {
             sourceBadge = `<span class="data-source-badge">☁️ 云端</span>`;
-        } else if (currentDataSource === 'local') {
-            sourceBadge = `<span class="data-source-badge">💾 本地</span>`;
         } else {
             sourceBadge = `<span class="data-source-badge">📄 默认</span>`;
         }
@@ -838,7 +992,7 @@
                     <a href="${escapeHtml(item.url)}" target="_blank">${escapeHtml(item.title)}</a>
                 </div>
                 <div class="badge-group">${tagsHtml}</div>
-                <div style="display: flex; align-items: center; justify-content: space-between;">
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
                     ${versionHtml}
                     ${sourceBadge}
                 </div>
@@ -902,7 +1056,6 @@
                 });
             });
         }
-        // 应用视图模式
         if (isListView) {
             cardsContainer.classList.add('list-view');
         } else {
@@ -966,7 +1119,7 @@
         openEditModal(currentGroupIndex, undefined, { title: '', url: '', description: '', author: '', tags: [], version: '', stats: { downloads: '—', updated: '' } });
     }
 
-    // ========== 主题与壁纸控制（与之前相同） ==========
+    // ========== 主题与壁纸控制 ==========
     const solidPresets = [
         { color: "#eef2f8", theme: "white" }, { color: "#12151c", theme: "black" },
         { color: "#fce9e6", theme: "white" }, { color: "#fef0e0", theme: "white" },
@@ -1103,7 +1256,7 @@
 
     // ========== 初始化 ==========
     async function init() {
-        await loadDataFromGitHub();   // 先加载云端数据（云端优先，不会重复显示本地）
+        await loadInitialData();      // 优先加载本地草稿，同时后台探测云端
         initTheme();
         buildPalette();
         initControls();
@@ -1114,9 +1267,10 @@
 
         adminBtn.addEventListener('click', checkAdminPassword);
         addCardBtn.addEventListener('click', addNewCard);
-        resetDataBtn.addEventListener('click', () => { if(confirm('重置所有数据将丢失当前本地修改，确定吗？')) resetToDefault(); });
+        resetDataBtn.addEventListener('click', resetToDefault);
         exportDataBtn.addEventListener('click', exportData);
         exitAdminBtn.addEventListener('click', disableAdminMode);
+        syncToCloudBtn.addEventListener('click', syncToCloud);
         modalCancel.addEventListener('click', closeModal);
         modalSave.addEventListener('click', saveCardFromModal);
         modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
