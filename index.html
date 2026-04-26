@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>镜玄·资源搜索 | 标签置顶 + 动态常用标签</title>
+    <title>镜玄·资源搜索 | 标签置顶 + 网格排列</title>
     <style>
         * {
             margin: 0;
@@ -153,22 +153,26 @@
         body[data-theme="black"] .tag-section-title {
             color: #f5f0e0;
         }
+        /* 修改：使用网格布局让标签整齐排列 */
         .tag-list {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             gap: 8px;
             margin-bottom: 12px;
         }
         .tag-btn {
             background: rgba(255,255,240,0.3);
             border: none;
-            padding: 6px 12px;
+            padding: 6px 4px;
             font-size: 0.7rem;
             font-weight: 500;
             cursor: pointer;
             transition: 0.1s;
             color: #1f2937;
-            white-space: nowrap;
+            white-space: normal;
+            text-align: center;
+            line-height: 1.3;
+            word-break: keep-all;
         }
         body[data-theme="black"] .tag-btn,
         body[data-theme="ocean"] .tag-btn,
@@ -201,6 +205,8 @@
             border-radius: 40px;
             cursor: pointer;
             color: #eee;
+            width: 100%;
+            margin-top: 4px;
         }
         .main {
             flex: 1;
@@ -638,6 +644,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
+            margin-bottom: 0;
         }
         .card-title {
             font-size: 1.2rem;
@@ -818,7 +825,7 @@
             .sidebar { position: static; width: 100%; }
             .group-buttons { flex-direction: row; flex-wrap: wrap; }
             .group-btn { flex: 1; text-align: center; }
-            .tag-list { justify-content: center; }
+            .tag-list { grid-template-columns: repeat(2, 1fr); }
             .palette-panel { width: 280px; right: 0; left: auto; top: 65px; }
             .card-actions { opacity: 1; top: 8px; right: 8px; }
             .cards-grid.list-view .card {
@@ -1052,7 +1059,6 @@
             html += `<button type="button" class="quick-tag-btn dynamic-tag" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`;
         });
         dynamicTagList.innerHTML = html;
-        // 绑定事件
         document.querySelectorAll('.dynamic-tag').forEach(btn => {
             btn.removeEventListener('click', dynamicTagHandler);
             btn.addEventListener('click', dynamicTagHandler);
@@ -1061,10 +1067,10 @@
     function dynamicTagHandler(e) {
         const tag = e.currentTarget.getAttribute('data-tag');
         if (tag) {
-            let current = cardTagsInput.value.trim();
-            if (current === "") cardTagsInput.value = tag;
+            let cur = cardTagsInput.value.trim();
+            if (cur === "") cardTagsInput.value = tag;
             else {
-                let arr = current.split(',').map(s => s.trim());
+                let arr = cur.split(',').map(s => s.trim());
                 if (!arr.includes(tag)) {
                     arr.push(tag);
                     cardTagsInput.value = arr.join(', ');
