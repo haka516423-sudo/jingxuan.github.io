@@ -1,94 +1,205 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    <meta charset="utf-8">
-    <title>我的文档站 - 站内搜索</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的网址导航 · 在线搜索</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
         body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+            background: #f5f7fb;
         }
-        input {
+        h1 {
+            text-align: center;
+            color: #1f2d3d;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .sub {
+            text-align: center;
+            color: #5c6b7e;
+            margin-bottom: 2rem;
+        }
+        .search-box {
             width: 100%;
-            padding: 12px;
-            font-size: 16px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            padding: 14px 20px;
+            font-size: 1rem;
+            border: 1px solid #d0d7de;
+            border-radius: 40px;
+            background: white;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+            transition: all 0.2s;
         }
-        .result {
-            border-bottom: 1px solid #eee;
-            padding: 10px 0;
+        .search-box:focus {
+            outline: none;
+            border-color: #0969da;
+            box-shadow: 0 0 0 3px rgba(9,105,218,0.2);
         }
-        .result a {
-            font-size: 18px;
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .link-card {
+            background: white;
+            border-radius: 16px;
+            padding: 16px 20px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            border: 1px solid #e5e9f0;
+            transition: transform 0.1s, box-shadow 0.2s;
+        }
+        .link-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border-color: #d0d7de;
+        }
+        .link-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .link-title a {
             text-decoration: none;
-            color: #0366d6;
+            color: #0969da;
         }
-        .result a:hover {
+        .link-title a:hover {
             text-decoration: underline;
         }
-        .result p {
-            margin: 5px 0 0;
-            color: #586069;
+        .link-url {
+            font-size: 0.85rem;
+            color: #57606a;
+            word-break: break-all;
+            font-family: monospace;
         }
-        .no-result {
-            color: #999;
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 24px;
+            color: #8b949e;
+            border: 1px solid #e5e9f0;
+        }
+        .badge-count {
+            background: #e9ecef;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            color: #1f2d3d;
+            margin-left: 12px;
+        }
+        @media (max-width: 640px) {
+            body { margin: 20px auto; }
+            .link-card { padding: 12px 16px; }
         }
     </style>
 </head>
 <body>
-    <h1>📁 站内搜索</h1>
-    <input type="text" id="searchInput" placeholder="输入关键词，搜索我仓库里的文件..." onkeyup="search()">
 
-    <div id="results"></div>
+<h1>🔖 我的网址库</h1>
+<div class="sub">
+    可搜索名称或网址 · 实时过滤
+    <span class="badge-count" id="countBadge">0</span>
+</div>
 
-    <script>
-        // 这里是你仓库里所有可搜索的“文件链接列表”
-        // 格式：{ title: "显示标题", url: "实际路径", description: "简短描述（可选）" }
-        const files = [
-            { title: "首页", url: "index.html", description: "当前网站首页" },
-            { title: "关于我", url: "about.html", description: "个人介绍（如果你有）" },
-            { title: "项目清单", url: "projects.html", description: "我的GitHub项目列表" },
-            { title: "学习笔记 - HTML基础", url: "notes/html-basics.html", description: "HTML入门知识点" },
-            { title: "学习笔记 - CSS布局", url: "notes/css-layout.html", description: "Flexbox和Grid" },
-            // 你可以继续添加更多文件，一行一个
-        ];
+<input type="text" class="search-box" id="searchInput" placeholder="🔍 输入关键词，例如：博客、GitHub、笔记..." autocomplete="off">
 
-        function search() {
-            const keyword = document.getElementById('searchInput').value.trim().toLowerCase();
-            const resultsDiv = document.getElementById('results');
-            
-            if (keyword === "") {
-                resultsDiv.innerHTML = '<div class="no-result">✨ 输入关键词开始搜索</div>';
-                return;
-            }
+<div id="linksContainer" class="links-container">
+    <!-- 动态渲染的链接列表会出现在这里 -->
+</div>
 
-            // 过滤匹配的文件（标题或描述包含关键词）
-            const matched = files.filter(file => 
-                file.title.toLowerCase().includes(keyword) || 
-                (file.description && file.description.toLowerCase().includes(keyword))
+<script>
+    // ========================
+    // 🔽 在这里修改你的链接列表
+    // 格式：{ name: "显示名称", url: "https://..." }
+    // ========================
+    const links = [
+        { name: "GitHub 官网", url: "https://github.com" },
+        { name: "Google 搜索", url: "https://www.google.com" },
+        { name: "百度一下", url: "https://www.baidu.com" },
+        { name: "知乎 - 有问题就会有答案", url: "https://www.zhihu.com" },
+        { name: "哔哩哔哩", url: "https://www.bilibili.com" },
+        { name: "YouTube", url: "https://www.youtube.com" },
+        { name: "MDN Web Docs", url: "https://developer.mozilla.org/zh-CN/" },
+        { name: "菜鸟教程", url: "https://www.runoob.com" },
+        { name: "我的第一个网页", url: "index.html" }  // 你自己网站内的链接也行
+    ];
+    // ========================
+
+    // 获取 DOM 元素
+    const searchInput = document.getElementById('searchInput');
+    const linksContainer = document.getElementById('linksContainer');
+    const countBadge = document.getElementById('countBadge');
+
+    // 渲染链接列表 (根据搜索关键词过滤)
+    function renderLinks(keyword = "") {
+        const lowerKeyword = keyword.trim().toLowerCase();
+        
+        // 过滤：匹配 name 或者 url
+        let filtered = links;
+        if (lowerKeyword !== "") {
+            filtered = links.filter(item => 
+                item.name.toLowerCase().includes(lowerKeyword) || 
+                item.url.toLowerCase().includes(lowerKeyword)
             );
-
-            if (matched.length === 0) {
-                resultsDiv.innerHTML = '<div class="no-result">😢 没有找到相关文件，试试其他关键词</div>';
-                return;
-            }
-
-            // 显示搜索结果
-            let html = '';
-            matched.forEach(file => {
-                html += `
-                    <div class="result">
-                        <a href="${file.url}" target="_blank">📄 ${file.title}</a>
-                        <p>${file.description || '点击查看详情'}</p>
-                    </div>
-                `;
-            });
-            resultsDiv.innerHTML = html;
         }
-    </script>
+
+        // 更新计数徽章
+        countBadge.textContent = filtered.length;
+
+        // 显示结果
+        if (filtered.length === 0) {
+            linksContainer.innerHTML = `<div class="no-results">😢 没有找到与 “${escapeHtml(keyword)}” 相关的链接</div>`;
+            return;
+        }
+
+        let html = '';
+        for (let item of filtered) {
+            // 安全性：对 name 和 url 做简单防XSS处理
+            const safeName = escapeHtml(item.name);
+            const safeUrl = escapeHtml(item.url);
+            // 显示友好的短网址（去掉 https:// 前缀）
+            let displayUrl = safeUrl.replace(/^https?:\/\//, '');
+            if (displayUrl.length > 60) displayUrl = displayUrl.slice(0, 60) + '…';
+            
+            html += `
+                <div class="link-card">
+                    <div class="link-title">
+                        <a href="${safeUrl}" target="_blank" rel="noopener noreferrer">${safeName}</a>
+                    </div>
+                    <div class="link-url">${displayUrl}</div>
+                </div>
+            `;
+        }
+        linksContainer.innerHTML = html;
+    }
+
+    // 简单的防XSS辅助函数
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
+            return c;
+        });
+    }
+
+    // 监听搜索框输入事件
+    searchInput.addEventListener('input', function(e) {
+        renderLinks(e.target.value);
+    });
+
+    // 初始渲染 (显示全部)
+    renderLinks();
+</script>
+
 </body>
 </html>
