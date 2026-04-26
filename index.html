@@ -57,44 +57,6 @@
             background-position: center !important;
             background-repeat: no-repeat !important;
         }
-        .sidebar, .card, .search-box, .group-btn, .no-results, .palette-panel, .modal-content, .view-toggle-btn, .sort-select, .tag-btn {
-            border-radius: var(--card-radius) !important;
-        }
-        .cards-grid {
-            gap: var(--card-gap);
-        }
-        .card {
-            padding: var(--card-padding);
-            backdrop-filter: blur(var(--blur-strength));
-        }
-        .card-title {
-            font-size: var(--font-size-title);
-            margin-bottom: calc(var(--card-padding) * 0.4);
-        }
-        .card-description {
-            font-size: calc(var(--font-size-base) * 0.9);
-            margin-bottom: calc(var(--card-padding) * 0.3);
-        }
-        .card-meta {
-            gap: var(--meta-gap);
-            margin-bottom: calc(var(--card-padding) * 0.3);
-        }
-        .badge, .version-info, .data-source-badge {
-            font-size: calc(var(--font-size-base) * 0.7);
-        }
-        .card-footer {
-            font-size: calc(var(--font-size-base) * 0.7);
-            padding-top: calc(var(--card-padding) * 0.4);
-        }
-        .search-box, .view-toggle-btn, .sort-select {
-            font-size: var(--font-size-base);
-        }
-        .sidebar, .card, .search-box, .group-btn, .no-results, .palette-panel, .modal-content, .view-toggle-btn, .sort-select, .tag-btn {
-            border-radius: 20px !important;
-        }
-        .color-swatch {
-            border-radius: 12px;
-        }
         .app {
             max-width: 1400px;
             margin: 0 auto;
@@ -112,6 +74,7 @@
             position: sticky;
             top: 28px;
             transition: background 0.2s;
+            border-radius: 20px;
         }
         body[data-theme="black"] .sidebar,
         body[data-theme="ocean"] .sidebar,
@@ -172,6 +135,7 @@
             cursor: pointer;
             transition: transform 0.08s, background 0.2s;
             transform: scale(1);
+            border-radius: 20px;
         }
         .group-btn:active {
             transform: scale(0.96);
@@ -252,6 +216,7 @@
             line-height: 1.3;
             word-break: break-word;
             white-space: normal;
+            border-radius: 20px;
         }
         body[data-theme="black"] .tag-btn,
         body[data-theme="ocean"] .tag-btn,
@@ -385,6 +350,7 @@
             font-size: 0.95rem;
             color: #1f2937;
             transition: 0.2s;
+            border-radius: 20px;
         }
         .search-box:focus {
             outline: none;
@@ -408,6 +374,7 @@
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
             color: #1f2d3d;
             white-space: nowrap;
+            border-radius: 20px;
         }
         body[data-theme="black"] .view-toggle-btn,
         body[data-theme="black"] .sort-select {
@@ -443,6 +410,7 @@
             gap: 18px;
             box-shadow: 0 20px 35px rgba(0,0,0,0.4);
             color: #eef2ff;
+            border-radius: 20px;
         }
         .palette-panel.show {
             display: flex;
@@ -511,7 +479,7 @@
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-            gap: 28px;
+            gap: var(--card-gap);
             margin-top: 8px;
         }
         .cards-grid.list-view {
@@ -554,14 +522,15 @@
         }
         .card {
             background: rgba(255, 255, 255, calc(var(--glass-opacity) - 0.05));
-            backdrop-filter: blur(16px);
+            backdrop-filter: blur(var(--blur-strength));
             border: 1px solid rgba(255, 255, 255, 0.5);
-            padding: 20px;
+            padding: var(--card-padding);
             transition: transform 0.2s, box-shadow 0.2s;
             box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
             display: flex;
             flex-direction: column;
             position: relative;
+            border-radius: var(--card-radius);
         }
         .card:hover {
             transform: translateY(-4px);
@@ -726,7 +695,7 @@
             margin-bottom: 0;
         }
         .card-title {
-            font-size: 1.2rem;
+            font-size: var(--font-size-title);
             font-weight: 600;
             margin-bottom: 8px;
             display: flex;
@@ -745,7 +714,7 @@
             font-weight: 600;
         }
         .card-description {
-            font-size: 0.85rem;
+            font-size: calc(var(--font-size-base) * 0.9);
             line-height: 1.4;
             color: #374151;
             margin-bottom: 10px;
@@ -754,7 +723,7 @@
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            gap: 10px;
+            gap: var(--meta-gap);
             margin-bottom: 10px;
         }
         .badge-group {
@@ -766,7 +735,7 @@
             background: rgba(0,0,0,0.1);
             padding: 4px 10px;
             border-radius: 40px;
-            font-size: 0.7rem;
+            font-size: calc(var(--font-size-base) * 0.7);
             font-weight: 500;
             color: #1f2937;
         }
@@ -774,12 +743,12 @@
             background: rgba(0,0,0,0.08);
             padding: 4px 12px;
             border-radius: 40px;
-            font-size: 0.7rem;
+            font-size: calc(var(--font-size-base) * 0.7);
             color: #1f2937;
             white-space: nowrap;
         }
         .data-source-badge {
-            font-size: 0.6rem;
+            font-size: calc(var(--font-size-base) * 0.6);
             background: rgba(0,0,0,0.2);
             padding: 2px 8px;
             border-radius: 30px;
@@ -793,7 +762,7 @@
             padding-top: 8px;
             display: flex;
             justify-content: space-between;
-            font-size: 0.7rem;
+            font-size: calc(var(--font-size-base) * 0.7);
             color: #4b5563;
             flex-wrap: wrap;
             gap: 8px;
@@ -1078,12 +1047,26 @@
 </div>
 
 <script>
-    // ========== 完整脚本 ==========
-    // 默认数据
+    // ========== 默认数据 (确保每个卡片有 mindmap 字段) ==========
     const DEFAULT_GROUPS_DATA = [
-        { groupName: "🎮 Minecraft 模组", items: [ { title: "Fabric API", url: "https://modrinth.com/mod/fabric-api", description: "轻量级且模块化的API，提供通用钩子和互操作性，供 Fabric 模组使用。", author: "Modmuss50", tags: ["Fabric", "库"], stats: { downloads: "162M", updated: "4天前" }, version: "0.16.5", mindmap: "" }, { title: "Sodium (钠)", url: "https://modrinth.com/mod/sodium", description: "Minecraft 最快且最兼容的渲染优化模组，支持 Fabric 和 NeoForge。", author: "CaffeineMC", tags: ["Fabric", "NeoForge", "优化"], stats: { downloads: "147M", updated: "55分钟前" }, version: "0.5.8", mindmap: "" }, { title: "Iris Shaders", url: "https://modrinth.com/mod/iris", description: "现代 Minecraft 光影加载器，兼容 OptiFine 光影包。", author: "coderbot", tags: ["Fabric", "NeoForge", "视觉"], stats: { downloads: "115M", updated: "3周前" }, version: "1.7.0", mindmap: "" }, { title: "Cloth Config API", url: "https://modrinth.com/mod/cloth-config", description: "Minecraft 模组配置库，提供通用的配置界面。", author: "shedaniel", tags: ["Fabric", "Forge", "库"], stats: { downloads: "115M", updated: "上个月" }, version: "11.1.118", mindmap: "" }, { title: "ReplayMod (重播模组)", url: "https://modrinth.com/mod/replaymod", description: "记录并分享游戏体验的模组。", author: "Johni0702", tags: ["Fabric", "Forge", "实用","视频创作者工具"], stats: { downloads: "—", updated: "上个月" }, version: "1.20.4-2.6.14", mindmap: "" }, { title: "Visible Barriers (可视化屏障方块)", url: "https://modrinth.com/mod/visiblebarriers", description: "让屏障方块、光源方块等可见，对地图制作很有帮助。", author: "AmyMialee's Mods", tags: ["Fabric", "实用","辅助"], stats: { downloads: "—", updated: "上个月" }, version: "1.0.2", mindmap: "" }, { title: "JEI (Just Enough Items)", url: "https://modrinth.com/mod/jei", description: "查看物品合成表，模组必备。", author: "mezz", tags: ["Fabric", "Forge", "实用"], stats: { downloads: "200M", updated: "2周前" }, version: "15.3.0.8", mindmap: "" } ] },
-        { groupName: "🌐 常用开发网站", items: [ { title: "GitHub 官网", url: "https://github.com", description: "全球最大的开发者平台，托管代码、协作开发。", author: "GitHub", tags: ["开发", "工具"], stats: { downloads: "—", updated: "在线" }, mindmap: "" }, { title: "MDN Web Docs", url: "https://developer.mozilla.org/zh-CN/", description: "权威的 Web 技术文档，HTML、CSS、JavaScript 应有尽有。", author: "Mozilla", tags: ["文档", "前端"], stats: { downloads: "—", updated: "持续更新" }, mindmap: "" }, { title: "Stack Overflow", url: "https://stackoverflow.com", description: "程序员问答社区，遇到 bug 时的救星。", author: "Stack Exchange", tags: ["社区", "问答"], stats: { downloads: "—", updated: "活跃" }, mindmap: "" } ] },
-        { groupName: "📺 视频&学习", items: [ { title: "哔哩哔哩", url: "https://www.bilibili.com", description: "中文弹幕视频网站，大量编程教程和模组展示。", author: "Bilibili", tags: ["视频", "学习"], stats: { downloads: "—", updated: "每日更新" }, mindmap: "" }, { title: "YouTube", url: "https://www.youtube.com", description: "全球最大视频平台，无数技术讲座和模组介绍。", author: "Google", tags: ["视频", "教程"], stats: { downloads: "—", updated: "实时" }, mindmap: "" } ] }
+        { groupName: "🎮 Minecraft 模组", items: [ 
+            { title: "Fabric API", url: "https://modrinth.com/mod/fabric-api", description: "轻量级且模块化的API，提供通用钩子和互操作性，供 Fabric 模组使用。", author: "Modmuss50", tags: ["Fabric", "库"], stats: { downloads: "162M", updated: "4天前" }, version: "0.16.5", mindmap: "" },
+            { title: "Sodium (钠)", url: "https://modrinth.com/mod/sodium", description: "Minecraft 最快且最兼容的渲染优化模组，支持 Fabric 和 NeoForge。", author: "CaffeineMC", tags: ["Fabric", "NeoForge", "优化"], stats: { downloads: "147M", updated: "55分钟前" }, version: "0.5.8", mindmap: "" },
+            { title: "Iris Shaders", url: "https://modrinth.com/mod/iris", description: "现代 Minecraft 光影加载器，兼容 OptiFine 光影包。", author: "coderbot", tags: ["Fabric", "NeoForge", "视觉"], stats: { downloads: "115M", updated: "3周前" }, version: "1.7.0", mindmap: "" },
+            { title: "Cloth Config API", url: "https://modrinth.com/mod/cloth-config", description: "Minecraft 模组配置库，提供通用的配置界面。", author: "shedaniel", tags: ["Fabric", "Forge", "库"], stats: { downloads: "115M", updated: "上个月" }, version: "11.1.118", mindmap: "" },
+            { title: "ReplayMod (重播模组)", url: "https://modrinth.com/mod/replaymod", description: "记录并分享游戏体验的模组。", author: "Johni0702", tags: ["Fabric", "Forge", "实用","视频创作者工具"], stats: { downloads: "—", updated: "上个月" }, version: "1.20.4-2.6.14", mindmap: "" },
+            { title: "Visible Barriers (可视化屏障方块)", url: "https://modrinth.com/mod/visiblebarriers", description: "让屏障方块、光源方块等可见，对地图制作很有帮助。", author: "AmyMialee's Mods", tags: ["Fabric", "实用","辅助"], stats: { downloads: "—", updated: "上个月" }, version: "1.0.2", mindmap: "" },
+            { title: "JEI (Just Enough Items)", url: "https://modrinth.com/mod/jei", description: "查看物品合成表，模组必备。", author: "mezz", tags: ["Fabric", "Forge", "实用"], stats: { downloads: "200M", updated: "2周前" }, version: "15.3.0.8", mindmap: "" }
+        ] },
+        { groupName: "🌐 常用开发网站", items: [ 
+            { title: "GitHub 官网", url: "https://github.com", description: "全球最大的开发者平台，托管代码、协作开发。", author: "GitHub", tags: ["开发", "工具"], stats: { downloads: "—", updated: "在线" }, mindmap: "" },
+            { title: "MDN Web Docs", url: "https://developer.mozilla.org/zh-CN/", description: "权威的 Web 技术文档，HTML、CSS、JavaScript 应有尽有。", author: "Mozilla", tags: ["文档", "前端"], stats: { downloads: "—", updated: "持续更新" }, mindmap: "" },
+            { title: "Stack Overflow", url: "https://stackoverflow.com", description: "程序员问答社区，遇到 bug 时的救星。", author: "Stack Exchange", tags: ["社区", "问答"], stats: { downloads: "—", updated: "活跃" }, mindmap: "" }
+        ] },
+        { groupName: "📺 视频&学习", items: [ 
+            { title: "哔哩哔哩", url: "https://www.bilibili.com", description: "中文弹幕视频网站，大量编程教程和模组展示。", author: "Bilibili", tags: ["视频", "学习"], stats: { downloads: "—", updated: "每日更新" }, mindmap: "" },
+            { title: "YouTube", url: "https://www.youtube.com", description: "全球最大视频平台，无数技术讲座和模组介绍。", author: "Google", tags: ["视频", "教程"], stats: { downloads: "—", updated: "实时" }, mindmap: "" }
+        ] }
     ];
 
     let groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
@@ -1096,8 +1079,8 @@
     let hasLocalChanges = false;
     let currentSort = 'title-asc';
     let currentTagFilter = null;
-    let textEditMode = false;      // 文本编辑模式
-    let currentMindmapCard = null; // 当前打开的思维导图卡片 { groupIdx, cardIdx }
+    let textEditMode = false;
+    let currentMindmapCard = null;
 
     // DOM 元素
     const groupContainer = document.getElementById('groupButtonsContainer');
@@ -1169,11 +1152,10 @@
         return Array.from(tagCount.entries()).sort((a, b) => b[1] - a[1]);
     }
 
-    // 渲染左侧标签（Fabric/Forge/NeoForge 置顶）
     function renderTagList() {
         const tags = extractAllTags();
         if (tags.length === 0) {
-            tagListContainer.innerHTML = '<div style="font-size:0.7rem; color:var(--text-muted);">暂无标签</div>';
+            tagListContainer.innerHTML = '<div style=\"font-size:0.7rem; color:#aaa;\">暂无标签</div>';
             clearTagFilterBtn.style.display = 'none';
             return;
         }
@@ -1214,7 +1196,6 @@
         renderGroupButtons();
     }
 
-    // 动态标签（编辑卡片时）
     function renderDynamicTags() {
         if (!dynamicTagList) return;
         const allTags = extractAllTags().map(([tag]) => tag);
@@ -1249,7 +1230,6 @@
         }
     }
 
-    // 数据源指示器
     function updateDataSourceIndicator() {
         const container = document.getElementById('dataSourceIndicator');
         const dot = container?.querySelector('.indicator-dot');
@@ -1280,7 +1260,6 @@
         if (modal.classList.contains('active')) renderDynamicTags();
     }
 
-    // 加载数据（云端优先）
     async function loadInitialData() {
         const autoAdmin = sessionStorage.getItem('adminModeAuto') === 'true';
         if (autoAdmin) {
@@ -1364,7 +1343,6 @@
         alert('数据已导出到本地文件，请手动上传到 GitHub 仓库覆盖 data.json 以实现云端同步。');
     }
 
-    // 新增分组
     function addNewGroup() {
         let newName = prompt('请输入新分组名称：', '新分组');
         if (!newName) return;
@@ -1385,7 +1363,6 @@
         alert(`分组“${newName}”已添加，可以开始添加卡片。`);
     }
 
-    // 卡片编辑模态框
     function openEditModal(groupIdx, cardIdx, card) {
         editingCardInfo = { groupIdx, cardIdx, card: { ...card } };
         modalTitle.innerText = cardIdx === undefined ? '新增卡片' : '编辑卡片';
@@ -1408,7 +1385,6 @@
         const { groupIdx, cardIdx } = editingCardInfo;
         const tagsRaw = cardTagsInput.value.trim();
         let tagsArray = tagsRaw ? tagsRaw.split(',').map(s => s.trim()).filter(s => s) : [];
-        // 保留原有的 mindmap 字段
         const oldMindmap = (cardIdx === undefined) ? '' : (groupsData[groupIdx].items[cardIdx]?.mindmap || '');
         const newCard = {
             title: cardTitleInput.value.trim(),
@@ -1447,7 +1423,6 @@
         editingCardInfo = null;
     }
 
-    // 思维导图功能
     function openMindmap(groupIdx, cardIdx) {
         currentMindmapCard = { groupIdx, cardIdx };
         const card = groupsData[groupIdx].items[cardIdx];
@@ -1461,7 +1436,6 @@
             mindmapEditor.style.display = 'none';
             mindmapSave.style.display = 'none';
         }
-        // 渲染思维导图
         renderMindmap(content || '# 思维导图\n请编辑内容');
         mindmapModal.classList.add('active');
     }
@@ -1473,7 +1447,6 @@
             const transformer = new Transformer();
             const { root } = transformer.transform(markdown);
             const mm = markmap.Markmap.create(mindmapContainer, null, root);
-            // 可选：添加工具栏
             if (window.markmap.Toolbar) {
                 const toolbar = new window.markmap.Toolbar();
                 toolbar.attach(mm);
@@ -1502,7 +1475,6 @@
         currentMindmapCard = null;
     }
 
-    // 卡片渲染（包含网页链接和思维导图按钮）
     function renderCard(item, groupIdx, cardIdx) {
         const tagsArray = normalizeTags(item.tags);
         const tagsHtml = tagsArray.map(t => `<span class="badge">${escapeHtml(t)}</span>`).join('');
@@ -1513,8 +1485,8 @@
         if (hasLocalChanges) sourceBadge = `<span class="data-source-badge">💾 本地草稿</span>`;
         else if (currentDataSource === 'cloud') sourceBadge = `<span class="data-source-badge">☁️ 云端</span>`;
         else sourceBadge = `<span class="data-source-badge">📄 默认</span>`;
-        let actionButtons = `<a href="${escapeHtml(item.url)}" target="_blank" class="mindmap-btn" style="text-decoration: none; background: #3b82f6; color: white; padding: 4px 8px; border-radius: 30px; font-size: 0.7rem; margin-right: 8px;">🔗 网页</a>`;
-        actionButtons += `<button class="mindmap-btn" data-group="${groupIdx}" data-card="${cardIdx}" style="background: #8b5cf6;">🧠 导图</button>`;
+        const htmlLink = `<a href="${escapeHtml(item.url)}" target="_blank" class="mindmap-btn" style="text-decoration: none; background: #3b82f6; color: white; padding: 4px 12px; border-radius: 30px; font-size: 0.7rem; margin-right: 8px;">🔗 网页</a>`;
+        const mindmapButton = `<button class="mindmap-btn" data-group="${groupIdx}" data-card="${cardIdx}" style="background: #8b5cf6;">🧠 导图</button>`;
         const adminActions = isAdminMode ? `
             <div class="card-actions">
                 <button class="edit-btn" data-group="${groupIdx}" data-card="${cardIdx}">✏️</button>
@@ -1527,7 +1499,8 @@
                 <div class="card-title">
                     <img src="${getFavicon(item.url)}" alt="icon" loading="lazy">
                     <span style="flex:1;">${escapeHtml(item.title)}</span>
-                    ${actionButtons}
+                    ${htmlLink}
+                    ${mindmapButton}
                 </div>
                 <div class="card-description">${escapeHtml(item.description)}</div>
                 <div class="card-meta">
@@ -1623,7 +1596,6 @@
                 });
             });
         }
-        // 思维导图按钮事件绑定
         document.querySelectorAll('.mindmap-btn').forEach(btn => {
             btn.removeEventListener('click', mindmapClickHandler);
             btn.addEventListener('click', mindmapClickHandler);
@@ -1691,7 +1663,6 @@
         renderCards();
     }
 
-    // 布局定制相关
     function initLayoutControls() {
         const radiusSlider = document.getElementById('radiusSlider');
         const paddingSlider = document.getElementById('paddingSlider');
@@ -1718,7 +1689,6 @@
             document.getElementById('baseFontVal').innerText = baseFontSlider.value + 'rem';
             document.getElementById('blurVal').innerText = blurSlider.value + 'px';
             document.getElementById('metaGapVal').innerText = metaGapSlider.value + 'px';
-            // 保存布局设置到 localStorage
             const layoutSettings = {
                 radius: radiusSlider.value,
                 padding: paddingSlider.value,
@@ -1746,7 +1716,6 @@
                     updateLayout();
                 } catch(e) {}
             } else {
-                // 默认值已在 HTML 中设置
                 updateLayout();
             }
         }
@@ -1790,12 +1759,11 @@
         loadLayoutSettings();
     }
 
-    // 文本编辑模式
     function enableTextEdit() {
         textEditMode = true;
         toggleTextEditBtn.innerText = '🔒 关闭文本编辑';
         toggleTextEditBtn.style.background = '#ef4444';
-        // 绑定双击编辑事件
+        // 添加可编辑属性
         document.querySelectorAll('.card-title span, .card-description, .author, .stats span, .version-info, .badge').forEach(el => {
             el.setAttribute('contenteditable', 'true');
             el.addEventListener('blur', saveTextEdit);
@@ -1821,30 +1789,24 @@
         if (isNaN(groupIdx) || isNaN(cardIdx)) return;
         const item = groupsData[groupIdx].items[cardIdx];
         if (!item) return;
-        if (target.classList.contains('card-title')) {
-            // title 内的 span
-            const newTitle = target.innerText.trim();
-            if (newTitle) item.title = newTitle;
+        if (target.classList.contains('card-title') && target.tagName === 'SPAN') {
+            item.title = target.innerText.trim();
         } else if (target.classList.contains('card-description')) {
             item.description = target.innerText.trim();
         } else if (target.classList.contains('author')) {
             item.author = target.innerText.replace('👤 ', '').trim();
         } else if (target.classList.contains('stats')) {
-            // 处理统计数据
-            const statsSpans = target.querySelectorAll('span');
-            if (statsSpans.length >= 2) {
-                let downloads = statsSpans[0].innerText.replace('📥 ', '').trim();
-                let updated = statsSpans[1].innerText.replace('🕒 ', '').trim();
+            const spans = target.querySelectorAll('span');
+            if (spans.length >= 2) {
+                let downloads = spans[0].innerText.replace('📥 ', '').trim();
+                let updated = spans[1].innerText.replace('🕒 ', '').trim();
                 item.stats.downloads = downloads;
                 item.stats.updated = updated;
             }
         } else if (target.classList.contains('version-info')) {
             item.version = target.innerText.replace('📌 版本 ', '').trim();
-        } else if (target.classList.contains('badge')) {
-            // 标签编辑较复杂，暂不实现双击修改，以免破坏结构
         }
         saveDataToStorage();
-        // 重新渲染以更新可能改变的标签列表
         renderTagList();
     }
 
@@ -1856,7 +1818,6 @@
         }
     }
 
-    // 管理员模式控制
     function enableAdminMode() {
         isAdminMode = true;
         adminToolbar.style.display = 'flex';
@@ -1865,6 +1826,7 @@
         renderCards();
         sessionStorage.setItem('adminModeAuto', 'true');
     }
+
     function disableAdminMode() {
         isAdminMode = false;
         adminToolbar.style.display = 'none';
@@ -1873,11 +1835,13 @@
         sessionStorage.removeItem('adminModeAuto');
         if (confirm('退出编辑模式，是否重新从云端加载最新数据？\n（若选择“否”，将保留当前本地数据但不再显示编辑按钮）')) location.reload();
     }
+
     function checkAdminPassword() {
         const pwd = prompt('请输入管理员密码：');
         if (pwd === 'admin123') enableAdminMode();
         else alert('密码错误，无法进入编辑模式');
     }
+
     function addNewCard() {
         openEditModal(currentGroupIndex, undefined, { title: '', url: '', description: '', author: '', tags: [], version: '', stats: { downloads: '—', updated: '' }, mindmap: '' });
     }
@@ -1903,21 +1867,18 @@
         }
     }
 
-    // 布局面板显示/隐藏
     layoutSettingsBtn.addEventListener('click', () => {
         layoutPanel.classList.toggle('show');
     });
     toggleTextEditBtn.addEventListener('click', toggleTextEditMode);
     clearTagFilterBtn.addEventListener('click', clearTagFilter);
     addGroupBtn.addEventListener('click', addNewGroup);
-    // 模态框关闭
     mindmapCancel.addEventListener('click', closeMindmap);
     mindmapSave.addEventListener('click', saveMindmap);
-    // 点击模态框背景关闭
     mindmapModal.addEventListener('click', (e) => { if (e.target === mindmapModal) closeMindmap(); });
     modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 
-    // 壁纸/主题持久化（保持原有）
+    // 壁纸/主题持久化
     const GRADIENT_THEMES = ["sunset","aurora","ocean","sakura","forest","midnight","peach","mint"];
 
     function setTheme(themeName) {
