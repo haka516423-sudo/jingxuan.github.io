@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的链接库 · Modrinth风格</title>
+    <title>分组链接库 · 可折叠</title>
     <style>
         * {
             margin: 0;
@@ -61,14 +61,65 @@
             box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
         }
 
-        /* 卡片网格 */
+        /* 分组样式 */
+        .group {
+            margin-bottom: 32px;
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #eef2f6;
+        }
+        .group-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            background: #ffffff;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s;
+            border-bottom: 1px solid #eef2f6;
+        }
+        .group-header:hover {
+            background: #fafbfc;
+        }
+        .group-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1f2937;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .group-title .count {
+            background: #e5e7eb;
+            padding: 2px 10px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #4b5563;
+        }
+        .toggle-icon {
+            font-size: 1.2rem;
+            transition: transform 0.2s;
+            color: #6c757d;
+        }
+        .group-content {
+            transition: all 0.2s ease;
+        }
+        .group-content.collapsed {
+            display: none;
+        }
+        /* 卡片网格 (内嵌在分组中) */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
             gap: 24px;
+            padding: 24px;
         }
 
-        /* 单个卡片 */
+        /* 单个卡片（样式不变） */
         .card {
             background: white;
             border-radius: 20px;
@@ -84,8 +135,6 @@
             box-shadow: 0 20px 25px -12px rgba(0,0,0,0.1);
             border-color: #d1d9e8;
         }
-
-        /* 卡片主体 */
         .card-header {
             display: flex;
             justify-content: space-between;
@@ -162,9 +211,8 @@
             border-radius: 32px;
             color: #9ca3af;
             border: 1px dashed #d1d5db;
+            margin-top: 20px;
         }
-
-        /* 返回首页链接 */
         .back-home {
             display: inline-block;
             margin-bottom: 24px;
@@ -175,10 +223,10 @@
         .back-home:hover {
             text-decoration: underline;
         }
-
         @media (max-width: 700px) {
             body { padding: 20px 16px; }
-            .cards-grid { grid-template-columns: 1fr; }
+            .cards-grid { grid-template-columns: 1fr; padding: 16px; }
+            .group-header { padding: 12px 16px; }
         }
     </style>
 </head>
@@ -188,137 +236,119 @@
 
     <div class="header">
         <h1>📦 我的资源库</h1>
-        <p>搜索标题、描述、作者或标签 — 点击卡片标题即可访问链接</p>
+        <p>分组管理 · 点击组名折叠/展开 · 支持实时搜索</p>
     </div>
 
     <div class="search-wrapper">
-        <input type="text" class="search-box" id="searchInput" placeholder="🔍 搜索资源... (如: fabric, api, 优化)" autocomplete="off">
+        <input type="text" class="search-box" id="searchInput" placeholder="🔍 搜索标题、描述、作者或标签..." autocomplete="off">
     </div>
 
-    <div id="cardsContainer" class="cards-grid"></div>
+    <div id="groupsContainer"></div>
 </div>
 
 <script>
     // ==================================================
-    // 🟢 在这里修改你的数据，模仿 Modrinth 卡片字段
-    // 每个对象字段解释：
-    //   title: 链接名称（会显示为可点击链接）
-    //   url:   点击后跳转的地址（可以是外网或内部页面）
-    //   description: 简短介绍（会显示在卡片上）
-    //   author: 作者或来源（显示在左下角）
-    //   tags:   数组，用于显示标签（如 Fabric, 优化）
-    //   stats:  对象，可以包含 "downloads" 或 "updated" 等数字
+    // 📁 分组数据结构（维护这里）
+    // 每个分组可以独立折叠，分组内的卡片格式与之前完全一致
     // ==================================================
-    const items = [
+    const groupsData = [
         {
-            title: "Fabric API",
-            url: "https://modrinth.com/mod/fabric-api",
-            description: "轻量级且模块化的API，提供通用钩子和互操作性，供 Fabric 模组使用。",
-            author: "Modmuss50",
-            tags: ["Fabric", "库"],
-            stats: { downloads: "162M", updated: "4天前" }
+            groupName: "🎮 Minecraft 模组",
+            items: [
+                {
+                    title: "Fabric API",
+                    url: "https://modrinth.com/mod/fabric-api",
+                    description: "轻量级且模块化的API，提供通用钩子和互操作性，供 Fabric 模组使用。",
+                    author: "Modmuss50",
+                    tags: ["Fabric", "库"],
+                    stats: { downloads: "162M", updated: "4天前" }
+                },
+                {
+                    title: "Sodium (钠)",
+                    url: "https://modrinth.com/mod/sodium",
+                    description: "Minecraft 最快且最兼容的渲染优化模组，支持 Fabric 和 NeoForge。",
+                    author: "CaffeineMC",
+                    tags: ["Fabric", "NeoForge", "优化"],
+                    stats: { downloads: "147M", updated: "55分钟前" }
+                },
+                {
+                    title: "Iris Shaders",
+                    url: "https://modrinth.com/mod/iris",
+                    description: "现代 Minecraft 光影加载器，兼容 OptiFine 光影包。",
+                    author: "coderbot",
+                    tags: ["Fabric", "NeoForge", "视觉"],
+                    stats: { downloads: "115M", updated: "3周前" }
+                },
+                {
+                    title: "Cloth Config API",
+                    url: "https://modrinth.com/mod/cloth-config",
+                    description: "Minecraft 模组配置库，提供通用的配置界面。",
+                    author: "shedaniel",
+                    tags: ["Fabric", "Forge", "库"],
+                    stats: { downloads: "115M", updated: "上个月" }
+                }
+            ]
         },
         {
-            title: "Sodium (钠)",
-            url: "https://modrinth.com/mod/sodium",
-            description: "Minecraft 最快且最兼容的渲染优化模组，支持 Fabric 和 NeoForge。",
-            author: "CaffeineMC",
-            tags: ["Fabric", "NeoForge", "优化"],
-            stats: { downloads: "147M", updated: "55分钟前" }
+            groupName: "🌐 常用开发网站",
+            items: [
+                {
+                    title: "GitHub 官网",
+                    url: "https://github.com",
+                    description: "全球最大的开发者平台，托管代码、协作开发。",
+                    author: "GitHub",
+                    tags: ["开发", "工具"],
+                    stats: { downloads: "—", updated: "在线" }
+                },
+                {
+                    title: "MDN Web Docs",
+                    url: "https://developer.mozilla.org/zh-CN/",
+                    description: "权威的 Web 技术文档，HTML、CSS、JavaScript 应有尽有。",
+                    author: "Mozilla",
+                    tags: ["文档", "前端"],
+                    stats: { downloads: "—", updated: "持续更新" }
+                },
+                {
+                    title: "Stack Overflow",
+                    url: "https://stackoverflow.com",
+                    description: "程序员问答社区，遇到 bug 时的救星。",
+                    author: "Stack Exchange",
+                    tags: ["社区", "问答"],
+                    stats: { downloads: "—", updated: "活跃" }
+                }
+            ]
         },
         {
-            title: "Iris Shaders",
-            url: "https://modrinth.com/mod/iris",
-            description: "现代 Minecraft 光影加载器，兼容 OptiFine 光影包。",
-            author: "coderbot",
-            tags: ["Fabric", "NeoForge", "视觉"],
-            stats: { downloads: "115M", updated: "3周前" }
-        },
-        {
-            title: "Cloth Config API",
-            url: "https://modrinth.com/mod/cloth-config",
-            description: "Minecraft 模组配置库，提供通用的配置界面。",
-            author: "shedaniel",
-            tags: ["Fabric", "Forge", "库"],
-            stats: { downloads: "115M", updated: "上个月" }
-        },
-        // ----- 你可以把上面这些替换成你自己的链接 -----
-        // 示例：个人常用网站
-        {
-            title: "GitHub 官网",
-            url: "https://github.com",
-            description: "全球最大的开发者平台，托管代码、协作开发。",
-            author: "GitHub",
-            tags: ["开发", "工具"],
-            stats: { downloads: "—", updated: "在线" }
-        },
-        {
-            title: "MDN Web Docs",
-            url: "https://developer.mozilla.org/zh-CN/",
-            description: "权威的 Web 技术文档，HTML、CSS、JavaScript 应有尽有。",
-            author: "Mozilla",
-            tags: ["文档", "前端"],
-            stats: { downloads: "—", updated: "持续更新" }
+            groupName: "📺 视频&学习",
+            items: [
+                {
+                    title: "哔哩哔哩",
+                    url: "https://www.bilibili.com",
+                    description: "中文弹幕视频网站，大量编程教程和模组展示。",
+                    author: "Bilibili",
+                    tags: ["视频", "学习"],
+                    stats: { downloads: "—", updated: "每日更新" }
+                },
+                {
+                    title: "YouTube",
+                    url: "https://www.youtube.com",
+                    description: "全球最大视频平台，无数技术讲座和模组介绍。",
+                    author: "Google",
+                    tags: ["视频", "教程"],
+                    stats: { downloads: "—", updated: "实时" }
+                }
+            ]
         }
     ];
     // ==================================================
 
     const searchInput = document.getElementById('searchInput');
-    const cardsContainer = document.getElementById('cardsContainer');
+    const groupsContainer = document.getElementById('groupsContainer');
 
-    // 渲染所有卡片（根据搜索关键词过滤）
-    function renderCards(keyword = '') {
-        const term = keyword.trim().toLowerCase();
-        let filtered = items;
-        if (term !== '') {
-            filtered = items.filter(item => 
-                item.title.toLowerCase().includes(term) ||
-                item.description.toLowerCase().includes(term) ||
-                item.author.toLowerCase().includes(term) ||
-                item.tags.some(tag => tag.toLowerCase().includes(term)) ||
-                (item.stats.downloads && item.stats.downloads.toLowerCase().includes(term)) ||
-                (item.stats.updated && item.stats.updated.toLowerCase().includes(term))
-            );
-        }
+    // 存储每个分组的折叠状态（默认 false = 展开）
+    let collapsedState = {};
 
-        if (filtered.length === 0) {
-            cardsContainer.innerHTML = `<div class="no-results">😢 没有找到与 “${escapeHtml(term)}” 相关的资源</div>`;
-            return;
-        }
-
-        let html = '';
-        for (let item of filtered) {
-            const safeTitle = escapeHtml(item.title);
-            const safeUrl = escapeHtml(item.url);
-            const safeDesc = escapeHtml(item.description);
-            const safeAuthor = escapeHtml(item.author);
-            const tagsHtml = item.tags.map(tag => `<span class="badge">${escapeHtml(tag)}</span>`).join('');
-            const downloads = item.stats.downloads || '';
-            const updated = item.stats.updated || '';
-            html += `
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">
-                            <a href="${safeUrl}" target="_blank" rel="noopener noreferrer">${safeTitle}</a>
-                        </div>
-                        <div class="badge-group">
-                            ${tagsHtml}
-                        </div>
-                    </div>
-                    <div class="card-description">${safeDesc}</div>
-                    <div class="card-footer">
-                        <div class="author">👤 ${safeAuthor}</div>
-                        <div class="stats">
-                            ${downloads ? `<span>📥 ${downloads}</span>` : ''}
-                            ${updated ? `<span>🕒 ${updated}</span>` : ''}
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-        cardsContainer.innerHTML = html;
-    }
-
+    // 辅助：转义HTML
     function escapeHtml(str) {
         return str.replace(/[&<>]/g, function(m) {
             if (m === '&') return '&amp;';
@@ -328,12 +358,131 @@
         });
     }
 
-    searchInput.addEventListener('input', function(e) {
-        renderCards(e.target.value);
+    // 渲染单个卡片（与之前相同）
+    function renderCard(item) {
+        const safeTitle = escapeHtml(item.title);
+        const safeUrl = escapeHtml(item.url);
+        const safeDesc = escapeHtml(item.description);
+        const safeAuthor = escapeHtml(item.author);
+        const tagsHtml = item.tags.map(tag => `<span class="badge">${escapeHtml(tag)}</span>`).join('');
+        const downloads = item.stats?.downloads || '';
+        const updated = item.stats?.updated || '';
+        return `
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <a href="${safeUrl}" target="_blank" rel="noopener noreferrer">${safeTitle}</a>
+                    </div>
+                    <div class="badge-group">${tagsHtml}</div>
+                </div>
+                <div class="card-description">${safeDesc}</div>
+                <div class="card-footer">
+                    <div class="author">👤 ${safeAuthor}</div>
+                    <div class="stats">
+                        ${downloads ? `<span>📥 ${downloads}</span>` : ''}
+                        ${updated ? `<span>🕒 ${updated}</span>` : ''}
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    // 根据搜索词过滤分组，返回 { group, itemsFiltered, hasMatch }
+    function filterGroupsByKeyword(keyword) {
+        const term = keyword.trim().toLowerCase();
+        if (term === '') {
+            // 无搜索词：返回所有原始分组及其全部 items
+            return groupsData.map(group => ({
+                group: group,
+                itemsFiltered: group.items,
+                hasMatch: true
+            }));
+        }
+        return groupsData.map(group => {
+            const filteredItems = group.items.filter(item => 
+                item.title.toLowerCase().includes(term) ||
+                item.description.toLowerCase().includes(term) ||
+                item.author.toLowerCase().includes(term) ||
+                item.tags.some(tag => tag.toLowerCase().includes(term)) ||
+                (item.stats?.downloads && item.stats.downloads.toLowerCase().includes(term)) ||
+                (item.stats?.updated && item.stats.updated.toLowerCase().includes(term))
+            );
+            return {
+                group: group,
+                itemsFiltered: filteredItems,
+                hasMatch: filteredItems.length > 0
+            };
+        });
+    }
+
+    // 渲染整个页面（根据当前搜索词和折叠状态）
+    function renderPage() {
+        const keyword = searchInput.value;
+        const filteredGroups = filterGroupsByKeyword(keyword);
+
+        let html = '';
+        for (let i = 0; i < filteredGroups.length; i++) {
+            const { group, itemsFiltered, hasMatch } = filteredGroups[i];
+            if (!hasMatch) continue; // 没有匹配卡片的组直接隐藏
+
+            const groupId = `group_${i}`;
+            // 如果折叠状态未初始化，默认展开（false）
+            if (collapsedState[groupId] === undefined) {
+                collapsedState[groupId] = false;
+            }
+            const isCollapsed = collapsedState[groupId];
+            const icon = isCollapsed ? '▶' : '▼';
+            const cardsHtml = itemsFiltered.map(item => renderCard(item)).join('');
+            
+            html += `
+                <div class="group" data-group-id="${groupId}">
+                    <div class="group-header" data-toggle="${groupId}">
+                        <div class="group-title">
+                            ${group.groupName}
+                            <span class="count">${itemsFiltered.length}</span>
+                        </div>
+                        <div class="toggle-icon">${icon}</div>
+                    </div>
+                    <div class="group-content ${isCollapsed ? 'collapsed' : ''}">
+                        <div class="cards-grid">
+                            ${cardsHtml}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        if (html === '') {
+            groupsContainer.innerHTML = `<div class="no-results">😢 没有找到与 “${escapeHtml(keyword)}” 相关的资源</div>`;
+        } else {
+            groupsContainer.innerHTML = html;
+        }
+
+        // 重新绑定折叠事件
+        document.querySelectorAll('.group-header').forEach(header => {
+            const groupId = header.getAttribute('data-toggle');
+            header.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // 切换折叠状态
+                collapsedState[groupId] = !collapsedState[groupId];
+                // 重新渲染以应用新的折叠状态（但保留当前搜索词）
+                renderPage();
+            });
+        });
+    }
+
+    // 监听搜索输入
+    searchInput.addEventListener('input', () => {
+        // 搜索时，重置所有折叠状态为展开（方便查看匹配结果）
+        // 这样用户不需要手动一个个展开
+        for (let i = 0; i < groupsData.length; i++) {
+            collapsedState[`group_${i}`] = false;
+        }
+        renderPage();
     });
 
-    // 首次加载显示全部
-    renderCards();
+    // 初始渲染
+    renderPage();
 </script>
 </body>
 </html>
