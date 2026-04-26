@@ -261,7 +261,7 @@
         .view-toggle-btn:active {
             transform: scale(0.96);
         }
-        /* 调色板面板修复溢出 */
+        /* 调色板面板 */
         .palette-panel {
             position: absolute;
             top: 60px;
@@ -521,6 +521,8 @@
         }
         .save-btn { background: #10b981; color: white; }
         .cancel-btn { background: #6b7280; color: white; }
+        
+        /* 卡片内部基础样式（浅色主题默认深色文字） */
         .card-title {
             font-size: 1.2rem;
             font-weight: 600;
@@ -534,6 +536,11 @@
             height: 22px;
             border-radius: 6px;
             background: rgba(255,255,255,0.5);
+        }
+        .card-title a {
+            text-decoration: none;
+            color: #1e293b;  /* 浅色主题深色文字 */
+            font-weight: 600;
         }
         .badge-group {
             display: flex;
@@ -583,6 +590,7 @@
             align-items: center;
             gap: 4px;
             margin-left: 8px;
+            color: #1f2937;
         }
         .no-results {
             text-align: center;
@@ -592,7 +600,8 @@
             border-radius: 20px;
             color: #4b5563;
         }
-        /* ---------- 深色主题强制米白色文字（包括链接） ---------- */
+        
+        /* ---------- 深色主题强制米白色文字 ---------- */
         body[data-theme="black"] .card-title a,
         body[data-theme="black"] .card-title a:link,
         body[data-theme="black"] .card-title a:visited,
@@ -619,6 +628,10 @@
         body[data-theme="black"] .no-results {
             background: rgba(0,0,0,0.4);
         }
+        body[data-theme="black"] .data-source-badge {
+            background: rgba(0,0,0,0.5);
+        }
+        
         @media (max-width: 780px) {
             body { padding: 16px; }
             .app { flex-direction: column; }
@@ -713,9 +726,9 @@
     let currentKeyword = '';
     let isAdminMode = false;
     let editingCardInfo = null;
-    let currentDataSource = 'default';   // 'cloud', 'local', 'default'
+    let currentDataSource = 'default';
     let isListView = false;
-    let hasLocalChanges = false;          // 用户是否主动编辑过
+    let hasLocalChanges = false;
 
     // DOM 元素
     const groupContainer = document.getElementById('groupButtonsContainer');
@@ -766,7 +779,6 @@
         }
     }
 
-    // 保存到 localStorage，标记有本地修改
     function saveDataToStorage() {
         localStorage.setItem('editable_groups_data', JSON.stringify(groupsData));
         hasLocalChanges = true;
@@ -776,13 +788,6 @@
         updateDataSourceIndicator();
     }
 
-    // 清空草稿标记（用于同步或重置后）
-    function clearLocalChangesFlag() {
-        hasLocalChanges = false;
-        updateDataSourceIndicator();
-    }
-
-    // 初始化：优先云端，成功则使用云端且不标记草稿；失败则尝试 localStorage，再失败则默认
     async function loadInitialData() {
         let cloudLoaded = false;
         try {
@@ -809,7 +814,7 @@
                     if (parsed && Array.isArray(parsed)) {
                         groupsData = parsed;
                         currentDataSource = 'local';
-                        hasLocalChanges = false;   // 注意：这里不自动标记草稿，只有编辑后才变true
+                        hasLocalChanges = false;
                         console.log('📦 从本地缓存加载');
                     }
                 } catch(e) {}
@@ -1242,7 +1247,6 @@
         else setTheme('white');
     }
 
-    // 初始化
     async function init() {
         await loadInitialData();
         initTheme();
