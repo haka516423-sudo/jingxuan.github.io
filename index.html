@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>琉璃·最终版｜独立文字主题+玻璃强度可调</title>
+    <title>琉璃·全功能｜独立文字/背景调色板</title>
     <style>
         * {
             margin: 0;
@@ -11,7 +11,7 @@
             box-sizing: border-box;
         }
 
-        /* 强制垂直滚动条，防止页面左右晃动 */
+        /* 强制垂直滚动条 */
         html {
             overflow-y: scroll;
         }
@@ -26,7 +26,7 @@
             --gradient-angle: 135deg;
         }
 
-        /* ----- 主题背景（纯色+渐变）----- */
+        /* ---------- 背景主题（纯色+渐变）---------- */
         body[data-bg="white"]  { background: #eef2f8; --theme-accent: #5b6e8c; }
         body[data-bg="black"]  { background: #12151c; --theme-accent: #c0b7a6; }
         body[data-bg="red"]    { background: #fce9e6; --theme-accent: #c2675e; }
@@ -52,7 +52,7 @@
             background-repeat: no-repeat !important;
         }
 
-        /* ----- 文字主题独立控制（浅色/深色）----- */
+        /* ---------- 文字主题（独立控制）---------- */
         body[data-text="light"] {
             --text-primary: #1e293b;
             --text-secondary: #374151;
@@ -75,6 +75,19 @@
             --footer-color: #e6dcc8;
             --border-light: rgba(255,255,255,0.2);
         }
+        body[data-text="auto"] {
+            /* 自动模式：会根据背景亮度动态调整，由 JS 实时设置 light/dark */
+            --text-primary: #1e293b;
+            --text-secondary: #374151;
+            --text-muted: #4b5563;
+            --badge-bg: rgba(0,0,0,0.08);
+            --badge-color: #1f2937;
+            --version-bg: rgba(0,0,0,0.06);
+            --version-color: #1f2937;
+            --footer-color: #4b5563;
+            --border-light: rgba(0,0,0,0.1);
+        }
+        /* 自动模式下如果背景是深色，需覆盖为深色文字变量，由 JS 动态添加类，这里不写死，用 JS 处理 */
 
         /* 统一圆角矩形 */
         .sidebar, .card, .search-box, .group-btn, .no-results, .palette-panel {
@@ -93,7 +106,7 @@
             align-items: flex-start;
         }
 
-        /* 左侧导航 - 玻璃层 (透明度使用变量) */
+        /* 左侧导航 - 玻璃层 */
         .sidebar {
             flex: 0 0 280px;
             background: rgba(255, 255, 255, var(--glass-opacity));
@@ -243,6 +256,7 @@
             border-left: 3px solid var(--theme-accent);
             padding-left: 10px;
         }
+        /* 文字主题按钮组 */
         .text-theme-buttons {
             display: flex;
             gap: 12px;
@@ -264,6 +278,7 @@
             color: #12151c;
             border-color: white;
         }
+        /* 颜色网格 */
         .color-grid {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
@@ -279,6 +294,7 @@
             transform: scale(1.05);
             border-color: white;
         }
+        /* 滑块区 */
         .slider-container {
             display: flex;
             flex-direction: column;
@@ -349,7 +365,7 @@
             margin-top: 8px;
         }
 
-        /* 卡片玻璃透明度使用变量 */
+        /* 卡片玻璃透明度 */
         .card {
             background: rgba(255, 255, 255, var(--glass-opacity));
             backdrop-filter: blur(16px);
@@ -456,7 +472,7 @@
         }
     </style>
 </head>
-<body data-bg="white" data-text="light">
+<body data-bg="white" data-text="auto">
 <div class="app">
     <aside class="sidebar">
         <div class="sidebar-header">📁 分组导航</div>
@@ -467,19 +483,21 @@
         <div class="header-area">
             <div class="title-section">
                 <h1>💎 琉璃·最终版</h1>
-                <p>独立文字主题 | 玻璃强度可调 | 完美居中</p>
+                <p>背景/文字独立调色板 | 玻璃强度可调</p>
             </div>
             <button class="palette-btn" id="paletteBtn">🎨 调色板</button>
             <div class="palette-panel" id="palettePanel">
-                <!-- 置顶：文字主题切换 -->
+                <!-- 文字主题独立区域 -->
                 <div>
-                    <div class="section-title">📝 文字主题</div>
+                    <div class="section-title">📝 文字颜色</div>
                     <div class="text-theme-buttons">
+                        <div class="text-theme-btn" data-text="auto">🌓 自动（推荐）</div>
                         <div class="text-theme-btn" data-text="light">☀️ 浅色文字</div>
                         <div class="text-theme-btn" data-text="dark">🌙 深色文字</div>
                     </div>
+                    <div class="hint-text">自动模式会随背景亮度调整文字颜色</div>
                 </div>
-                <!-- 背景颜色区块 -->
+                <!-- 背景设置区域 -->
                 <div>
                     <div class="section-title">🎨 纯色背景</div>
                     <div class="color-grid" id="solidColorGrid"></div>
@@ -495,9 +513,8 @@
                         <button class="upload-btn" id="uploadBgBtn">📁 选择图片</button>
                         <button class="upload-btn reset-bg" id="resetBgBtn">🗑️ 重置背景</button>
                     </div>
-                    <div class="hint-text">支持 JPG/PNG，永久保存</div>
+                    <div class="hint-text">重置背景：恢复默认浅色背景，文字自动恢复</div>
                 </div>
-                <!-- 玻璃透明度与渐变角度 -->
                 <div class="slider-container">
                     <label>🔮 玻璃透明度 <span id="opacityValue">0.28</span></label>
                     <input type="range" id="opacitySlider" min="0.1" max="0.6" step="0.01" value="0.28">
@@ -506,7 +523,7 @@
                     <label>🔄 渐变角度 <span id="angleValue">135°</span> <span style="font-weight: normal;">(仅渐变背景)</span></label>
                     <input type="range" id="angleSlider" min="0" max="360" step="1" value="135">
                 </div>
-                <div class="hint-text">提示：文字主题独立于背景，可自由搭配</div>
+                <div class="hint-text">提示：文字颜色独立于背景，可自由搭配</div>
             </div>
         </div>
 
@@ -541,7 +558,7 @@
     const bgUpload = document.getElementById('bgUpload');
     const resetBgBtn = document.getElementById('resetBgBtn');
 
-    // 纯色预设列表（颜色与对应的背景主题名）
+    // 纯色预设（背景）
     const solidPresets = [
         { color: "#eef2f8", bgTheme: "white" },
         { color: "#12151c", bgTheme: "black" },
@@ -598,23 +615,56 @@
 
     searchInput.addEventListener('input', (e) => { currentKeyword = e.target.value; renderCards(); });
 
-    // ----- 背景主题切换（不影响壁纸）-----
-    function setBgTheme(themeName) {
+    // ----- 背景主题切换（不含壁纸）-----
+    function setBgTheme(themeName, keepWallpaperClass = false) {
         document.body.setAttribute('data-bg', themeName);
         const accentMap = { white:'#5b6e8c', black:'#c0b7a6', red:'#c2675e', orange:'#d98c2b', yellow:'#c9a12b', green:'#4f7a5e', cyan:'#3f7a85', blue:'#4a6fa5', purple:'#8b6cb0', sunset:'#d96c6e', aurora:'#3b82f6', ocean:'#7c83b9', sakura:'#c45692', forest:'#5c8a4a', midnight:'#9c88ff', peach:'#d97846', mint:'#4a9e7c' };
         document.body.style.setProperty('--theme-accent', accentMap[themeName] || '#5b6e8c');
-        localStorage.setItem('custom_bg_theme', themeName);
-        // 如果是纯色/渐变，清除壁纸标记
-        if (themeName !== 'wallpaper') {
-            localStorage.removeItem('custom_bg_image');
+        if (!keepWallpaperClass) {
             document.body.classList.remove('custom-bg');
+        }
+        localStorage.setItem('custom_bg_theme', themeName);
+        // 自动模式需要根据背景亮度刷新文字
+        if (document.body.getAttribute('data-text') === 'auto') {
+            applyAutoTextTheme();
         }
     }
 
-    // ----- 文字主题独立切换 -----
+    // 自动文字主题：根据背景亮度决定 dark/light
+    function applyAutoTextTheme() {
+        const bgColor = getComputedStyle(document.body).backgroundColor;
+        let r, g, b;
+        if (bgColor.startsWith('rgb')) {
+            const parts = bgColor.match(/\d+/g);
+            r = parseInt(parts[0]); g = parseInt(parts[1]); b = parseInt(parts[2]);
+        } else {
+            // 如果是渐变或者壁纸，默认浅色文字（深色背景可能看不清，但壁纸下让用户手动控制）
+            // 简单处理：默认使用深色文字（因为大多数壁纸较亮，或用户可手动切换）
+            r = 200; g = 200; b = 200;
+        }
+        const brightness = (r * 0.299 + g * 0.587 + b * 0.114);
+        const shouldBeDark = brightness < 128;
+        // 注意：data-text="auto" 时我们实际不改变 data-text 属性，而是动态添加一个类来覆盖变量？
+        // 为了简单，自动模式下直接 setAttribute 为 light 或 dark，但保留 auto 标识。
+        const actualMode = shouldBeDark ? 'dark' : 'light';
+        if (document.body.getAttribute('data-text') === 'auto') {
+            document.body.setAttribute('data-text', actualMode);
+            // 标记当前是由自动覆盖的，以便后续切换文字主题时能恢复
+            document.body.setAttribute('data-auto-override', 'true');
+        }
+    }
+
+    // 设置文字主题（light/dark/auto）
     function setTextTheme(mode) {
-        document.body.setAttribute('data-text', mode);
-        localStorage.setItem('custom_text_theme', mode);
+        if (mode === 'auto') {
+            document.body.setAttribute('data-text', 'auto');
+            applyAutoTextTheme();
+            localStorage.setItem('custom_text_theme', 'auto');
+        } else {
+            document.body.setAttribute('data-text', mode);
+            localStorage.setItem('custom_text_theme', mode);
+        }
+        // 更新按钮高亮
         document.querySelectorAll('.text-theme-btn').forEach(btn => {
             if (btn.dataset.text === mode) btn.classList.add('active');
             else btn.classList.remove('active');
@@ -633,6 +683,10 @@
                 setBgTheme(preset.bgTheme);
                 document.body.style.background = preset.color;
                 localStorage.setItem('custom_bg_color', preset.color);
+                // 如果当前是自动文字主题，重新计算亮度
+                if (document.body.getAttribute('data-text') === 'auto') {
+                    applyAutoTextTheme();
+                }
             });
             solidGrid.appendChild(swatch);
         });
@@ -647,6 +701,9 @@
                 setBgTheme(bgName);
                 document.body.style.background = '';
                 localStorage.removeItem('custom_bg_color');
+                if (document.body.getAttribute('data-text') === 'auto') {
+                    applyAutoTextTheme();
+                }
             });
             gradGrid.appendChild(swatch);
         });
@@ -664,7 +721,7 @@
         localStorage.setItem('gradient_angle', value);
     }
 
-    // 壁纸上传统计（永久缓存）
+    // 壁纸上传统计
     function saveAndApplyWallpaper(imgBase64) {
         localStorage.setItem('custom_bg_image', imgBase64);
         document.body.style.backgroundImage = `url(${imgBase64})`;
@@ -672,10 +729,14 @@
         document.body.style.backgroundPosition = 'center';
         document.body.style.backgroundAttachment = 'fixed';
         document.body.classList.add('custom-bg');
-        setBgTheme('white'); // 避免冲突，但保留壁纸类
+        setBgTheme('white', true); // 保持壁纸类，不冲突
         localStorage.removeItem('custom_bg_color');
-        // 标记壁纸主题
         localStorage.setItem('custom_bg_theme', 'wallpaper');
+        // 自动文字主题重新计算（壁纸下亮度不易获取，默认设为浅色文字可读性高，用户可手动改）
+        if (document.body.getAttribute('data-text') === 'auto') {
+            // 壁纸下建议强制深色文字（米白）因为壁纸通常较亮，也可以不强制，让用户自己选
+            setTextTheme('dark');
+        }
     }
 
     function initBackground() {
@@ -699,6 +760,19 @@
         }
     }
 
+    // 重置壁纸：清除图片，恢复默认浅色背景，文字主题重置为 auto
+    function resetWallpaper() {
+        localStorage.removeItem('custom_bg_image');
+        document.body.classList.remove('custom-bg');
+        document.body.style.backgroundImage = '';
+        setBgTheme('white');
+        document.body.style.background = '#eef2f8';
+        localStorage.setItem('custom_bg_theme', 'white');
+        localStorage.removeItem('custom_bg_color');
+        // 重置文字主题为自动
+        setTextTheme('auto');
+    }
+
     uploadBgBtn.addEventListener('click', () => { bgUpload.click(); });
     bgUpload.addEventListener('change', (e) => {
         const file = e.target.files[0];
@@ -708,14 +782,7 @@
             reader.readAsDataURL(file);
         }
     });
-    resetBgBtn.addEventListener('click', () => {
-        localStorage.removeItem('custom_bg_image');
-        document.body.classList.remove('custom-bg');
-        document.body.style.backgroundImage = '';
-        setBgTheme('white');
-        document.body.style.background = '#eef2f8';
-        localStorage.setItem('custom_bg_theme', 'white');
-    });
+    resetBgBtn.addEventListener('click', resetWallpaper);
 
     function initControls() {
         paletteBtn.addEventListener('click', (e) => { e.stopPropagation(); palettePanel.classList.toggle('show'); });
@@ -734,8 +801,11 @@
             btn.addEventListener('click', () => { setTextTheme(btn.dataset.text); });
         });
         const savedTextTheme = localStorage.getItem('custom_text_theme');
-        if (savedTextTheme === 'light' || savedTextTheme === 'dark') setTextTheme(savedTextTheme);
-        else setTextTheme('light');
+        if (savedTextTheme === 'light' || savedTextTheme === 'dark' || savedTextTheme === 'auto') {
+            setTextTheme(savedTextTheme);
+        } else {
+            setTextTheme('auto');
+        }
         initBackground();
     }
 
