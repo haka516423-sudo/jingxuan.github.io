@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>琉璃·纯色玻璃｜完美深色文字+防抖动</title>
+    <title>琉璃·纯色玻璃｜透明度滑块修复</title>
     <style>
         * {
             margin: 0;
@@ -69,10 +69,10 @@
             align-items: flex-start;
         }
 
-        /* 左侧导航 - 玻璃层 */
+        /* 左侧导航 - 玻璃层 (使用透明度变量) */
         .sidebar {
             flex: 0 0 280px;
-            background: rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, var(--glass-opacity));
             backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.5);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255,255,255,0.6);
@@ -84,7 +84,7 @@
         body[data-theme="black"] .sidebar,
         body[data-theme="ocean"] .sidebar,
         body[data-theme="midnight"] .sidebar {
-            background: rgba(0, 0, 0, 0.45);
+            background: rgba(0, 0, 0, calc(var(--glass-opacity) + 0.1));
             border-color: rgba(255, 255, 255, 0.3);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.2);
         }
@@ -292,7 +292,7 @@
         .search-box {
             width: 100%;
             padding: 16px 24px;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, var(--glass-opacity));
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.5);
             font-size: 0.95rem;
@@ -302,10 +302,10 @@
         .search-box:focus {
             outline: none;
             border-color: var(--theme-accent);
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, calc(var(--glass-opacity) + 0.2));
         }
         body[data-theme="black"] .search-box {
-            background: rgba(35, 42, 56, 0.6);
+            background: rgba(35, 42, 56, calc(var(--glass-opacity) + 0.1));
             color: #f5f0e0;
             border-color: rgba(255,255,255,0.3);
         }
@@ -318,9 +318,9 @@
             margin-top: 8px;
         }
 
-        /* 卡片：纯透明模糊 */
+        /* 卡片：使用透明度变量 */
         .card {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, var(--glass-opacity));
             backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.5);
             padding: 22px;
@@ -332,24 +332,24 @@
         .card:hover {
             transform: translateY(-4px);
             border-color: var(--theme-accent);
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, calc(var(--glass-opacity) + 0.1));
             box-shadow: 0 20px 30px rgba(0, 0, 0, 0.12);
         }
         /* 深色主题卡片背景加深，所有文字使用米白色系 */
         body[data-theme="black"] .card,
         body[data-theme="ocean"] .card,
         body[data-theme="midnight"] .card {
-            background: rgba(10, 14, 23, 0.65);
+            background: rgba(10, 14, 23, calc(var(--glass-opacity) + 0.2));
             border-color: rgba(255, 255, 255, 0.3);
             box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
         }
         body[data-theme="black"] .card:hover,
         body[data-theme="ocean"] .card:hover,
         body[data-theme="midnight"] .card:hover {
-            background: rgba(30, 40, 55, 0.75);
+            background: rgba(30, 40, 55, calc(var(--glass-opacity) + 0.3));
         }
 
-        /* 强制黑色主题下所有卡片内文字为米白色（全覆盖） */
+        /* 强制黑色主题下所有卡片内文字为米白色 */
         body[data-theme="black"] .card-title a,
         body[data-theme="black"] .badge,
         body[data-theme="black"] .version-info,
@@ -378,7 +378,7 @@
             color: #f0e6d2 !important;
         }
 
-        /* 卡片内常规样式（浅色主题） */
+        /* 卡片内部常规样式 */
         .card-title {
             font-size: 1.2rem;
             font-weight: 600;
@@ -440,7 +440,7 @@
         .no-results {
             text-align: center;
             padding: 60px 20px;
-            background: rgba(255,255,255,0.3);
+            background: rgba(255,255,255, var(--glass-opacity));
             backdrop-filter: blur(12px);
             border-radius: 20px;
             color: #4b5563;
@@ -483,8 +483,8 @@
                     <div class="color-grid" id="gradientColorGrid"></div>
                 </div>
                 <div class="slider-container">
-                    <label>🔮 玻璃透明度 <span id="opacityValue">0.20</span></label>
-                    <input type="range" id="opacitySlider" min="0.1" max="0.5" step="0.01" value="0.20">
+                    <label>🔮 玻璃透明度 <span id="opacityValue">0.35</span></label>
+                    <input type="range" id="opacitySlider" min="0.1" max="0.5" step="0.01" value="0.35">
                 </div>
                 <div class="slider-container">
                     <label>🔄 渐变角度 <span id="angleValue">135°</span> <span style="font-weight: normal;">(仅渐变主题)</span></label>
@@ -534,7 +534,7 @@
     const bgUpload = document.getElementById('bgUpload');
     const resetBgBtn = document.getElementById('resetBgBtn');
 
-    // 纯色预设（颜色值 + 对应的主题明暗）
+    // 纯色预设（颜色 + 主题）
     const solidPresets = [
         { color: "#eef2f8", theme: "white" },
         { color: "#12151c", theme: "black" },
@@ -592,7 +592,7 @@
 
     searchInput.addEventListener('input', (e) => { currentKeyword = e.target.value; renderCards(); });
 
-    // 主题切换（不影响壁纸）
+    // 主题切换
     function setTheme(themeName) {
         document.body.setAttribute('data-theme', themeName);
         const accentMap = { white:'#5b6e8c', black:'#c0b7a6', red:'#c2675e', orange:'#d98c2b', yellow:'#c9a12b', green:'#4f7a5e', cyan:'#3f7a85', blue:'#4a6fa5', purple:'#8b6cb0', sunset:'#d96c6e', aurora:'#3b82f6', ocean:'#7c83b9', sakura:'#c45692', forest:'#5c8a4a', midnight:'#9c88ff', peach:'#d97846', mint:'#4a9e7c' };
@@ -600,7 +600,6 @@
         localStorage.setItem('glass_custom_theme', themeName);
     }
 
-    // 辅助函数：判断颜色是否为深色（简单亮度检测）
     function isDarkColor(hex) {
         let r = parseInt(hex.slice(1,3), 16);
         let g = parseInt(hex.slice(3,5), 16);
@@ -609,7 +608,6 @@
         return brightness < 128;
     }
 
-    // 构建色板（纯色预设现在自动判断明暗）
     function buildPalette() {
         const solidGrid = document.getElementById('solidColorGrid');
         solidGrid.innerHTML = '';
@@ -618,11 +616,9 @@
             swatch.className = 'color-swatch';
             swatch.style.backgroundColor = preset.color;
             swatch.addEventListener('click', () => {
-                // 清除壁纸存储
                 localStorage.removeItem('custom_bg_image');
                 document.body.classList.remove('custom-bg');
                 document.body.style.background = preset.color;
-                // 根据颜色亮度自动设置主题
                 const themeToApply = isDarkColor(preset.color) ? 'black' : 'white';
                 setTheme(themeToApply);
                 localStorage.setItem('custom_bg_color', preset.color);
@@ -637,7 +633,6 @@
             swatch.style.background = grad;
             swatch.addEventListener('click', () => {
                 const themeName = gradientThemeNames[idx];
-                // 清除壁纸，使用渐变主题
                 localStorage.removeItem('custom_bg_image');
                 document.body.classList.remove('custom-bg');
                 setTheme(themeName);
@@ -647,19 +642,18 @@
         });
     }
 
-    // 透明度与角度控制
     function updateOpacity(value) {
         document.body.style.setProperty('--glass-opacity', value);
         opacityValue.innerText = value;
         localStorage.setItem('glass_opacity', value);
     }
+
     function updateAngle(value) {
         document.body.style.setProperty('--gradient-angle', value + 'deg');
         angleValue.innerText = value + '°';
         localStorage.setItem('gradient_angle', value);
     }
 
-    // 壁纸上传统逻辑
     function saveAndApplyWallpaper(imgBase64) {
         localStorage.setItem('custom_bg_image', imgBase64);
         document.body.style.backgroundImage = `url(${imgBase64})`;
@@ -667,7 +661,6 @@
         document.body.style.backgroundPosition = 'center';
         document.body.style.backgroundAttachment = 'fixed';
         document.body.classList.add('custom-bg');
-        // 清除纯色记录
         localStorage.removeItem('custom_bg_color');
     }
 
@@ -695,8 +688,7 @@
         if (file && file.type.startsWith('image/')) {
             const reader = new FileReader();
             reader.onload = (ev) => {
-                const imgUrl = ev.target.result;
-                saveAndApplyWallpaper(imgUrl);
+                saveAndApplyWallpaper(ev.target.result);
             };
             reader.readAsDataURL(file);
         }
@@ -722,10 +714,10 @@
         opacitySlider.addEventListener('input', (e) => { updateOpacity(parseFloat(e.target.value)); });
         angleSlider.addEventListener('input', (e) => { updateAngle(parseInt(e.target.value)); });
         const savedOpacity = localStorage.getItem('glass_opacity');
-        if(savedOpacity) updateOpacity(parseFloat(savedOpacity)); else updateOpacity(0.20);
+        if(savedOpacity) updateOpacity(parseFloat(savedOpacity)); else updateOpacity(0.35);
         const savedAngle = localStorage.getItem('gradient_angle');
         if(savedAngle) updateAngle(parseInt(savedAngle)); else updateAngle(135);
-        opacitySlider.value = 0.20;
+        opacitySlider.value = parseFloat(getComputedStyle(document.body).getPropertyValue('--glass-opacity')) || 0.35;
         angleSlider.value = 135;
         initBackground();
     }
