@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>镜玄·资源搜索 | 本地草稿+云端同步</title>
+    <title>镜玄·资源搜素 | 手动同步数据</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
+        /* 强制垂直滚动条，防止页面左右抖动 */
         html {
             overflow-y: scroll;
         }
+
         body {
             font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
             min-height: 100vh;
@@ -22,7 +25,8 @@
             --glass-opacity: 0.35;
             --gradient-angle: 135deg;
         }
-        /* 主题色 */
+
+        /* 默认纯色背景 */
         body[data-theme="white"]  { background: #eef2f8; --theme-accent: #5b6e8c; }
         body[data-theme="black"]  { background: #12151c; --theme-accent: #c0b7a6; }
         body[data-theme="red"]    { background: #fce9e6; --theme-accent: #c2675e; }
@@ -40,17 +44,23 @@
         body[data-theme="midnight"]  { background: linear-gradient(var(--gradient-angle), #1f1c2c 0%, #2a2a4a 100%); --theme-accent: #9c88ff; }
         body[data-theme="peach"]     { background: linear-gradient(var(--gradient-angle), #ffe29a 0%, #ffb7b2 100%); --theme-accent: #d97846; }
         body[data-theme="mint"]      { background: linear-gradient(var(--gradient-angle), #c7e9fb 0%, #b6e0fe 100%); --theme-accent: #4a9e7c; }
+
+        /* 自定义壁纸覆盖 */
         body.custom-bg {
             background-size: cover !important;
             background-position: center !important;
             background-repeat: no-repeat !important;
         }
-        .sidebar, .card, .search-box, .group-btn, .no-results, .palette-panel, .modal-content, .view-toggle-btn {
+
+        /* 统一圆角矩形 */
+        .sidebar, .card, .search-box, .group-btn, .no-results, .palette-panel, .modal-content {
             border-radius: 20px !important;
         }
         .color-swatch {
             border-radius: 12px;
         }
+
+        /* 布局 */
         .app {
             max-width: 1400px;
             margin: 0 auto;
@@ -58,6 +68,8 @@
             gap: 28px;
             align-items: flex-start;
         }
+
+        /* 左侧导航 - 玻璃层 (使用变量透明度) */
         .sidebar {
             flex: 0 0 280px;
             background: rgba(255, 255, 255, var(--glass-opacity));
@@ -93,6 +105,8 @@
             color: #f5f0e0;
             border-bottom-color: rgba(255,255,255,0.2);
         }
+
+        /* 分组按钮 — 按下动画 */
         .group-buttons {
             display: flex;
             flex-direction: column;
@@ -133,9 +147,13 @@
             background: var(--theme-accent);
             color: #12151c;
         }
+
+        /* 右侧主区域 */
         .main {
             flex: 1;
         }
+
+        /* 头部区域 */
         .header-area {
             display: flex;
             justify-content: space-between;
@@ -165,6 +183,8 @@
         body[data-theme="black"] .title-section p {
             color: #c0b7a6;
         }
+
+        /* 按钮组（调色板，管理员） */
         .action-buttons {
             display: flex;
             gap: 10px;
@@ -190,85 +210,14 @@
         .admin-btn:active, .palette-btn:active {
             transform: scale(0.96);
         }
-        /* 数据源指示器 */
-        .data-source-indicator {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.7rem;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(4px);
-            padding: 4px 10px;
-            border-radius: 40px;
-            color: #eee;
-        }
-        .indicator-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 10px;
-            background: gray;
-        }
-        .indicator-dot.cloud { background: #10b981; box-shadow: 0 0 4px #10b981; }
-        .indicator-dot.local { background: #f59e0b; box-shadow: 0 0 4px #f59e0b; }
-        .indicator-dot.default { background: #9ca3af; }
-        body[data-theme="black"] .data-source-indicator {
-            background: rgba(0,0,0,0.7);
-        }
-        /* 搜索栏 + 视图切换 */
-        .search-bar {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 28px;
-            align-items: center;
-        }
-        .search-box {
-            flex: 1;
-            padding: 14px 20px;
-            background: rgba(255, 255, 255, calc(var(--glass-opacity) + 0.05));
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            font-size: 0.95rem;
-            color: #1f2937;
-            transition: 0.2s;
-        }
-        .search-box:focus {
-            outline: none;
-            border-color: var(--theme-accent);
-            background: rgba(255, 255, 255, 0.6);
-        }
-        body[data-theme="black"] .search-box {
-            background: rgba(35, 42, 56, 0.6);
-            color: #f5f0e0;
-            border-color: rgba(255,255,255,0.3);
-        }
-        .view-toggle-btn {
-            background: rgba(255,255,240,0.7);
-            border: none;
-            padding: 8px 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            cursor: pointer;
-            backdrop-filter: blur(8px);
-            transition: 0.1s;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            color: #1f2d3d;
-            white-space: nowrap;
-        }
-        body[data-theme="black"] .view-toggle-btn {
-            background: rgba(30, 30, 35, 0.8);
-            color: #f5f0e0;
-        }
-        .view-toggle-btn:active {
-            transform: scale(0.96);
-        }
+
         /* 调色板面板 */
         .palette-panel {
             position: absolute;
             top: 60px;
             right: 0;
-            width: 320px;
-            max-width: calc(100vw - 40px);
-            max-height: 80vh;
+            width: 360px;
+            max-height: 550px;
             overflow-y: auto;
             background: rgba(20, 22, 27, 0.94);
             backdrop-filter: blur(24px);
@@ -301,7 +250,6 @@
             cursor: pointer;
             border: 1px solid rgba(255,255,255,0.5);
             transition: 0.1s;
-            border-radius: 12px;
         }
         .color-swatch:hover {
             transform: scale(1.05);
@@ -346,44 +294,38 @@
             color: #aaa;
             text-align: right;
         }
+
+        /* 搜索框 */
+        .search-box {
+            width: 100%;
+            padding: 16px 24px;
+            background: rgba(255, 255, 255, calc(var(--glass-opacity) + 0.05));
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            font-size: 0.95rem;
+            color: #1f2937;
+            transition: 0.2s;
+        }
+        .search-box:focus {
+            outline: none;
+            border-color: var(--theme-accent);
+            background: rgba(255, 255, 255, 0.6);
+        }
+        body[data-theme="black"] .search-box {
+            background: rgba(35, 42, 56, 0.6);
+            color: #f5f0e0;
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        /* 卡片网格 */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
             gap: 28px;
             margin-top: 8px;
         }
-        .cards-grid.list-view {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        .cards-grid.list-view .card {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            gap: 20px;
-            padding: 16px 20px;
-        }
-        .cards-grid.list-view .card .card-title {
-            min-width: 200px;
-            margin-bottom: 0;
-        }
-        .cards-grid.list-view .card .badge-group {
-            margin-bottom: 0;
-        }
-        .cards-grid.list-view .card .version-info {
-            margin-bottom: 0;
-        }
-        .cards-grid.list-view .card .card-description {
-            margin-bottom: 0;
-            flex: 2;
-        }
-        .cards-grid.list-view .card .card-footer {
-            margin-top: 0;
-            border-top: none;
-            padding-top: 0;
-            min-width: 120px;
-        }
+
+        /* 卡片样式 */
         .card {
             background: rgba(255, 255, 255, calc(var(--glass-opacity) - 0.05));
             backdrop-filter: blur(16px);
@@ -401,6 +343,7 @@
             background: rgba(255, 255, 255, calc(var(--glass-opacity) + 0.1));
             box-shadow: 0 20px 30px rgba(0, 0, 0, 0.12);
         }
+        /* 深色主题卡片背景加深 */
         body[data-theme="black"] .card,
         body[data-theme="ocean"] .card,
         body[data-theme="midnight"] .card {
@@ -413,6 +356,8 @@
         body[data-theme="midnight"] .card:hover {
             background: rgba(30, 40, 55, 0.75);
         }
+
+        /* 编辑模式下的卡片操作按钮 */
         .card-actions {
             position: absolute;
             top: 12px;
@@ -447,6 +392,8 @@
         body[data-theme="black"] .delete-btn {
             background: rgba(30,30,40,0.9);
         }
+
+        /* 管理员工具栏 */
         .admin-toolbar {
             display: flex;
             gap: 12px;
@@ -466,6 +413,8 @@
             cursor: pointer;
             font-size: 0.8rem;
         }
+
+        /* 模态框样式 */
         .modal {
             display: none;
             position: fixed;
@@ -488,7 +437,6 @@
             padding: 24px;
             border: 1px solid rgba(255,255,255,0.3);
             color: #eee;
-            border-radius: 20px;
         }
         .modal-content h3 {
             margin-bottom: 16px;
@@ -521,8 +469,8 @@
         }
         .save-btn { background: #10b981; color: white; }
         .cancel-btn { background: #6b7280; color: white; }
-        
-        /* 卡片内部基础样式（浅色主题默认深色文字） */
+
+        /* 其他样式 */
         .card-title {
             font-size: 1.2rem;
             font-weight: 600;
@@ -539,7 +487,7 @@
         }
         .card-title a {
             text-decoration: none;
-            color: #1e293b;  /* 浅色主题深色文字 */
+            color: #1e293b;
             font-weight: 600;
         }
         .badge-group {
@@ -581,17 +529,6 @@
             flex-wrap: wrap;
             gap: 8px;
         }
-        .data-source-badge {
-            font-size: 0.6rem;
-            background: rgba(0,0,0,0.2);
-            padding: 2px 8px;
-            border-radius: 30px;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            margin-left: 8px;
-            color: #1f2937;
-        }
         .no-results {
             text-align: center;
             padding: 60px 20px;
@@ -600,19 +537,18 @@
             border-radius: 20px;
             color: #4b5563;
         }
-        
-        /* ---------- 深色主题强制米白色文字 ---------- */
+        body[data-theme="black"] .no-results {
+            color: #f0e6d2;
+            background: rgba(0,0,0,0.4);
+        }
+
+        /* 黑色主题强制文字颜色 */
         body[data-theme="black"] .card-title a,
-        body[data-theme="black"] .card-title a:link,
-        body[data-theme="black"] .card-title a:visited,
         body[data-theme="black"] .badge,
         body[data-theme="black"] .version-info,
         body[data-theme="black"] .card-description,
         body[data-theme="black"] .card-footer,
-        body[data-theme="black"] .stats span,
-        body[data-theme="black"] .author,
-        body[data-theme="black"] .data-source-badge,
-        body[data-theme="black"] .no-results {
+        body[data-theme="black"] .stats span {
             color: #f0e6d2 !important;
         }
         body[data-theme="black"] .badge {
@@ -621,17 +557,7 @@
         body[data-theme="black"] .version-info {
             background: rgba(210, 220, 250, 0.25) !important;
         }
-        body[data-theme="black"] .card-title a:hover {
-            color: var(--theme-accent) !important;
-            text-decoration: underline;
-        }
-        body[data-theme="black"] .no-results {
-            background: rgba(0,0,0,0.4);
-        }
-        body[data-theme="black"] .data-source-badge {
-            background: rgba(0,0,0,0.5);
-        }
-        
+
         @media (max-width: 780px) {
             body { padding: 16px; }
             .app { flex-direction: column; }
@@ -640,10 +566,6 @@
             .group-btn { flex: 1; text-align: center; }
             .palette-panel { width: 280px; right: 0; left: auto; top: 65px; }
             .card-actions { opacity: 1; top: 8px; right: 8px; }
-            .cards-grid.list-view .card {
-                flex-direction: column;
-                align-items: stretch;
-            }
         }
     </style>
 </head>
@@ -658,43 +580,59 @@
         <div class="header-area">
             <div class="title-section">
                 <h1 id="dynamicTitle">🎮 Minecraft 模组</h1>
-                <p>自定义壁纸 | 通透模糊 | 本地草稿+云端同步</p>
+                <p>自定义壁纸 | 通透模糊 | 云端优先</p>
             </div>
             <div class="action-buttons">
-                <div id="dataSourceIndicator" class="data-source-indicator" style="display: none;">
-                    <span class="indicator-dot"></span>
-                    <span id="sourceText">云端</span>
-                </div>
                 <button class="palette-btn" id="paletteBtn">🎨 调色板</button>
                 <button class="admin-btn" id="adminBtn">🔐 管理员</button>
             </div>
             <div class="palette-panel" id="palettePanel">
-                <div><div class="section-title">🎨 纯色预设</div><div class="color-grid" id="solidColorGrid"></div></div>
-                <div><div class="section-title">🌈 渐变预设</div><div class="color-grid" id="gradientColorGrid"></div></div>
-                <div class="slider-container"><label>🔮 玻璃透明度 <span id="opacityValue">0.20</span></label><input type="range" id="opacitySlider" min="0.1" max="0.5" step="0.01" value="0.20"></div>
-                <div class="slider-container"><label>🔄 渐变角度 <span id="angleValue">135°</span> <span style="font-weight: normal;">(仅渐变主题)</span></label><input type="range" id="angleSlider" min="0" max="360" step="1" value="135"></div>
-                <div><div class="section-title">🖼️ 自定义壁纸</div><div class="file-upload-area"><input type="file" id="bgUpload" accept="image/*" style="display: none;"><button class="upload-btn" id="uploadBgBtn">📁 选择图片</button><button class="upload-btn reset-bg" id="resetBgBtn">🗑️ 重置背景</button></div><div class="hint-text">支持 JPG/PNG，上传后自动铺满背景并永久保存</div></div>
+                <div>
+                    <div class="section-title">🎨 纯色预设</div>
+                    <div class="color-grid" id="solidColorGrid"></div>
+                </div>
+                <div>
+                    <div class="section-title">🌈 渐变预设</div>
+                    <div class="color-grid" id="gradientColorGrid"></div>
+                </div>
+                <div class="slider-container">
+                    <label>🔮 玻璃透明度 <span id="opacityValue">0.20</span></label>
+                    <input type="range" id="opacitySlider" min="0.1" max="0.5" step="0.01" value="0.20">
+                </div>
+                <div class="slider-container">
+                    <label>🔄 渐变角度 <span id="angleValue">135°</span> <span style="font-weight: normal;">(仅渐变主题)</span></label>
+                    <input type="range" id="angleSlider" min="0" max="360" step="1" value="135">
+                </div>
+                <div>
+                    <div class="section-title">🖼️ 自定义壁纸</div>
+                    <div class="file-upload-area">
+                        <input type="file" id="bgUpload" accept="image/*" style="display: none;">
+                        <button class="upload-btn" id="uploadBgBtn">📁 选择图片</button>
+                        <button class="upload-btn reset-bg" id="resetBgBtn">🗑️ 重置背景</button>
+                    </div>
+                    <div class="hint-text">支持 JPG/PNG，上传后自动铺满背景并永久保存</div>
+                </div>
                 <div class="hint-text">点击色板换肤 | 滑块调节玻璃强度</div>
             </div>
         </div>
 
+        <!-- 管理员工具栏（默认隐藏） -->
         <div id="adminToolbar" class="admin-toolbar" style="display: none;">
             <button id="addCardBtn">➕ 新增卡片到当前分组</button>
             <button id="resetDataBtn">🔄 重置为默认数据</button>
             <button id="exportDataBtn">📤 导出数据(JSON)</button>
-            <button id="syncToCloudBtn" style="background: #10b981;">☁️ 同步到云端</button>
             <button id="exitAdminBtn">🔒 退出编辑模式</button>
         </div>
 
-        <div class="search-bar">
+        <div class="search-wrapper">
             <input type="text" class="search-box" id="searchInput" placeholder="🔍 实时过滤 · 标题 / 描述 / 作者 / 标签 / 版本">
-            <button class="view-toggle-btn" id="viewToggleBtn">📋 列表视图</button>
         </div>
 
         <div id="cardsContainer" class="cards-grid"></div>
     </div>
 </div>
 
+<!-- 编辑/新增卡片的模态框 -->
 <div id="cardModal" class="modal">
     <div class="modal-content">
         <h3 id="modalTitle">编辑卡片</h3>
@@ -714,21 +652,19 @@
 </div>
 
 <script>
-    // ========== 默认数据 ==========
+    // ========== 默认数据（完整的初始结构） ==========
     const DEFAULT_GROUPS_DATA = [
         { groupName: "🎮 Minecraft 模组", items: [ { title: "Fabric API", url: "https://modrinth.com/mod/fabric-api", description: "轻量级且模块化的API，提供通用钩子和互操作性，供 Fabric 模组使用。", author: "Modmuss50", tags: ["Fabric", "库"], stats: { downloads: "162M", updated: "4天前" }, version: "0.16.5" }, { title: "Sodium (钠)", url: "https://modrinth.com/mod/sodium", description: "Minecraft 最快且最兼容的渲染优化模组，支持 Fabric 和 NeoForge。", author: "CaffeineMC", tags: ["Fabric", "NeoForge", "优化"], stats: { downloads: "147M", updated: "55分钟前" }, version: "0.5.8" }, { title: "Iris Shaders", url: "https://modrinth.com/mod/iris", description: "现代 Minecraft 光影加载器，兼容 OptiFine 光影包。", author: "coderbot", tags: ["Fabric", "NeoForge", "视觉"], stats: { downloads: "115M", updated: "3周前" }, version: "1.7.0" }, { title: "Cloth Config API", url: "https://modrinth.com/mod/cloth-config", description: "Minecraft 模组配置库，提供通用的配置界面。", author: "shedaniel", tags: ["Fabric", "Forge", "库"], stats: { downloads: "115M", updated: "上个月" }, version: "11.1.118" }, { title: "ReplayMod (重播模组)", url: "https://modrinth.com/mod/replaymod", description: "记录并分享游戏体验的模组。", author: "Johni0702", tags: ["Fabric", "Forge", "实用","视频创作者工具"], stats: { downloads: "—", updated: "上个月" }, version: "1.20.4-2.6.14" }, { title: "Visible Barriers (可视化屏障方块)", url: "https://modrinth.com/mod/visiblebarriers", description: "让屏障方块、光源方块等可见，对地图制作很有帮助。", author: "AmyMialee's Mods", tags: ["Fabric", "实用","辅助"], stats: { downloads: "—", updated: "上个月" }, version: "1.0.2" }, { title: "JEI (Just Enough Items)", url: "https://modrinth.com/mod/jei", description: "查看物品合成表，模组必备。", author: "mezz", tags: ["Fabric", "Forge", "实用"], stats: { downloads: "200M", updated: "2周前" }, version: "15.3.0.8" } ] },
         { groupName: "🌐 常用开发网站", items: [ { title: "GitHub 官网", url: "https://github.com", description: "全球最大的开发者平台，托管代码、协作开发。", author: "GitHub", tags: ["开发", "工具"], stats: { downloads: "—", updated: "在线" } }, { title: "MDN Web Docs", url: "https://developer.mozilla.org/zh-CN/", description: "权威的 Web 技术文档，HTML、CSS、JavaScript 应有尽有。", author: "Mozilla", tags: ["文档", "前端"], stats: { downloads: "—", updated: "持续更新" } }, { title: "Stack Overflow", url: "https://stackoverflow.com", description: "程序员问答社区，遇到 bug 时的救星。", author: "Stack Exchange", tags: ["社区", "问答"], stats: { downloads: "—", updated: "活跃" } } ] },
         { groupName: "📺 视频&学习", items: [ { title: "哔哩哔哩", url: "https://www.bilibili.com", description: "中文弹幕视频网站，大量编程教程和模组展示。", author: "Bilibili", tags: ["视频", "学习"], stats: { downloads: "—", updated: "每日更新" } }, { title: "YouTube", url: "https://www.youtube.com", description: "全球最大视频平台，无数技术讲座和模组介绍。", author: "Google", tags: ["视频", "教程"], stats: { downloads: "—", updated: "实时" } } ] }
     ];
 
+    // 全局变量
     let groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
     let currentGroupIndex = 0;
     let currentKeyword = '';
     let isAdminMode = false;
     let editingCardInfo = null;
-    let currentDataSource = 'default';
-    let isListView = false;
-    let hasLocalChanges = false;
 
     // DOM 元素
     const groupContainer = document.getElementById('groupButtonsContainer');
@@ -743,7 +679,6 @@
     const resetDataBtn = document.getElementById('resetDataBtn');
     const exportDataBtn = document.getElementById('exportDataBtn');
     const exitAdminBtn = document.getElementById('exitAdminBtn');
-    const syncToCloudBtn = document.getElementById('syncToCloudBtn');
     const modal = document.getElementById('cardModal');
     const modalTitle = document.getElementById('modalTitle');
     const cardTitleInput = document.getElementById('cardTitle');
@@ -756,91 +691,51 @@
     const cardUpdatedInput = document.getElementById('cardUpdated');
     const modalCancel = document.getElementById('modalCancel');
     const modalSave = document.getElementById('modalSave');
-    const viewToggleBtn = document.getElementById('viewToggleBtn');
 
-    function updateDataSourceIndicator() {
-        const container = document.getElementById('dataSourceIndicator');
-        const dot = container?.querySelector('.indicator-dot');
-        const textSpan = document.getElementById('sourceText');
-        if (!container) return;
-        container.style.display = 'flex';
-        if (hasLocalChanges) {
-            dot.className = 'indicator-dot local';
-            textSpan.innerText = '本地草稿 (需同步)';
-        } else if (currentDataSource === 'cloud') {
-            dot.className = 'indicator-dot cloud';
-            textSpan.innerText = '云端同步';
-        } else if (currentDataSource === 'local') {
-            dot.className = 'indicator-dot local';
-            textSpan.innerText = '本地缓存';
-        } else {
-            dot.className = 'indicator-dot default';
-            textSpan.innerText = '默认数据';
-        }
-    }
-
-    function saveDataToStorage() {
-        localStorage.setItem('editable_groups_data', JSON.stringify(groupsData));
-        hasLocalChanges = true;
-        if (currentDataSource !== 'cloud') {
-            currentDataSource = 'local';
-        }
-        updateDataSourceIndicator();
-    }
-
-    async function loadInitialData() {
-        let cloudLoaded = false;
+    // ========== 数据持久化（云端优先） ==========
+    async function loadDataFromGitHub() {
         try {
+            // 添加时间戳避免浏览器缓存
             const response = await fetch('data.json?v=' + Date.now());
             if (response.ok) {
                 const remoteData = await response.json();
                 if (remoteData && Array.isArray(remoteData)) {
                     groupsData = remoteData;
-                    currentDataSource = 'cloud';
-                    hasLocalChanges = false;
                     localStorage.setItem('editable_groups_data', JSON.stringify(groupsData));
-                    cloudLoaded = true;
-                    console.log('✅ 已从云端加载数据');
+                    console.log('✅ 已从 data.json 加载最新数据');
+                    return true;
                 }
             }
+            throw new Error('data.json 无效');
         } catch (err) {
-            console.warn('云端加载失败', err);
-        }
-        if (!cloudLoaded) {
+            console.warn('⚠️ 从 data.json 加载失败，尝试使用本地缓存', err);
             const stored = localStorage.getItem('editable_groups_data');
             if (stored) {
                 try {
-                    const parsed = JSON.parse(stored);
-                    if (parsed && Array.isArray(parsed)) {
-                        groupsData = parsed;
-                        currentDataSource = 'local';
-                        hasLocalChanges = false;
-                        console.log('📦 从本地缓存加载');
-                    }
+                    groupsData = JSON.parse(stored);
+                    console.log('📦 使用 localStorage 缓存数据');
+                    return true;
                 } catch(e) {}
-            } else {
-                groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
-                currentDataSource = 'default';
-                hasLocalChanges = false;
-                console.log('📄 使用默认数据');
             }
+            groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
+            console.log('📄 使用默认数据');
+            return false;
         }
-        updateDataSourceIndicator();
-        renderAll();
+    }
+
+    function saveDataToStorage() {
+        localStorage.setItem('editable_groups_data', JSON.stringify(groupsData));
     }
 
     function resetToDefault() {
         if (confirm('重置所有数据将丢失当前本地修改，确定吗？')) {
             groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
             saveDataToStorage();
-            currentDataSource = 'default';
-            hasLocalChanges = false;
-            updateDataSourceIndicator();
             currentGroupIndex = 0;
             currentKeyword = '';
             searchInput.value = '';
             renderAll();
-            alert('已重置为默认数据，如需永久保存请手动同步到云端。');
+            alert('已重置为默认数据，如需永久保存请手动导出并替换 data.json');
         }
     }
 
@@ -855,50 +750,7 @@
         URL.revokeObjectURL(url);
     }
 
-    async function syncToCloud() {
-        if (!confirm('确定要将当前本地数据同步到云端吗？这将覆盖 GitHub 仓库中的 data.json。')) return;
-        try {
-            const shaResp = await fetch(`https://api.github.com/repos/haka516423-sudo/jingxuan.github.io/contents/data.json`, {
-                headers: { 'Accept': 'application/vnd.github.v3+json' }
-            });
-            let sha = null;
-            if (shaResp.ok) {
-                const fileInfo = await shaResp.json();
-                sha = fileInfo.sha;
-            }
-            const content = btoa(unescape(encodeURIComponent(JSON.stringify(groupsData, null, 2))));
-            const payload = {
-                message: `手动同步卡片数据 - ${new Date().toLocaleString()}`,
-                content: content,
-                sha: sha
-            };
-            const token = prompt('请输入 GitHub Personal Access Token (用于更新 data.json)：');
-            if (!token) return;
-            const updateResp = await fetch(`https://api.github.com/repos/haka516423-sudo/jingxuan.github.io/contents/data.json`, {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Accept': 'application/vnd.github.v3+json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(payload)
-            });
-            if (updateResp.ok) {
-                alert('✅ 同步成功！云端 data.json 已更新。');
-                currentDataSource = 'cloud';
-                hasLocalChanges = false;
-                updateDataSourceIndicator();
-                localStorage.setItem('editable_groups_data', JSON.stringify(groupsData));
-            } else {
-                const err = await updateResp.json();
-                alert(`同步失败: ${err.message}`);
-            }
-        } catch (err) {
-            alert(`同步出错: ${err.message}`);
-        }
-    }
-
-    // 卡片操作
+    // ========== 卡片增删改 ==========
     function openEditModal(groupIdx, cardIdx, card) {
         editingCardInfo = { groupIdx, cardIdx, card: { ...card } };
         modalTitle.innerText = cardIdx === undefined ? '新增卡片' : '编辑卡片';
@@ -955,7 +807,7 @@
         editingCardInfo = null;
     }
 
-    // 渲染函数
+    // ========== 渲染相关 ==========
     function escapeHtml(s) { if(!s) return ''; return s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
     function getFavicon(url) { return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(url)}`; }
 
@@ -964,14 +816,6 @@
         const versionHtml = item.version ? `<div class="version-info">📌 版本 ${escapeHtml(item.version)}</div>` : '';
         const downloads = item.stats?.downloads || '';
         const updated = item.stats?.updated || '';
-        let sourceBadge = '';
-        if (hasLocalChanges) {
-            sourceBadge = `<span class="data-source-badge">💾 本地草稿</span>`;
-        } else if (currentDataSource === 'cloud') {
-            sourceBadge = `<span class="data-source-badge">☁️ 云端</span>`;
-        } else {
-            sourceBadge = `<span class="data-source-badge">📄 默认</span>`;
-        }
         const adminActions = isAdminMode ? `
             <div class="card-actions">
                 <button class="edit-btn" data-group="${groupIdx}" data-card="${cardIdx}">✏️</button>
@@ -986,13 +830,10 @@
                     <a href="${escapeHtml(item.url)}" target="_blank">${escapeHtml(item.title)}</a>
                 </div>
                 <div class="badge-group">${tagsHtml}</div>
-                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
-                    ${versionHtml}
-                    ${sourceBadge}
-                </div>
+                ${versionHtml}
                 <div class="card-description">${escapeHtml(item.description)}</div>
                 <div class="card-footer">
-                    <span class="author">👤 ${escapeHtml(item.author)}</span>
+                    <span>👤 ${escapeHtml(item.author)}</span>
                     <div class="stats">
                         ${downloads ? `<span>📥 ${downloads}</span>` : ''}
                         ${updated ? `<span>🕒 ${updated}</span>` : ''}
@@ -1050,11 +891,6 @@
                 });
             });
         }
-        if (isListView) {
-            cardsContainer.classList.add('list-view');
-        } else {
-            cardsContainer.classList.remove('list-view');
-        }
     }
 
     function renderGroupButtons() {
@@ -1083,13 +919,7 @@
         renderCards();
     }
 
-    function toggleView() {
-        isListView = !isListView;
-        viewToggleBtn.innerText = isListView ? '🗂️ 卡片视图' : '📋 列表视图';
-        renderCards();
-    }
-
-    // 管理员模式
+    // ========== 管理员模式 ==========
     function enableAdminMode() {
         isAdminMode = true;
         adminToolbar.style.display = 'flex';
@@ -1112,7 +942,7 @@
         openEditModal(currentGroupIndex, undefined, { title: '', url: '', description: '', author: '', tags: [], version: '', stats: { downloads: '—', updated: '' } });
     }
 
-    // 主题与壁纸控制（保持不变）
+    // ========== 主题与壁纸控制 ==========
     const solidPresets = [
         { color: "#eef2f8", theme: "white" }, { color: "#12151c", theme: "black" },
         { color: "#fce9e6", theme: "white" }, { color: "#fef0e0", theme: "white" },
@@ -1247,22 +1077,21 @@
         else setTheme('white');
     }
 
+    // ========== 初始化（异步加载 data.json） ==========
     async function init() {
-        await loadInitialData();
+        await loadDataFromGitHub();   // 先加载云端数据
         initTheme();
         buildPalette();
         initControls();
         renderGroupButtons();
         renderCards();
         searchInput.addEventListener('input', (e) => { currentKeyword = e.target.value; renderCards(); });
-        viewToggleBtn.addEventListener('click', toggleView);
 
         adminBtn.addEventListener('click', checkAdminPassword);
         addCardBtn.addEventListener('click', addNewCard);
-        resetDataBtn.addEventListener('click', resetToDefault);
+        resetDataBtn.addEventListener('click', () => { if(confirm('重置所有数据将丢失当前本地修改，确定吗？')) resetToDefault(); });
         exportDataBtn.addEventListener('click', exportData);
         exitAdminBtn.addEventListener('click', disableAdminMode);
-        syncToCloudBtn.addEventListener('click', syncToCloud);
         modalCancel.addEventListener('click', closeModal);
         modalSave.addEventListener('click', saveCardFromModal);
         modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
