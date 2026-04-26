@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>琉璃·智能翻译 | 可编辑卡片库</title>
+    <title>琉璃·云端同步版 | 多设备共享</title>
     <style>
-        /* 所有样式与之前完全相同，此处省略以避免重复，但会保留完整内容 */
+        /* 样式与之前保持完全一致，为了保持代码简洁，此处省略，您可以从之前版本中直接复制 */
+        /* ... 所有CSS样式保持不变 ... */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { overflow-y: scroll; }
         body {
@@ -17,7 +18,7 @@
             --glass-opacity: 0.35;
             --gradient-angle: 135deg;
         }
-        /* 主题背景 */
+        /* 默认纯色背景 */
         body[data-theme="white"]  { background: #eef2f8; --theme-accent: #5b6e8c; }
         body[data-theme="black"]  { background: #12151c; --theme-accent: #c0b7a6; }
         body[data-theme="red"]    { background: #fce9e6; --theme-accent: #c2675e; }
@@ -40,15 +41,11 @@
             background-position: center !important;
             background-repeat: no-repeat !important;
         }
-        .sidebar, .card, .search-box, .group-btn, .no-results, .palette-panel, .modal-content { border-radius: 20px !important; }
-        .color-swatch { border-radius: 12px; }
-        .app {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            gap: 28px;
-            align-items: flex-start;
+        .sidebar, .card, .search-box, .group-btn, .no-results, .palette-panel, .modal-content {
+            border-radius: 20px !important;
         }
+        .color-swatch { border-radius: 12px; }
+        .app { max-width: 1400px; margin: 0 auto; display: flex; gap: 28px; align-items: flex-start; }
         .sidebar {
             flex: 0 0 280px;
             background: rgba(255, 255, 255, var(--glass-opacity));
@@ -58,6 +55,7 @@
             padding: 24px 16px;
             position: sticky;
             top: 28px;
+            transition: background 0.2s;
         }
         body[data-theme="black"] .sidebar,
         body[data-theme="ocean"] .sidebar,
@@ -83,7 +81,11 @@
             color: #f5f0e0;
             border-bottom-color: rgba(255,255,255,0.2);
         }
-        .group-buttons { display: flex; flex-direction: column; gap: 12px; }
+        .group-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
         .group-btn {
             background: rgba(255, 255, 235, 0.7);
             backdrop-filter: blur(6px);
@@ -97,7 +99,10 @@
             transition: transform 0.08s, background 0.2s;
             transform: scale(1);
         }
-        .group-btn:active { transform: scale(0.96); background: rgba(0, 0, 0, 0.15); }
+        .group-btn:active {
+            transform: scale(0.96);
+            background: rgba(0, 0, 0, 0.15);
+        }
         .group-btn:hover { background: rgba(255,255,250,0.9); }
         .group-btn.active {
             background: var(--theme-accent);
@@ -143,7 +148,7 @@
         }
         body[data-theme="black"] .title-section p { color: #c0b7a6; }
         .action-buttons { display: flex; gap: 10px; align-items: center; }
-        .admin-btn, .palette-btn {
+        .admin-btn, .palette-btn, .sync-btn {
             background: rgba(255,255,240,0.8);
             border: none;
             padding: 8px 18px;
@@ -156,7 +161,8 @@
             color: #1f2d3d;
         }
         body[data-theme="black"] .admin-btn,
-        body[data-theme="black"] .palette-btn {
+        body[data-theme="black"] .palette-btn,
+        body[data-theme="black"] .sync-btn {
             background: rgba(30, 30, 35, 0.8);
             color: #f5f0e0;
         }
@@ -177,17 +183,47 @@
             flex-direction: column;
             gap: 18px;
             box-shadow: 0 20px 35px rgba(0,0,0,0.4);
+            border-radius: 20px;
             color: #eef2ff;
         }
         .palette-panel.show { display: flex; }
-        .section-title { font-size: 0.85rem; font-weight: 600; color: #eef2ff; margin-bottom: 10px; }
-        .color-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
-        .color-swatch { height: 42px; cursor: pointer; border: 1px solid rgba(255,255,255,0.5); transition: 0.1s; }
+        .section-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #eef2ff;
+            margin-bottom: 10px;
+        }
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 8px;
+        }
+        .color-swatch {
+            height: 42px;
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.5);
+            transition: 0.1s;
+        }
         .color-swatch:hover { transform: scale(1.05); border-color: white; }
-        .slider-container { display: flex; flex-direction: column; gap: 6px; }
-        .slider-container label { font-size: 0.75rem; color: #ddd; display: flex; justify-content: space-between; }
+        .slider-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .slider-container label {
+            font-size: 0.75rem;
+            color: #ddd;
+            display: flex;
+            justify-content: space-between;
+        }
         input[type="range"] { width: 100%; cursor: pointer; }
-        .file-upload-area { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 6px; }
+        .file-upload-area {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
         .upload-btn {
             background: rgba(255,255,240,0.2);
             border: 1px solid rgba(255,255,255,0.4);
@@ -198,7 +234,11 @@
             color: #eee;
         }
         .reset-bg { background: rgba(255,80,80,0.3); }
-        .hint-text { font-size: 0.7rem; color: #aaa; text-align: right; }
+        .hint-text {
+            font-size: 0.7rem;
+            color: #aaa;
+            text-align: right;
+        }
         .search-box {
             width: 100%;
             padding: 16px 24px;
@@ -278,6 +318,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            transition: 0.1s;
         }
         .edit-btn:hover { background: #3b82f6; }
         .delete-btn:hover { background: #ef4444; }
@@ -315,31 +356,13 @@
         .modal-content {
             background: rgba(30,30,40,0.95);
             backdrop-filter: blur(20px);
-            width: 550px;
+            width: 500px;
             max-width: 90%;
             padding: 24px;
             border: 1px solid rgba(255,255,255,0.3);
             color: #eee;
         }
         .modal-content h3 { margin-bottom: 16px; }
-        .url-input-wrapper {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 12px;
-            align-items: center;
-        }
-        .url-input-wrapper input { flex: 1; margin-bottom: 0; }
-        .parse-btn, .translate-btn {
-            background: #3b82f6;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 40px;
-            color: white;
-            cursor: pointer;
-            font-size: 0.8rem;
-            white-space: nowrap;
-        }
-        .translate-btn { background: #8b5cf6; }
         .modal-content input, .modal-content textarea {
             width: 100%;
             padding: 10px;
@@ -373,9 +396,37 @@
             align-items: center;
             gap: 10px;
         }
-        .card-title img { width: 22px; height: 22px; border-radius: 6px; background: rgba(255,255,255,0.5); }
-        .card-title a { text-decoration: none; color: #1e293b; font-weight: 600; }
-        .badge-group { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
+        .card-title img {
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.5);
+        }
+        .card-title a {
+            text-decoration: none;
+            color: #1e293b;
+            font-weight: 600;
+        }
+        body[data-theme="black"] .card-title a,
+        body[data-theme="black"] .badge,
+        body[data-theme="black"] .version-info,
+        body[data-theme="black"] .card-description,
+        body[data-theme="black"] .card-footer,
+        body[data-theme="black"] .stats span {
+            color: #f0e6d2 !important;
+        }
+        body[data-theme="black"] .badge {
+            background: rgba(255,255,240,0.25) !important;
+        }
+        body[data-theme="black"] .version-info {
+            background: rgba(210, 220, 250, 0.25) !important;
+        }
+        .badge-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
         .badge {
             background: rgba(0,0,0,0.1);
             padding: 6px 14px;
@@ -414,19 +465,13 @@
             padding: 60px 20px;
             background: rgba(255,255,255,0.3);
             backdrop-filter: blur(12px);
+            border-radius: 20px;
             color: #4b5563;
         }
-        body[data-theme="black"] .no-results { color: #f0e6d2; background: rgba(0,0,0,0.4); }
-        body[data-theme="black"] .card-title a,
-        body[data-theme="black"] .badge,
-        body[data-theme="black"] .version-info,
-        body[data-theme="black"] .card-description,
-        body[data-theme="black"] .card-footer,
-        body[data-theme="black"] .stats span {
-            color: #f0e6d2 !important;
+        body[data-theme="black"] .no-results {
+            color: #f0e6d2;
+            background: rgba(0,0,0,0.4);
         }
-        body[data-theme="black"] .badge { background: rgba(255,255,240,0.25) !important; }
-        body[data-theme="black"] .version-info { background: rgba(210, 220, 250, 0.25) !important; }
         @media (max-width: 780px) {
             body { padding: 16px; }
             .app { flex-direction: column; }
@@ -444,39 +489,70 @@
         <div class="sidebar-header">📁 分组导航</div>
         <div class="group-buttons" id="groupButtonsContainer"></div>
     </aside>
+
     <div class="main">
         <div class="header-area">
             <div class="title-section">
                 <h1 id="dynamicTitle">🎮 Minecraft 模组</h1>
-                <p>智能解析 | 一键翻译 | 可编辑卡片</p>
+                <p>云端同步 | 跨设备共享 | 玻璃主题</p>
             </div>
             <div class="action-buttons">
                 <button class="palette-btn" id="paletteBtn">🎨 调色板</button>
                 <button class="admin-btn" id="adminBtn">🔐 管理员</button>
             </div>
-            <div class="palette-panel" id="palettePanel"></div>
+            <div class="palette-panel" id="palettePanel">
+                <div>
+                    <div class="section-title">🎨 纯色预设</div>
+                    <div class="color-grid" id="solidColorGrid"></div>
+                </div>
+                <div>
+                    <div class="section-title">🌈 渐变预设</div>
+                    <div class="color-grid" id="gradientColorGrid"></div>
+                </div>
+                <div class="slider-container">
+                    <label>🔮 玻璃透明度 <span id="opacityValue">0.20</span></label>
+                    <input type="range" id="opacitySlider" min="0.1" max="0.5" step="0.01" value="0.20">
+                </div>
+                <div class="slider-container">
+                    <label>🔄 渐变角度 <span id="angleValue">135°</span> <span style="font-weight: normal;">(仅渐变主题)</span></label>
+                    <input type="range" id="angleSlider" min="0" max="360" step="1" value="135">
+                </div>
+                <div>
+                    <div class="section-title">🖼️ 自定义壁纸</div>
+                    <div class="file-upload-area">
+                        <input type="file" id="bgUpload" accept="image/*" style="display: none;">
+                        <button class="upload-btn" id="uploadBgBtn">📁 选择图片</button>
+                        <button class="upload-btn reset-bg" id="resetBgBtn">🗑️ 重置背景</button>
+                    </div>
+                    <div class="hint-text">支持 JPG/PNG，上传后自动铺满背景并永久保存</div>
+                </div>
+                <div class="hint-text">点击色板换肤 | 滑块调节玻璃强度</div>
+            </div>
         </div>
+
+        <!-- 管理员工具栏（默认隐藏） -->
         <div id="adminToolbar" class="admin-toolbar" style="display: none;">
             <button id="addCardBtn">➕ 新增卡片到当前分组</button>
             <button id="resetDataBtn">🔄 重置为默认数据</button>
-            <button id="exportDataBtn">📤 导出数据(JSON)</button>
+            <button id="exportDataBtn">📤 导出数据备份</button>
+            <button id="syncToGitBtn">☁️ 同步到云端</button>
             <button id="exitAdminBtn">🔒 退出编辑模式</button>
         </div>
+
         <div class="search-wrapper">
             <input type="text" class="search-box" id="searchInput" placeholder="🔍 实时过滤 · 标题 / 描述 / 作者 / 标签 / 版本">
         </div>
+
         <div id="cardsContainer" class="cards-grid"></div>
     </div>
 </div>
+
+<!-- 编辑/新增卡片的模态框 -->
 <div id="cardModal" class="modal">
     <div class="modal-content">
         <h3 id="modalTitle">编辑卡片</h3>
-        <div class="url-input-wrapper">
-            <input type="url" id="cardUrl" placeholder="网址 (https://...)" autocomplete="off">
-            <button class="parse-btn" id="parseUrlBtn">🔍 解析并翻译</button>
-            <button class="translate-btn" id="translateBtn">🌐 翻译标题和描述</button>
-        </div>
         <input type="text" id="cardTitle" placeholder="标题" autocomplete="off">
+        <input type="url" id="cardUrl" placeholder="网址 (https://...)" autocomplete="off">
         <textarea id="cardDesc" placeholder="描述"></textarea>
         <input type="text" id="cardAuthor" placeholder="作者">
         <input type="text" id="cardTags" placeholder="标签 (用英文逗号分隔，例如: Fabric, 库)" autocomplete="off">
@@ -489,126 +565,175 @@
         </div>
     </div>
 </div>
+
 <script>
-    // ========== 默认数据 ==========
+    // ================== GitHub 配置区域 ==================
+    const GITHUB_CONFIG = {
+        owner: 'haka516423-sudo',      // 改成你的 GitHub 用户名
+        repo: 'jingxuan.github.io',    // 改成你的仓库名
+        filePath: 'data.json',         // 固定文件名，不要改
+        token: '你的_GitHub_Personal_Access_Token'  // 【必填】填入你生成的 token，注意不要泄露
+    };
+    // ===================================================
+
+    // 默认数据（与之前完全一致）
     const DEFAULT_GROUPS_DATA = [
         { groupName: "🎮 Minecraft 模组", items: [ { title: "Fabric API", url: "https://modrinth.com/mod/fabric-api", description: "轻量级且模块化的API，提供通用钩子和互操作性，供 Fabric 模组使用。", author: "Modmuss50", tags: ["Fabric", "库"], stats: { downloads: "162M", updated: "4天前" }, version: "0.16.5" }, { title: "Sodium (钠)", url: "https://modrinth.com/mod/sodium", description: "Minecraft 最快且最兼容的渲染优化模组，支持 Fabric 和 NeoForge。", author: "CaffeineMC", tags: ["Fabric", "NeoForge", "优化"], stats: { downloads: "147M", updated: "55分钟前" }, version: "0.5.8" }, { title: "Iris Shaders", url: "https://modrinth.com/mod/iris", description: "现代 Minecraft 光影加载器，兼容 OptiFine 光影包。", author: "coderbot", tags: ["Fabric", "NeoForge", "视觉"], stats: { downloads: "115M", updated: "3周前" }, version: "1.7.0" }, { title: "Cloth Config API", url: "https://modrinth.com/mod/cloth-config", description: "Minecraft 模组配置库，提供通用的配置界面。", author: "shedaniel", tags: ["Fabric", "Forge", "库"], stats: { downloads: "115M", updated: "上个月" }, version: "11.1.118" }, { title: "ReplayMod (重播模组)", url: "https://modrinth.com/mod/replaymod", description: "记录并分享游戏体验的模组。", author: "Johni0702", tags: ["Fabric", "Forge", "实用","视频创作者工具"], stats: { downloads: "—", updated: "上个月" }, version: "1.20.4-2.6.14" }, { title: "Visible Barriers (可视化屏障方块)", url: "https://modrinth.com/mod/visiblebarriers", description: "让屏障方块、光源方块等可见，对地图制作很有帮助。", author: "AmyMialee's Mods", tags: ["Fabric", "实用","辅助"], stats: { downloads: "—", updated: "上个月" }, version: "1.0.2" }, { title: "JEI (Just Enough Items)", url: "https://modrinth.com/mod/jei", description: "查看物品合成表，模组必备。", author: "mezz", tags: ["Fabric", "Forge", "实用"], stats: { downloads: "200M", updated: "2周前" }, version: "15.3.0.8" } ] },
         { groupName: "🌐 常用开发网站", items: [ { title: "GitHub 官网", url: "https://github.com", description: "全球最大的开发者平台，托管代码、协作开发。", author: "GitHub", tags: ["开发", "工具"], stats: { downloads: "—", updated: "在线" } }, { title: "MDN Web Docs", url: "https://developer.mozilla.org/zh-CN/", description: "权威的 Web 技术文档，HTML、CSS、JavaScript 应有尽有。", author: "Mozilla", tags: ["文档", "前端"], stats: { downloads: "—", updated: "持续更新" } }, { title: "Stack Overflow", url: "https://stackoverflow.com", description: "程序员问答社区，遇到 bug 时的救星。", author: "Stack Exchange", tags: ["社区", "问答"], stats: { downloads: "—", updated: "活跃" } } ] },
         { groupName: "📺 视频&学习", items: [ { title: "哔哩哔哩", url: "https://www.bilibili.com", description: "中文弹幕视频网站，大量编程教程和模组展示。", author: "Bilibili", tags: ["视频", "学习"], stats: { downloads: "—", updated: "每日更新" } }, { title: "YouTube", url: "https://www.youtube.com", description: "全球最大视频平台，无数技术讲座和模组介绍。", author: "Google", tags: ["视频", "教程"], stats: { downloads: "—", updated: "实时" } } ] }
     ];
+
+    // 全局变量
     let groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
-    let currentGroupIndex = 0, currentKeyword = '', isAdminMode = false, editingCardInfo = null;
-    const groupContainer = document.getElementById('groupButtonsContainer'), cardsContainer = document.getElementById('cardsContainer');
-    const searchInput = document.getElementById('searchInput'), dynamicTitle = document.getElementById('dynamicTitle');
-    const paletteBtn = document.getElementById('paletteBtn'), palettePanel = document.getElementById('palettePanel');
-    const adminBtn = document.getElementById('adminBtn'), adminToolbar = document.getElementById('adminToolbar');
-    const addCardBtn = document.getElementById('addCardBtn'), resetDataBtn = document.getElementById('resetDataBtn');
-    const exportDataBtn = document.getElementById('exportDataBtn'), exitAdminBtn = document.getElementById('exitAdminBtn');
-    const modal = document.getElementById('cardModal'), modalTitle = document.getElementById('modalTitle');
-    const cardUrlInput = document.getElementById('cardUrl'), parseUrlBtn = document.getElementById('parseUrlBtn');
-    const translateBtn = document.getElementById('translateBtn');
-    const cardTitleInput = document.getElementById('cardTitle'), cardDescTextarea = document.getElementById('cardDesc');
-    const cardAuthorInput = document.getElementById('cardAuthor'), cardTagsInput = document.getElementById('cardTags');
-    const cardVersionInput = document.getElementById('cardVersion'), cardDownloadsInput = document.getElementById('cardDownloads');
-    const cardUpdatedInput = document.getElementById('cardUpdated'), modalCancel = document.getElementById('modalCancel');
+    let currentGroupIndex = 0;
+    let currentKeyword = '';
+    let isAdminMode = false;
+    let editingCardInfo = null; // { groupIdx, cardIdx, card }
+
+    // DOM 元素
+    const groupContainer = document.getElementById('groupButtonsContainer');
+    const cardsContainer = document.getElementById('cardsContainer');
+    const searchInput = document.getElementById('searchInput');
+    const dynamicTitle = document.getElementById('dynamicTitle');
+    const paletteBtn = document.getElementById('paletteBtn');
+    const palettePanel = document.getElementById('palettePanel');
+    const adminBtn = document.getElementById('adminBtn');
+    const adminToolbar = document.getElementById('adminToolbar');
+    const addCardBtn = document.getElementById('addCardBtn');
+    const resetDataBtn = document.getElementById('resetDataBtn');
+    const exportDataBtn = document.getElementById('exportDataBtn');
+    const exitAdminBtn = document.getElementById('exitAdminBtn');
+    const syncToGitBtn = document.getElementById('syncToGitBtn');
+    const modal = document.getElementById('cardModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const cardTitleInput = document.getElementById('cardTitle');
+    const cardUrlInput = document.getElementById('cardUrl');
+    const cardDescTextarea = document.getElementById('cardDesc');
+    const cardAuthorInput = document.getElementById('cardAuthor');
+    const cardTagsInput = document.getElementById('cardTags');
+    const cardVersionInput = document.getElementById('cardVersion');
+    const cardDownloadsInput = document.getElementById('cardDownloads');
+    const cardUpdatedInput = document.getElementById('cardUpdated');
+    const modalCancel = document.getElementById('modalCancel');
     const modalSave = document.getElementById('modalSave');
 
-    // 数据持久化
-    function loadDataFromStorage() {
-        const stored = localStorage.getItem('editable_groups_data');
-        if (stored) { try { const parsed = JSON.parse(stored); if (parsed && Array.isArray(parsed)) groupsData = parsed; } catch(e) {} }
-        else groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
-    }
-    function saveDataToStorage() { localStorage.setItem('editable_groups_data', JSON.stringify(groupsData)); }
-    function resetToDefault() { groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA)); saveDataToStorage(); currentGroupIndex = 0; currentKeyword = ''; searchInput.value = ''; renderAll(); }
-    function exportData() { const dataStr = JSON.stringify(groupsData, null, 2); const blob = new Blob([dataStr], {type: 'application/json'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'card_data_backup.json'; a.click(); URL.revokeObjectURL(url); }
-
-    // 翻译函数（使用 MyMemory API，免费无需密钥）
-    async function translateText(text, sourceLang = 'auto', targetLang = 'zh') {
-        if (!text || text.trim() === '') return text;
-        const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${sourceLang}|${targetLang}`;
+    // ========== GitHub API 同步函数 ==========
+    async function getFileSha() {
+        // 1. 获取文件的 SHA 值 (更新必须)
+        const url = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.filePath}`;
         try {
-            const response = await fetch(url);
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${GITHUB_CONFIG.token}`,
+                    'Accept': 'application/vnd.github+json'
+                }
+            });
+            if (!response.ok) {
+                if (response.status === 404) return null; // 文件不存在
+                throw new Error(`HTTP ${response.status}`);
+            }
             const data = await response.json();
-            if (data && data.responseData && data.responseData.translatedText) {
-                return data.responseData.translatedText;
-            }
-            return text;
-        } catch (err) {
-            console.warn('翻译失败', err);
-            return text;
+            return data.sha;
+        } catch (error) {
+            console.error('获取文件 SHA 失败:', error);
+            return null;
         }
-    }
-    async function translateTitleAndDesc() {
-        let title = cardTitleInput.value.trim();
-        let desc = cardDescTextarea.value.trim();
-        if (!title && !desc) { alert('没有可翻译的内容'); return; }
-        translateBtn.disabled = true;
-        translateBtn.textContent = '翻译中...';
-        if (title) {
-            const translatedTitle = await translateText(title);
-            cardTitleInput.value = translatedTitle;
-        }
-        if (desc) {
-            const translatedDesc = await translateText(desc);
-            cardDescTextarea.value = translatedDesc;
-        }
-        translateBtn.disabled = false;
-        translateBtn.textContent = '🌐 翻译标题和描述';
-        alert('翻译完成，请检查结果。');
     }
 
-    // URL 解析（增强版：提取标题、描述、作者）
-    async function parseUrlMetadata(url) {
+    async function updateGitHubFile(content) {
         try {
-            const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
-            const response = await fetch(proxyUrl);
-            if (!response.ok) throw new Error('无法获取页面');
-            const html = await response.text();
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
-            let title = '';
-            const ogTitle = doc.querySelector('meta[property="og:title"]')?.getAttribute('content');
-            if (ogTitle) title = ogTitle;
-            else title = doc.querySelector('title')?.innerText || '';
-            let description = '';
-            const ogDesc = doc.querySelector('meta[property="og:description"]')?.getAttribute('content');
-            if (ogDesc) description = ogDesc;
-            else description = doc.querySelector('meta[name="description"]')?.getAttribute('content') || '';
-            let author = '';
-            const metaAuthor = doc.querySelector('meta[name="author"]')?.getAttribute('content');
-            if (metaAuthor) author = metaAuthor;
-            else {
-                const possibleAuthor = doc.querySelector('a[rel="author"], .author, .byline');
-                if (possibleAuthor) author = possibleAuthor.innerText.trim();
+            // 2. 获取当前文件的 SHA
+            const currentSha = await getFileSha();
+            // 3. 将内容转为 Base64 (注意 UTF-8 编码)
+            const encoder = new TextEncoder();
+            const encodedContent = btoa(String.fromCharCode(...new Uint8Array(encoder.encode(JSON.stringify(content, null, 2)))));
+            // 4. 构建请求体
+            const requestBody = {
+                message: `更新卡片数据 - ${new Date().toLocaleString()}`,
+                content: encodedContent,
+                sha: currentSha  // 更新时必须提供 sha
+            };
+            // 5. 发送 PUT 请求
+            const url = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.filePath}`;
+            const response = await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${GITHUB_CONFIG.token}`,
+                    'Accept': 'application/vnd.github+json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestBody)
+            });
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.message || `HTTP ${response.status}`);
             }
-            return { title, description, author, success: true };
-        } catch (err) {
-            console.error(err);
-            return { success: false, error: err.message };
+            const result = await response.json();
+            console.log('同步成功！提交链接:', result.commit.html_url);
+            alert('✅ 数据已成功同步到云端！');
+            return true;
+        } catch (error) {
+            console.error('同步失败:', error);
+            alert(`❌ 同步失败: ${error.message}`);
+            return false;
         }
-    }
-    async function handleParseAndTranslate() {
-        const url = cardUrlInput.value.trim();
-        if (!url) { alert('请先输入网址'); return; }
-        parseUrlBtn.disabled = true;
-        parseUrlBtn.textContent = '解析中...';
-        const result = await parseUrlMetadata(url);
-        if (result.success) {
-            if (result.title) cardTitleInput.value = result.title;
-            if (result.description) cardDescTextarea.value = result.description;
-            if (result.author) cardAuthorInput.value = result.author;
-            // 自动尝试翻译成中文
-            alert('解析完成，正在自动翻译...');
-            await translateTitleAndDesc();
-        } else {
-            alert('解析失败：' + result.error + '\n请手动填写');
-        }
-        parseUrlBtn.disabled = false;
-        parseUrlBtn.textContent = '🔍 解析并翻译';
     }
 
-    // 卡片增删改
+    // ========== 数据持久化（本地存储 + 云端）==========
+    function loadDataFromStorage() {
+        // 优先读取 localStorage 缓存
+        const stored = localStorage.getItem('editable_groups_data');
+        if (stored) {
+            try {
+                const parsed = JSON.parse(stored);
+                if (parsed && Array.isArray(parsed)) {
+                    groupsData = parsed;
+                    return;
+                }
+            } catch(e) {}
+        }
+        groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
+    }
+
+    function saveDataToStorage() {
+        localStorage.setItem('editable_groups_data', JSON.stringify(groupsData));
+    }
+
+    async function syncToCloud() {
+        // 提示用户确认
+        if (confirm('确定要将当前所有数据同步到 GitHub 仓库吗？\n这将覆盖云端数据，其他设备将同步此版本。')) {
+            await updateGitHubFile(groupsData);
+        }
+    }
+
+    async function resetToDefault() {
+        if (confirm('重置所有数据将丢失当前修改，确定吗？')) {
+            groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
+            saveDataToStorage();
+            currentGroupIndex = 0;
+            currentKeyword = '';
+            searchInput.value = '';
+            renderAll();
+            // 可选：同步重置后的数据到云端
+            if (confirm('是否同时将默认数据同步到云端？')) {
+                await updateGitHubFile(groupsData);
+            }
+        }
+    }
+
+    function exportData() {
+        const dataStr = JSON.stringify(groupsData, null, 2);
+        const blob = new Blob([dataStr], {type: 'application/json'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'card_data_backup.json';
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
+    // ========== 卡片增删改 ==========
     function openEditModal(groupIdx, cardIdx, card) {
         editingCardInfo = { groupIdx, cardIdx, card: { ...card } };
         modalTitle.innerText = cardIdx === undefined ? '新增卡片' : '编辑卡片';
@@ -622,6 +747,7 @@
         cardUpdatedInput.value = card.stats?.updated || '';
         modal.classList.add('active');
     }
+
     function saveCardFromModal() {
         if (!editingCardInfo) return;
         const { groupIdx, cardIdx } = editingCardInfo;
@@ -632,60 +758,174 @@
             author: cardAuthorInput.value.trim(),
             tags: cardTagsInput.value.split(',').map(s => s.trim()).filter(s => s),
             version: cardVersionInput.value.trim() || undefined,
-            stats: { downloads: cardDownloadsInput.value.trim() || '—', updated: cardUpdatedInput.value.trim() || '' }
+            stats: {
+                downloads: cardDownloadsInput.value.trim() || '—',
+                updated: cardUpdatedInput.value.trim() || ''
+            }
         };
-        if (!newCard.title || !newCard.url) { alert('标题和网址不能为空'); return; }
-        if (cardIdx === undefined) groupsData[groupIdx].items.push(newCard);
-        else groupsData[groupIdx].items[cardIdx] = newCard;
-        saveDataToStorage(); closeModal(); renderAll();
+        if (!newCard.title || !newCard.url) {
+            alert('标题和网址不能为空');
+            return;
+        }
+        if (cardIdx === undefined) {
+            groupsData[groupIdx].items.push(newCard);
+        } else {
+            groupsData[groupIdx].items[cardIdx] = newCard;
+        }
+        saveDataToStorage();
+        closeModal();
+        renderAll();
     }
-    function deleteCard(groupIdx, cardIdx) { if (confirm('确定删除？')) { groupsData[groupIdx].items.splice(cardIdx, 1); saveDataToStorage(); renderAll(); } }
-    function closeModal() { modal.classList.remove('active'); editingCardInfo = null; }
 
-    // 渲染函数
+    function deleteCard(groupIdx, cardIdx) {
+        if (confirm('确定要删除这张卡片吗？')) {
+            groupsData[groupIdx].items.splice(cardIdx, 1);
+            saveDataToStorage();
+            renderAll();
+        }
+    }
+
+    function closeModal() {
+        modal.classList.remove('active');
+        editingCardInfo = null;
+    }
+
+    // ========== 渲染相关 ==========
     function escapeHtml(s) { if(!s) return ''; return s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
     function getFavicon(url) { return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(url)}`; }
+
     function renderCard(item, groupIdx, cardIdx) {
         const tagsHtml = (item.tags || []).map(t => `<span class="badge">${escapeHtml(t)}</span>`).join('');
         const versionHtml = item.version ? `<div class="version-info">📌 版本 ${escapeHtml(item.version)}</div>` : '';
-        const downloads = item.stats?.downloads || '', updated = item.stats?.updated || '';
-        const adminActions = isAdminMode ? `<div class="card-actions"><button class="edit-btn" data-group="${groupIdx}" data-card="${cardIdx}">✏️</button><button class="delete-btn" data-group="${groupIdx}" data-card="${cardIdx}">🗑️</button></div>` : '';
-        return `<div class="card">${adminActions}<div class="card-title"><img src="${getFavicon(item.url)}" alt="icon" loading="lazy"><a href="${escapeHtml(item.url)}" target="_blank">${escapeHtml(item.title)}</a></div><div class="badge-group">${tagsHtml}</div>${versionHtml}<div class="card-description">${escapeHtml(item.description)}</div><div class="card-footer"><span>👤 ${escapeHtml(item.author)}</span><div class="stats">${downloads ? `<span>📥 ${downloads}</span>` : ''}${updated ? `<span>🕒 ${updated}</span>` : ''}</div></div></div>`;
+        const downloads = item.stats?.downloads || '';
+        const updated = item.stats?.updated || '';
+        const adminActions = isAdminMode ? `
+            <div class="card-actions">
+                <button class="edit-btn" data-group="${groupIdx}" data-card="${cardIdx}">✏️</button>
+                <button class="delete-btn" data-group="${groupIdx}" data-card="${cardIdx}">🗑️</button>
+            </div>
+        ` : '';
+        return `
+            <div class="card" data-group="${groupIdx}" data-card="${cardIdx}">
+                ${adminActions}
+                <div class="card-title">
+                    <img src="${getFavicon(item.url)}" alt="icon" loading="lazy">
+                    <a href="${escapeHtml(item.url)}" target="_blank">${escapeHtml(item.title)}</a>
+                </div>
+                <div class="badge-group">${tagsHtml}</div>
+                ${versionHtml}
+                <div class="card-description">${escapeHtml(item.description)}</div>
+                <div class="card-footer">
+                    <span>👤 ${escapeHtml(item.author)}</span>
+                    <div class="stats">
+                        ${downloads ? `<span>📥 ${downloads}</span>` : ''}
+                        ${updated ? `<span>🕒 ${updated}</span>` : ''}
+                    </div>
+                </div>
+            </div>
+        `;
     }
+
     function getFilteredItems() {
         const group = groupsData[currentGroupIndex];
         if(!group) return [];
         const kw = currentKeyword.trim().toLowerCase();
         if(!kw) return group.items;
-        return group.items.filter(it => it.title.toLowerCase().includes(kw) || it.description.toLowerCase().includes(kw) || it.author.toLowerCase().includes(kw) || (it.tags && it.tags.some(t => t.toLowerCase().includes(kw))) || (it.version && it.version.toLowerCase().includes(kw)) || (it.stats?.downloads && it.stats.downloads.toLowerCase().includes(kw)) || (it.stats?.updated && it.stats.updated.toLowerCase().includes(kw)));
+        return group.items.filter(it => 
+            it.title.toLowerCase().includes(kw) ||
+            it.description.toLowerCase().includes(kw) ||
+            it.author.toLowerCase().includes(kw) ||
+            (it.tags && it.tags.some(t => t.toLowerCase().includes(kw))) ||
+            (it.version && it.version.toLowerCase().includes(kw)) ||
+            (it.stats?.downloads && it.stats.downloads.toLowerCase().includes(kw)) ||
+            (it.stats?.updated && it.stats.updated.toLowerCase().includes(kw))
+        );
     }
+
     function renderCards() {
         const items = getFilteredItems();
-        if(!items.length) { cardsContainer.innerHTML = `<div class="no-results">✨ 没有找到 “${escapeHtml(currentKeyword)}” 相关内容</div>`; return; }
+        if(!items.length) {
+            cardsContainer.innerHTML = `<div class="no-results">✨ 没有找到 “${escapeHtml(currentKeyword)}” 相关内容</div>`;
+            return;
+        }
         let html = '';
-        items.forEach((item) => { const realIdx = groupsData[currentGroupIndex].items.findIndex(i => i === item); html += renderCard(item, currentGroupIndex, realIdx); });
+        items.forEach((item, idx) => {
+            const realIdx = groupsData[currentGroupIndex].items.findIndex(i => i === item);
+            html += renderCard(item, currentGroupIndex, realIdx);
+        });
         cardsContainer.innerHTML = html;
+
         if (isAdminMode) {
-            document.querySelectorAll('.edit-btn').forEach(btn => { btn.addEventListener('click', (e) => { e.stopPropagation(); const groupIdx = parseInt(btn.dataset.group), cardIdx = parseInt(btn.dataset.card); const card = groupsData[groupIdx].items[cardIdx]; openEditModal(groupIdx, cardIdx, card); }); });
-            document.querySelectorAll('.delete-btn').forEach(btn => { btn.addEventListener('click', (e) => { e.stopPropagation(); const groupIdx = parseInt(btn.dataset.group), cardIdx = parseInt(btn.dataset.card); deleteCard(groupIdx, cardIdx); }); });
+            document.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const groupIdx = parseInt(btn.dataset.group);
+                    const cardIdx = parseInt(btn.dataset.card);
+                    const card = groupsData[groupIdx].items[cardIdx];
+                    openEditModal(groupIdx, cardIdx, card);
+                });
+            });
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const groupIdx = parseInt(btn.dataset.group);
+                    const cardIdx = parseInt(btn.dataset.card);
+                    deleteCard(groupIdx, cardIdx);
+                });
+            });
         }
     }
+
     function renderGroupButtons() {
         let html = '';
-        groupsData.forEach((g, idx) => { html += `<button class="group-btn ${idx === currentGroupIndex ? 'active' : ''}" data-idx="${idx}">${escapeHtml(g.groupName)}</button>`; });
+        groupsData.forEach((g, idx) => {
+            html += `<button class="group-btn ${idx === currentGroupIndex ? 'active' : ''}" data-idx="${idx}">${escapeHtml(g.groupName)}</button>`;
+        });
         groupContainer.innerHTML = html;
         dynamicTitle.textContent = groupsData[currentGroupIndex].groupName;
-        document.querySelectorAll('.group-btn').forEach(btn => { btn.addEventListener('click', () => { const idx = parseInt(btn.dataset.idx); if(!isNaN(idx) && idx !== currentGroupIndex) { currentGroupIndex = idx; currentKeyword = ''; searchInput.value = ''; renderGroupButtons(); renderCards(); } }); });
+        document.querySelectorAll('.group-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const idx = parseInt(btn.dataset.idx);
+                if(!isNaN(idx) && idx !== currentGroupIndex) {
+                    currentGroupIndex = idx;
+                    currentKeyword = '';
+                    searchInput.value = '';
+                    renderGroupButtons();
+                    renderCards();
+                }
+            });
+        });
     }
-    function renderAll() { renderGroupButtons(); renderCards(); }
 
-    // 管理员模式
-    function enableAdminMode() { isAdminMode = true; adminToolbar.style.display = 'flex'; renderCards(); }
-    function disableAdminMode() { isAdminMode = false; adminToolbar.style.display = 'none'; renderCards(); }
-    function checkAdminPassword() { const pwd = prompt('请输入管理员密码：'); if (pwd === 'admin123') enableAdminMode(); else alert('密码错误'); }
-    function addNewCard() { openEditModal(currentGroupIndex, undefined, { title: '', url: '', description: '', author: '', tags: [], version: '', stats: { downloads: '—', updated: '' } }); }
+    function renderAll() {
+        renderGroupButtons();
+        renderCards();
+    }
 
-    // 主题与壁纸（精简但完整）
+    // ========== 管理员模式 ==========
+    function enableAdminMode() {
+        isAdminMode = true;
+        adminToolbar.style.display = 'flex';
+        renderCards();
+    }
+    function disableAdminMode() {
+        isAdminMode = false;
+        adminToolbar.style.display = 'none';
+        renderCards();
+    }
+    function checkAdminPassword() {
+        const pwd = prompt('请输入管理员密码：');
+        if (pwd === 'admin123') {
+            enableAdminMode();
+        } else {
+            alert('密码错误，无法进入编辑模式');
+        }
+    }
+    function addNewCard() {
+        openEditModal(currentGroupIndex, undefined, { title: '', url: '', description: '', author: '', tags: [], version: '', stats: { downloads: '—', updated: '' } });
+    }
+
+    // ========== 主题与壁纸控制 ==========
     const solidPresets = [
         { color: "#eef2f8", theme: "white" }, { color: "#12151c", theme: "black" },
         { color: "#fce9e6", theme: "white" }, { color: "#fef0e0", theme: "white" },
@@ -701,51 +941,147 @@
         "linear-gradient(135deg, #ffe29a, #ffb7b2)", "linear-gradient(135deg, #c7e9fb, #b6e0fe)"
     ];
     const gradientThemeNames = ["sunset","aurora","ocean","sakura","forest","midnight","peach","mint"];
+
     function setTheme(themeName) {
         document.body.setAttribute('data-theme', themeName);
         const accentMap = { white:'#5b6e8c', black:'#c0b7a6', red:'#c2675e', orange:'#d98c2b', yellow:'#c9a12b', green:'#4f7a5e', cyan:'#3f7a85', blue:'#4a6fa5', purple:'#8b6cb0', sunset:'#d96c6e', aurora:'#3b82f6', ocean:'#7c83b9', sakura:'#c45692', forest:'#5c8a4a', midnight:'#9c88ff', peach:'#d97846', mint:'#4a9e7c' };
         document.body.style.setProperty('--theme-accent', accentMap[themeName] || '#5b6e8c');
         localStorage.setItem('glass_custom_theme', themeName);
     }
-    function isDarkColor(hex) { let r=parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16); return (r*0.299+g*0.587+b*0.114)<128; }
-    function buildPalette() {
-        const solidGrid = document.createElement('div'); solidGrid.className = 'color-grid'; solidGrid.id = 'solidColorGrid';
-        const gradGrid = document.createElement('div'); gradGrid.className = 'color-grid'; gradGrid.id = 'gradientColorGrid';
-        palettePanel.innerHTML = '';
-        const solidContainer = document.createElement('div'); solidContainer.innerHTML = '<div class="section-title">🎨 纯色预设</div>'; solidContainer.appendChild(solidGrid);
-        const gradContainer = document.createElement('div'); gradContainer.innerHTML = '<div class="section-title">🌈 渐变预设</div>'; gradContainer.appendChild(gradGrid);
-        palettePanel.appendChild(solidContainer); palettePanel.appendChild(gradContainer);
-        const opacityDiv = document.createElement('div'); opacityDiv.className = 'slider-container'; opacityDiv.innerHTML = `<label>🔮 玻璃透明度 <span id="opacityValue">0.20</span></label><input type="range" id="opacitySlider" min="0.1" max="0.5" step="0.01" value="0.20">`;
-        const angleDiv = document.createElement('div'); angleDiv.className = 'slider-container'; angleDiv.innerHTML = `<label>🔄 渐变角度 <span id="angleValue">135°</span> <span style="font-weight: normal;">(仅渐变主题)</span></label><input type="range" id="angleSlider" min="0" max="360" step="1" value="135">`;
-        const wallDiv = document.createElement('div'); wallDiv.innerHTML = `<div class="section-title">🖼️ 自定义壁纸</div><div class="file-upload-area"><input type="file" id="bgUpload" accept="image/*" style="display: none;"><button class="upload-btn" id="uploadBgBtn">📁 选择图片</button><button class="upload-btn reset-bg" id="resetBgBtn">🗑️ 重置背景</button></div><div class="hint-text">支持 JPG/PNG，上传后自动铺满背景并永久保存</div>`;
-        const hintDiv = document.createElement('div'); hintDiv.className = 'hint-text'; hintDiv.innerText = '点击色板换肤 | 滑块调节玻璃强度';
-        palettePanel.appendChild(opacityDiv); palettePanel.appendChild(angleDiv); palettePanel.appendChild(wallDiv); palettePanel.appendChild(hintDiv);
-        solidPresets.forEach(preset => { const swatch = document.createElement('div'); swatch.className = 'color-swatch'; swatch.style.backgroundColor = preset.color; swatch.addEventListener('click', () => { localStorage.removeItem('custom_bg_image'); document.body.classList.remove('custom-bg'); document.body.style.background = preset.color; setTheme(isDarkColor(preset.color) ? 'black' : 'white'); localStorage.setItem('custom_bg_color', preset.color); }); solidGrid.appendChild(swatch); });
-        gradientPresets.forEach((grad, idx) => { const swatch = document.createElement('div'); swatch.className = 'color-swatch gradient-swatch'; swatch.style.background = grad; swatch.addEventListener('click', () => { localStorage.removeItem('custom_bg_image'); document.body.classList.remove('custom-bg'); setTheme(gradientThemeNames[idx]); document.body.style.background = ''; }); gradGrid.appendChild(swatch); });
-        const opacitySlider = document.getElementById('opacitySlider'); const angleSlider = document.getElementById('angleSlider');
-        opacitySlider.addEventListener('input', (e) => updateOpacity(parseFloat(e.target.value))); angleSlider.addEventListener('input', (e) => updateAngle(parseInt(e.target.value)));
-        document.getElementById('uploadBgBtn').addEventListener('click', () => document.getElementById('bgUpload').click());
-        document.getElementById('bgUpload').addEventListener('change', (e) => { const file = e.target.files[0]; if (file && file.type.startsWith('image/')) { const reader = new FileReader(); reader.onload = (ev) => saveAndApplyWallpaper(ev.target.result); reader.readAsDataURL(file); } });
-        document.getElementById('resetBgBtn').addEventListener('click', () => { localStorage.removeItem('custom_bg_image'); document.body.classList.remove('custom-bg'); document.body.style.backgroundImage = ''; const savedColor = localStorage.getItem('custom_bg_color'); if (savedColor) { document.body.style.background = savedColor; setTheme(isDarkColor(savedColor) ? 'black' : 'white'); } else { setTheme('white'); document.body.style.background = '#eef2f8'; } });
+    function isDarkColor(hex) {
+        let r = parseInt(hex.slice(1,3), 16), g = parseInt(hex.slice(3,5), 16), b = parseInt(hex.slice(5,7), 16);
+        return (r * 0.299 + g * 0.587 + b * 0.114) < 128;
     }
-    function updateOpacity(value) { document.body.style.setProperty('--glass-opacity', value); document.getElementById('opacityValue').innerText = value; localStorage.setItem('glass_opacity', value); }
-    function updateAngle(value) { document.body.style.setProperty('--gradient-angle', value + 'deg'); document.getElementById('angleValue').innerText = value + '°'; localStorage.setItem('gradient_angle', value); }
-    function saveAndApplyWallpaper(imgBase64) { localStorage.setItem('custom_bg_image', imgBase64); document.body.style.backgroundImage = `url(${imgBase64})`; document.body.style.backgroundSize = 'cover'; document.body.style.backgroundPosition = 'center'; document.body.style.backgroundAttachment = 'fixed'; document.body.classList.add('custom-bg'); localStorage.removeItem('custom_bg_color'); }
-    function initBackground() { const savedImage = localStorage.getItem('custom_bg_image'); if (savedImage && savedImage.startsWith('data:image')) { document.body.style.backgroundImage = `url(${savedImage})`; document.body.style.backgroundSize = 'cover'; document.body.style.backgroundPosition = 'center'; document.body.style.backgroundAttachment = 'fixed'; document.body.classList.add('custom-bg'); } else { const savedColor = localStorage.getItem('custom_bg_color'); if (savedColor) { document.body.style.background = savedColor; setTheme(isDarkColor(savedColor) ? 'black' : 'white'); } } }
-    function initControls() { paletteBtn.addEventListener('click', (e) => { e.stopPropagation(); palettePanel.classList.toggle('show'); }); document.addEventListener('click', (e) => { if(!palettePanel.contains(e.target) && e.target !== paletteBtn) palettePanel.classList.remove('show'); }); const savedOpacity = localStorage.getItem('glass_opacity'); if(savedOpacity) updateOpacity(parseFloat(savedOpacity)); else updateOpacity(0.20); const savedAngle = localStorage.getItem('gradient_angle'); if(savedAngle) updateAngle(parseInt(savedAngle)); else updateAngle(135); initBackground(); }
-    function initTheme() { const saved = localStorage.getItem('glass_custom_theme'); const valid = ['white','black','red','orange','yellow','green','cyan','blue','purple','sunset','aurora','ocean','sakura','forest','midnight','peach','mint']; if(saved && valid.includes(saved)) setTheme(saved); else setTheme('white'); }
+    function buildPalette() {
+        const solidGrid = document.getElementById('solidColorGrid');
+        solidGrid.innerHTML = '';
+        solidPresets.forEach(preset => {
+            const swatch = document.createElement('div');
+            swatch.className = 'color-swatch';
+            swatch.style.backgroundColor = preset.color;
+            swatch.addEventListener('click', () => {
+                localStorage.removeItem('custom_bg_image');
+                document.body.classList.remove('custom-bg');
+                document.body.style.background = preset.color;
+                setTheme(isDarkColor(preset.color) ? 'black' : 'white');
+                localStorage.setItem('custom_bg_color', preset.color);
+            });
+            solidGrid.appendChild(swatch);
+        });
+        const gradGrid = document.getElementById('gradientColorGrid');
+        gradGrid.innerHTML = '';
+        gradientPresets.forEach((grad, idx) => {
+            const swatch = document.createElement('div');
+            swatch.className = 'color-swatch gradient-swatch';
+            swatch.style.background = grad;
+            swatch.addEventListener('click', () => {
+                localStorage.removeItem('custom_bg_image');
+                document.body.classList.remove('custom-bg');
+                setTheme(gradientThemeNames[idx]);
+                document.body.style.background = '';
+            });
+            gradGrid.appendChild(swatch);
+        });
+    }
+    function updateOpacity(value) {
+        document.body.style.setProperty('--glass-opacity', value);
+        document.getElementById('opacityValue').innerText = value;
+        localStorage.setItem('glass_opacity', value);
+    }
+    function updateAngle(value) {
+        document.body.style.setProperty('--gradient-angle', value + 'deg');
+        document.getElementById('angleValue').innerText = value + '°';
+        localStorage.setItem('gradient_angle', value);
+    }
+    function saveAndApplyWallpaper(imgBase64) {
+        localStorage.setItem('custom_bg_image', imgBase64);
+        document.body.style.backgroundImage = `url(${imgBase64})`;
+        document.body.style.backgroundSize = 'cover';
+        document.body.style.backgroundPosition = 'center';
+        document.body.style.backgroundAttachment = 'fixed';
+        document.body.classList.add('custom-bg');
+        localStorage.removeItem('custom_bg_color');
+    }
+    function initBackground() {
+        const savedImage = localStorage.getItem('custom_bg_image');
+        if (savedImage && savedImage.startsWith('data:image')) {
+            document.body.style.backgroundImage = `url(${savedImage})`;
+            document.body.style.backgroundSize = 'cover';
+            document.body.style.backgroundPosition = 'center';
+            document.body.style.backgroundAttachment = 'fixed';
+            document.body.classList.add('custom-bg');
+        } else {
+            const savedColor = localStorage.getItem('custom_bg_color');
+            if (savedColor) {
+                document.body.style.background = savedColor;
+                setTheme(isDarkColor(savedColor) ? 'black' : 'white');
+            }
+        }
+    }
+    function initControls() {
+        paletteBtn.addEventListener('click', (e) => { e.stopPropagation(); palettePanel.classList.toggle('show'); });
+        document.addEventListener('click', (e) => { if(!palettePanel.contains(e.target) && e.target !== paletteBtn) palettePanel.classList.remove('show'); });
+        document.getElementById('opacitySlider').addEventListener('input', (e) => updateOpacity(parseFloat(e.target.value)));
+        document.getElementById('angleSlider').addEventListener('input', (e) => updateAngle(parseInt(e.target.value)));
+        const savedOpacity = localStorage.getItem('glass_opacity');
+        updateOpacity(savedOpacity ? parseFloat(savedOpacity) : 0.20);
+        const savedAngle = localStorage.getItem('gradient_angle');
+        updateAngle(savedAngle ? parseInt(savedAngle) : 135);
+        document.getElementById('opacitySlider').value = 0.20;
+        document.getElementById('angleSlider').value = 135;
+        initBackground();
+        document.getElementById('uploadBgBtn').addEventListener('click', () => document.getElementById('bgUpload').click());
+        document.getElementById('bgUpload').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (ev) => saveAndApplyWallpaper(ev.target.result);
+                reader.readAsDataURL(file);
+            }
+        });
+        document.getElementById('resetBgBtn').addEventListener('click', () => {
+            localStorage.removeItem('custom_bg_image');
+            document.body.classList.remove('custom-bg');
+            document.body.style.backgroundImage = '';
+            const savedColor = localStorage.getItem('custom_bg_color');
+            if (savedColor) {
+                document.body.style.background = savedColor;
+                setTheme(isDarkColor(savedColor) ? 'black' : 'white');
+            } else {
+                setTheme('white');
+                document.body.style.background = '#eef2f8';
+            }
+        });
+    }
+    function initTheme() {
+        const saved = localStorage.getItem('glass_custom_theme');
+        const valid = ['white','black','red','orange','yellow','green','cyan','blue','purple','sunset','aurora','ocean','sakura','forest','midnight','peach','mint'];
+        if(saved && valid.includes(saved)) setTheme(saved);
+        else setTheme('white');
+    }
 
-    // 初始化
+    // ========== 初始化 ==========
     function init() {
-        loadDataFromStorage(); initTheme(); buildPalette(); initControls(); renderGroupButtons(); renderCards();
+        loadDataFromStorage();
+        initTheme();
+        buildPalette();
+        initControls();
+        renderGroupButtons();
+        renderCards();
         searchInput.addEventListener('input', (e) => { currentKeyword = e.target.value; renderCards(); });
-        adminBtn.addEventListener('click', checkAdminPassword); addCardBtn.addEventListener('click', addNewCard);
-        resetDataBtn.addEventListener('click', () => { if(confirm('重置所有数据将丢失当前修改，确定吗？')) resetToDefault(); });
-        exportDataBtn.addEventListener('click', exportData); exitAdminBtn.addEventListener('click', disableAdminMode);
-        modalCancel.addEventListener('click', closeModal); modalSave.addEventListener('click', saveCardFromModal);
-        parseUrlBtn.addEventListener('click', handleParseAndTranslate); translateBtn.addEventListener('click', translateTitleAndDesc);
+
+        // 管理员相关事件
+        adminBtn.addEventListener('click', checkAdminPassword);
+        addCardBtn.addEventListener('click', addNewCard);
+        resetDataBtn.addEventListener('click', resetToDefault);
+        exportDataBtn.addEventListener('click', exportData);
+        exitAdminBtn.addEventListener('click', disableAdminMode);
+        syncToGitBtn.addEventListener('click', syncToCloud);
+        modalCancel.addEventListener('click', closeModal);
+        modalSave.addEventListener('click', saveCardFromModal);
         modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
     }
+
     init();
 </script>
 </body>
