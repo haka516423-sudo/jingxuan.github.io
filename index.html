@@ -23,7 +23,7 @@
 
         /* 默认纯色背景 */
         body[data-theme="white"]  { background: #eef2f8; --theme-accent: #5b6e8c; }
-        body[data-theme="black"]  { background: #12151c; --theme-accent: #c0b7a6; }  /* 调整为暖灰 */
+        body[data-theme="black"]  { background: #12151c; --theme-accent: #c0b7a6; }
         body[data-theme="red"]    { background: #fce9e6; --theme-accent: #c2675e; }
         body[data-theme="orange"] { background: #fef0e0; --theme-accent: #d98c2b; }
         body[data-theme="yellow"] { background: #fef9e0; --theme-accent: #c9a12b; }
@@ -344,7 +344,36 @@
             background: rgba(30, 40, 55, 0.75);
         }
 
-        /* 卡片内部文字 — 黑色主题下统一米白色 */
+        /* 卡片内部文字 — 黑色主题下统一米白色（强制覆盖） */
+        body[data-theme="black"] .card-title a,
+        body[data-theme="ocean"] .card-title a,
+        body[data-theme="midnight"] .card-title a {
+            color: #f5f0e0 !important;
+        }
+        body[data-theme="black"] .badge,
+        body[data-theme="ocean"] .badge,
+        body[data-theme="midnight"] .badge {
+            background: rgba(255,255,240,0.25);
+            color: #f0e6d2 !important;
+        }
+        body[data-theme="black"] .version-info,
+        body[data-theme="ocean"] .version-info,
+        body[data-theme="midnight"] .version-info {
+            background: rgba(210, 220, 250, 0.25);
+            color: #f0e6d2 !important;
+        }
+        body[data-theme="black"] .card-description,
+        body[data-theme="ocean"] .card-description,
+        body[data-theme="midnight"] .card-description {
+            color: #f0e6d2 !important;
+        }
+        body[data-theme="black"] .card-footer,
+        body[data-theme="ocean"] .card-footer,
+        body[data-theme="midnight"] .card-footer {
+            color: #e6dcc8 !important;
+        }
+
+        /* 其他文字（普通状态） */
         .card-title {
             font-size: 1.2rem;
             font-weight: 600;
@@ -364,11 +393,6 @@
             color: #1e293b;
             font-weight: 600;
         }
-        body[data-theme="black"] .card-title a,
-        body[data-theme="ocean"] .card-title a,
-        body[data-theme="midnight"] .card-title a {
-            color: #f5f0e0;
-        }
         .badge-group {
             display: flex;
             flex-wrap: wrap;
@@ -383,12 +407,6 @@
             font-weight: 500;
             color: #1f2937;
         }
-        body[data-theme="black"] .badge,
-        body[data-theme="ocean"] .badge,
-        body[data-theme="midnight"] .badge {
-            background: rgba(255,255,240,0.25);
-            color: #f0e6d2;
-        }
         .version-info {
             background: rgba(0,0,0,0.08);
             padding: 4px 12px;
@@ -398,22 +416,11 @@
             margin-bottom: 14px;
             color: #1f2937;
         }
-        body[data-theme="black"] .version-info,
-        body[data-theme="ocean"] .version-info,
-        body[data-theme="midnight"] .version-info {
-            background: rgba(210, 220, 250, 0.25);
-            color: #f0e6d2;
-        }
         .card-description {
             font-size: 0.85rem;
             line-height: 1.5;
             color: #374151;
             margin-bottom: 18px;
-        }
-        body[data-theme="black"] .card-description,
-        body[data-theme="ocean"] .card-description,
-        body[data-theme="midnight"] .card-description {
-            color: #f0e6d2;
         }
         .card-footer {
             border-top: 1px solid rgba(0, 0, 0, 0.1);
@@ -424,10 +431,6 @@
             color: #4b5563;
             flex-wrap: wrap;
             gap: 8px;
-        }
-        body[data-theme="black"] .card-footer {
-            border-top-color: rgba(255,255,255,0.2);
-            color: #e6dcc8;
         }
         .no-results {
             text-align: center;
@@ -573,15 +576,11 @@
 
     searchInput.addEventListener('input', (e) => { currentKeyword = e.target.value; renderCards(); });
 
-    // 主题切换
-    function setTheme(themeName, keepBgImage = false) {
+    // 主题切换（不影响壁纸存储，仅改变主题属性）
+    function setTheme(themeName) {
         document.body.setAttribute('data-theme', themeName);
         const accentMap = { white:'#5b6e8c', black:'#c0b7a6', red:'#c2675e', orange:'#d98c2b', yellow:'#c9a12b', green:'#4f7a5e', cyan:'#3f7a85', blue:'#4a6fa5', purple:'#8b6cb0', sunset:'#d96c6e', aurora:'#3b82f6', ocean:'#7c83b9', sakura:'#c45692', forest:'#5c8a4a', midnight:'#9c88ff', peach:'#d97846', mint:'#4a9e7c' };
         document.body.style.setProperty('--theme-accent', accentMap[themeName] || '#5b6e8c');
-        if (!keepBgImage) {
-            document.body.classList.remove('custom-bg');
-            document.body.style.backgroundImage = '';
-        }
         localStorage.setItem('glass_custom_theme', themeName);
     }
 
@@ -594,12 +593,13 @@
             swatch.className = 'color-swatch';
             swatch.style.backgroundColor = color;
             swatch.addEventListener('click', () => {
+                // 清除壁纸存储，设定纯色背景
+                localStorage.removeItem('custom_bg_image');
+                document.body.classList.remove('custom-bg');
                 document.body.style.background = color;
                 document.body.setAttribute('data-theme', 'white');
-                document.body.classList.remove('custom-bg');
                 localStorage.setItem('glass_custom_theme', 'white');
                 localStorage.setItem('custom_bg_color', color);
-                localStorage.removeItem('custom_bg_image');
             });
             solidGrid.appendChild(swatch);
         });
@@ -611,9 +611,11 @@
             swatch.style.background = grad;
             swatch.addEventListener('click', () => {
                 const themeName = gradientThemeNames[idx];
-                setTheme(themeName, false);
-                document.body.style.background = '';
+                // 清除壁纸，使用渐变主题
                 localStorage.removeItem('custom_bg_image');
+                document.body.classList.remove('custom-bg');
+                setTheme(themeName);
+                document.body.style.background = '';
             });
             gradGrid.appendChild(swatch);
         });
@@ -632,6 +634,17 @@
     }
 
     // 壁纸上传统逻辑（永久保留至localStorage）
+    function saveAndApplyWallpaper(imgBase64) {
+        localStorage.setItem('custom_bg_image', imgBase64);
+        document.body.style.backgroundImage = `url(${imgBase64})`;
+        document.body.style.backgroundSize = 'cover';
+        document.body.style.backgroundPosition = 'center';
+        document.body.style.backgroundAttachment = 'fixed';
+        document.body.classList.add('custom-bg');
+        // 清除可能冲突的纯色存储
+        localStorage.removeItem('custom_bg_color');
+    }
+
     function initBackground() {
         const savedImage = localStorage.getItem('custom_bg_image');
         if (savedImage && savedImage.startsWith('data:image')) {
@@ -655,22 +668,16 @@
             const reader = new FileReader();
             reader.onload = (ev) => {
                 const imgUrl = ev.target.result;
-                document.body.style.backgroundImage = `url(${imgUrl})`;
-                document.body.style.backgroundSize = 'cover';
-                document.body.style.backgroundPosition = 'center';
-                document.body.style.backgroundAttachment = 'fixed';
-                document.body.classList.add('custom-bg');
-                localStorage.setItem('custom_bg_image', imgUrl);
-                localStorage.removeItem('custom_bg_color');
+                saveAndApplyWallpaper(imgUrl);
             };
             reader.readAsDataURL(file);
         }
     });
     resetBgBtn.addEventListener('click', () => {
+        localStorage.removeItem('custom_bg_image');
         document.body.classList.remove('custom-bg');
         document.body.style.backgroundImage = '';
-        localStorage.removeItem('custom_bg_image');
-        // 恢复当前主题默认背景
+        // 恢复当前主题的默认背景
         const currentTheme = document.body.getAttribute('data-theme') || 'white';
         if (currentTheme === 'white') {
             const savedColor = localStorage.getItem('custom_bg_color');
@@ -678,7 +685,7 @@
             else document.body.style.background = '#eef2f8';
         } else {
             document.body.style.background = '';
-            setTheme(currentTheme, true);
+            setTheme(currentTheme);
         }
     });
 
@@ -699,8 +706,8 @@
     function initTheme() {
         const saved = localStorage.getItem('glass_custom_theme');
         const valid = ['white','black','red','orange','yellow','green','cyan','blue','purple','sunset','aurora','ocean','sakura','forest','midnight','peach','mint'];
-        if(saved && valid.includes(saved)) setTheme(saved, true);
-        else setTheme('white', true);
+        if(saved && valid.includes(saved)) setTheme(saved);
+        else setTheme('white');
     }
 
     renderGroupButtons();
