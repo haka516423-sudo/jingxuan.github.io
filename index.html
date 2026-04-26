@@ -3,53 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>分组链接库 · 可折叠 · 深色模式</title>
+    <title>分组链接库 · 左侧导航 · 无展开更多</title>
     <style>
-        /* ---------- 全局 CSS 变量（浅色主题，默认） ---------- */
+        /* ---------- 主题变量 ---------- */
         :root {
             --bg-body: #f3f4f6;
-            --bg-container: transparent;
+            --bg-sidebar: #ffffff;
+            --bg-main: transparent;
             --card-bg: #ffffff;
             --card-border: #eef2f6;
             --text-primary: #1f2937;
             --text-secondary: #4b5563;
             --text-muted: #6c757d;
-            --header-gradient-start: #1e3c72;
-            --header-gradient-end: #2a5298;
+            --sidebar-border: #e5e7eb;
+            --btn-active-bg: #eef2ff;
+            --btn-active-text: #1e40af;
+            --btn-inactive-bg: transparent;
+            --btn-inactive-text: #4b5563;
+            --btn-hover-bg: #f3f4f6;
             --badge-bg: #eef2ff;
             --badge-text: #1e40af;
-            --btn-bg: #f1f5f9;
-            --btn-border: #e2e8f0;
-            --btn-text: #1e40af;
-            --btn-hover: #e2e8f0;
-            --footer-border: #edf2f7;
             --link-color: #0f172a;
             --link-hover: #3b82f6;
-            --shadow: 0 1px 3px rgba(0,0,0,0.05);
-            --shadow-hover: 0 20px 25px -12px rgba(0,0,0,0.1);
+            --shadow: 0 1px 2px rgba(0,0,0,0.05);
         }
-
-        /* ---------- 深色主题变量 ---------- */
         body.dark {
             --bg-body: #0f172a;
+            --bg-sidebar: #1e293b;
             --card-bg: #1e293b;
             --card-border: #334155;
             --text-primary: #f1f5f9;
             --text-secondary: #cbd5e1;
             --text-muted: #94a3b8;
-            --header-gradient-start: #38bdf8;
-            --header-gradient-end: #818cf8;
+            --sidebar-border: #334155;
+            --btn-active-bg: #334155;
+            --btn-active-text: #b9e0ff;
+            --btn-inactive-bg: transparent;
+            --btn-inactive-text: #cbd5e1;
+            --btn-hover-bg: #334155;
             --badge-bg: #334155;
             --badge-text: #b9e0ff;
-            --btn-bg: #334155;
-            --btn-border: #475569;
-            --btn-text: #b9e0ff;
-            --btn-hover: #475569;
-            --footer-border: #334155;
             --link-color: #e2e8f0;
             --link-hover: #60a5fa;
-            --shadow: 0 1px 3px rgba(0,0,0,0.3);
-            --shadow-hover: 0 20px 25px -12px rgba(0,0,0,0.5);
         }
 
         * {
@@ -61,185 +56,175 @@
         body {
             font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
             background: var(--bg-body);
-            padding: 40px 24px;
             color: var(--text-primary);
             transition: background 0.2s, color 0.2s;
+            height: 100vh;
+            overflow-y: auto;  /* 右侧滚动条 */
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
+        /* 整体布局：左右结构 */
+        .app {
+            display: flex;
+            min-height: 100vh;
         }
 
-        /* 右上角主题切换按钮 */
-        .theme-toggle {
-            position: absolute;
+        /* 左侧边栏 */
+        .sidebar {
+            width: 260px;
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--sidebar-border);
+            padding: 24px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            position: sticky;
             top: 0;
-            right: 0;
-            background: var(--btn-bg);
-            border: 1px solid var(--btn-border);
-            border-radius: 40px;
-            padding: 8px 16px;
-            font-size: 0.85rem;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--sidebar-border);
+        }
+
+        .group-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .group-btn {
+            text-align: left;
+            padding: 10px 16px;
+            border-radius: 12px;
+            background: var(--btn-inactive-bg);
+            color: var(--btn-inactive-text);
+            border: none;
+            font-size: 0.95rem;
             font-weight: 500;
-            color: var(--btn-text);
             cursor: pointer;
             transition: all 0.2s;
-            backdrop-filter: blur(4px);
-            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        .theme-toggle:hover {
-            background: var(--btn-hover);
-            transform: scale(0.98);
+        .group-btn:hover {
+            background: var(--btn-hover-bg);
+        }
+        .group-btn.active {
+            background: var(--btn-active-bg);
+            color: var(--btn-active-text);
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 32px;
+        /* 右侧主内容 */
+        .main {
+            flex: 1;
+            padding: 24px 32px;
+            overflow-y: auto;
         }
-        .header h1 {
-            font-size: 2.2rem;
+
+        /* 头部区域（标题、主题切换） */
+        .header-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .title-section h1 {
+            font-size: 1.8rem;
             font-weight: 700;
-            background: linear-gradient(135deg, var(--header-gradient-start), var(--header-gradient-end));
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
         }
-        .header p {
+        body.dark .title-section h1 {
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            background-clip: text;
+            -webkit-background-clip: text;
+        }
+        .title-section p {
             color: var(--text-secondary);
-            margin-top: 8px;
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+        .theme-toggle {
+            background: var(--btn-inactive-bg);
+            border: 1px solid var(--sidebar-border);
+            border-radius: 40px;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .theme-toggle:hover {
+            background: var(--btn-hover-bg);
         }
 
+        /* 搜索框 */
         .search-wrapper {
             margin-bottom: 32px;
         }
         .search-box {
             width: 100%;
-            padding: 14px 20px;
-            font-size: 1rem;
+            padding: 12px 18px;
+            font-size: 0.95rem;
             border: 1px solid var(--card-border);
-            border-radius: 60px;
+            border-radius: 40px;
             background: var(--card-bg);
             color: var(--text-primary);
             box-shadow: var(--shadow);
-            transition: all 0.2s;
         }
         .search-box:focus {
             outline: none;
             border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
+            box-shadow: 0 0 0 2px rgba(59,130,246,0.2);
         }
 
-        /* 分组样式 */
-        .group {
-            margin-bottom: 32px;
-            background: var(--card-bg);
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--card-border);
-        }
-        .group-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 24px;
-            background: var(--card-bg);
-            cursor: pointer;
-            user-select: none;
-            transition: background 0.2s;
-            border-bottom: 1px solid var(--card-border);
-        }
-        .group-header:hover {
-            background: var(--btn-hover);
-        }
-        .group-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .group-title .count {
-            background: var(--badge-bg);
-            padding: 2px 10px;
-            border-radius: 40px;
-            font-size: 0.75rem;
-            font-weight: 500;
-            color: var(--badge-text);
-        }
-        .toggle-icon {
-            font-size: 1.2rem;
-            transition: transform 0.2s;
-            color: var(--text-muted);
-        }
-        .group-content {
-            transition: all 0.2s ease;
-        }
-        .group-content.collapsed {
-            display: none;
-        }
+        /* 卡片网格 */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 24px;
-            padding: 24px;
-        }
-        .expand-btn-wrapper {
-            padding: 8px 24px 24px 24px;
-            text-align: center;
-            border-top: 1px solid var(--footer-border);
-        }
-        .expand-btn {
-            background: var(--btn-bg);
-            border: 1px solid var(--btn-border);
-            padding: 8px 20px;
-            border-radius: 40px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--btn-text);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .expand-btn:hover {
-            background: var(--btn-hover);
-            transform: scale(0.98);
         }
 
-        /* 卡片样式 — 修复溢出问题 */
+        /* 卡片样式 */
         .card {
             background: var(--card-bg);
             border-radius: 20px;
             padding: 20px;
-            box-shadow: var(--shadow);
-            transition: transform 0.2s, box-shadow 0.2s;
             border: 1px solid var(--card-border);
+            transition: transform 0.2s, box-shadow 0.2s;
             display: flex;
             flex-direction: column;
-            overflow: hidden;          /* 防止溢出 */
-            word-break: break-word;    /* 强制换行 */
+            overflow: hidden;
+            word-break: break-word;
         }
         .card:hover {
             transform: translateY(-4px);
-            box-shadow: var(--shadow-hover);
+            box-shadow: 0 12px 20px -12px rgba(0,0,0,0.2);
             border-color: var(--link-hover);
         }
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 12px;
-            margin-bottom: 12px;
-            flex-wrap: wrap;           /* 标签过多时换行 */
-        }
         .card-title {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             font-weight: 600;
-            line-height: 1.4;
-            flex: 1;
-            min-width: 0;              /* 允许收缩 */
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card-title img {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
         }
         .card-title a {
             text-decoration: none;
@@ -249,11 +234,12 @@
             color: var(--link-hover);
             text-decoration: underline;
         }
+        /* 标签组（放在标题下方） */
         .badge-group {
             display: flex;
-            gap: 8px;
             flex-wrap: wrap;
-            justify-content: flex-end;
+            gap: 8px;
+            margin-bottom: 12px;
         }
         .badge {
             background: var(--badge-bg);
@@ -264,17 +250,6 @@
             border-radius: 40px;
             white-space: nowrap;
         }
-        .card-description {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            line-height: 1.5;
-            margin-bottom: 16px;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;    /* 改为3行，避免信息丢失 */
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            word-break: break-word;
-        }
         .version-info {
             font-size: 0.7rem;
             background: var(--badge-bg);
@@ -282,15 +257,25 @@
             display: inline-block;
             padding: 2px 8px;
             border-radius: 30px;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             width: fit-content;
+        }
+        .card-description {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin-bottom: 16px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
         .card-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-top: auto;
-            border-top: 1px solid var(--footer-border);
+            border-top: 1px solid var(--card-border);
             padding-top: 12px;
             font-size: 0.75rem;
             color: var(--text-muted);
@@ -299,69 +284,73 @@
         }
         .author {
             font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 6px;
         }
         .stats {
             display: flex;
             gap: 12px;
-            flex-wrap: wrap;
-        }
-        .stats span {
-            display: flex;
-            align-items: center;
-            gap: 4px;
         }
         .no-results {
             text-align: center;
             padding: 60px 20px;
             background: var(--card-bg);
-            border-radius: 32px;
+            border-radius: 24px;
             color: var(--text-muted);
             border: 1px dashed var(--card-border);
-            margin-top: 20px;
         }
-        .back-home {
-            display: inline-block;
-            margin-bottom: 24px;
-            color: var(--link-hover);
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .back-home:hover {
-            text-decoration: underline;
-        }
-        @media (max-width: 700px) {
-            body { padding: 20px 16px; }
-            .cards-grid { grid-template-columns: 1fr; padding: 16px; }
-            .group-header { padding: 12px 16px; }
-            .expand-btn-wrapper { padding: 8px 16px 16px 16px; }
+
+        @media (max-width: 768px) {
+            .app {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+                border-right: none;
+                border-bottom: 1px solid var(--sidebar-border);
+                padding: 16px;
+            }
+            .group-buttons {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            .main {
+                padding: 20px;
+            }
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <button class="theme-toggle" id="themeToggle">🌓 深色模式</button>
-    <a href="index.html" class="back-home">← 返回首页</a>
-
-    <div class="header">
-        <h1>📦 我的资源库</h1>
-        <p>每组默认显示前6个卡片 · 点击「展开更多」查看全部 · 支持分组折叠和实时搜索</p>
+<div class="app">
+    <!-- 左侧边栏 -->
+    <div class="sidebar">
+        <div class="sidebar-header">📁 分组导航</div>
+        <div class="group-buttons" id="groupButtonsContainer"></div>
     </div>
 
-    <div class="search-wrapper">
-        <input type="text" class="search-box" id="searchInput" placeholder="🔍 搜索标题、描述、作者、标签或版本..." autocomplete="off">
-    </div>
+    <!-- 右侧主内容 -->
+    <div class="main">
+        <div class="header-area">
+            <div class="title-section">
+                <h1>📦 我的资源库</h1>
+                <p>左侧选择分组 · 实时搜索 · 浅色/深色模式</p>
+            </div>
+            <button class="theme-toggle" id="themeToggle">🌓 深色模式</button>
+        </div>
 
-    <div id="groupsContainer"></div>
+        <div class="search-wrapper">
+            <input type="text" class="search-box" id="searchInput" placeholder="🔍 搜索当前分组内的标题、描述、作者、标签或版本..." autocomplete="off">
+        </div>
+
+        <div id="cardsContainer" class="cards-grid"></div>
+    </div>
 </div>
 
 <script>
-    // ==================================================
-    // 📁 分组数据（在这里维护你的链接）
-    // 新增字段 version: 模组版本信息（可选）
-    // ==================================================
+    // ============================================
+    // 分组数据（在这里维护你的链接）
+    // 每个卡片增加 favicon 使用 Google S2 服务自动获取
+    // ============================================
     const groupsData = [
         {
             groupName: "🎮 Minecraft 模组",
@@ -391,16 +380,128 @@
             ]
         }
     ];
-    // ==================================================
 
+    // ---------- 全局变量 ----------
+    let currentGroupIndex = 0;          // 当前选中的分组索引
+    let currentFilterKeyword = '';       // 搜索关键词
+
+    // DOM 元素
+    const groupButtonsContainer = document.getElementById('groupButtonsContainer');
+    const cardsContainer = document.getElementById('cardsContainer');
     const searchInput = document.getElementById('searchInput');
-    const groupsContainer = document.getElementById('groupsContainer');
     const themeToggle = document.getElementById('themeToggle');
 
-    // 主题切换逻辑
+    // ---------- 工具函数 ----------
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    // 获取网站图标 URL (Google S2)
+    function getFaviconUrl(url) {
+        return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(url)}`;
+    }
+
+    // 渲染单个卡片
+    function renderCard(item) {
+        const safeTitle = escapeHtml(item.title);
+        const safeUrl = escapeHtml(item.url);
+        const safeDesc = escapeHtml(item.description);
+        const safeAuthor = escapeHtml(item.author);
+        const faviconUrl = getFaviconUrl(safeUrl);
+        const tagsHtml = (item.tags || []).map(tag => `<span class="badge">${escapeHtml(tag)}</span>`).join('');
+        const version = item.version ? escapeHtml(item.version) : '';
+        const versionHtml = version ? `<div class="version-info">📌 版本 ${version}</div>` : '';
+        const downloads = item.stats?.downloads || '';
+        const updated = item.stats?.updated || '';
+
+        return `
+            <div class="card">
+                <div class="card-title">
+                    <img src="${faviconUrl}" alt="icon" loading="lazy">
+                    <a href="${safeUrl}" target="_blank" rel="noopener noreferrer">${safeTitle}</a>
+                </div>
+                <div class="badge-group">${tagsHtml}</div>
+                ${versionHtml}
+                <div class="card-description">${safeDesc}</div>
+                <div class="card-footer">
+                    <div class="author">👤 ${safeAuthor}</div>
+                    <div class="stats">
+                        ${downloads ? `<span>📥 ${downloads}</span>` : ''}
+                        ${updated ? `<span>🕒 ${updated}</span>` : ''}
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    // 过滤当前分组内的卡片
+    function getFilteredItems() {
+        const group = groupsData[currentGroupIndex];
+        if (!group) return [];
+        const keyword = currentFilterKeyword.trim().toLowerCase();
+        if (keyword === '') return group.items;
+        return group.items.filter(item =>
+            item.title.toLowerCase().includes(keyword) ||
+            item.description.toLowerCase().includes(keyword) ||
+            item.author.toLowerCase().includes(keyword) ||
+            (item.tags && item.tags.some(tag => tag.toLowerCase().includes(keyword))) ||
+            (item.stats?.downloads && item.stats.downloads.toLowerCase().includes(keyword)) ||
+            (item.stats?.updated && item.stats.updated.toLowerCase().includes(keyword)) ||
+            (item.version && item.version.toLowerCase().includes(keyword))
+        );
+    }
+
+    // 渲染右侧卡片网格
+    function renderCards() {
+        const filtered = getFilteredItems();
+        if (filtered.length === 0) {
+            cardsContainer.innerHTML = `<div class="no-results">😢 当前分组没有找到与 “${escapeHtml(currentFilterKeyword)}” 相关的资源</div>`;
+            return;
+        }
+        const cardsHtml = filtered.map(item => renderCard(item)).join('');
+        cardsContainer.innerHTML = cardsHtml;
+    }
+
+    // 渲染左侧分组按钮
+    function renderGroupButtons() {
+        let html = '';
+        groupsData.forEach((group, idx) => {
+            const activeClass = idx === currentGroupIndex ? 'active' : '';
+            html += `<button class="group-btn ${activeClass}" data-group-index="${idx}">${escapeHtml(group.groupName)}</button>`;
+        });
+        groupButtonsContainer.innerHTML = html;
+
+        // 绑定点击事件
+        document.querySelectorAll('.group-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const idx = parseInt(btn.getAttribute('data-group-index'));
+                if (!isNaN(idx) && idx !== currentGroupIndex) {
+                    currentGroupIndex = idx;
+                    currentFilterKeyword = '';       // 切换分组时清空搜索框
+                    searchInput.value = '';
+                    renderGroupButtons();              // 重新渲染按钮高亮
+                    renderCards();                     // 渲染新分组的卡片
+                }
+            });
+        });
+    }
+
+    // 搜索输入事件
+    function onSearchInput() {
+        currentFilterKeyword = searchInput.value;
+        renderCards();
+    }
+
+    // ---------- 主题切换 ----------
     function initTheme() {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
+        const saved = localStorage.getItem('theme');
+        if (saved === 'dark') {
             document.body.classList.add('dark');
             themeToggle.textContent = '☀️ 浅色模式';
         } else {
@@ -419,167 +520,16 @@
             themeToggle.textContent = '☀️ 浅色模式';
         }
     });
-    initTheme();
 
-    // 卡片展开/分组折叠状态
-    let cardExpandedState = {};
-    let groupCollapsedState = {};
-
-    function escapeHtml(str) {
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
+    // ---------- 初始化 ----------
+    function init() {
+        renderGroupButtons();
+        renderCards();
+        searchInput.addEventListener('input', onSearchInput);
+        initTheme();
     }
 
-    function renderCard(item) {
-        const safeTitle = escapeHtml(item.title);
-        const safeUrl = escapeHtml(item.url);
-        const safeDesc = escapeHtml(item.description);
-        const safeAuthor = escapeHtml(item.author);
-        const tagsHtml = (item.tags || []).map(tag => `<span class="badge">${escapeHtml(tag)}</span>`).join('');
-        const downloads = item.stats?.downloads || '';
-        const updated = item.stats?.updated || '';
-        const version = item.version ? escapeHtml(item.version) : '';
-        
-        const versionHtml = version ? `<div class="version-info">📌 版本 ${version}</div>` : '';
-
-        return `
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title"><a href="${safeUrl}" target="_blank" rel="noopener noreferrer">${safeTitle}</a></div>
-                    <div class="badge-group">${tagsHtml}</div>
-                </div>
-                ${versionHtml}
-                <div class="card-description">${safeDesc}</div>
-                <div class="card-footer">
-                    <div class="author">👤 ${safeAuthor}</div>
-                    <div class="stats">
-                        ${downloads ? `<span>📥 ${downloads}</span>` : ''}
-                        ${updated ? `<span>🕒 ${updated}</span>` : ''}
-                    </div>
-                </div>
-            </div>
-        `;
-    }
-
-    function filterGroupsByKeyword(keyword) {
-        const term = keyword.trim().toLowerCase();
-        if (term === '') {
-            return groupsData.map(group => ({
-                group: group,
-                itemsFiltered: group.items,
-                hasMatch: true
-            }));
-        }
-        return groupsData.map(group => {
-            const filteredItems = group.items.filter(item =>
-                item.title.toLowerCase().includes(term) ||
-                item.description.toLowerCase().includes(term) ||
-                item.author.toLowerCase().includes(term) ||
-                (item.tags && item.tags.some(tag => tag.toLowerCase().includes(term))) ||
-                (item.stats?.downloads && item.stats.downloads.toLowerCase().includes(term)) ||
-                (item.stats?.updated && item.stats.updated.toLowerCase().includes(term)) ||
-                (item.version && item.version.toLowerCase().includes(term))
-            );
-            return {
-                group: group,
-                itemsFiltered: filteredItems,
-                hasMatch: filteredItems.length > 0
-            };
-        });
-    }
-
-    function renderPage() {
-        const keyword = searchInput.value;
-        const filteredGroups = filterGroupsByKeyword(keyword);
-
-        let html = '';
-        for (let i = 0; i < filteredGroups.length; i++) {
-            const { group, itemsFiltered, hasMatch } = filteredGroups[i];
-            if (!hasMatch) continue;
-
-            const groupName = group.groupName;
-            if (groupCollapsedState[groupName] === undefined) groupCollapsedState[groupName] = false;
-            const isGroupCollapsed = groupCollapsedState[groupName];
-            const groupIcon = isGroupCollapsed ? '▶' : '▼';
-
-            const total = itemsFiltered.length;
-            const defaultShow = 6;
-            if (cardExpandedState[groupName] === undefined) cardExpandedState[groupName] = false;
-            const isCardsExpanded = cardExpandedState[groupName];
-            let showCount = total;
-            let showExpandButton = false;
-            if (total > defaultShow) {
-                showExpandButton = true;
-                showCount = isCardsExpanded ? total : defaultShow;
-            }
-            const displayedItems = itemsFiltered.slice(0, showCount);
-            const cardsHtml = displayedItems.map(item => renderCard(item)).join('');
-
-            html += `
-                <div class="group" data-group-name="${escapeHtml(groupName)}">
-                    <div class="group-header" data-group-toggle="${escapeHtml(groupName)}">
-                        <div class="group-title">
-                            ${escapeHtml(groupName)}
-                            <span class="count">${total}</span>
-                        </div>
-                        <div class="toggle-icon">${groupIcon}</div>
-                    </div>
-                    <div class="group-content ${isGroupCollapsed ? 'collapsed' : ''}">
-                        <div class="cards-grid">
-                            ${cardsHtml}
-                        </div>
-                        ${showExpandButton ? `
-                        <div class="expand-btn-wrapper">
-                            <button class="expand-btn" data-group-expand="${escapeHtml(groupName)}">
-                                ${isCardsExpanded ? '收起 ▲' : '展开更多 ▼'}
-                            </button>
-                        </div>
-                        ` : ''}
-                    </div>
-                </div>
-            `;
-        }
-
-        if (html === '') {
-            groupsContainer.innerHTML = `<div class="no-results">😢 没有找到与 “${escapeHtml(keyword)}” 相关的资源</div>`;
-        } else {
-            groupsContainer.innerHTML = html;
-        }
-
-        // 绑定分组折叠事件
-        document.querySelectorAll('.group-header').forEach(header => {
-            const groupName = header.getAttribute('data-group-toggle');
-            header.addEventListener('click', (e) => {
-                e.stopPropagation();
-                groupCollapsedState[groupName] = !groupCollapsedState[groupName];
-                renderPage();
-            });
-        });
-
-        // 绑定卡片展开/收起按钮事件
-        document.querySelectorAll('.expand-btn').forEach(btn => {
-            const groupName = btn.getAttribute('data-group-expand');
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                cardExpandedState[groupName] = !cardExpandedState[groupName];
-                renderPage();
-            });
-        });
-    }
-
-    searchInput.addEventListener('input', () => {
-        groupsData.forEach(group => {
-            cardExpandedState[group.groupName] = false;
-            groupCollapsedState[group.groupName] = false;
-        });
-        renderPage();
-    });
-
-    renderPage();
+    init();
 </script>
 </body>
 </html>
