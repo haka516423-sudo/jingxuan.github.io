@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>镜玄·资源搜索 | 管理员模式保留编辑</title>
+    <title>镜玄·资源搜索 | 管理员模式刷新自动恢复</title>
     <style>
         * {
             margin: 0;
@@ -612,7 +612,7 @@
             color: #4b5563;
         }
         
-        /* 深色主题强制米白色文字 */
+        /* 深色主题强制米白色文字（涵盖所有深色背景主题） */
         body[data-theme="black"] .card-title a,
         body[data-theme="black"] .card-title a:link,
         body[data-theme="black"] .card-title a:visited,
@@ -739,7 +739,7 @@
         <div class="header-area">
             <div class="title-section">
                 <h1 id="dynamicTitle">🎮 Minecraft 模组</h1>
-                <p>自定义壁纸 | 通透模糊 | 本地草稿+排序</p>
+                <p>自定义壁纸 | 通透模糊 | 本地草稿+云端优先</p>
             </div>
             <div class="action-buttons">
                 <div id="dataSourceIndicator" class="data-source-indicator" style="display: none;">
@@ -890,11 +890,11 @@
         return sorted;
     }
 
-    // 加载数据：管理员模式直接从 localStorage 读取，非管理员模式从云端拉取
+    // 加载数据：根据管理员标记决定是否使用云端
     async function loadInitialData() {
-        const autoAdmin = sessionStorage.getItem('adminModeAuto') === 'true';
-        if (autoAdmin) {
-            // 管理员模式：只从 localStorage 读取，不请求云端
+        const isAdmin = sessionStorage.getItem('adminModeAuto') === 'true';
+        if (isAdmin) {
+            // 管理员模式：直接从 localStorage 读取，不发起云端请求
             const stored = localStorage.getItem('editable_groups_data');
             if (stored) {
                 try {
@@ -902,7 +902,7 @@
                     if (parsed && Array.isArray(parsed)) {
                         groupsData = parsed;
                         currentDataSource = 'local';
-                        hasLocalChanges = true;   // 视为有草稿
+                        hasLocalChanges = true;
                         console.log('📦 管理员模式：从 localStorage 加载草稿');
                         updateDataSourceIndicator();
                         renderAll();
@@ -910,7 +910,7 @@
                     }
                 } catch(e) {}
             }
-            // 没有本地数据则用默认
+            // 没有本地数据，使用默认
             groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
             currentDataSource = 'default';
             hasLocalChanges = false;
@@ -985,7 +985,7 @@
         a.download = 'card_data_backup.json';
         a.click();
         URL.revokeObjectURL(url);
-        alert('数据已导出到本地文件，请手动上传到 GitHub 仓库覆盖 data.json 以实现永久同步。');
+        alert('数据已导出到本地文件，请手动上传到 GitHub 仓库覆盖 data.json 以实现云端同步。');
     }
 
     // 卡片操作
@@ -1193,14 +1193,15 @@
         adminToolbar.style.display = 'flex';
         renderCards();
         sessionStorage.setItem('adminModeAuto', 'true');
+        // 确保当前数据已保存到 localStorage（可能已有，但再存一次无妨）
+        saveDataToStorage();
     }
     function disableAdminMode() {
         isAdminMode = false;
         adminToolbar.style.display = 'none';
         renderCards();
         sessionStorage.removeItem('adminModeAuto');
-        // 退出管理员模式后，可选择刷新页面以重新从云端加载？不自动刷新，保持当前数据。但用户可手动刷新。
-        // 如果希望退出后立即同步云端，可以调用 location.reload()，但可能引起不便。根据需求，不自动刷新。
+        // 退出管理员模式时，可选刷新页面以重新加载云端数据？不自动刷新，但下次普通刷新会覆盖。
     }
     function checkAdminPassword() {
         const pwd = prompt('请输入管理员密码：');
@@ -1214,7 +1215,12 @@
         openEditModal(currentGroupIndex, undefined, { title: '', url: '', description: '', author: '', tags: [], version: '', stats: { downloads: '—', updated: '' } });
     }
 
-    // 主题与壁纸控制（保持不变）
+    // 主题与壁纸控制（省略，因篇幅已给出完整样式）
+    // ... 以下代码保持不变（主题相关函数已在上方样式中定义）
+    // 由于代码已完整包含，不再重复。
+
+    // 主题与壁纸控制（为保持完整，此处提供关键函数，但实际在之前的版本中已存在，为避免冲突，精简）
+    // 实际运行时，下面的函数已经在前面定义过，但为防遗漏，我们重新声明（浏览器会覆盖，不影响）
     const solidPresets = [
         { color: "#eef2f8", theme: "white" }, { color: "#12151c", theme: "black" },
         { color: "#fce9e6", theme: "white" }, { color: "#fef0e0", theme: "white" },
@@ -1350,8 +1356,7 @@
     }
 
     async function init() {
-        // 如果 sessionStorage 有管理员标记，直接加载本地数据；否则从云端加载
-        await loadInitialData();   // 根据标记选择数据源
+        await loadInitialData();   // 根据管理员标记决定数据来源
         initTheme();
         buildPalette();
         initControls();
@@ -1360,7 +1365,10 @@
         searchInput.addEventListener('input', (e) => { currentKeyword = e.target.value; renderCards(); });
         viewToggleBtn.addEventListener('click', toggleView);
         sortSelect.addEventListener('change', changeSort);
-
+        // 如果已经有管理员标记（例如刷新后），自动启用工具栏
+        if (sessionStorage.getItem('adminModeAuto') === 'true') {
+            enableAdminMode();
+        }
         adminBtn.addEventListener('click', checkAdminPassword);
         addCardBtn.addEventListener('click', addNewCard);
         resetDataBtn.addEventListener('click', resetToDefault);
