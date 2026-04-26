@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>镜玄·资源搜索 | 手动同步数据</title>
+    <title>镜玄·资源搜索 | 云端优先 + 视图切换</title>
     <style>
         * {
             margin: 0;
@@ -45,7 +45,7 @@
             background-position: center !important;
             background-repeat: no-repeat !important;
         }
-        .sidebar, .card, .search-box, .group-btn, .no-results, .palette-panel, .modal-content {
+        .sidebar, .card, .search-box, .group-btn, .no-results, .palette-panel, .modal-content, .view-toggle-btn {
             border-radius: 20px !important;
         }
         .color-swatch {
@@ -215,92 +215,16 @@
         body[data-theme="black"] .data-source-indicator {
             background: rgba(0,0,0,0.7);
         }
-        /* 调色板面板 */
-        .palette-panel {
-            position: absolute;
-            top: 60px;
-            right: 0;
-            width: 360px;
-            max-height: 550px;
-            overflow-y: auto;
-            background: rgba(20, 22, 27, 0.94);
-            backdrop-filter: blur(24px);
-            border: 1px solid rgba(255,255,255,0.4);
-            padding: 18px;
-            z-index: 300;
-            display: none;
-            flex-direction: column;
-            gap: 18px;
-            box-shadow: 0 20px 35px rgba(0,0,0,0.4);
-            border-radius: 20px;
-            color: #eef2ff;
-        }
-        .palette-panel.show { display: flex; }
-        .section-title {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #eef2ff;
-            margin-bottom: 10px;
-        }
-        .color-grid {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 8px;
-        }
-        .color-swatch {
-            height: 42px;
-            cursor: pointer;
-            border: 1px solid rgba(255,255,255,0.5);
-            transition: 0.1s;
-            border-radius: 12px;
-        }
-        .color-swatch:hover {
-            transform: scale(1.05);
-            border-color: white;
-        }
-        .slider-container {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-        .slider-container label {
-            font-size: 0.75rem;
-            color: #ddd;
-            display: flex;
-            justify-content: space-between;
-        }
-        input[type="range"] {
-            width: 100%;
-            cursor: pointer;
-        }
-        .file-upload-area {
+        /* 搜索栏 + 视图切换 */
+        .search-bar {
             display: flex;
             gap: 12px;
+            margin-bottom: 28px;
             align-items: center;
-            flex-wrap: wrap;
-            margin-top: 6px;
         }
-        .upload-btn {
-            background: rgba(255,255,240,0.2);
-            border: 1px solid rgba(255,255,255,0.4);
-            padding: 6px 12px;
-            border-radius: 40px;
-            font-size: 0.7rem;
-            cursor: pointer;
-            color: #eee;
-        }
-        .reset-bg {
-            background: rgba(255,80,80,0.3);
-        }
-        .hint-text {
-            font-size: 0.7rem;
-            color: #aaa;
-            text-align: right;
-        }
-        /* 搜索框 */
         .search-box {
-            width: 100%;
-            padding: 16px 24px;
+            flex: 1;
+            padding: 14px 20px;
             background: rgba(255, 255, 255, calc(var(--glass-opacity) + 0.05));
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.5);
@@ -318,12 +242,68 @@
             color: #f5f0e0;
             border-color: rgba(255,255,255,0.3);
         }
+        .view-toggle-btn {
+            background: rgba(255,255,240,0.7);
+            border: none;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+            transition: 0.1s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            color: #1f2d3d;
+            white-space: nowrap;
+        }
+        body[data-theme="black"] .view-toggle-btn {
+            background: rgba(30, 30, 35, 0.8);
+            color: #f5f0e0;
+        }
+        .view-toggle-btn:active {
+            transform: scale(0.96);
+        }
+        /* 卡片网格 */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
             gap: 28px;
             margin-top: 8px;
         }
+        /* 列表视图 */
+        .cards-grid.list-view {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .cards-grid.list-view .card {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 20px;
+            padding: 16px 20px;
+        }
+        .cards-grid.list-view .card .card-title {
+            min-width: 200px;
+            margin-bottom: 0;
+        }
+        .cards-grid.list-view .card .badge-group {
+            margin-bottom: 0;
+            flex-wrap: wrap;
+        }
+        .cards-grid.list-view .card .version-info {
+            margin-bottom: 0;
+        }
+        .cards-grid.list-view .card .card-description {
+            margin-bottom: 0;
+            flex: 2;
+        }
+        .cards-grid.list-view .card .card-footer {
+            margin-top: 0;
+            border-top: none;
+            padding-top: 0;
+            min-width: 120px;
+        }
+        /* 卡片样式 */
         .card {
             background: rgba(255, 255, 255, calc(var(--glass-opacity) - 0.05));
             backdrop-filter: blur(16px);
@@ -519,6 +499,16 @@
             flex-wrap: wrap;
             gap: 8px;
         }
+        .data-source-badge {
+            font-size: 0.6rem;
+            background: rgba(0,0,0,0.2);
+            padding: 2px 8px;
+            border-radius: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: 8px;
+        }
         .no-results {
             text-align: center;
             padding: 60px 20px;
@@ -553,6 +543,10 @@
             .group-btn { flex: 1; text-align: center; }
             .palette-panel { width: 280px; right: 0; left: auto; top: 65px; }
             .card-actions { opacity: 1; top: 8px; right: 8px; }
+            .cards-grid.list-view .card {
+                flex-direction: column;
+                align-items: stretch;
+            }
         }
     </style>
 </head>
@@ -594,8 +588,10 @@
             <button id="exitAdminBtn">🔒 退出编辑模式</button>
         </div>
 
-        <div class="search-wrapper">
+        <!-- 搜索栏 + 视图切换按钮 -->
+        <div class="search-bar">
             <input type="text" class="search-box" id="searchInput" placeholder="🔍 实时过滤 · 标题 / 描述 / 作者 / 标签 / 版本">
+            <button class="view-toggle-btn" id="viewToggleBtn">📋 列表视图</button>
         </div>
 
         <div id="cardsContainer" class="cards-grid"></div>
@@ -635,6 +631,7 @@
     let isAdminMode = false;
     let editingCardInfo = null;
     let currentDataSource = 'default';   // 'cloud', 'local', 'default'
+    let isListView = false;               // 视图模式：false=卡片网格，true=列表
 
     // DOM 元素
     const groupContainer = document.getElementById('groupButtonsContainer');
@@ -661,8 +658,9 @@
     const cardUpdatedInput = document.getElementById('cardUpdated');
     const modalCancel = document.getElementById('modalCancel');
     const modalSave = document.getElementById('modalSave');
+    const viewToggleBtn = document.getElementById('viewToggleBtn');
 
-    // 更新数据源指示器
+    // 更新数据源指示器（右上角圆点）
     function updateDataSourceIndicator() {
         const container = document.getElementById('dataSourceIndicator');
         const dot = container?.querySelector('.indicator-dot');
@@ -713,6 +711,8 @@
             return false;
         } finally {
             updateDataSourceIndicator();
+            // 刷新视图
+            renderAll();
         }
     }
 
@@ -806,7 +806,7 @@
         editingCardInfo = null;
     }
 
-    // ========== 渲染相关 ==========
+    // ========== 渲染相关（卡片中增加数据来源角标） ==========
     function escapeHtml(s) { if(!s) return ''; return s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
     function getFavicon(url) { return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(url)}`; }
 
@@ -815,6 +815,15 @@
         const versionHtml = item.version ? `<div class="version-info">📌 版本 ${escapeHtml(item.version)}</div>` : '';
         const downloads = item.stats?.downloads || '';
         const updated = item.stats?.updated || '';
+        // 数据来源角标（小卡片版本信息增加）
+        let sourceBadge = '';
+        if (currentDataSource === 'cloud') {
+            sourceBadge = `<span class="data-source-badge">☁️ 云端</span>`;
+        } else if (currentDataSource === 'local') {
+            sourceBadge = `<span class="data-source-badge">💾 本地</span>`;
+        } else {
+            sourceBadge = `<span class="data-source-badge">📄 默认</span>`;
+        }
         const adminActions = isAdminMode ? `
             <div class="card-actions">
                 <button class="edit-btn" data-group="${groupIdx}" data-card="${cardIdx}">✏️</button>
@@ -829,7 +838,10 @@
                     <a href="${escapeHtml(item.url)}" target="_blank">${escapeHtml(item.title)}</a>
                 </div>
                 <div class="badge-group">${tagsHtml}</div>
-                ${versionHtml}
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    ${versionHtml}
+                    ${sourceBadge}
+                </div>
                 <div class="card-description">${escapeHtml(item.description)}</div>
                 <div class="card-footer">
                     <span>👤 ${escapeHtml(item.author)}</span>
@@ -890,6 +902,12 @@
                 });
             });
         }
+        // 应用视图模式
+        if (isListView) {
+            cardsContainer.classList.add('list-view');
+        } else {
+            cardsContainer.classList.remove('list-view');
+        }
     }
 
     function renderGroupButtons() {
@@ -918,6 +936,13 @@
         renderCards();
     }
 
+    // ========== 视图切换 ==========
+    function toggleView() {
+        isListView = !isListView;
+        viewToggleBtn.innerText = isListView ? '🗂️ 卡片视图' : '📋 列表视图';
+        renderCards();
+    }
+
     // ========== 管理员模式 ==========
     function enableAdminMode() {
         isAdminMode = true;
@@ -941,7 +966,7 @@
         openEditModal(currentGroupIndex, undefined, { title: '', url: '', description: '', author: '', tags: [], version: '', stats: { downloads: '—', updated: '' } });
     }
 
-    // ========== 主题与壁纸控制 ==========
+    // ========== 主题与壁纸控制（与之前相同） ==========
     const solidPresets = [
         { color: "#eef2f8", theme: "white" }, { color: "#12151c", theme: "black" },
         { color: "#fce9e6", theme: "white" }, { color: "#fef0e0", theme: "white" },
@@ -1078,13 +1103,14 @@
 
     // ========== 初始化 ==========
     async function init() {
-        await loadDataFromGitHub();   // 先加载云端数据
+        await loadDataFromGitHub();   // 先加载云端数据（云端优先，不会重复显示本地）
         initTheme();
         buildPalette();
         initControls();
         renderGroupButtons();
         renderCards();
         searchInput.addEventListener('input', (e) => { currentKeyword = e.target.value; renderCards(); });
+        viewToggleBtn.addEventListener('click', toggleView);
 
         adminBtn.addEventListener('click', checkAdminPassword);
         addCardBtn.addEventListener('click', addNewCard);
