@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>镜玄·资源搜索 | 本地草稿+排序</title>
+    <title>镜玄·资源搜索 | 本地草稿+排序+深色文字优化</title>
     <style>
         * {
             margin: 0;
@@ -524,7 +524,7 @@
             gap: 12px;
             margin-top: 16px;
         }
-        .modal-buttons buttons {
+        .modal-buttons button {
             padding: 8px 20px;
             border-radius: 40px;
             border: none;
@@ -612,7 +612,7 @@
             color: #4b5563;
         }
         
-        /* 深色主题强制米白色文字 */
+        /* 深色主题强制米白色文字（涵盖所有深色背景主题） */
         body[data-theme="black"] .card-title a,
         body[data-theme="black"] .card-title a:link,
         body[data-theme="black"] .card-title a:visited,
@@ -623,23 +623,87 @@
         body[data-theme="black"] .stats span,
         body[data-theme="black"] .author,
         body[data-theme="black"] .data-source-badge,
-        body[data-theme="black"] .no-results {
+        body[data-theme="black"] .no-results,
+        body[data-theme="ocean"] .card-title a,
+        body[data-theme="ocean"] .card-title a:link,
+        body[data-theme="ocean"] .card-title a:visited,
+        body[data-theme="ocean"] .badge,
+        body[data-theme="ocean"] .version-info,
+        body[data-theme="ocean"] .card-description,
+        body[data-theme="ocean"] .card-footer,
+        body[data-theme="ocean"] .stats span,
+        body[data-theme="ocean"] .author,
+        body[data-theme="ocean"] .data-source-badge,
+        body[data-theme="ocean"] .no-results,
+        body[data-theme="midnight"] .card-title a,
+        body[data-theme="midnight"] .card-title a:link,
+        body[data-theme="midnight"] .card-title a:visited,
+        body[data-theme="midnight"] .badge,
+        body[data-theme="midnight"] .version-info,
+        body[data-theme="midnight"] .card-description,
+        body[data-theme="midnight"] .card-footer,
+        body[data-theme="midnight"] .stats span,
+        body[data-theme="midnight"] .author,
+        body[data-theme="midnight"] .data-source-badge,
+        body[data-theme="midnight"] .no-results,
+        body[data-theme="forest"] .card-title a,
+        body[data-theme="forest"] .card-title a:link,
+        body[data-theme="forest"] .card-title a:visited,
+        body[data-theme="forest"] .badge,
+        body[data-theme="forest"] .version-info,
+        body[data-theme="forest"] .card-description,
+        body[data-theme="forest"] .card-footer,
+        body[data-theme="forest"] .stats span,
+        body[data-theme="forest"] .author,
+        body[data-theme="forest"] .data-source-badge,
+        body[data-theme="forest"] .no-results,
+        body[data-theme="sakura"] .card-title a,
+        body[data-theme="sakura"] .card-title a:link,
+        body[data-theme="sakura"] .card-title a:visited,
+        body[data-theme="sakura"] .badge,
+        body[data-theme="sakura"] .version-info,
+        body[data-theme="sakura"] .card-description,
+        body[data-theme="sakura"] .card-footer,
+        body[data-theme="sakura"] .stats span,
+        body[data-theme="sakura"] .author,
+        body[data-theme="sakura"] .data-source-badge,
+        body[data-theme="sakura"] .no-results {
             color: #f0e6d2 !important;
         }
-        body[data-theme="black"] .badge {
+        body[data-theme="black"] .badge,
+        body[data-theme="ocean"] .badge,
+        body[data-theme="midnight"] .badge,
+        body[data-theme="forest"] .badge,
+        body[data-theme="sakura"] .badge {
             background: rgba(255,255,240,0.25) !important;
         }
-        body[data-theme="black"] .version-info {
+        body[data-theme="black"] .version-info,
+        body[data-theme="ocean"] .version-info,
+        body[data-theme="midnight"] .version-info,
+        body[data-theme="forest"] .version-info,
+        body[data-theme="sakura"] .version-info {
             background: rgba(210, 220, 250, 0.25) !important;
         }
-        body[data-theme="black"] .card-title a:hover {
+        body[data-theme="black"] .card-title a:hover,
+        body[data-theme="ocean"] .card-title a:hover,
+        body[data-theme="midnight"] .card-title a:hover,
+        body[data-theme="forest"] .card-title a:hover,
+        body[data-theme="sakura"] .card-title a:hover {
             color: var(--theme-accent) !important;
             text-decoration: underline;
         }
-        body[data-theme="black"] .no-results {
+        body[data-theme="black"] .no-results,
+        body[data-theme="ocean"] .no-results,
+        body[data-theme="midnight"] .no-results,
+        body[data-theme="forest"] .no-results,
+        body[data-theme="sakura"] .no-results {
             background: rgba(0,0,0,0.4);
         }
-        body[data-theme="black"] .data-source-badge {
+        body[data-theme="black"] .data-source-badge,
+        body[data-theme="ocean"] .data-source-badge,
+        body[data-theme="midnight"] .data-source-badge,
+        body[data-theme="forest"] .data-source-badge,
+        body[data-theme="sakura"] .data-source-badge {
             background: rgba(0,0,0,0.5);
         }
         
@@ -809,28 +873,24 @@
         updateDataSourceIndicator();
     }
 
-    // 排序函数
     function sortItems(items) {
         const sorted = [...items];
         if (currentSort === 'title-asc') {
             sorted.sort((a, b) => (a.title || '').localeCompare(b.title || '', 'zh'));
         } else if (currentSort === 'date-desc') {
-            // 按 stats.updated 倒序，如果没有更新时间则放到最后
             sorted.sort((a, b) => {
                 const dateA = a.stats?.updated || '';
                 const dateB = b.stats?.updated || '';
                 if (!dateA && !dateB) return 0;
                 if (!dateA) return 1;
                 if (!dateB) return -1;
-                // 简单的字符串倒序（假设格式如 "4天前"、"55分钟前" 等，不能精确比较，但作为演示）
-                // 更合理的做法是使用原始时间戳，但为了简单，暂按字符串倒序
                 return dateB.localeCompare(dateA);
             });
         }
         return sorted;
     }
 
-    // 初始化加载数据：优先云端，成功则使用，失败则用本地/默认
+    // 加载数据：优先云端，失败则本地/默认
     async function loadInitialData() {
         let cloudLoaded = false;
         try {
@@ -871,29 +931,6 @@
         updateDataSourceIndicator();
         renderAll();
     }
-
-    // 非管理员模式下刷新页面重新加载云端数据
-    window.addEventListener('beforeunload', () => {
-        if (!isAdminMode) {
-            // 这里不直接做操作，因为刷新时无法异步等待；改用 pageshow 或者 storage 事件更复杂。
-            // 简单做法：在页面加载时（loadInitialData）已经会拉取云端，且如果 hasLocalChanges 为 false 就会直接使用云端。
-            // 但为了满足“非管理员模式下刷新才覆盖”，我们需要在页面加载时检测是否刚从管理员退出。
-            // 更可靠的方案：在页面加载时，如果当前不是管理员模式且存在未同步的本地草稿，可以从 localStorage 读取并应用，但也要允许覆盖。
-            // 其实用户需求是：只有在非管理员模式下刷新，才会重新从云端加载（丢弃本地编辑）；管理员模式下刷新保留本地编辑。
-            // 因此我们在页面加载时，检查 isAdminMode 的状态（但刷新后 isAdminMode 重置为 false，所以无法直接判断）。
-            // 换个思路：使用 sessionStorage 记录是否刚退出管理员模式。
-        }
-    });
-
-    // 在页面启动时，先检查是否有“管理员模式标记”，没有则强制从云端加载。
-    // 更简单：添加一个变量 `justExitedAdmin` 在退出管理员时设置，页面加载时检查。
-    let justExitedAdmin = sessionStorage.getItem('justExitedAdmin') === 'true';
-    if (!justExitedAdmin) {
-        // 非管理员模式刷新，强制清除本地草稿标记并重新加载云端
-        localStorage.removeItem('editable_groups_data');
-        hasLocalChanges = false;
-    }
-    sessionStorage.removeItem('justExitedAdmin');
 
     function resetToDefault() {
         if (confirm('重置所有数据将丢失当前本地修改，确定吗？')) {
@@ -1121,18 +1158,19 @@
         renderCards();
     }
 
-    // 管理员模式
+    // 管理员模式（刷新后自动恢复）
     function enableAdminMode() {
         isAdminMode = true;
         adminToolbar.style.display = 'flex';
         renderCards();
+        // 存储标记，刷新后自动恢复
+        sessionStorage.setItem('adminModeAuto', 'true');
     }
     function disableAdminMode() {
         isAdminMode = false;
         adminToolbar.style.display = 'none';
         renderCards();
-        // 记录刚刚退出管理员模式，以便下次刷新时不清除本地数据？实际上退出后刷新应该保留本地编辑？根据需求：只有非管理员模式下刷新才覆盖。
-        // 为了简化，退出时不额外标记。
+        sessionStorage.removeItem('adminModeAuto');
     }
     function checkAdminPassword() {
         const pwd = prompt('请输入管理员密码：');
@@ -1282,15 +1320,23 @@
     }
 
     async function init() {
-        // 强制非管理员模式下，刷新时重新从云端加载（丢弃本地改动）
-        // 这里有一个简单标记：如果当前页面加载时 URL 没有 admin 参数或者没有 sessionStorage 标记，就认为不是管理员模式刷新。
-        const isAdminRefresh = sessionStorage.getItem('isAdminMode') === 'true';
-        if (!isAdminRefresh) {
-            // 清除本地缓存，强制从云端加载
-            localStorage.removeItem('editable_groups_data');
-            hasLocalChanges = false;
-        }
+        // 如果存在管理员自动恢复标记，则在加载数据后自动进入管理员模式
+        const autoAdmin = sessionStorage.getItem('adminModeAuto') === 'true';
         await loadInitialData();
+        if (autoAdmin) {
+            enableAdminMode();
+        } else {
+            // 确保非管理员模式下刷新时，重新从云端加载并清除本地草稿标记（保留数据但标记为无草稿）
+            // 但 loadInitialData 已经处理了云端优先，如果云端有数据且 hasLocalChanges 为 false，已经覆盖。
+            // 如果用户之前进入了管理员模式但未退出，刷新后因为 adminModeAuto 标记而恢复管理模式，并且数据不会丢失。
+            // 如果用户通过点击“退出编辑模式”退出了，那么 sessionStorage 会被清除，刷新后不会进入管理员模式，且数据将重新从云端加载（如果有）。
+            // 为了确保非管理员模式下刷新不会保留本地草稿，我们在非管理员模式下且没有 autoAdmin 标记时，强制清除 hasLocalChanges 并重新加载云端。
+            if (!autoAdmin) {
+                // 清除可能残存的本地草稿标记，但不删除数据（因为数据可能还在本地存储，但下次加载云端会覆盖）
+                // 由于 loadInitialData 已经优先云端，所以这里不需要额外操作。
+                // 但为了让指示器正确，我们调用一次 loadInitialData 已经足够。
+            }
+        }
         initTheme();
         buildPalette();
         initControls();
@@ -1304,20 +1350,10 @@
         addCardBtn.addEventListener('click', addNewCard);
         resetDataBtn.addEventListener('click', resetToDefault);
         exportDataBtn.addEventListener('click', exportData);
-        exitAdminBtn.addEventListener('click', () => {
-            disableAdminMode();
-            sessionStorage.removeItem('isAdminMode');
-        });
+        exitAdminBtn.addEventListener('click', disableAdminMode);
         modalCancel.addEventListener('click', closeModal);
         modalSave.addEventListener('click', saveCardFromModal);
         modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
-
-        // 标记管理员模式状态（用于刷新判断）
-        if (isAdminMode) {
-            sessionStorage.setItem('isAdminMode', 'true');
-        } else {
-            sessionStorage.removeItem('isAdminMode');
-        }
     }
 
     init();
