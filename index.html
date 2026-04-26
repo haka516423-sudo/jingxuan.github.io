@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>镜玄·资源搜索 | 管理员持久化 + 壁纸压缩</title>
     <style>
-        /* ========== 完整样式（与之前玻璃主题一致） ========== */
         * {
             margin: 0;
             padding: 0;
@@ -152,11 +151,20 @@
         .title-section h1 {
             font-size: 1.85rem;
             font-weight: 700;
-            background: linear-gradient(125deg, #2c3e50, var(--theme-accent));
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
             margin: 0;
+            color: #1e293b;  /* 浅色主题默认深色 */
+        }
+        /* 深色主题下标题改为米白色 */
+        body[data-theme="black"] .title-section h1,
+        body[data-theme="ocean"] .title-section h1,
+        body[data-theme="midnight"] .title-section h1,
+        body[data-theme="forest"] .title-section h1,
+        body[data-theme="sakura"] .title-section h1,
+        body[data-theme="sunset"] .title-section h1,
+        body[data-theme="aurora"] .title-section h1,
+        body[data-theme="peach"] .title-section h1,
+        body[data-theme="mint"] .title-section h1 {
+            color: #f0e6d2 !important;
         }
         .title-section p {
             color: #4b5563;
@@ -755,7 +763,7 @@
                 <div><div class="section-title">🌈 渐变预设</div><div class="color-grid" id="gradientColorGrid"></div></div>
                 <div class="slider-container"><label>🔮 玻璃透明度 <span id="opacityValue">0.20</span></label><input type="range" id="opacitySlider" min="0.1" max="0.5" step="0.01" value="0.20"></div>
                 <div class="slider-container"><label>🔄 渐变角度 <span id="angleValue">135°</span> <span style="font-weight: normal;">(仅渐变主题)</span></label><input type="range" id="angleSlider" min="0" max="360" step="1" value="135"></div>
-                <div><div class="section-title">🖼️ 自定义壁纸</div><div class="file-upload-area"><input type="file" id="bgUpload" accept="image/*" style="display: none;"><button class="upload-btn" id="uploadBgBtn">📁 选择图片</button><button class="upload-btn reset-bg" id="resetBgBtn">🗑️ 重置背景</button></div><div class="hint-text">支持 JPG/PNG，自动压缩存储，超过5MB会提示</div></div>
+                <div><div class="section-title">🖼️ 自定义壁纸</div><div class="file-upload-area"><input type="file" id="bgUpload" accept="image/*" style="display: none;"><button class="upload-btn" id="uploadBgBtn">📁 选择图片</button><button class="upload-btn reset-bg" id="resetBgBtn">🗑️ 重置背景</button></div><div class="hint-text">支持 JPG/PNG，自动压缩存储，超过4.5MB会提示</div></div>
                 <div class="hint-text">点击色板换肤 | 滑块调节玻璃强度</div>
             </div>
         </div>
@@ -1201,7 +1209,6 @@
         adminToolbar.style.display = 'none';
         renderCards();
         sessionStorage.removeItem('adminModeAuto');
-        // 退出时可以选择重新加载云端（可选，为避免数据混乱，不自动重载）
         if (confirm('退出编辑模式，是否重新从云端加载最新数据？\n（若选择“否”，将保留当前本地数据但不再显示编辑按钮）')) {
             location.reload();
         }
@@ -1247,13 +1254,10 @@
         });
     }
 
-    // 重写壁纸上传统逻辑
     async function saveAndApplyWallpaper(file) {
         try {
-            // 压缩图片
             const compressedDataUrl = await compressImage(file, 1920, 0.8);
-            // 检查大小（localStorage 通常限制 5MB，Base64 比原图大约 33%）
-            const sizeInBytes = Math.ceil(compressedDataUrl.length * 0.75); // 近似原始大小
+            const sizeInBytes = Math.ceil(compressedDataUrl.length * 0.75);
             if (sizeInBytes > 4.5 * 1024 * 1024) {
                 alert('图片过大（超过4.5MB），请选择更小的图片或降低分辨率。');
                 return false;
@@ -1291,7 +1295,7 @@
         }
     }
 
-    // 主题与壁纸控制（其余部分保持不变）
+    // 主题与壁纸控制（其余部分）
     const solidPresets = [
         { color: "#eef2f8", theme: "white" }, { color: "#12151c", theme: "black" },
         { color: "#fce9e6", theme: "white" }, { color: "#fef0e0", theme: "white" },
@@ -1371,7 +1375,6 @@
         document.getElementById('opacitySlider').value = 0.20;
         document.getElementById('angleSlider').value = 135;
         initBackground();
-        // 替换壁纸上传事件
         const uploadBtn = document.getElementById('uploadBgBtn');
         const bgFileInput = document.getElementById('bgUpload');
         uploadBtn.addEventListener('click', () => bgFileInput.click());
@@ -1380,7 +1383,7 @@
             if (file && file.type.startsWith('image/')) {
                 await saveAndApplyWallpaper(file);
             }
-            bgFileInput.value = ''; // 清空，允许重复上传同一文件
+            bgFileInput.value = '';
         });
         document.getElementById('resetBgBtn').addEventListener('click', () => {
             localStorage.removeItem('custom_bg_image');
