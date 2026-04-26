@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>镜玄·资源搜索 | 可新增分组 + 紧凑卡片</title>
+    <title>镜玄·资源搜索 | 紧凑卡片 + 布局优化</title>
     <style>
         * {
             margin: 0;
@@ -270,7 +270,13 @@
             margin-top: 4px;
         }
         body[data-theme="black"] .title-section p {
-            color: #c0b7a6;
+            color: #cbd5e1 !important;
+        }
+        body[data-theme="ocean"] .title-section p,
+        body[data-theme="midnight"] .title-section p,
+        body[data-theme="forest"] .title-section p,
+        body[data-theme="sakura"] .title-section p {
+            color: #cbd5e1 !important;
         }
         .action-buttons {
             display: flex;
@@ -483,11 +489,14 @@
             min-width: 200px;
             margin-bottom: 0;
         }
-        .cards-grid.list-view .card .badge-group {
+        .cards-grid.list-view .card .card-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            margin-top: 0;
             margin-bottom: 0;
-        }
-        .cards-grid.list-view .card .version-info {
-            margin-bottom: 0;
+            width: 100%;
         }
         .cards-grid.list-view .card .card-description {
             margin-bottom: 0;
@@ -501,7 +510,7 @@
             padding-top: 0;
             min-width: 120px;
         }
-        /* 卡片内部紧凑样式 */
+        /* 卡片内部紧凑样式 + 新布局 */
         .card {
             background: rgba(255, 255, 255, calc(var(--glass-opacity) - 0.05));
             backdrop-filter: blur(16px);
@@ -673,7 +682,7 @@
             gap: 8px;
             margin-bottom: 0;
         }
-        /* 卡片内部元素间距 - 紧凑 */
+        /* --- 卡片内部元素紧凑 --- */
         .card-title {
             font-size: 1.2rem;
             font-weight: 600;
@@ -693,11 +702,23 @@
             color: #1e293b;
             font-weight: 600;
         }
+        .card-description {
+            font-size: 0.85rem;
+            line-height: 1.4;
+            color: #374151;
+            margin-bottom: 10px;
+        }
+        .card-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
         .badge-group {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 8px;
+            gap: 6px;
         }
         .badge {
             background: rgba(0,0,0,0.1);
@@ -712,15 +733,18 @@
             padding: 4px 12px;
             border-radius: 40px;
             font-size: 0.7rem;
-            width: fit-content;
-            margin-bottom: 6px;
             color: #1f2937;
+            white-space: nowrap;
         }
-        .card-description {
-            font-size: 0.85rem;
-            line-height: 1.4;
-            color: #374151;
-            margin-bottom: 10px;
+        .data-source-badge {
+            font-size: 0.6rem;
+            background: rgba(0,0,0,0.2);
+            padding: 2px 8px;
+            border-radius: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            color: #1f2937;
         }
         .card-footer {
             border-top: 1px solid rgba(0, 0, 0, 0.1);
@@ -731,17 +755,6 @@
             color: #4b5563;
             flex-wrap: wrap;
             gap: 8px;
-        }
-        .data-source-badge {
-            font-size: 0.6rem;
-            background: rgba(0,0,0,0.2);
-            padding: 2px 8px;
-            border-radius: 30px;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            margin-left: 8px;
-            color: #1f2937;
         }
         .no-results {
             text-align: center;
@@ -865,6 +878,11 @@
             }
             .search-box {
                 width: 100%;
+            }
+            .card-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
             }
         }
     </style>
@@ -1359,12 +1377,12 @@
                     <img src="${getFavicon(item.url)}" alt="icon" loading="lazy">
                     <a href="${escapeHtml(item.url)}" target="_blank">${escapeHtml(item.title)}</a>
                 </div>
-                <div class="badge-group">${tagsHtml}</div>
-                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+                <div class="card-description">${escapeHtml(item.description)}</div>
+                <div class="card-meta">
+                    <div class="badge-group">${tagsHtml}</div>
                     ${versionHtml}
                     ${sourceBadge}
                 </div>
-                <div class="card-description">${escapeHtml(item.description)}</div>
                 <div class="card-footer">
                     <span class="author">👤 ${escapeHtml(item.author)}</span>
                     <div class="stats">
