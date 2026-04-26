@@ -4,19 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>镜玄·资源搜索 | 思维导图 + 布局定制</title>
-    <!-- 引入 markmap 库 (轻量级思维导图) -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.3/style.css">
+    <!-- 引入依赖库 (d3 必须在 markmap 之前) -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@6.7.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.3"></script>
     <script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.3"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.3/style.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        html {
-            overflow-y: scroll;
-        }
+        /* 所有样式与之前相同（略，为保证完整性，我会保留完整样式） */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { overflow-y: scroll; }
         :root {
             --card-radius: 20px;
             --card-padding: 20px;
@@ -35,6 +31,7 @@
             --glass-opacity: 0.35;
             --gradient-angle: 135deg;
         }
+        /* 主题色 */
         body[data-theme="white"]  { background: #eef2f8; --theme-accent: #5b6e8c; }
         body[data-theme="black"]  { background: #12151c; --theme-accent: #c0b7a6; }
         body[data-theme="red"]    { background: #fce9e6; --theme-accent: #c2675e; }
@@ -1047,7 +1044,7 @@
 </div>
 
 <script>
-    // ========== 默认数据 (确保每个卡片有 mindmap 字段) ==========
+    // ========== 默认数据 ==========
     const DEFAULT_GROUPS_DATA = [
         { groupName: "🎮 Minecraft 模组", items: [ 
             { title: "Fabric API", url: "https://modrinth.com/mod/fabric-api", description: "轻量级且模块化的API，提供通用钩子和互操作性，供 Fabric 模组使用。", author: "Modmuss50", tags: ["Fabric", "库"], stats: { downloads: "162M", updated: "4天前" }, version: "0.16.5", mindmap: "" },
@@ -1137,7 +1134,6 @@
     function escapeHtml(s) { if(!s) return ''; return s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
     function getFavicon(url) { return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(url)}`; }
 
-    // 提取所有标签
     function extractAllTags() {
         const tagCount = new Map();
         for (const group of groupsData) {
@@ -1155,7 +1151,7 @@
     function renderTagList() {
         const tags = extractAllTags();
         if (tags.length === 0) {
-            tagListContainer.innerHTML = '<div style=\"font-size:0.7rem; color:#aaa;\">暂无标签</div>';
+            tagListContainer.innerHTML = '<div style="font-size:0.7rem; color:#aaa;">暂无标签</div>';
             clearTagFilterBtn.style.display = 'none';
             return;
         }
@@ -1202,12 +1198,12 @@
         const fixed = ['Fabric', 'Forge', 'NeoForge'];
         const otherTags = allTags.filter(t => !fixed.includes(t));
         if (otherTags.length === 0) {
-            dynamicTagList.innerHTML = '<div style=\"font-size:0.7rem; color:#aaa;\">暂无其他标签</div>';
+            dynamicTagList.innerHTML = '<div style="font-size:0.7rem; color:#aaa;">暂无其他标签</div>';
             return;
         }
         let html = '';
         otherTags.forEach(tag => {
-            html += `<button type=\"button\" class=\"quick-tag-btn dynamic-tag\" data-tag=\"${escapeHtml(tag)}\">${escapeHtml(tag)}</button>`;
+            html += `<button type="button" class="quick-tag-btn dynamic-tag" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`;
         });
         dynamicTagList.innerHTML = html;
         document.querySelectorAll('.dynamic-tag').forEach(btn => {
@@ -1443,6 +1439,9 @@
     function renderMindmap(markdown) {
         mindmapContainer.innerHTML = '';
         try {
+            if (typeof markmap === 'undefined' || typeof markmap.Markmap === 'undefined') {
+                throw new Error('markmap 未加载');
+            }
             const { Transformer } = window.markmap;
             const transformer = new Transformer();
             const { root } = transformer.transform(markdown);
@@ -1455,8 +1454,8 @@
                 }
             }
         } catch(e) {
-            mindmapContainer.innerHTML = '<div style="color:red;">思维导图渲染失败，请检查 Markdown 格式</div>';
             console.error(e);
+            mindmapContainer.innerHTML = '<div style="color:red; padding:20px;">思维导图渲染失败，请检查 Markdown 格式或刷新重试。</div>';
         }
     }
 
@@ -1763,7 +1762,6 @@
         textEditMode = true;
         toggleTextEditBtn.innerText = '🔒 关闭文本编辑';
         toggleTextEditBtn.style.background = '#ef4444';
-        // 添加可编辑属性
         document.querySelectorAll('.card-title span, .card-description, .author, .stats span, .version-info, .badge').forEach(el => {
             el.setAttribute('contenteditable', 'true');
             el.addEventListener('blur', saveTextEdit);
