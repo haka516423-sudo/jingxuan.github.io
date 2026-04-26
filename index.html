@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>琉璃·可编辑卡片库 | 密钥验证+本地存储</title>
+    <title>琉璃·智能解析 | 可编辑卡片库</title>
     <style>
         * {
             margin: 0;
@@ -11,7 +11,6 @@
             box-sizing: border-box;
         }
 
-        /* 强制垂直滚动条，防止页面左右抖动 */
         html {
             overflow-y: scroll;
         }
@@ -26,7 +25,7 @@
             --gradient-angle: 135deg;
         }
 
-        /* 默认纯色背景 */
+        /* 主题背景 */
         body[data-theme="white"]  { background: #eef2f8; --theme-accent: #5b6e8c; }
         body[data-theme="black"]  { background: #12151c; --theme-accent: #c0b7a6; }
         body[data-theme="red"]    { background: #fce9e6; --theme-accent: #c2675e; }
@@ -45,20 +44,17 @@
         body[data-theme="peach"]     { background: linear-gradient(var(--gradient-angle), #ffe29a 0%, #ffb7b2 100%); --theme-accent: #d97846; }
         body[data-theme="mint"]      { background: linear-gradient(var(--gradient-angle), #c7e9fb 0%, #b6e0fe 100%); --theme-accent: #4a9e7c; }
 
-        /* 自定义壁纸覆盖 */
         body.custom-bg {
             background-size: cover !important;
             background-position: center !important;
             background-repeat: no-repeat !important;
         }
 
-        /* 统一圆角矩形 */
+        /* 统一圆角 */
         .sidebar, .card, .search-box, .group-btn, .no-results, .palette-panel, .modal-content {
             border-radius: 20px !important;
         }
-        .color-swatch {
-            border-radius: 12px;
-        }
+        .color-swatch { border-radius: 12px; }
 
         /* 布局 */
         .app {
@@ -69,7 +65,7 @@
             align-items: flex-start;
         }
 
-        /* 左侧导航 - 玻璃层 (使用变量透明度) */
+        /* 左侧导航 */
         .sidebar {
             flex: 0 0 280px;
             background: rgba(255, 255, 255, var(--glass-opacity));
@@ -79,7 +75,6 @@
             padding: 24px 16px;
             position: sticky;
             top: 28px;
-            transition: background 0.2s;
         }
         body[data-theme="black"] .sidebar,
         body[data-theme="ocean"] .sidebar,
@@ -106,12 +101,8 @@
             border-bottom-color: rgba(255,255,255,0.2);
         }
 
-        /* 分组按钮 — 按下动画 */
-        .group-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+        /* 分组按钮 */
+        .group-buttons { display: flex; flex-direction: column; gap: 12px; }
         .group-btn {
             background: rgba(255, 255, 235, 0.7);
             backdrop-filter: blur(6px);
@@ -125,13 +116,8 @@
             transition: transform 0.08s, background 0.2s;
             transform: scale(1);
         }
-        .group-btn:active {
-            transform: scale(0.96);
-            background: rgba(0, 0, 0, 0.15);
-        }
-        .group-btn:hover {
-            background: rgba(255,255,250,0.9);
-        }
+        .group-btn:active { transform: scale(0.96); background: rgba(0, 0, 0, 0.15); }
+        .group-btn:hover { background: rgba(255,255,250,0.9); }
         .group-btn.active {
             background: var(--theme-accent);
             color: white;
@@ -149,9 +135,7 @@
         }
 
         /* 右侧主区域 */
-        .main {
-            flex: 1;
-        }
+        .main { flex: 1; }
 
         /* 头部区域 */
         .header-area {
@@ -180,16 +164,10 @@
             font-size: 0.8rem;
             margin-top: 4px;
         }
-        body[data-theme="black"] .title-section p {
-            color: #c0b7a6;
-        }
+        body[data-theme="black"] .title-section p { color: #c0b7a6; }
 
-        /* 按钮组（调色板，管理员） */
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
+        /* 按钮组 */
+        .action-buttons { display: flex; gap: 10px; align-items: center; }
         .admin-btn, .palette-btn {
             background: rgba(255,255,240,0.8);
             border: none;
@@ -207,9 +185,7 @@
             background: rgba(30, 30, 35, 0.8);
             color: #f5f0e0;
         }
-        .admin-btn:active, .palette-btn:active {
-            transform: scale(0.96);
-        }
+        .admin-btn:active, .palette-btn:active { transform: scale(0.96); }
 
         /* 调色板面板 */
         .palette-panel {
@@ -228,12 +204,9 @@
             flex-direction: column;
             gap: 18px;
             box-shadow: 0 20px 35px rgba(0,0,0,0.4);
-            border-radius: 20px;
             color: #eef2ff;
         }
-        .palette-panel.show {
-            display: flex;
-        }
+        .palette-panel.show { display: flex; }
         .section-title {
             font-size: 0.85rem;
             font-weight: 600;
@@ -251,10 +224,7 @@
             border: 1px solid rgba(255,255,255,0.5);
             transition: 0.1s;
         }
-        .color-swatch:hover {
-            transform: scale(1.05);
-            border-color: white;
-        }
+        .color-swatch:hover { transform: scale(1.05); border-color: white; }
         .slider-container {
             display: flex;
             flex-direction: column;
@@ -266,10 +236,7 @@
             display: flex;
             justify-content: space-between;
         }
-        input[type="range"] {
-            width: 100%;
-            cursor: pointer;
-        }
+        input[type="range"] { width: 100%; cursor: pointer; }
         .file-upload-area {
             display: flex;
             gap: 12px;
@@ -286,9 +253,7 @@
             cursor: pointer;
             color: #eee;
         }
-        .reset-bg {
-            background: rgba(255,80,80,0.3);
-        }
+        .reset-bg { background: rgba(255,80,80,0.3); }
         .hint-text {
             font-size: 0.7rem;
             color: #aaa;
@@ -343,7 +308,6 @@
             background: rgba(255, 255, 255, calc(var(--glass-opacity) + 0.1));
             box-shadow: 0 20px 30px rgba(0, 0, 0, 0.12);
         }
-        /* 深色主题卡片背景加深 */
         body[data-theme="black"] .card,
         body[data-theme="ocean"] .card,
         body[data-theme="midnight"] .card {
@@ -357,7 +321,7 @@
             background: rgba(30, 40, 55, 0.75);
         }
 
-        /* 编辑模式下的卡片操作按钮 */
+        /* 编辑按钮 */
         .card-actions {
             position: absolute;
             top: 12px;
@@ -368,9 +332,7 @@
             transition: opacity 0.2s;
             z-index: 10;
         }
-        .card:hover .card-actions {
-            opacity: 1;
-        }
+        .card:hover .card-actions { opacity: 1; }
         .edit-btn, .delete-btn {
             background: rgba(0,0,0,0.6);
             backdrop-filter: blur(4px);
@@ -384,14 +346,9 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            transition: 0.1s;
         }
         .edit-btn:hover { background: #3b82f6; }
         .delete-btn:hover { background: #ef4444; }
-        body[data-theme="black"] .edit-btn,
-        body[data-theme="black"] .delete-btn {
-            background: rgba(30,30,40,0.9);
-        }
 
         /* 管理员工具栏 */
         .admin-toolbar {
@@ -414,7 +371,7 @@
             font-size: 0.8rem;
         }
 
-        /* 模态框样式 */
+        /* 模态框 */
         .modal {
             display: none;
             position: fixed;
@@ -426,20 +383,33 @@
             justify-content: center;
             align-items: center;
         }
-        .modal.active {
-            display: flex;
-        }
+        .modal.active { display: flex; }
         .modal-content {
             background: rgba(30,30,40,0.95);
             backdrop-filter: blur(20px);
-            width: 500px;
+            width: 550px;
             max-width: 90%;
             padding: 24px;
             border: 1px solid rgba(255,255,255,0.3);
             color: #eee;
         }
-        .modal-content h3 {
-            margin-bottom: 16px;
+        .modal-content h3 { margin-bottom: 16px; }
+        .url-input-wrapper {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            align-items: center;
+        }
+        .url-input-wrapper input { flex: 1; margin-bottom: 0; }
+        .parse-btn {
+            background: #3b82f6;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 40px;
+            color: white;
+            cursor: pointer;
+            font-size: 0.8rem;
+            white-space: nowrap;
         }
         .modal-content input, .modal-content textarea {
             width: 100%;
@@ -451,10 +421,7 @@
             color: #fff;
             font-size: 0.9rem;
         }
-        .modal-content textarea {
-            min-height: 80px;
-            resize: vertical;
-        }
+        .modal-content textarea { min-height: 80px; resize: vertical; }
         .modal-buttons {
             display: flex;
             justify-content: flex-end;
@@ -470,7 +437,7 @@
         .save-btn { background: #10b981; color: white; }
         .cancel-btn { background: #6b7280; color: white; }
 
-        /* 其他样式 */
+        /* 卡片内部样式 */
         .card-title {
             font-size: 1.2rem;
             font-weight: 600;
@@ -534,7 +501,6 @@
             padding: 60px 20px;
             background: rgba(255,255,255,0.3);
             backdrop-filter: blur(12px);
-            border-radius: 20px;
             color: #4b5563;
         }
         body[data-theme="black"] .no-results {
@@ -542,7 +508,7 @@
             background: rgba(0,0,0,0.4);
         }
 
-        /* 黑色主题强制文字颜色 */
+        /* 深色文本强制 */
         body[data-theme="black"] .card-title a,
         body[data-theme="black"] .badge,
         body[data-theme="black"] .version-info,
@@ -580,43 +546,15 @@
         <div class="header-area">
             <div class="title-section">
                 <h1 id="dynamicTitle">🎮 Minecraft 模组</h1>
-                <p>自定义壁纸 | 通透模糊 | 可编辑卡片</p>
+                <p>自定义壁纸 | 智能解析URL | 可编辑卡片</p>
             </div>
             <div class="action-buttons">
                 <button class="palette-btn" id="paletteBtn">🎨 调色板</button>
                 <button class="admin-btn" id="adminBtn">🔐 管理员</button>
             </div>
-            <div class="palette-panel" id="palettePanel">
-                <div>
-                    <div class="section-title">🎨 纯色预设</div>
-                    <div class="color-grid" id="solidColorGrid"></div>
-                </div>
-                <div>
-                    <div class="section-title">🌈 渐变预设</div>
-                    <div class="color-grid" id="gradientColorGrid"></div>
-                </div>
-                <div class="slider-container">
-                    <label>🔮 玻璃透明度 <span id="opacityValue">0.20</span></label>
-                    <input type="range" id="opacitySlider" min="0.1" max="0.5" step="0.01" value="0.20">
-                </div>
-                <div class="slider-container">
-                    <label>🔄 渐变角度 <span id="angleValue">135°</span> <span style="font-weight: normal;">(仅渐变主题)</span></label>
-                    <input type="range" id="angleSlider" min="0" max="360" step="1" value="135">
-                </div>
-                <div>
-                    <div class="section-title">🖼️ 自定义壁纸</div>
-                    <div class="file-upload-area">
-                        <input type="file" id="bgUpload" accept="image/*" style="display: none;">
-                        <button class="upload-btn" id="uploadBgBtn">📁 选择图片</button>
-                        <button class="upload-btn reset-bg" id="resetBgBtn">🗑️ 重置背景</button>
-                    </div>
-                    <div class="hint-text">支持 JPG/PNG，上传后自动铺满背景并永久保存</div>
-                </div>
-                <div class="hint-text">点击色板换肤 | 滑块调节玻璃强度</div>
-            </div>
+            <div class="palette-panel" id="palettePanel"><!-- 动态填充 --></div>
         </div>
 
-        <!-- 管理员工具栏（默认隐藏） -->
         <div id="adminToolbar" class="admin-toolbar" style="display: none;">
             <button id="addCardBtn">➕ 新增卡片到当前分组</button>
             <button id="resetDataBtn">🔄 重置为默认数据</button>
@@ -636,8 +574,11 @@
 <div id="cardModal" class="modal">
     <div class="modal-content">
         <h3 id="modalTitle">编辑卡片</h3>
+        <div class="url-input-wrapper">
+            <input type="url" id="cardUrl" placeholder="网址 (https://...)" autocomplete="off">
+            <button class="parse-btn" id="parseUrlBtn">🔍 解析</button>
+        </div>
         <input type="text" id="cardTitle" placeholder="标题" autocomplete="off">
-        <input type="url" id="cardUrl" placeholder="网址 (https://...)" autocomplete="off">
         <textarea id="cardDesc" placeholder="描述"></textarea>
         <input type="text" id="cardAuthor" placeholder="作者">
         <input type="text" id="cardTags" placeholder="标签 (用英文逗号分隔，例如: Fabric, 库)" autocomplete="off">
@@ -652,19 +593,18 @@
 </div>
 
 <script>
-    // ========== 默认数据（与之前完全一致） ==========
+    // ========== 默认数据 ==========
     const DEFAULT_GROUPS_DATA = [
         { groupName: "🎮 Minecraft 模组", items: [ { title: "Fabric API", url: "https://modrinth.com/mod/fabric-api", description: "轻量级且模块化的API，提供通用钩子和互操作性，供 Fabric 模组使用。", author: "Modmuss50", tags: ["Fabric", "库"], stats: { downloads: "162M", updated: "4天前" }, version: "0.16.5" }, { title: "Sodium (钠)", url: "https://modrinth.com/mod/sodium", description: "Minecraft 最快且最兼容的渲染优化模组，支持 Fabric 和 NeoForge。", author: "CaffeineMC", tags: ["Fabric", "NeoForge", "优化"], stats: { downloads: "147M", updated: "55分钟前" }, version: "0.5.8" }, { title: "Iris Shaders", url: "https://modrinth.com/mod/iris", description: "现代 Minecraft 光影加载器，兼容 OptiFine 光影包。", author: "coderbot", tags: ["Fabric", "NeoForge", "视觉"], stats: { downloads: "115M", updated: "3周前" }, version: "1.7.0" }, { title: "Cloth Config API", url: "https://modrinth.com/mod/cloth-config", description: "Minecraft 模组配置库，提供通用的配置界面。", author: "shedaniel", tags: ["Fabric", "Forge", "库"], stats: { downloads: "115M", updated: "上个月" }, version: "11.1.118" }, { title: "ReplayMod (重播模组)", url: "https://modrinth.com/mod/replaymod", description: "记录并分享游戏体验的模组。", author: "Johni0702", tags: ["Fabric", "Forge", "实用","视频创作者工具"], stats: { downloads: "—", updated: "上个月" }, version: "1.20.4-2.6.14" }, { title: "Visible Barriers (可视化屏障方块)", url: "https://modrinth.com/mod/visiblebarriers", description: "让屏障方块、光源方块等可见，对地图制作很有帮助。", author: "AmyMialee's Mods", tags: ["Fabric", "实用","辅助"], stats: { downloads: "—", updated: "上个月" }, version: "1.0.2" }, { title: "JEI (Just Enough Items)", url: "https://modrinth.com/mod/jei", description: "查看物品合成表，模组必备。", author: "mezz", tags: ["Fabric", "Forge", "实用"], stats: { downloads: "200M", updated: "2周前" }, version: "15.3.0.8" } ] },
         { groupName: "🌐 常用开发网站", items: [ { title: "GitHub 官网", url: "https://github.com", description: "全球最大的开发者平台，托管代码、协作开发。", author: "GitHub", tags: ["开发", "工具"], stats: { downloads: "—", updated: "在线" } }, { title: "MDN Web Docs", url: "https://developer.mozilla.org/zh-CN/", description: "权威的 Web 技术文档，HTML、CSS、JavaScript 应有尽有。", author: "Mozilla", tags: ["文档", "前端"], stats: { downloads: "—", updated: "持续更新" } }, { title: "Stack Overflow", url: "https://stackoverflow.com", description: "程序员问答社区，遇到 bug 时的救星。", author: "Stack Exchange", tags: ["社区", "问答"], stats: { downloads: "—", updated: "活跃" } } ] },
         { groupName: "📺 视频&学习", items: [ { title: "哔哩哔哩", url: "https://www.bilibili.com", description: "中文弹幕视频网站，大量编程教程和模组展示。", author: "Bilibili", tags: ["视频", "学习"], stats: { downloads: "—", updated: "每日更新" } }, { title: "YouTube", url: "https://www.youtube.com", description: "全球最大视频平台，无数技术讲座和模组介绍。", author: "Google", tags: ["视频", "教程"], stats: { downloads: "—", updated: "实时" } } ] }
     ];
 
-    // 全局变量
     let groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
     let currentGroupIndex = 0;
     let currentKeyword = '';
     let isAdminMode = false;
-    let editingCardInfo = null; // { groupIdx, cardIdx, card }
+    let editingCardInfo = null;
 
     // DOM 元素
     const groupContainer = document.getElementById('groupButtonsContainer');
@@ -681,8 +621,9 @@
     const exitAdminBtn = document.getElementById('exitAdminBtn');
     const modal = document.getElementById('cardModal');
     const modalTitle = document.getElementById('modalTitle');
-    const cardTitleInput = document.getElementById('cardTitle');
     const cardUrlInput = document.getElementById('cardUrl');
+    const parseUrlBtn = document.getElementById('parseUrlBtn');
+    const cardTitleInput = document.getElementById('cardTitle');
     const cardDescTextarea = document.getElementById('cardDesc');
     const cardAuthorInput = document.getElementById('cardAuthor');
     const cardTagsInput = document.getElementById('cardTags');
@@ -698,19 +639,14 @@
         if (stored) {
             try {
                 const parsed = JSON.parse(stored);
-                if (parsed && Array.isArray(parsed)) {
-                    groupsData = parsed;
-                    return;
-                }
-            } catch(e) {}
+                if (parsed && Array.isArray(parsed)) groupsData = parsed;
+                else groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
+            } catch(e) { groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA)); }
+        } else {
+            groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
         }
-        groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
     }
-
-    function saveDataToStorage() {
-        localStorage.setItem('editable_groups_data', JSON.stringify(groupsData));
-    }
-
+    function saveDataToStorage() { localStorage.setItem('editable_groups_data', JSON.stringify(groupsData)); }
     function resetToDefault() {
         groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
         saveDataToStorage();
@@ -719,7 +655,6 @@
         searchInput.value = '';
         renderAll();
     }
-
     function exportData() {
         const dataStr = JSON.stringify(groupsData, null, 2);
         const blob = new Blob([dataStr], {type: 'application/json'});
@@ -729,6 +664,59 @@
         a.download = 'card_data_backup.json';
         a.click();
         URL.revokeObjectURL(url);
+    }
+
+    // ========== URL 智能解析 ==========
+    async function parseUrlMetadata(url) {
+        try {
+            // 使用 AllOrigins 代理获取 HTML
+            const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
+            const response = await fetch(proxyUrl);
+            if (!response.ok) throw new Error('无法获取页面');
+            const html = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            
+            // 提取标题
+            let title = '';
+            const ogTitle = doc.querySelector('meta[property="og:title"]')?.getAttribute('content');
+            if (ogTitle) title = ogTitle;
+            else title = doc.querySelector('title')?.innerText || '';
+            
+            // 提取描述
+            let description = '';
+            const ogDesc = doc.querySelector('meta[property="og:description"]')?.getAttribute('content');
+            if (ogDesc) description = ogDesc;
+            else description = doc.querySelector('meta[name="description"]')?.getAttribute('content') || '';
+            
+            // 提取图标 (选做，可不显示)
+            // 不强制填充作者、标签等，用户手动完善
+            
+            return { title, description, success: true };
+        } catch (err) {
+            console.error(err);
+            return { success: false, error: err.message };
+        }
+    }
+
+    async function handleParseUrl() {
+        const url = cardUrlInput.value.trim();
+        if (!url) {
+            alert('请先输入网址');
+            return;
+        }
+        parseUrlBtn.disabled = true;
+        parseUrlBtn.textContent = '解析中...';
+        const result = await parseUrlMetadata(url);
+        if (result.success) {
+            if (result.title) cardTitleInput.value = result.title;
+            if (result.description) cardDescTextarea.value = result.description;
+            alert('解析完成，请检查并补充其他信息');
+        } else {
+            alert('解析失败：' + result.error + '\n请手动填写');
+        }
+        parseUrlBtn.disabled = false;
+        parseUrlBtn.textContent = '🔍 解析';
     }
 
     // ========== 卡片增删改 ==========
@@ -766,15 +754,13 @@
             return;
         }
         if (cardIdx === undefined) {
-            // 新增
             groupsData[groupIdx].items.push(newCard);
         } else {
-            // 编辑
             groupsData[groupIdx].items[cardIdx] = newCard;
         }
         saveDataToStorage();
         closeModal();
-        renderAll(); // 重新渲染
+        renderAll();
     }
 
     function deleteCard(groupIdx, cardIdx) {
@@ -806,7 +792,7 @@
             </div>
         ` : '';
         return `
-            <div class="card" data-group="${groupIdx}" data-card="${cardIdx}">
+            <div class="card">
                 ${adminActions}
                 <div class="card-title">
                     <img src="${getFavicon(item.url)}" alt="icon" loading="lazy">
@@ -849,14 +835,11 @@
             return;
         }
         let html = '';
-        items.forEach((item, idx) => {
-            // 注意：原始索引需要从 groupsData[currentGroupIndex].items 中找真实位置
+        items.forEach((item) => {
             const realIdx = groupsData[currentGroupIndex].items.findIndex(i => i === item);
             html += renderCard(item, currentGroupIndex, realIdx);
         });
         cardsContainer.innerHTML = html;
-
-        // 绑定编辑/删除事件（仅管理员模式下）
         if (isAdminMode) {
             document.querySelectorAll('.edit-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
@@ -908,7 +891,7 @@
     function enableAdminMode() {
         isAdminMode = true;
         adminToolbar.style.display = 'flex';
-        renderCards(); // 重新渲染卡片以显示编辑按钮
+        renderCards();
     }
     function disableAdminMode() {
         isAdminMode = false;
@@ -917,20 +900,14 @@
     }
     function checkAdminPassword() {
         const pwd = prompt('请输入管理员密码：');
-        // 预设密码 admin123，您可自行修改
-        if (pwd === 'admin123') {
-            enableAdminMode();
-        } else {
-            alert('密码错误，无法进入编辑模式');
-        }
+        if (pwd === 'admin123') enableAdminMode();
+        else alert('密码错误，无法进入编辑模式');
     }
-
-    // 新增卡片（当前分组）
     function addNewCard() {
         openEditModal(currentGroupIndex, undefined, { title: '', url: '', description: '', author: '', tags: [], version: '', stats: { downloads: '—', updated: '' } });
     }
 
-    // ========== 主题与壁纸控制（不变） ==========
+    // ========== 主题与壁纸控制（完整保留） ==========
     const solidPresets = [
         { color: "#eef2f8", theme: "white" }, { color: "#12151c", theme: "black" },
         { color: "#fce9e6", theme: "white" }, { color: "#fef0e0", theme: "white" },
@@ -958,8 +935,27 @@
         return (r * 0.299 + g * 0.587 + b * 0.114) < 128;
     }
     function buildPalette() {
-        const solidGrid = document.getElementById('solidColorGrid');
-        solidGrid.innerHTML = '';
+        const solidGrid = document.createElement('div'); solidGrid.className = 'color-grid'; solidGrid.id = 'solidColorGrid';
+        const gradGrid = document.createElement('div'); gradGrid.className = 'color-grid'; gradGrid.id = 'gradientColorGrid';
+        document.getElementById('solidColorGrid')?.remove(); document.getElementById('gradientColorGrid')?.remove();
+        const solidContainer = document.createElement('div'); solidContainer.innerHTML = '<div class="section-title">🎨 纯色预设</div>'; solidContainer.appendChild(solidGrid);
+        const gradContainer = document.createElement('div'); gradContainer.innerHTML = '<div class="section-title">🌈 渐变预设</div>'; gradContainer.appendChild(gradGrid);
+        palettePanel.innerHTML = '';
+        palettePanel.appendChild(solidContainer);
+        palettePanel.appendChild(gradContainer);
+        // 添加其他控件（滑块、壁纸）
+        const opacityDiv = document.createElement('div'); opacityDiv.className = 'slider-container';
+        opacityDiv.innerHTML = `<label>🔮 玻璃透明度 <span id="opacityValue">0.20</span></label><input type="range" id="opacitySlider" min="0.1" max="0.5" step="0.01" value="0.20">`;
+        const angleDiv = document.createElement('div'); angleDiv.className = 'slider-container';
+        angleDiv.innerHTML = `<label>🔄 渐变角度 <span id="angleValue">135°</span> <span style="font-weight: normal;">(仅渐变主题)</span></label><input type="range" id="angleSlider" min="0" max="360" step="1" value="135">`;
+        const wallDiv = document.createElement('div');
+        wallDiv.innerHTML = `<div class="section-title">🖼️ 自定义壁纸</div><div class="file-upload-area"><input type="file" id="bgUpload" accept="image/*" style="display: none;"><button class="upload-btn" id="uploadBgBtn">📁 选择图片</button><button class="upload-btn reset-bg" id="resetBgBtn">🗑️ 重置背景</button></div><div class="hint-text">支持 JPG/PNG，上传后自动铺满背景并永久保存</div>`;
+        const hintDiv = document.createElement('div'); hintDiv.className = 'hint-text'; hintDiv.innerText = '点击色板换肤 | 滑块调节玻璃强度';
+        palettePanel.appendChild(opacityDiv);
+        palettePanel.appendChild(angleDiv);
+        palettePanel.appendChild(wallDiv);
+        palettePanel.appendChild(hintDiv);
+
         solidPresets.forEach(preset => {
             const swatch = document.createElement('div');
             swatch.className = 'color-swatch';
@@ -973,8 +969,6 @@
             });
             solidGrid.appendChild(swatch);
         });
-        const gradGrid = document.getElementById('gradientColorGrid');
-        gradGrid.innerHTML = '';
         gradientPresets.forEach((grad, idx) => {
             const swatch = document.createElement('div');
             swatch.className = 'color-swatch gradient-swatch';
@@ -987,17 +981,34 @@
             });
             gradGrid.appendChild(swatch);
         });
+        const opacitySlider = document.getElementById('opacitySlider');
+        const angleSlider = document.getElementById('angleSlider');
+        const opacityValueSpan = document.getElementById('opacityValue');
+        const angleValueSpan = document.getElementById('angleValue');
+        opacitySlider.addEventListener('input', (e) => updateOpacity(parseFloat(e.target.value)));
+        angleSlider.addEventListener('input', (e) => updateAngle(parseInt(e.target.value)));
+        document.getElementById('uploadBgBtn').addEventListener('click', () => document.getElementById('bgUpload').click());
+        document.getElementById('bgUpload').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (ev) => saveAndApplyWallpaper(ev.target.result);
+                reader.readAsDataURL(file);
+            }
+        });
+        document.getElementById('resetBgBtn').addEventListener('click', () => {
+            localStorage.removeItem('custom_bg_image');
+            document.body.classList.remove('custom-bg');
+            document.body.style.backgroundImage = '';
+            const savedColor = localStorage.getItem('custom_bg_color');
+            if (savedColor) {
+                document.body.style.background = savedColor;
+                setTheme(isDarkColor(savedColor) ? 'black' : 'white');
+            } else { setTheme('white'); document.body.style.background = '#eef2f8'; }
+        });
     }
-    function updateOpacity(value) {
-        document.body.style.setProperty('--glass-opacity', value);
-        document.getElementById('opacityValue').innerText = value;
-        localStorage.setItem('glass_opacity', value);
-    }
-    function updateAngle(value) {
-        document.body.style.setProperty('--gradient-angle', value + 'deg');
-        document.getElementById('angleValue').innerText = value + '°';
-        localStorage.setItem('gradient_angle', value);
-    }
+    function updateOpacity(value) { document.body.style.setProperty('--glass-opacity', value); document.getElementById('opacityValue').innerText = value; localStorage.setItem('glass_opacity', value); }
+    function updateAngle(value) { document.body.style.setProperty('--gradient-angle', value + 'deg'); document.getElementById('angleValue').innerText = value + '°'; localStorage.setItem('gradient_angle', value); }
     function saveAndApplyWallpaper(imgBase64) {
         localStorage.setItem('custom_bg_image', imgBase64);
         document.body.style.backgroundImage = `url(${imgBase64})`;
@@ -1026,37 +1037,11 @@
     function initControls() {
         paletteBtn.addEventListener('click', (e) => { e.stopPropagation(); palettePanel.classList.toggle('show'); });
         document.addEventListener('click', (e) => { if(!palettePanel.contains(e.target) && e.target !== paletteBtn) palettePanel.classList.remove('show'); });
-        document.getElementById('opacitySlider').addEventListener('input', (e) => updateOpacity(parseFloat(e.target.value)));
-        document.getElementById('angleSlider').addEventListener('input', (e) => updateAngle(parseInt(e.target.value)));
         const savedOpacity = localStorage.getItem('glass_opacity');
-        updateOpacity(savedOpacity ? parseFloat(savedOpacity) : 0.20);
+        if(savedOpacity) updateOpacity(parseFloat(savedOpacity)); else updateOpacity(0.20);
         const savedAngle = localStorage.getItem('gradient_angle');
-        updateAngle(savedAngle ? parseInt(savedAngle) : 135);
-        document.getElementById('opacitySlider').value = 0.20;
-        document.getElementById('angleSlider').value = 135;
+        if(savedAngle) updateAngle(parseInt(savedAngle)); else updateAngle(135);
         initBackground();
-        document.getElementById('uploadBgBtn').addEventListener('click', () => document.getElementById('bgUpload').click());
-        document.getElementById('bgUpload').addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file && file.type.startsWith('image/')) {
-                const reader = new FileReader();
-                reader.onload = (ev) => saveAndApplyWallpaper(ev.target.result);
-                reader.readAsDataURL(file);
-            }
-        });
-        document.getElementById('resetBgBtn').addEventListener('click', () => {
-            localStorage.removeItem('custom_bg_image');
-            document.body.classList.remove('custom-bg');
-            document.body.style.backgroundImage = '';
-            const savedColor = localStorage.getItem('custom_bg_color');
-            if (savedColor) {
-                document.body.style.background = savedColor;
-                setTheme(isDarkColor(savedColor) ? 'black' : 'white');
-            } else {
-                setTheme('white');
-                document.body.style.background = '#eef2f8';
-            }
-        });
     }
     function initTheme() {
         const saved = localStorage.getItem('glass_custom_theme');
@@ -1074,8 +1059,6 @@
         renderGroupButtons();
         renderCards();
         searchInput.addEventListener('input', (e) => { currentKeyword = e.target.value; renderCards(); });
-
-        // 管理员相关事件
         adminBtn.addEventListener('click', checkAdminPassword);
         addCardBtn.addEventListener('click', addNewCard);
         resetDataBtn.addEventListener('click', () => { if(confirm('重置所有数据将丢失当前修改，确定吗？')) resetToDefault(); });
@@ -1083,10 +1066,9 @@
         exitAdminBtn.addEventListener('click', disableAdminMode);
         modalCancel.addEventListener('click', closeModal);
         modalSave.addEventListener('click', saveCardFromModal);
-        // 点击模态框背景关闭
+        parseUrlBtn.addEventListener('click', handleParseUrl);
         modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
     }
-
     init();
 </script>
 </body>
