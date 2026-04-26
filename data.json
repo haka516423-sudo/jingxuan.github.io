@@ -90,13 +90,14 @@
         "tags": [
           "Fabric",
           "实用",
-          "辅助"
+          "辅助",
+          "创作者工具"
         ],
+        "version": "1.0.2",
         "stats": {
           "downloads": "—",
           "updated": "上个月"
-        },
-        "version": "1.0.2"
+        }
       },
       {
         "title": "JEI (Just Enough Items)",
@@ -138,7 +139,8 @@
         "tags": [
           "自定义",
           "交易",
-          "diy"
+          "diy",
+          "创作者工具"
         ],
         "version": "1.17-1.21.11",
         "stats": {
