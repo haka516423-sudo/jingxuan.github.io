@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>镜玄·资源搜索 | 管理员持久化 + 快捷标签</title>
+    <title>镜玄·资源搜索 | 标签筛选 + 自动拆分</title>
     <style>
         * {
             margin: 0;
@@ -173,11 +173,14 @@
         }
         body[data-theme="black"] .tag-btn {
             background: rgba(60, 68, 84, 0.6);
-            color: #f5f0e0;
+            color: #f5f0e0 !important;
         }
         .tag-btn:hover {
             background: rgba(255,255,240,0.6);
             transform: scale(0.96);
+        }
+        body[data-theme="black"] .tag-btn:hover {
+            background: rgba(100, 110, 130, 0.8);
         }
         .tag-btn.active {
             background: var(--theme-accent);
@@ -830,7 +833,7 @@
         <div class="header-area">
             <div class="title-section">
                 <h1 id="dynamicTitle">🎮 Minecraft 模组</h1>
-                <p>自定义壁纸 | 通透模糊 | 管理员持久化 | 快捷标签</p>
+                <p>自定义壁纸 | 通透模糊 | 管理员持久化 | 标签筛选</p>
             </div>
             <div class="action-buttons">
                 <div id="dataSourceIndicator" class="data-source-indicator" style="display: none;">
@@ -870,7 +873,6 @@
     </div>
 </div>
 
-<!-- 编辑/新增卡片的模态框 -->
 <div id="cardModal" class="modal">
     <div class="modal-content">
         <h3 id="modalTitle">编辑卡片</h3>
@@ -911,7 +913,7 @@
     let isListView = false;
     let hasLocalChanges = false;
     let currentSort = 'title-asc';
-    let currentTagFilter = null;      // 当前筛选的标签，null表示无筛选
+    let currentTagFilter = null;
 
     // DOM 元素
     const groupContainer = document.getElementById('groupButtonsContainer');
@@ -943,27 +945,34 @@
     const tagListContainer = document.getElementById('tagListContainer');
     const clearTagFilterBtn = document.getElementById('clearTagFilterBtn');
 
-    // 提取所有卡片中出现的标签，并统计次数
+    // 辅助函数：将卡片中的 tags 字段规范化（无论是数组还是逗号分隔字符串，都转为数组）
+    function normalizeTags(tags) {
+        if (!tags) return [];
+        if (Array.isArray(tags)) return tags;
+        if (typeof tags === 'string') {
+            return tags.split(',').map(s => s.trim()).filter(s => s);
+        }
+        return [];
+    }
+
+    // 提取所有卡片中出现的标签，并统计次数（支持拆分逗号分隔的字符串）
     function extractAllTags() {
         const tagCount = new Map();
         for (const group of groupsData) {
             for (const item of group.items) {
-                if (item.tags && Array.isArray(item.tags)) {
-                    for (const tag of item.tags) {
-                        const key = tag.trim();
-                        if (key) {
-                            tagCount.set(key, (tagCount.get(key) || 0) + 1);
-                        }
+                let tagsArray = normalizeTags(item.tags);
+                for (const tag of tagsArray) {
+                    const key = tag.trim();
+                    if (key) {
+                        tagCount.set(key, (tagCount.get(key) || 0) + 1);
                     }
                 }
             }
         }
-        // 转为数组并按使用次数降序排序
         const sortedTags = Array.from(tagCount.entries()).sort((a, b) => b[1] - a[1]);
         return sortedTags;
     }
 
-    // 渲染左侧标签列表
     function renderTagList() {
         const tags = extractAllTags();
         if (tags.length === 0) {
@@ -978,17 +987,15 @@
         }
         tagListContainer.innerHTML = html;
         clearTagFilterBtn.style.display = currentTagFilter ? 'block' : 'none';
-        // 绑定标签点击事件
         document.querySelectorAll('.tag-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const tag = btn.getAttribute('data-tag');
                 if (currentTagFilter === tag) {
-                    // 如果点击已激活的标签，则清除筛选
                     clearTagFilter();
                 } else {
                     currentTagFilter = tag;
-                    renderTagList();   // 重新渲染以高亮当前标签
-                    renderCards();     // 重新渲染卡片
+                    renderTagList();
+                    renderCards();
                 }
             });
         });
@@ -998,29 +1005,27 @@
         currentTagFilter = null;
         renderTagList();
         renderCards();
+        renderGroupButtons(); // 更新分组高亮
     }
 
-    // 获取当前要显示的卡片列表（根据分组或标签筛选）
     function getDisplayItems() {
         if (currentTagFilter) {
-            // 全局标签筛选：收集所有分组中包含该标签的卡片
             const allItems = [];
             for (const group of groupsData) {
                 for (const item of group.items) {
-                    if (item.tags && item.tags.includes(currentTagFilter)) {
+                    const tagsArray = normalizeTags(item.tags);
+                    if (tagsArray.includes(currentTagFilter)) {
                         allItems.push(item);
                     }
                 }
             }
             return allItems;
         } else {
-            // 正常分组显示
             const group = groupsData[currentGroupIndex];
             return group ? group.items : [];
         }
     }
 
-    // 其他通用函数
     function updateDataSourceIndicator() {
         const container = document.getElementById('dataSourceIndicator');
         const dot = container?.querySelector('.indicator-dot');
@@ -1049,7 +1054,6 @@
             currentDataSource = 'local';
         }
         updateDataSourceIndicator();
-        // 数据变化后重新提取标签并渲染
         renderTagList();
     }
 
@@ -1070,7 +1074,6 @@
         return sorted;
     }
 
-    // 加载数据：根据是否在管理员模式决定是否从云端覆盖
     async function loadInitialData() {
         const autoAdmin = sessionStorage.getItem('adminModeAuto') === 'true';
         if (autoAdmin) {
@@ -1174,7 +1177,8 @@
         cardUrlInput.value = card.url || '';
         cardDescTextarea.value = card.description || '';
         cardAuthorInput.value = card.author || '';
-        cardTagsInput.value = (card.tags || []).join(', ');
+        const tagsForInput = (card.tags && Array.isArray(card.tags)) ? card.tags.join(', ') : (typeof card.tags === 'string' ? card.tags : '');
+        cardTagsInput.value = tagsForInput;
         cardVersionInput.value = card.version || '';
         cardDownloadsInput.value = card.stats?.downloads || '';
         cardUpdatedInput.value = card.stats?.updated || '';
@@ -1185,12 +1189,17 @@
     function saveCardFromModal() {
         if (!editingCardInfo) return;
         const { groupIdx, cardIdx } = editingCardInfo;
+        const tagsRaw = cardTagsInput.value.trim();
+        let tagsArray = [];
+        if (tagsRaw) {
+            tagsArray = tagsRaw.split(',').map(s => s.trim()).filter(s => s);
+        }
         const newCard = {
             title: cardTitleInput.value.trim(),
             url: cardUrlInput.value.trim(),
             description: cardDescTextarea.value.trim(),
             author: cardAuthorInput.value.trim(),
-            tags: cardTagsInput.value.split(',').map(s => s.trim()).filter(s => s),
+            tags: tagsArray,
             version: cardVersionInput.value.trim() || undefined,
             stats: {
                 downloads: cardDownloadsInput.value.trim() || '—',
@@ -1224,12 +1233,12 @@
         editingCardInfo = null;
     }
 
-    // 渲染函数
     function escapeHtml(s) { if(!s) return ''; return s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
     function getFavicon(url) { return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(url)}`; }
 
     function renderCard(item, groupIdx, cardIdx) {
-        const tagsHtml = (item.tags || []).map(t => `<span class="badge">${escapeHtml(t)}</span>`).join('');
+        const tagsArray = normalizeTags(item.tags);
+        const tagsHtml = tagsArray.map(t => `<span class="badge">${escapeHtml(t)}</span>`).join('');
         const versionHtml = item.version ? `<div class="version-info">📌 版本 ${escapeHtml(item.version)}</div>` : '';
         const downloads = item.stats?.downloads || '';
         const updated = item.stats?.updated || '';
@@ -1279,7 +1288,7 @@
                 it.title.toLowerCase().includes(kw) ||
                 it.description.toLowerCase().includes(kw) ||
                 it.author.toLowerCase().includes(kw) ||
-                (it.tags && it.tags.some(t => t.toLowerCase().includes(kw))) ||
+                (it.tags && normalizeTags(it.tags).some(t => t.toLowerCase().includes(kw))) ||
                 (it.version && it.version.toLowerCase().includes(kw)) ||
                 (it.stats?.downloads && it.stats.downloads.toLowerCase().includes(kw)) ||
                 (it.stats?.updated && it.stats.updated.toLowerCase().includes(kw))
@@ -1295,13 +1304,7 @@
             return;
         }
         let html = '';
-        items.forEach((item, idx) => {
-            // 为了编辑和删除，需要知道原始分组和索引。如果是全局标签筛选，临时构造一个虚拟索引，但编辑/删除需要定位到真实位置
-            // 由于标签筛选模式下，卡片可能来自不同分组，编辑/删除需要找到原分组和索引。
-            // 方便起见，我们在标签筛选模式下，给每个卡片添加 data-group 和 data-card 属性，实际值在点击时从 groupsData 中查找。
-            // 但为了简化，可以先不在标签筛选模式下支持编辑？但管理员模式下应该支持。我们保留功能：点击编辑时，通过遍历 groupsData 找到该卡片。
-            // 简单方法：在卡片中存储额外的 data-original-group-index 和 data-original-card-index，在渲染时从真实数据中获取。
-            // 这里我们采用查找函数 getCardLocation(item) 来定位。
+        items.forEach(item => {
             const location = getCardLocation(item);
             const groupIdx = location.groupIdx;
             const cardIdx = location.cardIdx;
@@ -1335,7 +1338,6 @@
         }
     }
 
-    // 辅助：根据卡片对象查找其在 groupsData 中的位置
     function getCardLocation(targetCard) {
         for (let g = 0; g < groupsData.length; g++) {
             const group = groupsData[g];
@@ -1360,7 +1362,6 @@
             btn.addEventListener('click', () => {
                 const idx = parseInt(btn.dataset.idx);
                 if(!isNaN(idx) && idx !== currentGroupIndex) {
-                    // 点击分组时，清除标签筛选
                     if (currentTagFilter) {
                         currentTagFilter = null;
                         renderTagList();
@@ -1378,7 +1379,7 @@
     function renderAll() {
         renderGroupButtons();
         renderCards();
-        renderTagList();   // 每次数据变化重新提取标签
+        renderTagList();
     }
 
     function toggleView() {
@@ -1392,7 +1393,6 @@
         renderCards();
     }
 
-    // 管理员模式
     function enableAdminMode() {
         isAdminMode = true;
         adminToolbar.style.display = 'flex';
@@ -1417,7 +1417,6 @@
         }
     }
     function addNewCard() {
-        // 如果当前有标签筛选，建议清除筛选后再新增，或者新增到当前分组（按 currentGroupIndex）
         openEditModal(currentGroupIndex, undefined, { title: '', url: '', description: '', author: '', tags: [], version: '', stats: { downloads: '—', updated: '' } });
     }
 
@@ -1443,12 +1442,9 @@
         }
     }
 
-    // 清除标签筛选按钮
-    clearTagFilterBtn.addEventListener('click', () => {
-        clearTagFilter();
-    });
+    clearTagFilterBtn.addEventListener('click', clearTagFilter);
 
-    // ========== 壁纸上传优化 ==========
+    // 壁纸压缩
     function compressImage(file, maxWidth = 1920, quality = 0.8) {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -1628,7 +1624,6 @@
         else setTheme('white');
     }
 
-    // 初始化
     async function init() {
         await loadInitialData();
         initTheme();
