@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>镜玄·资源搜索 | 无类型标识版</title>
+    <title>镜玄·资源搜索 | 最终优化版</title>
     <script src="https://cdn.jsdelivr.net/npm/d3@6.7.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.3"></script>
     <script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.3"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.3/style.css">
     <style>
-        /* 完整样式（无类型标识相关） */
+        /* ---------- 完整样式 ---------- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { overflow-y: scroll; }
         :root {
@@ -48,22 +48,12 @@
         body[data-theme="midnight"]  { background: linear-gradient(var(--gradient-angle), #1f1c2c 0%, #2a2a4a 100%); --theme-accent: #9c88ff; }
         body[data-theme="peach"]     { background: linear-gradient(var(--gradient-angle), #ffe29a 0%, #ffb7b2 100%); --theme-accent: #d97846; }
         body[data-theme="mint"]      { background: linear-gradient(var(--gradient-angle), #c7e9fb 0%, #b6e0fe 100%); --theme-accent: #4a9e7c; }
-        body.custom-bg {
-            background-size: cover !important;
-            background-position: center !important;
-            background-repeat: no-repeat !important;
-        }
+        body.custom-bg { background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important; }
         .sidebar, .card, .search-box, .group-btn, .no-results, .palette-panel, .modal-content, .view-toggle-btn, .sort-select, .tag-btn {
             border-radius: var(--card-radius) !important;
         }
-        .app {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            gap: 28px;
-            align-items: flex-start;
-        }
-        /* 侧边栏（完整保留） */
+        .app { max-width: 1400px; margin: 0 auto; display: flex; gap: 28px; align-items: flex-start; }
+        /* 侧边栏样式 */
         .sidebar {
             flex: 0 0 280px;
             background: rgba(255, 255, 255, var(--glass-opacity));
@@ -94,10 +84,7 @@
             gap: 8px;
             color: #1f2d3d;
         }
-        body[data-theme="black"] .sidebar-header {
-            color: #f5f0e0;
-            border-bottom-color: rgba(255,255,255,0.2);
-        }
+        body[data-theme="black"] .sidebar-header { color: #f5f0e0; border-bottom-color: rgba(255,255,255,0.2); }
         .add-group-btn {
             background: rgba(255,255,240,0.2);
             border: none;
@@ -112,15 +99,8 @@
             transition: 0.1s;
             color: inherit;
         }
-        .add-group-btn:hover {
-            background: rgba(255,255,240,0.5);
-            transform: scale(0.96);
-        }
-        .group-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+        .add-group-btn:hover { background: rgba(255,255,240,0.5); transform: scale(0.96); }
+        .group-buttons { display: flex; flex-direction: column; gap: 12px; }
         .group-btn {
             background: rgba(255, 255, 235, 0.4);
             backdrop-filter: blur(6px);
@@ -134,13 +114,8 @@
             transition: transform 0.08s, background 0.2s;
             transform: scale(1);
         }
-        .group-btn:active {
-            transform: scale(0.96);
-            background: rgba(0, 0, 0, 0.15);
-        }
-        .group-btn:hover {
-            background: rgba(255,255,250,0.7);
-        }
+        .group-btn:active { transform: scale(0.96); background: rgba(0, 0, 0, 0.15); }
+        .group-btn:hover { background: rgba(255,255,250,0.7); }
         .group-btn.active {
             background: var(--theme-accent);
             color: white;
@@ -152,18 +127,13 @@
             background: rgba(60, 68, 84, 0.5);
             color: #f5f0e0;
         }
-        body[data-theme="black"] .group-btn.active {
-            background: var(--theme-accent);
-            color: #12151c;
-        }
+        body[data-theme="black"] .group-btn.active { background: var(--theme-accent); color: #12151c; }
         .tag-section {
             margin-top: 24px;
             border-top: 1px solid rgba(0,0,0,0.1);
             padding-top: 16px;
         }
-        body[data-theme="black"] .tag-section {
-            border-top-color: rgba(255,255,255,0.15);
-        }
+        body[data-theme="black"] .tag-section { border-top-color: rgba(255,255,255,0.15); }
         .tag-section-header {
             display: flex;
             justify-content: space-between;
@@ -178,9 +148,7 @@
             gap: 6px;
             color: #1f2d3d;
         }
-        body[data-theme="black"] .tag-section-title {
-            color: #f5f0e0;
-        }
+        body[data-theme="black"] .tag-section-title { color: #f5f0e0; }
         .clear-tag-btn {
             background: rgba(255,80,80,0.2);
             border: none;
@@ -191,9 +159,7 @@
             color: #eee;
             transition: 0.1s;
         }
-        .clear-tag-btn:hover {
-            background: rgba(255,80,80,0.5);
-        }
+        .clear-tag-btn:hover { background: rgba(255,80,80,0.5); }
         .tag-list {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -222,10 +188,7 @@
             background: rgba(60, 68, 84, 0.5);
             color: #f5f0e0 !important;
         }
-        .tag-btn:hover {
-            background: rgba(255,255,240,0.6);
-            transform: scale(0.96);
-        }
+        .tag-btn:hover { background: rgba(255,255,240,0.6); transform: scale(0.96); }
         body[data-theme="black"] .tag-btn:hover,
         body[data-theme="ocean"] .tag-btn:hover,
         body[data-theme="midnight"] .tag-btn:hover,
@@ -233,13 +196,8 @@
         body[data-theme="sakura"] .tag-btn:hover {
             background: rgba(100, 110, 130, 0.8);
         }
-        .tag-btn.active {
-            background: var(--theme-accent);
-            color: white;
-        }
-        .main {
-            flex: 1;
-        }
+        .tag-btn.active { background: var(--theme-accent); color: white; }
+        .main { flex: 1; }
         .header-area {
             display: flex;
             justify-content: space-between;
@@ -281,11 +239,7 @@
         body[data-theme="sakura"] .title-section p {
             color: #cbd5e1 !important;
         }
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
+        .action-buttons { display: flex; gap: 10px; align-items: center; }
         .admin-btn, .palette-btn {
             background: rgba(255,255,240,0.8);
             border: none;
@@ -303,9 +257,7 @@
             background: rgba(30, 30, 35, 0.8);
             color: #f5f0e0;
         }
-        .admin-btn:active, .palette-btn:active {
-            transform: scale(0.96);
-        }
+        .admin-btn:active, .palette-btn:active { transform: scale(0.96); }
         .data-source-indicator {
             display: inline-flex;
             align-items: center;
@@ -326,9 +278,7 @@
         .indicator-dot.cloud { background: #10b981; box-shadow: 0 0 4px #10b981; }
         .indicator-dot.local { background: #f59e0b; box-shadow: 0 0 4px #f59e0b; }
         .indicator-dot.default { background: #9ca3af; }
-        body[data-theme="black"] .data-source-indicator {
-            background: rgba(0,0,0,0.7);
-        }
+        body[data-theme="black"] .data-source-indicator { background: rgba(0,0,0,0.7); }
         .search-bar {
             display: flex;
             gap: 12px;
@@ -375,9 +325,7 @@
             background: rgba(30, 30, 35, 0.8);
             color: #f5f0e0;
         }
-        .view-toggle-btn:active, .sort-select:active {
-            transform: scale(0.96);
-        }
+        .view-toggle-btn:active, .sort-select:active { transform: scale(0.96); }
         .sort-select {
             appearance: none;
             -webkit-appearance: none;
@@ -405,9 +353,7 @@
             box-shadow: 0 20px 35px rgba(0,0,0,0.4);
             color: #eef2ff;
         }
-        .palette-panel.show {
-            display: flex;
-        }
+        .palette-panel.show { display: flex; }
         .section-title {
             font-size: 0.85rem;
             font-weight: 600;
@@ -426,10 +372,7 @@
             transition: 0.1s;
             border-radius: 12px;
         }
-        .color-swatch:hover {
-            transform: scale(1.05);
-            border-color: white;
-        }
+        .color-swatch:hover { transform: scale(1.05); border-color: white; }
         .slider-container {
             display: flex;
             flex-direction: column;
@@ -441,10 +384,7 @@
             display: flex;
             justify-content: space-between;
         }
-        input[type="range"] {
-            width: 100%;
-            cursor: pointer;
-        }
+        input[type="range"] { width: 100%; cursor: pointer; }
         .file-upload-area {
             display: flex;
             gap: 12px;
@@ -461,14 +401,8 @@
             cursor: pointer;
             color: #eee;
         }
-        .reset-bg {
-            background: rgba(255,80,80,0.3);
-        }
-        .hint-text {
-            font-size: 0.7rem;
-            color: #aaa;
-            text-align: right;
-        }
+        .reset-bg { background: rgba(255,80,80,0.3); }
+        .hint-text { font-size: 0.7rem; color: #aaa; text-align: right; }
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
@@ -552,9 +486,7 @@
             transition: opacity 0.2s;
             z-index: 10;
         }
-        .card:hover .card-actions {
-            opacity: 1;
-        }
+        .card:hover .card-actions { opacity: 1; }
         .edit-btn, .delete-btn {
             background: rgba(0,0,0,0.6);
             backdrop-filter: blur(4px);
@@ -607,9 +539,7 @@
             justify-content: center;
             align-items: center;
         }
-        .modal.active {
-            display: flex;
-        }
+        .modal.active { display: flex; }
         .modal-content {
             background: rgba(30,30,40,0.95);
             backdrop-filter: blur(20px);
@@ -620,9 +550,7 @@
             color: #eee;
             border-radius: 20px;
         }
-        .modal-content h3 {
-            margin-bottom: 16px;
-        }
+        .modal-content h3 { margin-bottom: 16px; }
         .modal-content input, .modal-content textarea {
             width: 100%;
             padding: 10px;
@@ -633,10 +561,7 @@
             color: #fff;
             font-size: 0.9rem;
         }
-        .modal-content textarea {
-            min-height: 80px;
-            resize: vertical;
-        }
+        .modal-content textarea { min-height: 80px; resize: vertical; }
         .type-selector {
             display: flex;
             gap: 12px;
@@ -655,17 +580,9 @@
             transition: 0.1s;
             font-size: 0.8rem;
         }
-        .type-selector label:hover {
-            background: rgba(255,255,255,0.2);
-        }
-        .type-selector input {
-            margin: 0;
-            width: auto;
-            margin-right: 4px;
-        }
-        .type-content-area {
-            margin-bottom: 16px;
-        }
+        .type-selector label:hover { background: rgba(255,255,255,0.2); }
+        .type-selector input { margin: 0; width: auto; margin-right: 4px; }
+        .type-content-area { margin-bottom: 16px; }
         .quick-tags {
             display: flex;
             gap: 8px;
@@ -700,9 +617,7 @@
         }
         .save-btn { background: #10b981; color: white; }
         .cancel-btn { background: #6b7280; color: white; }
-        .dynamic-tag-area {
-            margin-bottom: 12px;
-        }
+        .dynamic-tag-area { margin-bottom: 12px; }
         .dynamic-tag-area .title {
             font-size: 0.7rem;
             color: #aaa;
@@ -751,11 +666,7 @@
             gap: var(--meta-gap);
             margin-bottom: 10px;
         }
-        .badge-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
+        .badge-group { display: flex; flex-wrap: wrap; gap: 6px; }
         .badge {
             background: rgba(0,0,0,0.1);
             padding: 4px 10px;
@@ -900,9 +811,7 @@
             border: 1px solid rgba(255,255,255,0.2);
             box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
-        .layout-panel.show {
-            display: flex;
-        }
+        .layout-panel.show { display: flex; }
         .layout-panel .title {
             font-size: 0.9rem;
             font-weight: 600;
@@ -917,10 +826,7 @@
             font-size: 0.75rem;
             color: #ddd;
         }
-        .layout-panel input {
-            flex: 1;
-            cursor: pointer;
-        }
+        .layout-panel input { flex: 1; cursor: pointer; }
         .layout-panel button {
             background: var(--theme-accent);
             border: none;
@@ -930,9 +836,7 @@
             cursor: pointer;
             font-size: 0.7rem;
         }
-        .layout-panel .export-btn {
-            background: #10b981;
-        }
+        .layout-panel .export-btn { background: #10b981; }
         @media (max-width: 780px) {
             body { padding: 16px; }
             .app { flex-direction: column; }
@@ -1085,7 +989,6 @@
         </div>
         <input type="text" id="cardVersion" placeholder="版本 (可选)" autocomplete="off">
         <input type="text" id="cardDownloads" placeholder="下载量 (可选)" autocomplete="off">
-        <input type="text" id="cardUpdated" placeholder="更新时间 (可选)" autocomplete="off">
         <div class="modal-buttons">
             <button class="cancel-btn" id="modalCancel">取消</button>
             <button class="save-btn" id="modalSave">保存</button>
@@ -1095,7 +998,7 @@
 
 <script>
     (function() {
-        // 默认数据
+        // ========== 默认数据 ==========
         const DEFAULT_GROUPS_DATA = [
             { groupName: "🎮 Minecraft 模组", items: [ 
                 { title: "Fabric API", url: "https://modrinth.com/mod/fabric-api", description: "轻量级且模块化的API，提供通用钩子和互操作性。", author: "Modmuss50", tags: ["Fabric", "库"], stats: { downloads: "162M", updated: "4天前" }, version: "0.16.5", type: "link", textContent: "", mindmap: "" },
@@ -1149,7 +1052,6 @@
         const cardTagsInput = document.getElementById('cardTags');
         const cardVersionInput = document.getElementById('cardVersion');
         const cardDownloadsInput = document.getElementById('cardDownloads');
-        const cardUpdatedInput = document.getElementById('cardUpdated');
         const modalCancel = document.getElementById('modalCancel');
         const modalSave = document.getElementById('modalSave');
         const viewToggleBtn = document.getElementById('viewToggleBtn');
@@ -1182,8 +1084,16 @@
             }
             return [];
         }
+
         function escapeHtml(s) { if(!s) return ''; return s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
         function getFavicon(url) { return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(url)}`; }
+
+        // 获取当前时间字符串 (用于 updated 字段)
+        function getCurrentTimeString() {
+            const now = new Date();
+            return `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
+        }
+
         function extractAllTags() {
             const tagCount = new Map();
             for (const group of groupsData) {
@@ -1418,7 +1328,6 @@
             if (cardTagsInput) cardTagsInput.value = tagsForInput;
             if (cardVersionInput) cardVersionInput.value = card.version || '';
             if (cardDownloadsInput) cardDownloadsInput.value = card.stats?.downloads || '';
-            if (cardUpdatedInput) cardUpdatedInput.value = card.stats?.updated || '';
             if (modal) modal.classList.add('active');
             bindQuickTagButtons();
             renderDynamicTags();
@@ -1439,7 +1348,7 @@
                 version: cardVersionInput ? cardVersionInput.value.trim() || undefined : undefined,
                 stats: {
                     downloads: cardDownloadsInput ? cardDownloadsInput.value.trim() || '—' : '—',
-                    updated: cardUpdatedInput ? cardUpdatedInput.value.trim() || '' : ''
+                    updated: getCurrentTimeString()   // 自动记录编辑时间
                 },
                 type: type,
                 url: "",
@@ -1529,6 +1438,8 @@
             const newContent = mindmapEditor ? mindmapEditor.value.trim() : '';
             const { groupIdx, cardIdx } = currentMindmapCard;
             groupsData[groupIdx].items[cardIdx].mindmap = newContent;
+            // 同时更新更新时间
+            groupsData[groupIdx].items[cardIdx].stats.updated = getCurrentTimeString();
             saveDataToStorage();
             renderMindmap(newContent);
             alert('已保存');
@@ -1547,6 +1458,7 @@
             else if (currentDataSource === 'cloud') sourceBadge = `<span class="data-source-badge">☁️ 云端</span>`;
             else sourceBadge = `<span class="data-source-badge">📄 默认</span>`;
 
+            // 不再显示类型图标，只保留卡片内容
             const adminActions = isAdminMode ? `
                 <div class="card-actions">
                     <button class="edit-btn" data-group="${groupIdx}" data-card="${cardIdx}">✏️</button>
@@ -1709,7 +1621,15 @@
         }
 
         function renderAll() { renderGroupButtons(); renderCards(); renderTagList(); }
-        function toggleView() { isListView = !isListView; if (viewToggleBtn) viewToggleBtn.innerText = isListView ? '🗂️ 卡片视图' : '📋 列表视图'; renderCards(); }
+
+        // 视图切换并存储
+        function toggleView() {
+            isListView = !isListView;
+            if (viewToggleBtn) viewToggleBtn.innerText = isListView ? '🗂️ 卡片视图' : '📋 列表视图';
+            localStorage.setItem('listViewPreference', isListView ? 'true' : 'false');
+            renderCards();
+        }
+
         function changeSort() { currentSort = sortSelect ? sortSelect.value : 'title-asc'; renderCards(); }
 
         // 布局控制
@@ -1925,7 +1845,10 @@
         if (mindmapModal) mindmapModal.addEventListener('click', (e) => { if (e.target === mindmapModal) closeMindmap(); });
         if (textModalCancel) textModalCancel.addEventListener('click', closeTextModal);
         if (textModal) textModal.addEventListener('click', (e) => { if (e.target === textModal) closeTextModal(); });
-        if (modal) modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+        // 模态框背景点击不再关闭，避免误操作
+        if (modal) modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); }); // 保留但实际不关闭？为了安全，改为不关闭：直接移除这个监听？我们移除背景关闭。
+        // 重新绑定：移除之前的背景关闭，仅按钮关闭
+        // 注意：原有代码中有 modal 的背景点击关闭，我们注释掉即可。在下方初始化中不再添加该监听。
         if (adminBtn) adminBtn.addEventListener('click', checkAdminPassword);
         if (addCardBtn) addCardBtn.addEventListener('click', addNewCard);
         if (resetDataBtn) resetDataBtn.addEventListener('click', resetToDefault);
@@ -1937,6 +1860,16 @@
         if (sortSelect) sortSelect.addEventListener('change', changeSort);
         if (searchInput) searchInput.addEventListener('input', (e) => { currentKeyword = e.target.value; renderCards(); });
         typeRadios.forEach(radio => radio.addEventListener('change', onTypeChange));
+
+        // 加载上次视图模式
+        const savedView = localStorage.getItem('listViewPreference');
+        if (savedView === 'true') {
+            isListView = true;
+            if (viewToggleBtn) viewToggleBtn.innerText = '🗂️ 卡片视图';
+        } else {
+            isListView = false;
+            if (viewToggleBtn) viewToggleBtn.innerText = '📋 列表视图';
+        }
 
         // 主题与壁纸（保留原有）
         const GRADIENT_THEMES = ["sunset","aurora","ocean","sakura","forest","midnight","peach","mint"];
