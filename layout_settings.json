@@ -1,0 +1,9 @@
+{
+  "radius": "20",
+  "padding": "20",
+  "gap": "28",
+  "titleFont": "1.2",
+  "baseFont": "0.95",
+  "blur": "16",
+  "metaGap": "8"
+}
