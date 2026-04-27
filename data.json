@@ -220,8 +220,6 @@
     "items": [
       {
         "title": "GitHub 官网",
-        "url": "https://github.com",
-        "description": "全球最大的开发者平台，托管代码、协作开发。",
         "author": "GitHub",
         "tags": [
           "开发",
@@ -230,12 +228,15 @@
         "stats": {
           "downloads": "—",
           "updated": "在线"
-        }
+        },
+        "type": "link",
+        "description": "https://github.com",
+        "url": "https://github.com",
+        "textContent": "",
+        "mindmap": ""
       },
       {
         "title": "MDN Web Docs",
-        "url": "https://developer.mozilla.org/zh-CN/",
-        "description": "权威的 Web 技术文档，HTML、CSS、JavaScript 应有尽有。",
         "author": "Mozilla",
         "tags": [
           "文档",
@@ -244,12 +245,15 @@
         "stats": {
           "downloads": "—",
           "updated": "持续更新"
-        }
+        },
+        "type": "link",
+        "description": "https://developer.mozilla.org/zh-CN/",
+        "url": "https://developer.mozilla.org/zh-CN/",
+        "textContent": "",
+        "mindmap": ""
       },
       {
         "title": "Stack Overflow",
-        "url": "https://stackoverflow.com",
-        "description": "程序员问答社区，遇到 bug 时的救星。",
         "author": "Stack Exchange",
         "tags": [
           "社区",
@@ -258,7 +262,12 @@
         "stats": {
           "downloads": "—",
           "updated": "活跃"
-        }
+        },
+        "type": "link",
+        "description": "https://stackoverflow.com",
+        "url": "https://stackoverflow.com",
+        "textContent": "",
+        "mindmap": ""
       }
     ]
   },
@@ -267,8 +276,6 @@
     "items": [
       {
         "title": "哔哩哔哩",
-        "url": "https://www.bilibili.com",
-        "description": "中文弹幕视频网站，大量编程教程和模组展示。",
         "author": "Bilibili",
         "tags": [
           "视频",
@@ -277,12 +284,15 @@
         "stats": {
           "downloads": "—",
           "updated": "每日更新"
-        }
+        },
+        "type": "link",
+        "description": "https://www.bilibili.com",
+        "url": "https://www.bilibili.com",
+        "textContent": "",
+        "mindmap": ""
       },
       {
         "title": "YouTube",
-        "url": "https://www.youtube.com",
-        "description": "全球最大视频平台，无数技术讲座和模组介绍。",
         "author": "Google",
         "tags": [
           "视频",
@@ -291,7 +301,12 @@
         "stats": {
           "downloads": "—",
           "updated": "实时"
-        }
+        },
+        "type": "link",
+        "description": "https://www.youtube.com",
+        "url": "https://www.youtube.com",
+        "textContent": "",
+        "mindmap": ""
       }
     ]
   }
