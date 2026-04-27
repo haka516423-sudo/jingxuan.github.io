@@ -4,71 +4,81 @@
     "items": [
       {
         "title": "Fabric API",
-        "url": "https://modrinth.com/mod/fabric-api",
-        "description": "轻量级且模块化的API，提供通用钩子和互操作性，供 Fabric 模组使用。",
         "author": "Modmuss50",
         "tags": [
           "Fabric",
           "库"
         ],
+        "version": "0.16.5",
         "stats": {
           "downloads": "162M",
           "updated": "4天前"
         },
-        "version": "0.16.5"
+        "type": "link",
+        "description": "https://modrinth.com/mod/fabric-api",
+        "url": "https://modrinth.com/mod/fabric-api",
+        "textContent": "",
+        "mindmap": ""
       },
       {
         "title": "Sodium (钠)",
-        "url": "https://modrinth.com/mod/sodium",
-        "description": "Minecraft 最快且最兼容的渲染优化模组，支持 Fabric 和 NeoForge。",
         "author": "CaffeineMC",
         "tags": [
           "Fabric",
           "NeoForge",
           "优化"
         ],
+        "version": "0.5.8",
         "stats": {
           "downloads": "147M",
           "updated": "55分钟前"
         },
-        "version": "0.5.8"
+        "type": "link",
+        "description": "https://modrinth.com/mod/sodium",
+        "url": "https://modrinth.com/mod/sodium",
+        "textContent": "",
+        "mindmap": ""
       },
       {
         "title": "Iris Shaders",
-        "url": "https://modrinth.com/mod/iris",
-        "description": "现代 Minecraft 光影加载器，兼容 OptiFine 光影包。",
         "author": "coderbot",
         "tags": [
           "Fabric",
           "NeoForge",
           "视觉"
         ],
+        "version": "1.7.0",
         "stats": {
           "downloads": "115M",
           "updated": "3周前"
         },
-        "version": "1.7.0"
+        "type": "link",
+        "description": "https://modrinth.com/mod/iris",
+        "url": "https://modrinth.com/mod/iris",
+        "textContent": "",
+        "mindmap": ""
       },
       {
         "title": "Cloth Config API",
-        "url": "https://modrinth.com/mod/cloth-config",
-        "description": "Minecraft 模组配置库，提供通用的配置界面。",
         "author": "shedaniel",
         "tags": [
           "Fabric",
           "Forge",
           "库"
         ],
+        "version": "11.1.118",
         "stats": {
           "downloads": "115M",
           "updated": "上个月"
         },
-        "version": "11.1.118"
+        "type": "link",
+        "description": "https://modrinth.com/mod/cloth-config",
+        "url": "https://modrinth.com/mod/cloth-config",
+        "textContent": "",
+        "mindmap": ""
       },
       {
         "title": "ReplayMod (重播模组)",
-        "url": "https://modrinth.com/mod/replaymod",
-        "description": "记录并分享游戏体验的模组。",
         "author": "Johni0702",
         "tags": [
           "Fabric",
@@ -76,16 +86,19 @@
           "实用",
           "视频创作者工具"
         ],
+        "version": "1.20.4-2.6.14",
         "stats": {
           "downloads": "—",
           "updated": "上个月"
         },
-        "version": "1.20.4-2.6.14"
+        "type": "link",
+        "description": "https://modrinth.com/mod/replaymod",
+        "url": "https://modrinth.com/mod/replaymod",
+        "textContent": "",
+        "mindmap": ""
       },
       {
         "title": "Visible Barriers (可视化屏障方块)",
-        "url": "https://modrinth.com/mod/visiblebarriers",
-        "description": "让屏障方块、光源方块等可见，对地图制作很有帮助。",
         "author": "AmyMialee's Mods",
         "tags": [
           "Fabric",
@@ -97,12 +110,15 @@
         "stats": {
           "downloads": "—",
           "updated": "上个月"
-        }
+        },
+        "type": "link",
+        "description": "https://modrinth.com/mod/visiblebarriers",
+        "url": "https://modrinth.com/mod/visiblebarriers",
+        "textContent": "",
+        "mindmap": ""
       },
       {
         "title": "JEI (Just Enough Items)",
-        "url": "https://modrinth.com/mod/jei",
-        "description": "查看物品合成表，模组必备。",
         "author": "mezz",
         "tags": [
           "Fabric",
@@ -114,12 +130,15 @@
         "stats": {
           "downloads": "200M",
           "updated": "2周前"
-        }
+        },
+        "type": "link",
+        "description": "https://modrinth.com/mod/jei",
+        "url": "https://modrinth.com/mod/jei",
+        "textContent": "",
+        "mindmap": ""
       },
       {
         "title": "Live Texture Editor  （实时纹理编辑器）",
-        "url": "https://modrinth.com/mod/livetextureeditor",
-        "description": "在不离开 Minecraft 的情况下编辑和创建资源包",
         "author": "zeesea",
         "tags": [
           "Fabric",
@@ -129,12 +148,15 @@
         "stats": {
           "downloads": "—",
           "updated": ""
-        }
+        },
+        "type": "link",
+        "description": "https://modrinth.com/mod/livetextureeditor",
+        "url": "https://modrinth.com/mod/livetextureeditor",
+        "textContent": "",
+        "mindmap": ""
       },
       {
         "title": "VillEdit（自定义村民交易）",
-        "url": "https://modrinth.com/datapack/villedit",
-        "description": "用 VillEdit 数据包创建自定义村民！这是一个简单的自定义村民创建器，无需模组即可使用。",
         "author": "Silabear",
         "tags": [
           "自定义",
@@ -146,12 +168,15 @@
         "stats": {
           "downloads": "—",
           "updated": ""
-        }
+        },
+        "type": "link",
+        "description": "https://modrinth.com/datapack/villedit",
+        "url": "https://modrinth.com/datapack/villedit",
+        "textContent": "",
+        "mindmap": ""
       },
       {
         "title": "Graphene-谷歌浏览器",
-        "url": "https://modrinth.com/mod/grapheneui",
-        "description": "Graphene 是 Minecraft 客户端 UI（Fabric）库，允许模组开发者构建与网络技术相关的界面。",
         "author": "Tytoo",
         "tags": [
           "Fabric",
@@ -163,12 +188,15 @@
         "stats": {
           "downloads": "—",
           "updated": ""
-        }
+        },
+        "type": "link",
+        "description": "https://modrinth.com/mod/grapheneui",
+        "url": "https://modrinth.com/mod/grapheneui",
+        "textContent": "",
+        "mindmap": ""
       },
       {
         "title": "Cinematic Smoothness-电影比例UI",
-        "url": "https://modrinth.com/mod/cinematic-smoothness",
-        "description": "一个轻量级模组，可自定义和增强 Minecraft 的电影摄像机，实现可变平滑度、信箱条和设置菜单。",
         "author": "naw7",
         "tags": [
           "视觉效果",
@@ -178,7 +206,12 @@
         "stats": {
           "downloads": "—",
           "updated": ""
-        }
+        },
+        "type": "link",
+        "description": "https://modrinth.com/mod/cinematic-smoothness",
+        "url": "https://modrinth.com/mod/cinematic-smoothness",
+        "textContent": "",
+        "mindmap": ""
       }
     ]
   },
