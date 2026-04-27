@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>镜玄·资源搜索 | 最终版</title>
+    <title>镜玄·资源搜索 | 最终修复版</title>
     <script src="https://cdn.jsdelivr.net/npm/d3@6.7.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.3"></script>
     <script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.3"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.3/style.css">
     <style>
+        /* ---------- 全局样式 ---------- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { overflow-y: scroll; }
         :root {
@@ -29,6 +30,7 @@
             --glass-opacity: 0.35;
             --gradient-angle: 135deg;
         }
+        /* 主题色 */
         body[data-theme="white"]  { background: #eef2f8; --theme-accent: #5b6e8c; }
         body[data-theme="black"]  { background: #12151c; --theme-accent: #c0b7a6; }
         body[data-theme="red"]    { background: #fce9e6; --theme-accent: #c2675e; }
@@ -47,10 +49,12 @@
         body[data-theme="peach"]     { background: linear-gradient(var(--gradient-angle), #ffe29a 0%, #ffb7b2 100%); --theme-accent: #d97846; }
         body[data-theme="mint"]      { background: linear-gradient(var(--gradient-angle), #c7e9fb 0%, #b6e0fe 100%); --theme-accent: #4a9e7c; }
         body.custom-bg { background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important; }
+        /* 基础组件圆角 */
         .sidebar, .card, .search-box, .group-btn, .no-results, .palette-panel, .modal-content, .view-toggle-btn, .sort-select, .tag-btn {
             border-radius: var(--card-radius) !important;
         }
         .app { max-width: 1400px; margin: 0 auto; display: flex; gap: 28px; align-items: flex-start; }
+        /* 侧边栏 */
         .sidebar {
             flex: 0 0 280px;
             background: rgba(255, 255, 255, var(--glass-opacity));
@@ -213,6 +217,7 @@
             margin: 0;
             color: #1e293b;
         }
+        /* 深色主题下标题区文字强制米白色 */
         body[data-theme="black"] .title-section h1,
         body[data-theme="ocean"] .title-section h1,
         body[data-theme="midnight"] .title-section h1,
@@ -236,11 +241,7 @@
         body[data-theme="sakura"] .title-section p {
             color: #cbd5e1 !important;
         }
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
+        .action-buttons { display: flex; gap: 10px; align-items: center; }
         .admin-btn, .palette-btn {
             background: rgba(255,255,240,0.8);
             border: none;
@@ -404,12 +405,14 @@
         }
         .reset-bg { background: rgba(255,80,80,0.3); }
         .hint-text { font-size: 0.7rem; color: #aaa; text-align: right; }
+        /* 卡片网格 */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
             gap: var(--card-gap);
             margin-top: 8px;
         }
+        /* 列表视图紧凑布局 */
         .cards-grid.list-view {
             display: flex;
             flex-direction: column;
@@ -447,6 +450,7 @@
             padding-top: 0;
             min-width: 140px;
         }
+        /* 卡片样式 */
         .card {
             background: rgba(255, 255, 255, calc(var(--glass-opacity) - 0.05));
             backdrop-filter: blur(var(--blur-strength));
@@ -529,6 +533,7 @@
             cursor: pointer;
             font-size: 0.8rem;
         }
+        /* 模态框 */
         .modal {
             display: none;
             position: fixed;
@@ -563,7 +568,7 @@
             font-size: 0.9rem;
         }
         .modal-content textarea { min-height: 80px; resize: vertical; }
-        /* 类型选择器标签样式 */
+        /* 类型选择器（标签样式） */
         .type-selector {
             display: flex;
             gap: 12px;
@@ -631,6 +636,7 @@
             gap: 8px;
             margin-bottom: 0;
         }
+        /* 卡片内部样式 */
         .card-title {
             font-size: var(--font-size-title);
             font-weight: 600;
@@ -645,6 +651,10 @@
             border-radius: 6px;
             background: rgba(255,255,255,0.5);
             pointer-events: none;
+        }
+        .card-title span {
+            flex: 1;
+            color: inherit; /* 继承父级颜色，由深色主题覆盖 */
         }
         .type-icon {
             font-size: 0.75rem;
@@ -669,7 +679,6 @@
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
-            word-break: break-all;
         }
         .card-meta {
             display: flex;
@@ -678,11 +687,7 @@
             gap: var(--meta-gap);
             margin-bottom: 10px;
         }
-        .badge-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
+        .badge-group { display: flex; flex-wrap: wrap; gap: 6px; }
         .badge {
             background: rgba(0,0,0,0.1);
             padding: 4px 10px;
@@ -727,7 +732,8 @@
             border-radius: 20px;
             color: #4b5563;
         }
-        /* 深色主题强制 */
+        /* 深色主题强制文字颜色（包括卡片标题的 span） */
+        body[data-theme="black"] .card-title span,
         body[data-theme="black"] .card-title a,
         body[data-theme="black"] .card-title a:link,
         body[data-theme="black"] .card-title a:visited,
@@ -739,6 +745,7 @@
         body[data-theme="black"] .author,
         body[data-theme="black"] .data-source-badge,
         body[data-theme="black"] .no-results,
+        body[data-theme="ocean"] .card-title span,
         body[data-theme="ocean"] .card-title a,
         body[data-theme="ocean"] .card-title a:link,
         body[data-theme="ocean"] .card-title a:visited,
@@ -750,6 +757,7 @@
         body[data-theme="ocean"] .author,
         body[data-theme="ocean"] .data-source-badge,
         body[data-theme="ocean"] .no-results,
+        body[data-theme="midnight"] .card-title span,
         body[data-theme="midnight"] .card-title a,
         body[data-theme="midnight"] .card-title a:link,
         body[data-theme="midnight"] .card-title a:visited,
@@ -761,6 +769,7 @@
         body[data-theme="midnight"] .author,
         body[data-theme="midnight"] .data-source-badge,
         body[data-theme="midnight"] .no-results,
+        body[data-theme="forest"] .card-title span,
         body[data-theme="forest"] .card-title a,
         body[data-theme="forest"] .card-title a:link,
         body[data-theme="forest"] .card-title a:visited,
@@ -772,6 +781,7 @@
         body[data-theme="forest"] .author,
         body[data-theme="forest"] .data-source-badge,
         body[data-theme="forest"] .no-results,
+        body[data-theme="sakura"] .card-title span,
         body[data-theme="sakura"] .card-title a,
         body[data-theme="sakura"] .card-title a:link,
         body[data-theme="sakura"] .card-title a:visited,
@@ -821,6 +831,7 @@
         body[data-theme="sakura"] .data-source-badge {
             background: rgba(0,0,0,0.5);
         }
+        /* 布局面板（无文本编辑模式） */
         .layout-panel {
             position: fixed;
             bottom: 20px;
@@ -973,7 +984,7 @@
 <div id="mindmapModal" class="modal">
     <div class="modal-content" style="width: 90%; max-width: 900px; height: 80vh; display: flex; flex-direction: column;">
         <h3 id="mindmapTitle">思维导图</h3>
-        <textarea id="mindmapEditor" placeholder="输入 Markdown 大纲" style="width: 100%; height: 200px; font-family: monospace; display: none;"></textarea>
+        <textarea id="mindmapEditor" placeholder="输入 Markdown 大纲，例如：&#10;# 中心主题&#10;## 分支1&#10;### 子分支" style="width: 100%; height: 200px; font-family: monospace; display: none;"></textarea>
         <div id="mindmapContainer" style="flex:1; min-height: 300px;"></div>
         <div class="modal-buttons">
             <button id="mindmapCancel" class="cancel-btn">关闭</button>
@@ -1024,7 +1035,22 @@
 
 <script>
     (function() {
-        let groupsData = [];
+        // ========== 默认数据（包含描述信息） ==========
+        const DEFAULT_GROUPS_DATA = [
+            { groupName: "🎮 Minecraft 模组", items: [ 
+                { title: "Fabric API", url: "https://modrinth.com/mod/fabric-api", description: "轻量级且模块化的API，提供通用钩子和互操作性，供 Fabric 模组使用。", author: "Modmuss50", tags: ["Fabric", "库"], stats: { downloads: "162M", updated: "4天前" }, version: "0.16.5", type: "link", textContent: "", mindmap: "" },
+                { title: "Sodium (钠)", url: "https://modrinth.com/mod/sodium", description: "Minecraft 最快且最兼容的渲染优化模组。", author: "CaffeineMC", tags: ["Fabric", "NeoForge", "优化"], stats: { downloads: "147M", updated: "55分钟前" }, version: "0.5.8", type: "link", textContent: "", mindmap: "" },
+                { title: "Iris Shaders", url: "https://modrinth.com/mod/iris", description: "现代 Minecraft 光影加载器。", author: "coderbot", tags: ["Fabric", "NeoForge", "视觉"], stats: { downloads: "115M", updated: "3周前" }, version: "1.7.0", type: "link", textContent: "", mindmap: "" }
+            ] },
+            { groupName: "🌐 常用开发网站", items: [ 
+                { title: "GitHub", url: "https://github.com", description: "全球最大开发者平台。", author: "GitHub", tags: ["开发"], stats: { downloads: "—", updated: "在线" }, type: "link", textContent: "", mindmap: "" }
+            ] },
+            { groupName: "📺 视频&学习", items: [ 
+                { title: "哔哩哔哩", url: "https://www.bilibili.com", description: "中文弹幕视频网站。", author: "Bilibili", tags: ["视频"], stats: { downloads: "—", updated: "每日更新" }, type: "link", textContent: "", mindmap: "" }
+            ] }
+        ];
+
+        let groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
         let currentGroupIndex = 0;
         let currentKeyword = '';
         let isAdminMode = false;
@@ -1085,28 +1111,6 @@
         const mindmapContentArea = document.getElementById('mindmapContentArea');
         const typeRadios = document.querySelectorAll('input[name="cardType"]');
 
-        // 默认数据
-        const DEFAULT_GROUPS_DATA = [
-            { groupName: "🎮 Minecraft 模组", items: [] },
-            { groupName: "🌐 常用开发网站", items: [] },
-            { groupName: "📺 视频&学习", items: [] }
-        ];
-        // 填充一些示例 link 卡片以便测试
-        DEFAULT_GROUPS_DATA[0].items = [
-            { title: "Fabric API", url: "https://modrinth.com/mod/fabric-api", description: "https://modrinth.com/mod/fabric-api", author: "Modmuss50", tags: ["Fabric", "库"], stats: { downloads: "162M", updated: "4天前" }, version: "0.16.5", type: "link", textContent: "", mindmap: "" },
-            { title: "Sodium", url: "https://modrinth.com/mod/sodium", description: "https://modrinth.com/mod/sodium", author: "CaffeineMC", tags: ["Fabric", "NeoForge", "优化"], stats: { downloads: "147M", updated: "55分钟前" }, version: "0.5.8", type: "link", textContent: "", mindmap: "" },
-            { title: "Iris Shaders", url: "https://modrinth.com/mod/iris", description: "https://modrinth.com/mod/iris", author: "coderbot", tags: ["Fabric", "NeoForge", "视觉"], stats: { downloads: "115M", updated: "3周前" }, version: "1.7.0", type: "link", textContent: "", mindmap: "" },
-            { title: "Cloth Config API", url: "https://modrinth.com/mod/cloth-config", description: "https://modrinth.com/mod/cloth-config", author: "shedaniel", tags: ["Fabric", "Forge", "库"], stats: { downloads: "115M", updated: "上个月" }, version: "11.1.118", type: "link", textContent: "", mindmap: "" }
-        ];
-        DEFAULT_GROUPS_DATA[1].items = [
-            { title: "GitHub", url: "https://github.com", description: "https://github.com", author: "GitHub", tags: ["开发"], stats: { downloads: "—", updated: "在线" }, type: "link", textContent: "", mindmap: "" },
-            { title: "MDN", url: "https://developer.mozilla.org/zh-CN/", description: "https://developer.mozilla.org/zh-CN/", author: "Mozilla", tags: ["文档"], stats: { downloads: "—", updated: "持续更新" }, type: "link", textContent: "", mindmap: "" }
-        ];
-        DEFAULT_GROUPS_DATA[2].items = [
-            { title: "哔哩哔哩", url: "https://www.bilibili.com", description: "https://www.bilibili.com", author: "Bilibili", tags: ["视频"], stats: { downloads: "—", updated: "每日更新" }, type: "link", textContent: "", mindmap: "" },
-            { title: "YouTube", url: "https://www.youtube.com", description: "https://www.youtube.com", author: "Google", tags: ["视频"], stats: { downloads: "—", updated: "实时" }, type: "link", textContent: "", mindmap: "" }
-        ];
-
         // 辅助函数
         function normalizeTags(tags) {
             if (!tags) return [];
@@ -1117,6 +1121,7 @@
             }
             return [];
         }
+
         function escapeHtml(s) { if(!s) return ''; return s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
         function getFavicon(url) { return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(url)}`; }
 
@@ -1138,7 +1143,7 @@
             if (!tagListContainer) return;
             const tags = extractAllTags();
             if (tags.length === 0) {
-                tagListContainer.innerHTML = '<div>暂无标签</div>';
+                tagListContainer.innerHTML = '<div style="font-size:0.7rem; color:#aaa;">暂无标签</div>';
                 if (clearTagFilterBtn) clearTagFilterBtn.style.display = 'none';
                 return;
             }
@@ -1148,8 +1153,8 @@
                 if (fixedOrder.includes(tag)) fixedTags.push([tag, count]);
                 else otherTags.push([tag, count]);
             }
-            fixedTags.sort((a,b)=>fixedOrder.indexOf(a[0])-fixedOrder.indexOf(b[0]));
-            otherTags.sort((a,b)=>b[1]-a[1]);
+            fixedTags.sort((a, b) => fixedOrder.indexOf(a[0]) - fixedOrder.indexOf(b[0]));
+            otherTags.sort((a, b) => b[1] - a[1]);
             const sortedTags = [...fixedTags, ...otherTags];
             let html = '';
             for (const [tag, count] of sortedTags) {
@@ -1185,7 +1190,7 @@
             const fixed = ['Fabric', 'Forge', 'NeoForge'];
             const otherTags = allTags.filter(t => !fixed.includes(t));
             if (otherTags.length === 0) {
-                dynamicTagList.innerHTML = '<div>暂无其他标签</div>';
+                dynamicTagList.innerHTML = '<div style="font-size:0.7rem; color:#aaa;">暂无其他标签</div>';
                 return;
             }
             let html = '';
@@ -1204,8 +1209,11 @@
                 let cur = cardTagsInput.value.trim();
                 if (cur === "") cardTagsInput.value = tag;
                 else {
-                    let arr = cur.split(',').map(s=>s.trim());
-                    if (!arr.includes(tag)) { arr.push(tag); cardTagsInput.value = arr.join(', '); }
+                    let arr = cur.split(',').map(s => s.trim());
+                    if (!arr.includes(tag)) {
+                        arr.push(tag);
+                        cardTagsInput.value = arr.join(', ');
+                    }
                 }
             }
         }
@@ -1438,7 +1446,7 @@
             mindmapContainer.innerHTML = '';
             try {
                 let content = markdown.trim();
-                if (!content) content = '# 思维导图';
+                if (!content) content = '# 思维导图\n请编辑内容';
                 if (!content.startsWith('#')) content = '# 根节点\n' + content;
                 const { Transformer } = window.markmap;
                 const transformer = new Transformer();
@@ -1452,7 +1460,7 @@
                     }
                 }
             } catch(e) {
-                mindmapContainer.innerHTML = '<div style="color:red;">渲染失败</div>';
+                mindmapContainer.innerHTML = '<div style="color:red; padding:20px;">渲染失败，检查格式</div>';
             }
         }
 
@@ -1493,16 +1501,15 @@
                     <button class="delete-btn" data-group="${groupIdx}" data-card="${cardIdx}">🗑️</button>
                 </div>
             ` : '';
-            const description = item.description || (item.type === 'link' ? item.url : (item.type === 'text' ? (item.textContent || '').substring(0,100) : '思维导图'));
             return `
                 <div class="card" data-group="${groupIdx}" data-card="${cardIdx}" data-type="${item.type}" data-url="${escapeHtml(item.url)}" data-title="${escapeHtml(item.title)}" data-content="${escapeHtml(item.textContent)}">
                     ${adminActions}
                     <div class="card-title">
                         <img src="${getFavicon(item.type === 'link' ? item.url : '#')}" alt="icon" loading="lazy">
-                        <span style="flex:1;">${escapeHtml(item.title)}</span>
+                        <span>${escapeHtml(item.title)}</span>
                         ${typeIcon}
                     </div>
-                    <div class="card-description">${escapeHtml(description)}</div>
+                    <div class="card-description">${escapeHtml(item.description)}</div>
                     <div class="card-meta">
                         <div class="badge-group">${tagsHtml}</div>
                         ${versionHtml}
@@ -1854,11 +1861,12 @@
                 let cur = cardTagsInput.value.trim();
                 if (cur === "") cardTagsInput.value = tag;
                 else {
-                    let arr = cur.split(',').map(s=>s.trim());
+                    let arr = cur.split(',').map(s => s.trim());
                     if (!arr.includes(tag)) { arr.push(tag); cardTagsInput.value = arr.join(', '); }
                 }
             }
         }
+
         function onTypeChange() {
             let type = 'link';
             for (const radio of typeRadios) { if (radio.checked) { type = radio.value; break; } }
@@ -1889,7 +1897,7 @@
         if (searchInput) searchInput.addEventListener('input', (e) => { currentKeyword = e.target.value; renderCards(); });
         typeRadios.forEach(radio => radio.addEventListener('change', onTypeChange));
 
-        // 主题与壁纸（简化，保留原有）
+        // 主题与壁纸（简化）
         const GRADIENT_THEMES = ["sunset","aurora","ocean","sakura","forest","midnight","peach","mint"];
         function setTheme(themeName) {
             document.body.setAttribute('data-theme', themeName);
