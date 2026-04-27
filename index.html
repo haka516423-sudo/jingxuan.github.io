@@ -4,21 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>镜玄·资源搜索 | 完整功能版</title>
-    <!-- 依赖库 -->
     <script src="https://cdn.jsdelivr.net/npm/d3@6.7.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.3"></script>
     <script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.3"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.3/style.css">
     <style>
-        /* ---------- 全局样式 ---------- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        html {
-            overflow-y: scroll;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { overflow-y: scroll; }
         :root {
             --card-radius: 20px;
             --card-padding: 20px;
@@ -37,6 +29,7 @@
             --glass-opacity: 0.35;
             --gradient-angle: 135deg;
         }
+        /* 主题色（完整） */
         body[data-theme="white"]  { background: #eef2f8; --theme-accent: #5b6e8c; }
         body[data-theme="black"]  { background: #12151c; --theme-accent: #c0b7a6; }
         body[data-theme="red"]    { background: #fce9e6; --theme-accent: #c2675e; }
@@ -54,21 +47,11 @@
         body[data-theme="midnight"]  { background: linear-gradient(var(--gradient-angle), #1f1c2c 0%, #2a2a4a 100%); --theme-accent: #9c88ff; }
         body[data-theme="peach"]     { background: linear-gradient(var(--gradient-angle), #ffe29a 0%, #ffb7b2 100%); --theme-accent: #d97846; }
         body[data-theme="mint"]      { background: linear-gradient(var(--gradient-angle), #c7e9fb 0%, #b6e0fe 100%); --theme-accent: #4a9e7c; }
-        body.custom-bg {
-            background-size: cover !important;
-            background-position: center !important;
-            background-repeat: no-repeat !important;
-        }
+        body.custom-bg { background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important; }
         .sidebar, .card, .search-box, .group-btn, .no-results, .palette-panel, .modal-content, .view-toggle-btn, .sort-select, .tag-btn {
             border-radius: var(--card-radius) !important;
         }
-        .app {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            gap: 28px;
-            align-items: flex-start;
-        }
+        .app { max-width: 1400px; margin: 0 auto; display: flex; gap: 28px; align-items: flex-start; }
         .sidebar {
             flex: 0 0 280px;
             background: rgba(255, 255, 255, var(--glass-opacity));
@@ -99,10 +82,7 @@
             gap: 8px;
             color: #1f2d3d;
         }
-        body[data-theme="black"] .sidebar-header {
-            color: #f5f0e0;
-            border-bottom-color: rgba(255,255,255,0.2);
-        }
+        body[data-theme="black"] .sidebar-header { color: #f5f0e0; border-bottom-color: rgba(255,255,255,0.2); }
         .add-group-btn {
             background: rgba(255,255,240,0.2);
             border: none;
@@ -118,15 +98,8 @@
             transition: 0.1s;
             color: inherit;
         }
-        .add-group-btn:hover {
-            background: rgba(255,255,240,0.5);
-            transform: scale(0.96);
-        }
-        .group-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+        .add-group-btn:hover { background: rgba(255,255,240,0.5); transform: scale(0.96); }
+        .group-buttons { display: flex; flex-direction: column; gap: 12px; }
         .group-btn {
             background: rgba(255, 255, 235, 0.4);
             backdrop-filter: blur(6px);
@@ -140,13 +113,8 @@
             transition: transform 0.08s, background 0.2s;
             transform: scale(1);
         }
-        .group-btn:active {
-            transform: scale(0.96);
-            background: rgba(0, 0, 0, 0.15);
-        }
-        .group-btn:hover {
-            background: rgba(255,255,250,0.7);
-        }
+        .group-btn:active { transform: scale(0.96); background: rgba(0, 0, 0, 0.15); }
+        .group-btn:hover { background: rgba(255,255,250,0.7); }
         .group-btn.active {
             background: var(--theme-accent);
             color: white;
@@ -167,9 +135,7 @@
             border-top: 1px solid rgba(0,0,0,0.1);
             padding-top: 16px;
         }
-        body[data-theme="black"] .tag-section {
-            border-top-color: rgba(255,255,255,0.15);
-        }
+        body[data-theme="black"] .tag-section { border-top-color: rgba(255,255,255,0.15); }
         .tag-section-header {
             display: flex;
             justify-content: space-between;
@@ -184,9 +150,7 @@
             gap: 6px;
             color: #1f2d3d;
         }
-        body[data-theme="black"] .tag-section-title {
-            color: #f5f0e0;
-        }
+        body[data-theme="black"] .tag-section-title { color: #f5f0e0; }
         .clear-tag-btn {
             background: rgba(255,80,80,0.2);
             border: none;
@@ -197,9 +161,7 @@
             color: #eee;
             transition: 0.1s;
         }
-        .clear-tag-btn:hover {
-            background: rgba(255,80,80,0.5);
-        }
+        .clear-tag-btn:hover { background: rgba(255,80,80,0.5); }
         .tag-list {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -228,10 +190,7 @@
             background: rgba(60, 68, 84, 0.5);
             color: #f5f0e0 !important;
         }
-        .tag-btn:hover {
-            background: rgba(255,255,240,0.6);
-            transform: scale(0.96);
-        }
+        .tag-btn:hover { background: rgba(255,255,240,0.6); transform: scale(0.96); }
         body[data-theme="black"] .tag-btn:hover,
         body[data-theme="ocean"] .tag-btn:hover,
         body[data-theme="midnight"] .tag-btn:hover,
@@ -243,9 +202,7 @@
             background: var(--theme-accent);
             color: white;
         }
-        .main {
-            flex: 1;
-        }
+        .main { flex: 1; }
         .header-area {
             display: flex;
             justify-content: space-between;
@@ -309,9 +266,7 @@
             background: rgba(30, 30, 35, 0.8);
             color: #f5f0e0;
         }
-        .admin-btn:active, .palette-btn:active {
-            transform: scale(0.96);
-        }
+        .admin-btn:active, .palette-btn:active { transform: scale(0.96); }
         .data-source-indicator {
             display: inline-flex;
             align-items: center;
@@ -332,9 +287,7 @@
         .indicator-dot.cloud { background: #10b981; box-shadow: 0 0 4px #10b981; }
         .indicator-dot.local { background: #f59e0b; box-shadow: 0 0 4px #f59e0b; }
         .indicator-dot.default { background: #9ca3af; }
-        body[data-theme="black"] .data-source-indicator {
-            background: rgba(0,0,0,0.7);
-        }
+        body[data-theme="black"] .data-source-indicator { background: rgba(0,0,0,0.7); }
         .search-bar {
             display: flex;
             gap: 12px;
@@ -381,9 +334,7 @@
             background: rgba(30, 30, 35, 0.8);
             color: #f5f0e0;
         }
-        .view-toggle-btn:active, .sort-select:active {
-            transform: scale(0.96);
-        }
+        .view-toggle-btn:active, .sort-select:active { transform: scale(0.96); }
         .sort-select {
             appearance: none;
             -webkit-appearance: none;
@@ -411,9 +362,7 @@
             box-shadow: 0 20px 35px rgba(0,0,0,0.4);
             color: #eef2ff;
         }
-        .palette-panel.show {
-            display: flex;
-        }
+        .palette-panel.show { display: flex; }
         .section-title {
             font-size: 0.85rem;
             font-weight: 600;
@@ -432,10 +381,7 @@
             transition: 0.1s;
             border-radius: 12px;
         }
-        .color-swatch:hover {
-            transform: scale(1.05);
-            border-color: white;
-        }
+        .color-swatch:hover { transform: scale(1.05); border-color: white; }
         .slider-container {
             display: flex;
             flex-direction: column;
@@ -447,10 +393,7 @@
             display: flex;
             justify-content: space-between;
         }
-        input[type="range"] {
-            width: 100%;
-            cursor: pointer;
-        }
+        input[type="range"] { width: 100%; cursor: pointer; }
         .file-upload-area {
             display: flex;
             gap: 12px;
@@ -467,9 +410,7 @@
             cursor: pointer;
             color: #eee;
         }
-        .reset-bg {
-            background: rgba(255,80,80,0.3);
-        }
+        .reset-bg { background: rgba(255,80,80,0.3); }
         .hint-text {
             font-size: 0.7rem;
             color: #aaa;
@@ -559,9 +500,7 @@
             transition: opacity 0.2s;
             z-index: 10;
         }
-        .card:hover .card-actions {
-            opacity: 1;
-        }
+        .card:hover .card-actions { opacity: 1; }
         .edit-btn, .delete-btn {
             background: rgba(0,0,0,0.6);
             backdrop-filter: blur(4px);
@@ -614,9 +553,7 @@
             justify-content: center;
             align-items: center;
         }
-        .modal.active {
-            display: flex;
-        }
+        .modal.active { display: flex; }
         .modal-content {
             background: rgba(30,30,40,0.95);
             backdrop-filter: blur(20px);
@@ -627,9 +564,7 @@
             color: #eee;
             border-radius: 20px;
         }
-        .modal-content h3 {
-            margin-bottom: 16px;
-        }
+        .modal-content h3 { margin-bottom: 16px; }
         .modal-content input, .modal-content textarea {
             width: 100%;
             padding: 10px;
@@ -640,28 +575,29 @@
             color: #fff;
             font-size: 0.9rem;
         }
-        .modal-content textarea {
-            min-height: 80px;
-            resize: vertical;
-        }
+        .modal-content textarea { min-height: 80px; resize: vertical; }
         .type-selector {
             display: flex;
-            gap: 20px;
+            gap: 16px;
             margin-bottom: 16px;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
+            flex-wrap: wrap;
         }
         .type-selector label {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            padding: 4px 8px;
+            gap: 6px;
+            background: rgba(255,255,255,0.1);
+            padding: 6px 14px;
             border-radius: 30px;
+            cursor: pointer;
             transition: 0.1s;
         }
         .type-selector label:hover {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.2);
+        }
+        .type-selector input {
+            margin: 0;
+            width: auto;
         }
         .type-content-area {
             margin-bottom: 16px;
@@ -723,14 +659,14 @@
             gap: 10px;
         }
         .card-title img {
-            width: 22px;
-            height: 22px;
-            border-radius: 6px;
-            background: rgba(255,255,255,0.5);
-            pointer-events: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.3);
+            object-fit: contain;
         }
         .type-icon {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             background: rgba(0,0,0,0.3);
             border-radius: 30px;
             padding: 4px 12px;
@@ -921,9 +857,7 @@
             border: 1px solid rgba(255,255,255,0.2);
             box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
-        .layout-panel.show {
-            display: flex;
-        }
+        .layout-panel.show { display: flex; }
         .layout-panel .title {
             font-size: 0.9rem;
             font-weight: 600;
@@ -938,10 +872,7 @@
             font-size: 0.75rem;
             color: #ddd;
         }
-        .layout-panel input {
-            flex: 1;
-            cursor: pointer;
-        }
+        .layout-panel input { flex: 1; cursor: pointer; }
         .layout-panel button {
             background: var(--theme-accent);
             border: none;
@@ -951,9 +882,7 @@
             cursor: pointer;
             font-size: 0.7rem;
         }
-        .layout-panel .export-btn {
-            background: #10b981;
-        }
+        .layout-panel .export-btn { background: #10b981; }
         
         @media (max-width: 780px) {
             body { padding: 16px; }
@@ -1090,7 +1019,7 @@
         <h3 id="modalTitle">编辑卡片</h3>
         <input type="text" id="cardTitle" placeholder="标题" autocomplete="off">
         <div class="type-selector">
-            <label><input type="radio" name="cardType" value="link"> 🔗 网页链接</label>
+            <label><input type="radio" name="cardType" value="link" checked> 🔗 网页链接</label>
             <label><input type="radio" name="cardType" value="text"> 📄 文本查看</label>
             <label><input type="radio" name="cardType" value="mindmap"> 🧠 思维导图</label>
         </div>
@@ -1098,7 +1027,7 @@
             <input type="url" id="cardUrl" placeholder="网址 (https://...)" autocomplete="off">
         </div>
         <div id="textContentArea" class="type-content-area" style="display: none;">
-            <textarea id="cardTextContent" placeholder="输入文本内容 (支持 Markdown 渲染)" rows="6"></textarea>
+            <textarea id="cardTextContent" placeholder="输入文本内容 (支持换行)" rows="6"></textarea>
         </div>
         <div id="mindmapContentArea" class="type-content-area" style="display: none;">
             <textarea id="cardMindmapContent" placeholder="输入 Markdown 大纲，例如：&#10;# 中心主题&#10;## 分支1&#10;### 子分支" rows="6"></textarea>
@@ -1126,7 +1055,7 @@
 
 <script>
     (function() {
-        // ========== 默认数据（包含 type 字段） ==========
+        // 默认数据（包含 type 字段）
         const DEFAULT_GROUPS_DATA = [
             { groupName: "🎮 Minecraft 模组", items: [ 
                 { title: "Fabric API", url: "https://modrinth.com/mod/fabric-api", description: "轻量级且模块化的API，提供通用钩子和互操作性，供 Fabric 模组使用。", author: "Modmuss50", tags: ["Fabric", "库"], stats: { downloads: "162M", updated: "4天前" }, version: "0.16.5", type: "link", textContent: "", mindmap: "" },
@@ -1223,7 +1152,10 @@
         }
 
         function escapeHtml(s) { if(!s) return ''; return s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
-        function getFavicon(url) { return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(url)}`; }
+        function getFavicon(url) { 
+            if (!url || url === '#') return ''; 
+            return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(url)}`; 
+        }
 
         function extractAllTags() {
             const tagCount = new Map();
@@ -1604,7 +1536,7 @@
             currentMindmapCard = null;
         }
 
-        // 卡片渲染，增加点击卡片主体触发对应功能
+        // 卡片渲染
         function renderCard(item, groupIdx, cardIdx) {
             const tagsArray = normalizeTags(item.tags);
             const tagsHtml = tagsArray.map(t => `<span class="badge">${escapeHtml(t)}</span>`).join('');
@@ -1617,12 +1549,16 @@
             else sourceBadge = `<span class="data-source-badge">📄 默认</span>`;
 
             let typeIcon = '';
+            let cardClickData = `data-type="${item.type}"`;
             if (item.type === 'link') {
                 typeIcon = `<span class="type-icon" data-action="link" data-url="${escapeHtml(item.url)}">🔗 网页</span>`;
+                cardClickData += ` data-url="${escapeHtml(item.url)}"`;
             } else if (item.type === 'text') {
                 typeIcon = `<span class="type-icon" data-action="text" data-title="${escapeHtml(item.title)}" data-content="${escapeHtml(item.textContent)}">📄 文本</span>`;
+                cardClickData += ` data-title="${escapeHtml(item.title)}" data-content="${escapeHtml(item.textContent)}"`;
             } else if (item.type === 'mindmap') {
                 typeIcon = `<span class="type-icon" data-action="mindmap" data-group="${groupIdx}" data-card="${cardIdx}">🧠 导图</span>`;
+                cardClickData += ` data-group="${groupIdx}" data-card="${cardIdx}"`;
             }
 
             const adminActions = isAdminMode ? `
@@ -1632,14 +1568,13 @@
                 </div>
             ` : '';
 
-            // 整个卡片的主区域点击事件（不触发按钮区域）
-            const cardClickHandler = `data-card-click="true" data-type="${item.type}" data-url="${escapeHtml(item.url)}" data-title="${escapeHtml(item.title)}" data-content="${escapeHtml(item.textContent)}" data-group="${groupIdx}" data-card="${cardIdx}"`;
+            const faviconUrl = (item.type === 'link' && item.url) ? getFavicon(item.url) : 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3E%3Cpath d="M4 4h16v16H4z"/%3E%3C/svg%3E';
 
             return `
-                <div class="card" data-group="${groupIdx}" data-card="${cardIdx}" ${cardClickHandler}>
+                <div class="card" data-group="${groupIdx}" data-card="${cardIdx}" ${cardClickData}>
                     ${adminActions}
                     <div class="card-title">
-                        <img src="${getFavicon(item.type === 'link' ? item.url : '#')}" alt="icon" loading="lazy">
+                        <img src="${faviconUrl}" alt="icon" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'20\' height=\'20\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3E%3Crect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'2\'/%3E%3C/svg%3E'">
                         <span style="flex:1;">${escapeHtml(item.title)}</span>
                         ${typeIcon}
                     </div>
@@ -1709,11 +1644,9 @@
 
         function bindCardClickEvents() {
             document.querySelectorAll('.card').forEach(card => {
-                // 避免重复绑定
                 if (card.dataset.cardClickBound) return;
                 card.dataset.cardClickBound = 'true';
                 card.addEventListener('click', (e) => {
-                    // 如果点击的是编辑/删除按钮或者是类型图标，不触发卡片主事件
                     if (e.target.classList.contains('edit-btn') || e.target.classList.contains('delete-btn') || e.target.closest('.type-icon')) {
                         return;
                     }
@@ -1750,7 +1683,6 @@
             });
             cardsContainer.innerHTML = html;
 
-            // 绑定编辑/删除按钮事件
             if (isAdminMode) {
                 document.querySelectorAll('.edit-btn').forEach(btn => {
                     btn.addEventListener('click', (e) => {
@@ -1768,7 +1700,6 @@
                 });
             }
 
-            // 绑定类型图标点击事件
             document.querySelectorAll('.type-icon').forEach(icon => {
                 icon.addEventListener('click', (e) => {
                     e.stopPropagation();
@@ -1788,12 +1719,8 @@
                 });
             });
 
-            // 绑定卡片整体点击事件
             bindCardClickEvents();
-
-            // 文本编辑模式下绑定可编辑元素
             if (textEditMode) bindTextEditEvents();
-
             if (isListView) cardsContainer.classList.add('list-view');
             else cardsContainer.classList.remove('list-view');
         }
@@ -2085,7 +2012,6 @@
             }
             saveDataToStorage();
             renderTagList();
-            // 重新绑定文本编辑事件（防止丢失）
             if (textEditMode) bindTextEditEvents();
         }
 
@@ -2094,7 +2020,6 @@
             else enableTextEdit();
         }
 
-        // 管理员模式
         function enableAdminMode() {
             isAdminMode = true;
             if (adminToolbar) adminToolbar.style.display = 'flex';
@@ -2364,8 +2289,8 @@
             initBackground();
             buildPalette();
             initControls();
-            await loadRemoteLayoutSettings();   // 优先从远程加载布局
-            loadLocalLayoutSettings();          // 后备本地存储
+            await loadRemoteLayoutSettings();
+            loadLocalLayoutSettings();
             initLayoutControls();
             renderGroupButtons();
             renderCards();
