@@ -12,13 +12,12 @@
     </script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.3/style.css">
     <style>
-        /* ---------- 全局样式 ---------- */
+        /* 全局重置 */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        /* 移除强制滚动条，改为自然出现 */
         html {
             overflow-y: auto;
             scrollbar-gutter: stable;
@@ -42,10 +41,9 @@
             padding: 28px;
             --glass-opacity: 0.35;
             --gradient-angle: 135deg;
-            /* 防止 body 滚动链 */
             overscroll-behavior: none;
         }
-        /* 主题色 */
+        /* ---------- 主题色 ---------- */
         body[data-theme="white"] {
             background: #eef2f8;
             --theme-accent: #5b6e8c;
@@ -122,18 +120,8 @@
             background-position: center !important;
             background-repeat: no-repeat !important;
         }
-        .sidebar,
-        .card,
-        .search-box,
-        .group-btn,
-        .no-results,
-        .palette-panel,
-        .modal-content,
-        .view-toggle-btn,
-        .sort-select,
-        .tag-btn {
-            border-radius: var(--card-radius) !important;
-        }
+
+        /* 布局 */
         .app {
             max-width: 1400px;
             margin: 0 auto;
@@ -141,7 +129,8 @@
             gap: 28px;
             align-items: flex-start;
         }
-        /* 侧边栏：flex 列布局，两个区域独立滚动 */
+
+        /* ---------- 侧边栏 ---------- */
         .sidebar {
             flex: 0 0 280px;
             background: rgba(255, 255, 255, var(--glass-opacity));
@@ -200,21 +189,22 @@
             background: rgba(255, 255, 240, 0.5);
             transform: scale(0.96);
         }
-        /* 分组区域（上半部分，独立滚动） */
+
+        /* 分组区域（独立滚动 + 底部渐变） */
         .groups-scroll-area {
             flex: 1;
             overflow-y: auto;
             min-height: 0;
             margin-bottom: 12px;
             overscroll-behavior: contain;
-            /* 防止滚动链接 */;
+            mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
         }
         .group-buttons {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
-        /* 分组按钮行：按钮 + 删除按钮 */
         .group-btn-row {
             display: flex;
             align-items: center;
@@ -291,7 +281,8 @@
             background: var(--theme-accent);
             color: #12151c;
         }
-        /* 标签区域（下半部分，标题固定+列表滚动） */
+
+        /* 标签区域（标题固定+列表滚动+渐变） */
         .tag-section {
             flex: 1;
             min-height: 0;
@@ -310,7 +301,6 @@
             align-items: center;
             margin-bottom: 10px;
             flex-shrink: 0;
-            /* 固定在滚动区域上方 */;
         }
         .tag-section-title {
             font-size: 0.9rem;
@@ -336,13 +326,13 @@
         .clear-tag-btn:hover {
             background: rgba(255, 80, 80, 0.5);
         }
-        /* 标签滚动区域 */
         .tag-scroll-area {
             flex: 1;
             overflow-y: auto;
             min-height: 0;
             overscroll-behavior: contain;
-            /* 防止滚动链接 */;
+            mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
         }
         .tag-list {
             display: grid;
@@ -363,6 +353,7 @@
             line-height: 1.3;
             word-break: break-word;
             white-space: normal;
+            border-radius: var(--card-radius);
         }
         body[data-theme="black"] .tag-btn,
         body[data-theme="ocean"] .tag-btn,
@@ -388,7 +379,7 @@
             color: white;
         }
 
-        /* 自定义滚动条 - 透明轨道 */
+        /* 自定义滚动条 - 轨道完全透明 */
         .groups-scroll-area::-webkit-scrollbar,
         .tag-scroll-area::-webkit-scrollbar,
         .sidebar::-webkit-scrollbar {
@@ -397,8 +388,7 @@
         .groups-scroll-area::-webkit-scrollbar-track,
         .tag-scroll-area::-webkit-scrollbar-track,
         .sidebar::-webkit-scrollbar-track {
-            background: transparent;
-            /* 无背景 */;
+            background: transparent !important;
         }
         .groups-scroll-area::-webkit-scrollbar-thumb,
         .tag-scroll-area::-webkit-scrollbar-thumb,
@@ -411,15 +401,6 @@
         .sidebar::-webkit-scrollbar-thumb:hover {
             background: rgba(0, 0, 0, 0.3);
         }
-        body[data-theme="black"] .groups-scroll-area::-webkit-scrollbar-thumb:hover,
-        body[data-theme="ocean"] .groups-scroll-area::-webkit-scrollbar-thumb:hover,
-        body[data-theme="midnight"] .groups-scroll-area::-webkit-scrollbar-thumb:hover,
-        body[data-theme="black"] .tag-scroll-area::-webkit-scrollbar-thumb:hover,
-        body[data-theme="ocean"] .tag-scroll-area::-webkit-scrollbar-thumb:hover,
-        body[data-theme="midnight"] .tag-scroll-area::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.4);
-        }
-        /* Firefox 滚动条 */
         .groups-scroll-area,
         .tag-scroll-area {
             scrollbar-width: thin;
@@ -449,28 +430,10 @@
             margin: 0;
             color: #1e293b;
         }
-        body[data-theme="black"] .title-section h1,
-        body[data-theme="ocean"] .title-section h1,
-        body[data-theme="midnight"] .title-section h1,
-        body[data-theme="forest"] .title-section h1,
-        body[data-theme="sakura"] .title-section h1,
-        body[data-theme="sunset"] .title-section h1,
-        body[data-theme="aurora"] .title-section h1,
-        body[data-theme="peach"] .title-section h1,
-        body[data-theme="mint"] .title-section h1 {
-            color: #f0e6d2 !important;
-        }
         .title-section p {
             color: #4b5563;
             font-size: 0.8rem;
             margin-top: 4px;
-        }
-        body[data-theme="black"] .title-section p,
-        body[data-theme="ocean"] .title-section p,
-        body[data-theme="midnight"] .title-section p,
-        body[data-theme="forest"] .title-section p,
-        body[data-theme="sakura"] .title-section p {
-            color: #cbd5e1 !important;
         }
         .action-buttons {
             display: flex;
@@ -489,11 +452,6 @@
             transition: 0.1s;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
             color: #1f2d3d;
-        }
-        body[data-theme="black"] .admin-btn,
-        body[data-theme="black"] .palette-btn {
-            background: rgba(30, 30, 35, 0.8);
-            color: #f5f0e0;
         }
         .admin-btn:active,
         .palette-btn:active {
@@ -527,9 +485,6 @@
         .indicator-dot.default {
             background: #9ca3af;
         }
-        body[data-theme="black"] .data-source-indicator {
-            background: rgba(0, 0, 0, 0.7);
-        }
         .search-bar {
             display: flex;
             gap: 12px;
@@ -547,16 +502,12 @@
             font-size: 0.95rem;
             color: #1f2937;
             transition: 0.2s;
+            border-radius: var(--card-radius);
         }
         .search-box:focus {
             outline: none;
             border-color: var(--theme-accent);
             background: rgba(255, 255, 255, 0.6);
-        }
-        body[data-theme="black"] .search-box {
-            background: rgba(35, 42, 56, 0.6);
-            color: #f5f0e0;
-            border-color: rgba(255, 255, 255, 0.3);
         }
         .view-toggle-btn,
         .sort-select {
@@ -571,11 +522,7 @@
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
             color: #1f2d3d;
             white-space: nowrap;
-        }
-        body[data-theme="black"] .view-toggle-btn,
-        body[data-theme="black"] .sort-select {
-            background: rgba(30, 30, 35, 0.8);
-            color: #f5f0e0;
+            border-radius: var(--card-radius);
         }
         .view-toggle-btn:active,
         .sort-select:active {
@@ -607,6 +554,7 @@
             gap: 18px;
             box-shadow: 0 20px 35px rgba(0, 0, 0, 0.4);
             color: #eef2ff;
+            border-radius: var(--card-radius);
         }
         .palette-panel.show {
             display: flex;
@@ -633,45 +581,6 @@
             transform: scale(1.05);
             border-color: white;
         }
-        .slider-container {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-        .slider-container label {
-            font-size: 0.75rem;
-            color: #ddd;
-            display: flex;
-            justify-content: space-between;
-        }
-        input[type="range"] {
-            width: 100%;
-            cursor: pointer;
-        }
-        .file-upload-area {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            flex-wrap: wrap;
-            margin-top: 6px;
-        }
-        .upload-btn {
-            background: rgba(255, 255, 240, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            padding: 6px 12px;
-            border-radius: 40px;
-            font-size: 0.7rem;
-            cursor: pointer;
-            color: #eee;
-        }
-        .reset-bg {
-            background: rgba(255, 80, 80, 0.3);
-        }
-        .hint-text {
-            font-size: 0.7rem;
-            color: #aaa;
-            text-align: right;
-        }
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
@@ -691,30 +600,6 @@
             padding: 12px 20px;
             flex-wrap: wrap;
         }
-        .cards-grid.list-view .card .card-title {
-            min-width: 200px;
-            margin-bottom: 0;
-        }
-        .cards-grid.list-view .card .card-meta {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 8px;
-            margin-top: 0;
-            margin-bottom: 0;
-            width: auto;
-        }
-        .cards-grid.list-view .card .card-description {
-            margin-bottom: 0;
-            flex: 2;
-            min-width: 180px;
-        }
-        .cards-grid.list-view .card .card-footer {
-            margin-top: 0;
-            border-top: none;
-            padding-top: 0;
-            min-width: 140px;
-        }
         .card {
             background: rgba(255, 255, 255, calc(var(--glass-opacity) - 0.05));
             backdrop-filter: blur(var(--blur-strength));
@@ -729,24 +614,13 @@
             will-change: transform;
             backface-visibility: hidden;
             transform: translateZ(0);
+            border-radius: var(--card-radius);
         }
         .card:hover {
             transform: translateY(-4px);
             border-color: var(--theme-accent);
             background: rgba(255, 255, 255, calc(var(--glass-opacity) + 0.1));
             box-shadow: 0 20px 30px rgba(0, 0, 0, 0.12);
-        }
-        body[data-theme="black"] .card,
-        body[data-theme="ocean"] .card,
-        body[data-theme="midnight"] .card {
-            background: rgba(10, 14, 23, calc(var(--glass-opacity) + 0.2));
-            border-color: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
-        }
-        body[data-theme="black"] .card:hover,
-        body[data-theme="ocean"] .card:hover,
-        body[data-theme="midnight"] .card:hover {
-            background: rgba(30, 40, 55, 0.75);
         }
         .card-actions {
             position: absolute;
@@ -784,156 +658,6 @@
         .delete-btn:hover {
             background: #ef4444;
         }
-        body[data-theme="black"] .edit-btn,
-        body[data-theme="black"] .delete-btn {
-            background: rgba(30, 30, 40, 0.9);
-        }
-        .admin-toolbar {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            background: rgba(255, 255, 240, 0.2);
-            backdrop-filter: blur(12px);
-            padding: 12px 20px;
-            border-radius: 60px;
-        }
-        .admin-toolbar button {
-            background: var(--theme-accent);
-            border: none;
-            padding: 6px 16px;
-            border-radius: 30px;
-            color: white;
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(8px);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-        .modal.active {
-            display: flex;
-        }
-        .modal-content {
-            background: rgba(30, 30, 40, 0.95);
-            backdrop-filter: blur(20px);
-            width: 500px;
-            max-width: 90%;
-            padding: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: #eee;
-            border-radius: 20px;
-        }
-        .modal-content h3 {
-            margin-bottom: 16px;
-        }
-        .modal-content input,
-        .modal-content textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 12px;
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            border-radius: 16px;
-            color: #fff;
-            font-size: 0.9rem;
-        }
-        .modal-content textarea {
-            min-height: 80px;
-            resize: vertical;
-        }
-        .type-selector {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 16px;
-            padding: 8px 0;
-            flex-wrap: wrap;
-        }
-        .type-selector label {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            cursor: pointer;
-            padding: 4px 12px;
-            border-radius: 30px;
-            background: rgba(255, 255, 255, 0.1);
-            transition: 0.1s;
-            font-size: 0.8rem;
-        }
-        .type-selector label:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-        .type-selector input {
-            margin: 0;
-            width: auto;
-            margin-right: 4px;
-        }
-        .type-content-area {
-            margin-bottom: 16px;
-        }
-        .quick-tags {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 12px;
-            flex-wrap: wrap;
-        }
-        .quick-tag-btn {
-            background: rgba(255, 255, 240, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            padding: 4px 12px;
-            border-radius: 30px;
-            font-size: 0.75rem;
-            cursor: pointer;
-            transition: 0.1s;
-            color: #eee;
-        }
-        .quick-tag-btn:hover {
-            background: rgba(255, 255, 240, 0.6);
-            transform: scale(0.96);
-        }
-        .modal-buttons {
-            display: flex;
-            justify-content: flex-end;
-            gap: 12px;
-            margin-top: 16px;
-        }
-        .modal-buttons button {
-            padding: 8px 20px;
-            border-radius: 40px;
-            border: none;
-            cursor: pointer;
-        }
-        .save-btn {
-            background: #10b981;
-            color: white;
-        }
-        .cancel-btn {
-            background: #6b7280;
-            color: white;
-        }
-        .dynamic-tag-area {
-            margin-bottom: 12px;
-        }
-        .dynamic-tag-area .title {
-            font-size: 0.7rem;
-            color: #aaa;
-            margin-bottom: 4px;
-        }
-        .dynamic-tag-area .tag-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 0;
-        }
         .card-title {
             font-size: var(--font-size-title);
             font-weight: 600;
@@ -948,9 +672,6 @@
             border-radius: 6px;
             background: rgba(255, 255, 255, 0.5);
             pointer-events: none;
-        }
-        .card-title span {
-            flex: 1;
         }
         .card-description {
             font-size: calc(var(--font-size-base) * 0.9);
@@ -1019,7 +740,8 @@
             border-radius: 20px;
             color: #4b5563;
         }
-        /* 深色主题强制文字颜色 */
+
+        /* 深色主题文字统一 */
         body[data-theme="black"] .card-title span,
         body[data-theme="black"] .badge,
         body[data-theme="black"] .version-info,
@@ -1064,7 +786,43 @@
         body[data-theme="sakura"] .stats span,
         body[data-theme="sakura"] .author,
         body[data-theme="sakura"] .data-source-badge,
-        body[data-theme="sakura"] .no-results {
+        body[data-theme="sakura"] .no-results,
+        body[data-theme="sunset"] .card-title span,
+        body[data-theme="sunset"] .badge,
+        body[data-theme="sunset"] .version-info,
+        body[data-theme="sunset"] .card-description,
+        body[data-theme="sunset"] .card-footer,
+        body[data-theme="sunset"] .stats span,
+        body[data-theme="sunset"] .author,
+        body[data-theme="sunset"] .data-source-badge,
+        body[data-theme="sunset"] .no-results,
+        body[data-theme="aurora"] .card-title span,
+        body[data-theme="aurora"] .badge,
+        body[data-theme="aurora"] .version-info,
+        body[data-theme="aurora"] .card-description,
+        body[data-theme="aurora"] .card-footer,
+        body[data-theme="aurora"] .stats span,
+        body[data-theme="aurora"] .author,
+        body[data-theme="aurora"] .data-source-badge,
+        body[data-theme="aurora"] .no-results,
+        body[data-theme="peach"] .card-title span,
+        body[data-theme="peach"] .badge,
+        body[data-theme="peach"] .version-info,
+        body[data-theme="peach"] .card-description,
+        body[data-theme="peach"] .card-footer,
+        body[data-theme="peach"] .stats span,
+        body[data-theme="peach"] .author,
+        body[data-theme="peach"] .data-source-badge,
+        body[data-theme="peach"] .no-results,
+        body[data-theme="mint"] .card-title span,
+        body[data-theme="mint"] .badge,
+        body[data-theme="mint"] .version-info,
+        body[data-theme="mint"] .card-description,
+        body[data-theme="mint"] .card-footer,
+        body[data-theme="mint"] .stats span,
+        body[data-theme="mint"] .author,
+        body[data-theme="mint"] .data-source-badge,
+        body[data-theme="mint"] .no-results {
             color: #f0e6d2 !important;
         }
         body[data-theme="black"] .badge,
@@ -1081,27 +839,127 @@
         body[data-theme="sakura"] .version-info {
             background: rgba(210, 220, 250, 0.25) !important;
         }
-        body[data-theme="black"] .card-title a:hover,
-        body[data-theme="ocean"] .card-title a:hover,
-        body[data-theme="midnight"] .card-title a:hover,
-        body[data-theme="forest"] .card-title a:hover,
-        body[data-theme="sakura"] .card-title a:hover {
-            color: var(--theme-accent) !important;
-            text-decoration: underline;
-        }
-        body[data-theme="black"] .no-results,
-        body[data-theme="ocean"] .no-results,
-        body[data-theme="midnight"] .no-results,
-        body[data-theme="forest"] .no-results,
-        body[data-theme="sakura"] .no-results {
-            background: rgba(0, 0, 0, 0.4);
-        }
         body[data-theme="black"] .data-source-badge,
         body[data-theme="ocean"] .data-source-badge,
         body[data-theme="midnight"] .data-source-badge,
         body[data-theme="forest"] .data-source-badge,
         body[data-theme="sakura"] .data-source-badge {
             background: rgba(0, 0, 0, 0.5);
+        }
+
+        .admin-toolbar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            background: rgba(255, 255, 240, 0.2);
+            backdrop-filter: blur(12px);
+            padding: 12px 20px;
+            border-radius: 60px;
+        }
+        .admin-toolbar button {
+            background: var(--theme-accent);
+            border: none;
+            padding: 6px 16px;
+            border-radius: 30px;
+            color: white;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal.active {
+            display: flex;
+        }
+        .modal-content {
+            background: rgba(30, 30, 40, 0.95);
+            backdrop-filter: blur(20px);
+            width: 500px;
+            max-width: 90%;
+            padding: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #eee;
+            border-radius: 20px;
+        }
+        .modal-content input,
+        .modal-content textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 16px;
+            color: #fff;
+            font-size: 0.9rem;
+        }
+        .modal-content textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        .type-selector {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding: 8px 0;
+            flex-wrap: wrap;
+        }
+        .type-selector label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            padding: 4px 12px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .quick-tags {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        .quick-tag-btn {
+            background: rgba(255, 255, 240, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            color: #eee;
+        }
+        .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .save-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 40px;
+            cursor: pointer;
+        }
+        .cancel-btn {
+            background: #6b7280;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 40px;
+            cursor: pointer;
         }
         .layout-panel {
             position: fixed;
@@ -1126,7 +984,6 @@
             font-size: 0.9rem;
             font-weight: 600;
             color: #eee;
-            margin-bottom: 8px;
         }
         .layout-panel .slider-item {
             display: flex;
@@ -1152,6 +1009,7 @@
         .layout-panel .export-btn {
             background: #10b981;
         }
+
         @media (max-width: 780px) {
             body {
                 padding: 16px;
@@ -1182,43 +1040,8 @@
                 flex: 1;
                 min-width: 120px;
             }
-            .group-btn {
-                flex: 1;
-                text-align: center;
-            }
             .tag-list {
                 grid-template-columns: repeat(2, 1fr);
-            }
-            .palette-panel {
-                width: 280px;
-                right: 0;
-                left: auto;
-                top: 65px;
-            }
-            .card-actions {
-                opacity: 1;
-                top: 8px;
-                right: 8px;
-            }
-            .cards-grid.list-view .card {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .search-bar {
-                flex-wrap: wrap;
-            }
-            .search-box {
-                width: 100%;
-            }
-            .card-meta {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 6px;
-            }
-            .layout-panel {
-                width: 280px;
-                right: 10px;
-                bottom: 10px;
             }
         }
     </style>
@@ -1230,11 +1053,9 @@
                 📁 分组导航
                 <button id="addGroupBtn" class="add-group-btn" style="display: none;">➕</button>
             </div>
-            <!-- 分组区域（独立滚动） -->
             <div class="groups-scroll-area">
                 <div class="group-buttons" id="groupButtonsContainer"></div>
             </div>
-            <!-- 标签区域：标题固定 + 列表独立滚动 -->
             <div class="tag-section">
                 <div class="tag-section-header">
                     <div class="tag-section-title">🏷️ 快捷标签</div>
@@ -1264,9 +1085,8 @@
                     <div><div class="section-title">🎨 纯色预设</div><div class="color-grid" id="solidColorGrid"></div></div>
                     <div><div class="section-title">🌈 渐变预设</div><div class="color-grid" id="gradientColorGrid"></div></div>
                     <div class="slider-container"><label>🔮 玻璃透明度 <span id="opacityValue">0.20</span></label><input type="range" id="opacitySlider" min="0.1" max="0.5" step="0.01" value="0.20"></div>
-                    <div class="slider-container"><label>🔄 渐变角度 <span id="angleValue">135°</span> <span style="font-weight: normal;">(仅渐变主题)</span></label><input type="range" id="angleSlider" min="0" max="360" step="1" value="135"></div>
-                    <div><div class="section-title">🖼️ 自定义壁纸</div><div class="file-upload-area"><input type="file" id="bgUpload" accept="image/*" style="display: none;"><button class="upload-btn" id="uploadBgBtn">📁 选择图片</button><button class="upload-btn reset-bg" id="resetBgBtn">🗑️ 重置背景</button></div><div class="hint-text">支持 JPG/PNG，自动压缩存储</div></div>
-                    <div class="hint-text">点击色板换肤 | 滑块调节玻璃强度</div>
+                    <div class="slider-container"><label>🔄 渐变角度 <span id="angleValue">135°</span></label><input type="range" id="angleSlider" min="0" max="360" step="1" value="135"></div>
+                    <div><div class="section-title">🖼️ 自定义壁纸</div><div class="file-upload-area"><input type="file" id="bgUpload" accept="image/*" style="display: none;"><button class="upload-btn" id="uploadBgBtn">📁 选择图片</button><button class="upload-btn reset-bg" id="resetBgBtn">🗑️ 重置背景</button></div></div>
                 </div>
             </div>
 
@@ -1319,7 +1139,7 @@
     <div id="mindmapModal" class="modal">
         <div class="modal-content" style="width: 90%; max-width: 900px; height: 80vh; display: flex; flex-direction: column;">
             <h3 id="mindmapTitle">思维导图</h3>
-            <textarea id="mindmapEditor" placeholder="输入 Markdown 大纲，例如：&#10;# 中心主题&#10;## 分支1&#10;### 子分支" style="width: 100%; height: 200px; font-family: monospace; display: none;"></textarea>
+            <textarea id="mindmapEditor" placeholder="输入 Markdown 大纲" style="width: 100%; height: 200px; font-family: monospace; display: none;"></textarea>
             <div id="mindmapContainer" style="flex:1; min-height: 300px;"></div>
             <div class="modal-buttons">
                 <button id="mindmapCancel" class="cancel-btn">关闭</button>
@@ -1370,32 +1190,18 @@
 
     <script>
         (function() {
-            // ========== 默认数据 ==========
+            // 默认数据
             const DEFAULT_GROUPS_DATA = [
                 { groupName: "🎮 Minecraft 模组", items: [
-                    { title: "Fabric API", url: "https://modrinth.com/mod/fabric-api",
-                        description: "轻量级且模块化的API，提供通用钩子和互操作性。", author: "Modmuss50",
-                        tags: ["Fabric", "库"], stats: { downloads: "162M", updated: "4天前" },
-                        version: "0.16.5", type: "link", textContent: "", mindmap: "" },
-                    { title: "Sodium (钠)", url: "https://modrinth.com/mod/sodium",
-                        description: "最快渲染优化模组。", author: "CaffeineMC",
-                        tags: ["Fabric", "NeoForge", "优化"], stats: { downloads: "147M",
-                            updated: "55分钟前" }, version: "0.5.8", type: "link", textContent: "",
-                    mindmap: "" },
-                    { title: "Iris Shaders", url: "https://modrinth.com/mod/iris",
-                        description: "现代光影加载器。", author: "coderbot",
-                        tags: ["Fabric", "NeoForge", "视觉"], stats: { downloads: "115M", updated: "3周前" },
-                        version: "1.7.0", type: "link", textContent: "", mindmap: "" }
+                    { title: "Fabric API", url: "https://modrinth.com/mod/fabric-api", description: "轻量级且模块化的API，提供通用钩子和互操作性。", author: "Modmuss50", tags: ["Fabric", "库"], stats: { downloads: "162M", updated: "4天前" }, version: "0.16.5", type: "link", textContent: "", mindmap: "" },
+                    { title: "Sodium (钠)", url: "https://modrinth.com/mod/sodium", description: "最快渲染优化模组。", author: "CaffeineMC", tags: ["Fabric", "NeoForge", "优化"], stats: { downloads: "147M", updated: "55分钟前" }, version: "0.5.8", type: "link", textContent: "", mindmap: "" },
+                    { title: "Iris Shaders", url: "https://modrinth.com/mod/iris", description: "现代光影加载器。", author: "coderbot", tags: ["Fabric", "NeoForge", "视觉"], stats: { downloads: "115M", updated: "3周前" }, version: "1.7.0", type: "link", textContent: "", mindmap: "" }
                 ] },
                 { groupName: "🌐 常用开发网站", items: [
-                    { title: "GitHub", url: "https://github.com", description: "全球开发者平台。", author: "GitHub",
-                        tags: ["开发"], stats: { downloads: "—", updated: "在线" }, type: "link",
-                        textContent: "", mindmap: "" }
+                    { title: "GitHub", url: "https://github.com", description: "全球开发者平台。", author: "GitHub", tags: ["开发"], stats: { downloads: "—", updated: "在线" }, type: "link", textContent: "", mindmap: "" }
                 ] },
                 { groupName: "📺 视频&学习", items: [
-                    { title: "哔哩哔哩", url: "https://www.bilibili.com", description: "中文弹幕视频网站。",
-                        author: "Bilibili", tags: ["视频"], stats: { downloads: "—", updated: "每日更新" },
-                        type: "link", textContent: "", mindmap: "" }
+                    { title: "哔哩哔哩", url: "https://www.bilibili.com", description: "中文弹幕视频网站。", author: "Bilibili", tags: ["视频"], stats: { downloads: "—", updated: "每日更新" }, type: "link", textContent: "", mindmap: "" }
                 ] }
             ];
 
@@ -1461,7 +1267,6 @@
             const typeRadios = document.querySelectorAll('input[name="cardType"]');
             const sidebarContainer = document.getElementById('sidebarContainer');
 
-            // 辅助函数
             function normalizeTags(tags) {
                 if (!tags) return [];
                 if (Array.isArray(tags)) return tags;
@@ -1472,15 +1277,8 @@
                 return [];
             }
 
-            function escapeHtml(s) {
-                if (!s) return '';
-                return s.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]);
-            }
-
-            function getFavicon(url) {
-                return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(url)}`;
-            }
-
+            function escapeHtml(s) { if(!s) return ''; return s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+            function getFavicon(url) { return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(url)}`; }
             function getCurrentTimeString() {
                 const now = new Date();
                 return `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
@@ -1504,14 +1302,12 @@
                 if (!tagListContainer) return;
                 const tags = extractAllTags();
                 if (tags.length === 0) {
-                    tagListContainer.innerHTML =
-                        '<div style="font-size:0.7rem; color:#aaa;">暂无标签</div>';
+                    tagListContainer.innerHTML = '<div style="font-size:0.7rem; color:#aaa;">暂无标签</div>';
                     if (clearTagFilterBtn) clearTagFilterBtn.style.display = 'none';
                     return;
                 }
                 const fixedOrder = ['Fabric', 'Forge', 'NeoForge'];
-                let fixedTags = [],
-                    otherTags = [];
+                let fixedTags = [], otherTags = [];
                 for (const [tag, count] of tags) {
                     if (fixedOrder.includes(tag)) fixedTags.push([tag, count]);
                     else otherTags.push([tag, count]);
@@ -1522,22 +1318,15 @@
                 let html = '';
                 for (const [tag, count] of sortedTags) {
                     const activeClass = (currentTagFilter === tag) ? 'active' : '';
-                    html +=
-                        `<button class="tag-btn ${activeClass}" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)} (${count})</button>`;
+                    html += `<button class="tag-btn ${activeClass}" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)} (${count})</button>`;
                 }
                 tagListContainer.innerHTML = html;
-                if (clearTagFilterBtn) clearTagFilterBtn.style.display = currentTagFilter ? 'inline-flex' :
-                    'none';
+                if (clearTagFilterBtn) clearTagFilterBtn.style.display = currentTagFilter ? 'inline-flex' : 'none';
                 document.querySelectorAll('.tag-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
+                    btn.addEventListener('click', () => {
                         const tag = btn.getAttribute('data-tag');
                         if (currentTagFilter === tag) clearTagFilter();
-                        else {
-                            currentTagFilter = tag;
-                            renderTagList();
-                            renderCards();
-                            renderGroupButtons();
-                        }
+                        else { currentTagFilter = tag; renderTagList(); renderCards(); renderGroupButtons(); }
                     });
                 });
             }
@@ -1555,35 +1344,27 @@
                 const fixed = ['Fabric', 'Forge', 'NeoForge'];
                 const otherTags = allTags.filter(t => !fixed.includes(t));
                 if (otherTags.length === 0) {
-                    dynamicTagList.innerHTML =
-                        '<div style="font-size:0.7rem; color:#aaa;">暂无其他标签</div>';
+                    dynamicTagList.innerHTML = '<div style="font-size:0.7rem; color:#aaa;">暂无其他标签</div>';
                     return;
                 }
                 let html = '';
                 otherTags.forEach(tag => {
-                    html +=
-                        `<button type="button" class="quick-tag-btn dynamic-tag" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`;
+                    html += `<button type="button" class="quick-tag-btn dynamic-tag" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`;
                 });
                 dynamicTagList.innerHTML = html;
                 document.querySelectorAll('.dynamic-tag').forEach(btn => {
-                    btn.removeEventListener('click', dynamicTagHandler);
-                    btn.addEventListener('click', dynamicTagHandler);
-                });
-            }
-
-            function dynamicTagHandler(e) {
-                const tag = e.currentTarget.getAttribute('data-tag');
-                if (tag && cardTagsInput) {
-                    let cur = cardTagsInput.value.trim();
-                    if (cur === "") cardTagsInput.value = tag;
-                    else {
-                        let arr = cur.split(',').map(s => s.trim());
-                        if (!arr.includes(tag)) {
-                            arr.push(tag);
-                            cardTagsInput.value = arr.join(', ');
+                    btn.onclick = () => {
+                        const tag = btn.getAttribute('data-tag');
+                        if (tag && cardTagsInput) {
+                            let cur = cardTagsInput.value.trim();
+                            if (cur === "") cardTagsInput.value = tag;
+                            else {
+                                let arr = cur.split(',').map(s => s.trim());
+                                if (!arr.includes(tag)) { arr.push(tag); cardTagsInput.value = arr.join(', '); }
+                            }
                         }
-                    }
-                }
+                    };
+                });
             }
 
             function updateDataSourceIndicator() {
@@ -1592,19 +1373,10 @@
                 const textSpan = document.getElementById('sourceText');
                 if (!container) return;
                 container.style.display = 'flex';
-                if (hasLocalChanges) {
-                    dot.className = 'indicator-dot local';
-                    textSpan.innerText = '本地草稿 (需导出)';
-                } else if (currentDataSource === 'cloud') {
-                    dot.className = 'indicator-dot cloud';
-                    textSpan.innerText = '云端同步';
-                } else if (currentDataSource === 'local') {
-                    dot.className = 'indicator-dot local';
-                    textSpan.innerText = '本地缓存';
-                } else {
-                    dot.className = 'indicator-dot default';
-                    textSpan.innerText = '默认数据';
-                }
+                if (hasLocalChanges) { dot.className = 'indicator-dot local'; textSpan.innerText = '本地草稿 (需导出)'; }
+                else if (currentDataSource === 'cloud') { dot.className = 'indicator-dot cloud'; textSpan.innerText = '云端同步'; }
+                else if (currentDataSource === 'local') { dot.className = 'indicator-dot local'; textSpan.innerText = '本地缓存'; }
+                else { dot.className = 'indicator-dot default'; textSpan.innerText = '默认数据'; }
             }
 
             function saveDataToStorage() {
@@ -1623,48 +1395,24 @@
                     if (stored) {
                         try {
                             const parsed = JSON.parse(stored);
-                            if (parsed && Array.isArray(parsed)) {
-                                groupsData = parsed;
-                                currentDataSource = 'local';
-                                hasLocalChanges = true;
-                                updateDataSourceIndicator();
-                                renderAll();
-                                return;
-                            }
-                        } catch (e) {}
+                            if (parsed && Array.isArray(parsed)) { groupsData = parsed; currentDataSource = 'local'; hasLocalChanges = true; updateDataSourceIndicator(); renderAll(); return; }
+                        } catch(e) {}
                     }
                     groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
-                    currentDataSource = 'default';
-                    hasLocalChanges = false;
-                    updateDataSourceIndicator();
-                    renderAll();
-                    return;
+                    currentDataSource = 'default'; hasLocalChanges = false; updateDataSourceIndicator(); renderAll(); return;
                 }
                 let cloudLoaded = false;
                 try {
                     const res = await fetch('data.json?v=' + Date.now());
                     if (res.ok) {
                         const remote = await res.json();
-                        if (remote && Array.isArray(remote)) {
-                            groupsData = remote;
-                            currentDataSource = 'cloud';
-                            hasLocalChanges = false;
-                            localStorage.setItem('editable_groups_data', JSON.stringify(groupsData));
-                            cloudLoaded = true;
-                        }
+                        if (remote && Array.isArray(remote)) { groupsData = remote; currentDataSource = 'cloud'; hasLocalChanges = false; localStorage.setItem('editable_groups_data', JSON.stringify(groupsData)); cloudLoaded = true; }
                     }
-                } catch (e) {}
+                } catch(e) {}
                 if (!cloudLoaded) {
                     const stored = localStorage.getItem('editable_groups_data');
-                    if (stored) {
-                        try { groupsData = JSON.parse(stored);
-                            currentDataSource = 'local';
-                            hasLocalChanges = false; } catch (e) {}
-                    } else {
-                        groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
-                        currentDataSource = 'default';
-                        hasLocalChanges = false;
-                    }
+                    if (stored) { try { groupsData = JSON.parse(stored); currentDataSource = 'local'; hasLocalChanges = false; } catch(e) {} }
+                    else { groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA)); currentDataSource = 'default'; hasLocalChanges = false; }
                 }
                 updateDataSourceIndicator();
                 renderAll();
@@ -1673,36 +1421,25 @@
             function resetToDefault() {
                 if (confirm('重置所有数据将丢失当前本地修改，确定吗？')) {
                     groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
-                    saveDataToStorage();
-                    currentDataSource = 'default';
-                    hasLocalChanges = false;
-                    updateDataSourceIndicator();
-                    currentGroupIndex = 0;
-                    currentKeyword = '';
-                    if (searchInput) searchInput.value = '';
-                    currentTagFilter = null;
-                    renderAll();
-                    alert('已重置为默认数据');
+                    saveDataToStorage(); currentDataSource = 'default'; hasLocalChanges = false;
+                    updateDataSourceIndicator(); currentGroupIndex = 0; currentKeyword = '';
+                    if (searchInput) searchInput.value = ''; currentTagFilter = null; renderAll();
                 }
             }
 
             function exportData() {
                 const dataStr = JSON.stringify(groupsData, null, 2);
-                const blob = new Blob([dataStr], { type: 'application/json' });
+                const blob = new Blob([dataStr], {type: 'application/json'});
                 const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'card_data_backup.json';
-                a.click();
+                const a = document.createElement('a'); a.href = url; a.download = 'card_data_backup.json'; a.click();
                 URL.revokeObjectURL(url);
-                alert('数据已导出');
             }
 
             function addNewGroup() {
                 let newName = prompt('请输入新分组名称：');
                 if (!newName) return;
                 newName = newName.trim();
-                if (newName === "") { alert('名称不能为空'); return; }
+                if (newName === "") return;
                 if (groupsData.some(g => g.groupName === newName)) { alert('分组已存在'); return; }
                 groupsData.push({ groupName: newName, items: [] });
                 saveDataToStorage();
@@ -1711,19 +1448,12 @@
                 renderAll();
             }
 
-            // 删除分组
             function deleteGroup(groupIdx) {
-                if (groupsData.length <= 1) {
-                    alert('至少需要保留一个分组');
-                    return;
-                }
-                const groupName = groupsData[groupIdx].groupName;
-                if (confirm(`确定删除分组「${groupName}」及其所有卡片吗？此操作不可撤销。`)) {
+                if (groupsData.length <= 1) { alert('至少需要保留一个分组'); return; }
+                if (confirm(`确定删除分组「${groupsData[groupIdx].groupName}」及其所有卡片吗？`)) {
                     groupsData.splice(groupIdx, 1);
                     saveDataToStorage();
-                    if (currentGroupIndex >= groupsData.length) {
-                        currentGroupIndex = groupsData.length - 1;
-                    }
+                    if (currentGroupIndex >= groupsData.length) currentGroupIndex = groupsData.length - 1;
                     if (currentGroupIndex < 0) currentGroupIndex = 0;
                     currentTagFilter = null;
                     renderAll();
@@ -1744,8 +1474,7 @@
                 if (cardTextContent) cardTextContent.value = card.textContent || '';
                 if (cardMindmapContent) cardMindmapContent.value = card.mindmap || '';
                 if (cardAuthorInput) cardAuthorInput.value = card.author || '';
-                const tagsForInput = (card.tags && Array.isArray(card.tags)) ? card.tags.join(', ') : (
-                    typeof card.tags === 'string' ? card.tags : '');
+                const tagsForInput = (card.tags && Array.isArray(card.tags)) ? card.tags.join(', ') : (typeof card.tags === 'string' ? card.tags : '');
                 if (cardTagsInput) cardTagsInput.value = tagsForInput;
                 if (cardVersionInput) cardVersionInput.value = card.version || '';
                 if (cardDownloadsInput) cardDownloadsInput.value = card.stats?.downloads || '';
@@ -1767,14 +1496,8 @@
                     author: cardAuthorInput ? cardAuthorInput.value.trim() : '',
                     tags: tagsArray,
                     version: cardVersionInput ? cardVersionInput.value.trim() || undefined : undefined,
-                    stats: {
-                        downloads: cardDownloadsInput ? cardDownloadsInput.value.trim() || '—' : '—',
-                        updated: getCurrentTimeString()
-                    },
-                    type: type,
-                    url: "",
-                    textContent: "",
-                    mindmap: ""
+                    stats: { downloads: cardDownloadsInput ? cardDownloadsInput.value.trim() || '—' : '—', updated: getCurrentTimeString() },
+                    type: type, url: "", textContent: "", mindmap: ""
                 };
                 if (type === 'link') {
                     newCard.url = cardUrlInput ? cardUrlInput.value.trim() : '';
@@ -1783,8 +1506,7 @@
                 } else if (type === 'text') {
                     newCard.textContent = cardTextContent ? cardTextContent.value.trim() : '';
                     if (!newCard.textContent) { alert('文本内容不能为空'); return; }
-                    if (!newCard.description) newCard.description = newCard.textContent.substring(0, 100) + (
-                        newCard.textContent.length > 100 ? '…' : '');
+                    if (!newCard.description) newCard.description = newCard.textContent.substring(0, 100) + (newCard.textContent.length > 100 ? '…' : '');
                 } else if (type === 'mindmap') {
                     newCard.mindmap = cardMindmapContent ? cardMindmapContent.value.trim() : '';
                     if (!newCard.mindmap) { alert('思维导图内容不能为空'); return; }
@@ -1799,22 +1521,16 @@
             }
 
             function deleteCard(groupIdx, cardIdx) {
-                if (confirm('确定删除？')) {
-                    groupsData[groupIdx].items.splice(cardIdx, 1);
-                    saveDataToStorage();
-                    renderAll();
-                }
+                if (confirm('确定删除？')) { groupsData[groupIdx].items.splice(cardIdx, 1); saveDataToStorage(); renderAll(); }
             }
 
-            function closeModal() { if (modal) modal.classList.remove('active');
-                editingCardInfo = null; }
+            function closeModal() { if (modal) modal.classList.remove('active'); editingCardInfo = null; }
 
             function openTextView(title, content) {
                 if (textModalTitle) textModalTitle.innerText = title;
                 if (textContentDisplay) textContentDisplay.innerHTML = escapeHtml(content).replace(/\n/g, '<br>');
                 if (textModal) textModal.classList.add('active');
             }
-
             function closeTextModal() { if (textModal) textModal.classList.remove('active'); }
 
             function openMindmap(groupIdx, cardIdx) {
@@ -1842,191 +1558,86 @@
                     if (!content) content = '# 思维导图\n请编辑内容';
                     if (!content.startsWith('#')) content = '# 根节点\n' + content;
                     const { Transformer } = window.markmap;
-                    const transformer = new Transformer();
-                    const { root } = transformer.transform(content);
+                    const { root } = new Transformer().transform(content);
                     const mm = markmap.Markmap.create(mindmapContainer, null, root);
                     if (window.markmap.Toolbar) {
                         const toolbar = new window.markmap.Toolbar();
                         toolbar.attach(mm);
-                        if (mindmapContainer.parentNode && !mindmapContainer.parentNode.querySelector(
-                                '.markmap-toolbar')) {
+                        if (mindmapContainer.parentNode && !mindmapContainer.parentNode.querySelector('.markmap-toolbar')) {
                             mindmapContainer.parentNode.appendChild(toolbar.render());
                         }
                     }
-                } catch (e) {
-                    mindmapContainer.innerHTML =
-                        '<div style="color:red; padding:20px;">渲染失败，检查格式</div>';
-                }
+                } catch(e) { mindmapContainer.innerHTML = '<div style="color:red; padding:20px;">渲染失败，检查格式</div>'; }
             }
 
             function saveMindmap() {
                 if (!currentMindmapCard || !isAdminMode) return;
                 const newContent = mindmapEditor ? mindmapEditor.value.trim() : '';
-                const { groupIdx, cardIdx } = currentMindmapCard;
-                groupsData[groupIdx].items[cardIdx].mindmap = newContent;
-                groupsData[groupIdx].items[cardIdx].stats.updated = getCurrentTimeString();
+                groupsData[currentMindmapCard.groupIdx].items[currentMindmapCard.cardIdx].mindmap = newContent;
+                groupsData[currentMindmapCard.groupIdx].items[currentMindmapCard.cardIdx].stats.updated = getCurrentTimeString();
                 saveDataToStorage();
                 renderMindmap(newContent);
-                alert('已保存');
             }
 
-            function closeMindmap() { if (mindmapModal) mindmapModal.classList.remove('active');
-                currentMindmapCard = null; }
+            function closeMindmap() { if (mindmapModal) mindmapModal.classList.remove('active'); currentMindmapCard = null; }
 
             function renderCard(item, groupIdx, cardIdx) {
-                const tagsArray = normalizeTags(item.tags);
-                const tagsHtml = tagsArray.map(t => `<span class="badge">${escapeHtml(t)}</span>`).join('');
-                const versionHtml = item.version ?
-                    `<div class="version-info">📌 ${escapeHtml(item.version)}</div>` : '';
-                const downloads = item.stats?.downloads || '';
-                const updated = item.stats?.updated || '';
-                let sourceBadge = '';
-                if (hasLocalChanges) sourceBadge = `<span class="data-source-badge">💾 本地草稿</span>`;
-                else if (currentDataSource === 'cloud') sourceBadge =
-                    `<span class="data-source-badge">☁️ 云端</span>`;
-                else sourceBadge = `<span class="data-source-badge">📄 默认</span>`;
-
-                const adminActions = isAdminMode ? `
-                <div class="card-actions">
-                    <button class="edit-btn" data-group="${groupIdx}" data-card="${cardIdx}">✏️</button>
-                    <button class="delete-btn" data-group="${groupIdx}" data-card="${cardIdx}">🗑️</button>
-                </div>
-            ` : '';
-                return `
-                <div class="card" data-group="${groupIdx}" data-card="${cardIdx}" data-type="${item.type}" data-url="${escapeHtml(item.url)}" data-title="${escapeHtml(item.title)}" data-content="${escapeHtml(item.textContent)}">
+                const tagsHtml = normalizeTags(item.tags).map(t => `<span class="badge">${escapeHtml(t)}</span>`).join('');
+                const versionHtml = item.version ? `<div class="version-info">📌 ${escapeHtml(item.version)}</div>` : '';
+                let sourceBadge = hasLocalChanges ? '💾 本地草稿' : (currentDataSource === 'cloud' ? '☁️ 云端' : '📄 默认');
+                const adminActions = isAdminMode ? `<div class="card-actions"><button class="edit-btn" data-group="${groupIdx}" data-card="${cardIdx}">✏️</button><button class="delete-btn" data-group="${groupIdx}" data-card="${cardIdx}">🗑️</button></div>` : '';
+                return `<div class="card" data-group="${groupIdx}" data-card="${cardIdx}" data-type="${item.type}" data-url="${escapeHtml(item.url)}" data-title="${escapeHtml(item.title)}" data-content="${escapeHtml(item.textContent)}">
                     ${adminActions}
-                    <div class="card-title">
-                        <img src="${getFavicon(item.type === 'link' ? item.url : '#')}" alt="icon" loading="lazy">
-                        <span>${escapeHtml(item.title)}</span>
-                    </div>
+                    <div class="card-title"><img src="${getFavicon(item.type==='link'?item.url:'#')}" alt="icon"><span>${escapeHtml(item.title)}</span></div>
                     <div class="card-description">${escapeHtml(item.description)}</div>
-                    <div class="card-meta">
-                        <div class="badge-group">${tagsHtml}</div>
-                        ${versionHtml}
-                        ${sourceBadge}
-                    </div>
-                    <div class="card-footer">
-                        <span>👤 ${escapeHtml(item.author)}</span>
-                        <div class="stats">
-                            ${downloads ? `<span>📥 ${downloads}</span>` : ''}
-                            ${updated ? `<span>🕒 ${updated}</span>` : ''}
-                        </div>
-                    </div>
-                </div>
-            `;
+                    <div class="card-meta"><div class="badge-group">${tagsHtml}</div>${versionHtml}<span class="data-source-badge">${sourceBadge}</span></div>
+                    <div class="card-footer"><span>👤 ${escapeHtml(item.author)}</span><div class="stats">${item.stats?.downloads ? `<span>📥 ${item.stats.downloads}</span>` : ''} ${item.stats?.updated ? `<span>🕒 ${item.stats.updated}</span>` : ''}</div></div>
+                </div>`;
             }
 
             function getDisplayItems() {
                 if (currentTagFilter) {
-                    const all = [];
-                    for (const group of groupsData) {
-                        for (const item of group.items) {
-                            if (normalizeTags(item.tags).includes(currentTagFilter)) all.push(item);
-                        }
-                    }
+                    const all = []; for (const group of groupsData) for (const item of group.items) if (normalizeTags(item.tags).includes(currentTagFilter)) all.push(item);
                     return all;
-                } else {
-                    return groupsData[currentGroupIndex]?.items || [];
                 }
+                return groupsData[currentGroupIndex]?.items || [];
             }
 
             function sortItems(items) {
                 const sorted = [...items];
-                if (currentSort === 'title-asc') {
-                    sorted.sort((a, b) => (a.title || '').localeCompare(b.title || '', 'zh'));
-                } else if (currentSort === 'date-desc') {
-                    sorted.sort((a, b) => {
-                        const da = a.stats?.updated || '',
-                            db = b.stats?.updated || '';
-                        if (!da && !db) return 0;
-                        if (!da) return 1;
-                        if (!db) return -1;
-                        return db.localeCompare(da);
-                    });
-                }
+                if (currentSort === 'title-asc') sorted.sort((a,b) => (a.title||'').localeCompare(b.title||'','zh'));
+                else if (currentSort === 'date-desc') sorted.sort((a,b) => (b.stats?.updated||'').localeCompare(a.stats?.updated||''));
                 return sorted;
             }
 
             function getFilteredAndSortedItems() {
                 let items = getDisplayItems();
                 const kw = currentKeyword.trim().toLowerCase();
-                if (kw) {
-                    items = items.filter(it =>
-                        it.title.toLowerCase().includes(kw) ||
-                        it.description.toLowerCase().includes(kw) ||
-                        it.author.toLowerCase().includes(kw) ||
-                        normalizeTags(it.tags).some(t => t.toLowerCase().includes(kw)) ||
-                        (it.version && it.version.toLowerCase().includes(kw)) ||
-                        (it.stats?.downloads && it.stats.downloads.toLowerCase().includes(kw)) ||
-                        (it.stats?.updated && it.stats.updated.toLowerCase().includes(kw))
-                    );
-                }
+                if (kw) items = items.filter(it => it.title.toLowerCase().includes(kw) || it.description.toLowerCase().includes(kw) || it.author.toLowerCase().includes(kw) || normalizeTags(it.tags).some(t => t.toLowerCase().includes(kw)) || (it.version&&it.version.toLowerCase().includes(kw)) || (it.stats?.downloads&&it.stats.downloads.toLowerCase().includes(kw)) || (it.stats?.updated&&it.stats.updated.toLowerCase().includes(kw)));
                 return sortItems(items);
-            }
-
-            function bindCardClickEvents() {
-                document.querySelectorAll('.card').forEach(card => {
-                    card.addEventListener('click', (e) => {
-                        if (e.target.classList.contains('edit-btn') || e.target.classList.contains(
-                                'delete-btn')) return;
-                        const type = card.getAttribute('data-type');
-                        const url = card.getAttribute('data-url');
-                        const title = card.getAttribute('data-title');
-                        const content = card.getAttribute('data-content');
-                        const groupIdx = parseInt(card.getAttribute('data-group'));
-                        const cardIdx = parseInt(card.getAttribute('data-card'));
-                        if (type === 'link' && url) window.open(url, '_blank');
-                        else if (type === 'text') openTextView(title, content);
-                        else if (type === 'mindmap' && !isNaN(groupIdx) && !isNaN(cardIdx))
-                            openMindmap(groupIdx, cardIdx);
-                    });
-                });
             }
 
             function renderCards() {
                 if (!cardsContainer) return;
                 const items = getFilteredAndSortedItems();
-                if (!items.length) {
-                    cardsContainer.innerHTML = `<div class="no-results">✨ 没有找到相关内容</div>`;
-                    return;
-                }
-                let html = '';
-                items.forEach(item => {
-                    const loc = getCardLocation(item);
-                    if (loc.groupIdx !== -1 && loc.cardIdx !== -1) html += renderCard(item, loc.groupIdx,
-                        loc.cardIdx);
-                });
+                if (!items.length) { cardsContainer.innerHTML = `<div class="no-results">✨ 没有找到相关内容</div>`; return; }
+                let html = ''; items.forEach(item => { const loc = getCardLocation(item); if(loc.groupIdx!==-1) html += renderCard(item, loc.groupIdx, loc.cardIdx); });
                 cardsContainer.innerHTML = html;
                 if (isAdminMode) {
-                    document.querySelectorAll('.edit-btn').forEach(btn => {
-                        btn.addEventListener('click', (e) => {
-                            e.stopPropagation();
-                            const g = parseInt(btn.dataset.group),
-                                c = parseInt(btn.dataset.card);
-                            openEditModal(g, c, groupsData[g].items[c]);
-                        });
-                    });
-                    document.querySelectorAll('.delete-btn').forEach(btn => {
-                        btn.addEventListener('click', (e) => {
-                            e.stopPropagation();
-                            const g = parseInt(btn.dataset.group),
-                                c = parseInt(btn.dataset.card);
-                            deleteCard(g, c);
-                        });
-                    });
+                    document.querySelectorAll('.edit-btn').forEach(btn => btn.onclick = (e) => { e.stopPropagation(); openEditModal(parseInt(btn.dataset.group), parseInt(btn.dataset.card), groupsData[btn.dataset.group].items[btn.dataset.card]); });
+                    document.querySelectorAll('.delete-btn').forEach(btn => btn.onclick = (e) => { e.stopPropagation(); deleteCard(parseInt(btn.dataset.group), parseInt(btn.dataset.card)); });
                 }
-                bindCardClickEvents();
-                if (isListView) cardsContainer.classList.add('list-view');
-                else cardsContainer.classList.remove('list-view');
+                document.querySelectorAll('.card').forEach(card => card.onclick = (e) => {
+                    if (e.target.classList.contains('edit-btn') || e.target.classList.contains('delete-btn')) return;
+                    const type = card.dataset.type, url = card.dataset.url, title = card.dataset.title, content = card.dataset.content, g=parseInt(card.dataset.group), c=parseInt(card.dataset.card);
+                    if(type==='link'&&url) window.open(url,'_blank'); else if(type==='text') openTextView(title,content); else if(type==='mindmap') openMindmap(g,c);
+                });
+                if (isListView) cardsContainer.classList.add('list-view'); else cardsContainer.classList.remove('list-view');
             }
 
             function getCardLocation(target) {
-                for (let g = 0; g < groupsData.length; g++) {
-                    for (let i = 0; i < groupsData[g].items.length; i++) {
-                        if (groupsData[g].items[i] === target) return { groupIdx: g, cardIdx: i };
-                    }
-                }
-                return { groupIdx: -1, cardIdx: -1 };
+                for(let g=0;g<groupsData.length;g++) for(let i=0;i<groupsData[g].items.length;i++) if(groupsData[g].items[i]===target) return {groupIdx:g,cardIdx:i};
+                return {groupIdx:-1,cardIdx:-1};
             }
 
             function renderGroupButtons() {
@@ -2034,561 +1645,185 @@
                 let html = '';
                 groupsData.forEach((g, idx) => {
                     const active = (idx === currentGroupIndex && !currentTagFilter) ? 'active' : '';
-                    html += `
-                <div class="group-btn-row">
-                    <button class="group-btn ${active}" data-idx="${idx}">${escapeHtml(g.groupName)}</button>
-                    <button class="group-delete-btn" data-idx="${idx}" title="删除分组">×</button>
-                </div>`;
+                    html += `<div class="group-btn-row"><button class="group-btn ${active}" data-idx="${idx}">${escapeHtml(g.groupName)}</button><button class="group-delete-btn" data-idx="${idx}">×</button></div>`;
                 });
                 groupContainer.innerHTML = html;
-                if (dynamicTitle) dynamicTitle.textContent = currentTagFilter ? `标签: ${currentTagFilter}` :
-                    groupsData[currentGroupIndex].groupName;
-
-                // 绑定分组按钮点击
-                document.querySelectorAll('.group-btn').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        const idx = parseInt(btn.dataset.idx);
-                        if (!isNaN(idx) && idx !== currentGroupIndex) {
-                            if (currentTagFilter) { currentTagFilter = null;
-                                renderTagList(); }
-                            currentGroupIndex = idx;
-                            currentKeyword = '';
-                            if (searchInput) searchInput.value = '';
-                            renderGroupButtons();
-                            renderCards();
-                        }
-                    });
+                if (dynamicTitle) dynamicTitle.textContent = currentTagFilter ? `标签: ${currentTagFilter}` : groupsData[currentGroupIndex].groupName;
+                document.querySelectorAll('.group-btn').forEach(btn => btn.onclick = () => {
+                    const idx = parseInt(btn.dataset.idx);
+                    if (!isNaN(idx) && idx !== currentGroupIndex) { if(currentTagFilter){currentTagFilter=null;renderTagList();} currentGroupIndex=idx; currentKeyword=''; if(searchInput)searchInput.value=''; renderGroupButtons(); renderCards(); }
                 });
-
-                // 绑定删除分组按钮
-                document.querySelectorAll('.group-delete-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        const idx = parseInt(btn.dataset.idx);
-                        if (!isNaN(idx)) deleteGroup(idx);
-                    });
-                });
-
-                // 根据管理员模式切换删除按钮可见性和侧边栏class
-                if (sidebarContainer) {
-                    if (isAdminMode) {
-                        sidebarContainer.classList.add('admin-mode');
-                    } else {
-                        sidebarContainer.classList.remove('admin-mode');
-                    }
-                }
+                document.querySelectorAll('.group-delete-btn').forEach(btn => btn.onclick = (e) => { e.stopPropagation(); deleteGroup(parseInt(btn.dataset.idx)); });
+                if (sidebarContainer) sidebarContainer.classList.toggle('admin-mode', isAdminMode);
             }
 
-            function renderAll() { renderGroupButtons();
-                renderCards();
-                renderTagList(); }
+            function renderAll() { renderGroupButtons(); renderCards(); renderTagList(); }
 
-            function toggleView() {
-                isListView = !isListView;
-                if (viewToggleBtn) viewToggleBtn.innerText = isListView ? '🗂️ 卡片视图' : '📋 列表视图';
-                localStorage.setItem('listViewPreference', isListView ? 'true' : 'false');
-                renderCards();
-            }
-
-            function changeSort() { currentSort = sortSelect ? sortSelect.value : 'title-asc';
-                renderCards(); }
+            function toggleView() { isListView=!isListView; viewToggleBtn.innerText=isListView?'🗂️ 卡片视图':'📋 列表视图'; localStorage.setItem('listViewPreference',isListView?'true':'false'); renderCards(); }
+            function changeSort() { currentSort=sortSelect.value; renderCards(); }
 
             // 布局控制
             function updateLayout() {
-                const radiusSlider = document.getElementById('radiusSlider');
-                const paddingSlider = document.getElementById('paddingSlider');
-                const gapSlider = document.getElementById('gapSlider');
-                const titleFontSlider = document.getElementById('titleFontSlider');
-                const baseFontSlider = document.getElementById('baseFontSlider');
-                const blurSlider = document.getElementById('blurSlider');
-                const metaGapSlider = document.getElementById('metaGapSlider');
-                if (!radiusSlider) return;
-                document.documentElement.style.setProperty('--card-radius', radiusSlider.value + 'px');
-                document.documentElement.style.setProperty('--card-padding', paddingSlider.value + 'px');
-                document.documentElement.style.setProperty('--card-gap', gapSlider.value + 'px');
-                document.documentElement.style.setProperty('--font-size-title', titleFontSlider.value + 'rem');
-                document.documentElement.style.setProperty('--font-size-base', baseFontSlider.value + 'rem');
-                document.documentElement.style.setProperty('--blur-strength', blurSlider.value + 'px');
-                document.documentElement.style.setProperty('--meta-gap', metaGapSlider.value + 'px');
-                const radiusVal = document.getElementById('radiusVal');
-                const paddingVal = document.getElementById('paddingVal');
-                const gapVal = document.getElementById('gapVal');
-                const titleFontVal = document.getElementById('titleFontVal');
-                const baseFontVal = document.getElementById('baseFontVal');
-                const blurVal = document.getElementById('blurVal');
-                const metaGapVal = document.getElementById('metaGapVal');
-                if (radiusVal) radiusVal.innerText = radiusSlider.value + 'px';
-                if (paddingVal) paddingVal.innerText = paddingSlider.value + 'px';
-                if (gapVal) gapVal.innerText = gapSlider.value + 'px';
-                if (titleFontVal) titleFontVal.innerText = titleFontSlider.value + 'rem';
-                if (baseFontVal) baseFontVal.innerText = baseFontSlider.value + 'rem';
-                if (blurVal) blurVal.innerText = blurSlider.value + 'px';
-                if (metaGapVal) metaGapVal.innerText = metaGapSlider.value + 'px';
+                document.documentElement.style.setProperty('--card-radius', document.getElementById('radiusSlider').value+'px');
+                document.documentElement.style.setProperty('--card-padding', document.getElementById('paddingSlider').value+'px');
+                document.documentElement.style.setProperty('--card-gap', document.getElementById('gapSlider').value+'px');
+                document.documentElement.style.setProperty('--font-size-title', document.getElementById('titleFontSlider').value+'rem');
+                document.documentElement.style.setProperty('--font-size-base', document.getElementById('baseFontSlider').value+'rem');
+                document.documentElement.style.setProperty('--blur-strength', document.getElementById('blurSlider').value+'px');
+                document.documentElement.style.setProperty('--meta-gap', document.getElementById('metaGapSlider').value+'px');
+                ['radius','padding','gap','titleFont','baseFont','blur','metaGap'].forEach((key,i)=>{
+                    const el = document.getElementById(key+'Val'); if(el) el.innerText = document.getElementById(key+'Slider').value + (['radius','padding','gap','blur','metaGap'].includes(key)?'px':'rem');
+                });
                 localStorage.setItem('layout_settings', JSON.stringify({
-                    radius: radiusSlider.value,
-                    padding: paddingSlider.value,
-                    gap: gapSlider.value,
-                    titleFont: titleFontSlider.value,
-                    baseFont: baseFontSlider.value,
-                    blur: blurSlider.value,
-                    metaGap: metaGapSlider.value
+                    radius: document.getElementById('radiusSlider').value,
+                    padding: document.getElementById('paddingSlider').value,
+                    gap: document.getElementById('gapSlider').value,
+                    titleFont: document.getElementById('titleFontSlider').value,
+                    baseFont: document.getElementById('baseFontSlider').value,
+                    blur: document.getElementById('blurSlider').value,
+                    metaGap: document.getElementById('metaGapSlider').value
                 }));
             }
 
-            async function loadRemoteLayoutSettings() {
-                try {
-                    const res = await fetch('layout_settings.json?v=' + Date.now());
-                    if (res.ok) {
-                        const settings = await res.json();
-                        const radiusSlider = document.getElementById('radiusSlider');
-                        const paddingSlider = document.getElementById('paddingSlider');
-                        const gapSlider = document.getElementById('gapSlider');
-                        const titleFontSlider = document.getElementById('titleFontSlider');
-                        const baseFontSlider = document.getElementById('baseFontSlider');
-                        const blurSlider = document.getElementById('blurSlider');
-                        const metaGapSlider = document.getElementById('metaGapSlider');
-                        if (radiusSlider && settings.radius) radiusSlider.value = settings.radius;
-                        if (paddingSlider && settings.padding) paddingSlider.value = settings.padding;
-                        if (gapSlider && settings.gap) gapSlider.value = settings.gap;
-                        if (titleFontSlider && settings.titleFont) titleFontSlider.value = settings.titleFont;
-                        if (baseFontSlider && settings.baseFont) baseFontSlider.value = settings.baseFont;
-                        if (blurSlider && settings.blur) blurSlider.value = settings.blur;
-                        if (metaGapSlider && settings.metaGap) metaGapSlider.value = settings.metaGap;
-                        updateLayout();
-                        localStorage.setItem('layout_settings', JSON.stringify(settings));
-                    }
-                } catch (e) {}
-            }
-
-            function loadLocalLayoutSettings() {
-                const saved = localStorage.getItem('layout_settings');
-                if (saved) {
-                    try {
-                        const settings = JSON.parse(saved);
-                        const radiusSlider = document.getElementById('radiusSlider');
-                        const paddingSlider = document.getElementById('paddingSlider');
-                        const gapSlider = document.getElementById('gapSlider');
-                        const titleFontSlider = document.getElementById('titleFontSlider');
-                        const baseFontSlider = document.getElementById('baseFontSlider');
-                        const blurSlider = document.getElementById('blurSlider');
-                        const metaGapSlider = document.getElementById('metaGapSlider');
-                        if (radiusSlider && settings.radius) radiusSlider.value = settings.radius;
-                        if (paddingSlider && settings.padding) paddingSlider.value = settings.padding;
-                        if (gapSlider && settings.gap) gapSlider.value = settings.gap;
-                        if (titleFontSlider && settings.titleFont) titleFontSlider.value = settings.titleFont;
-                        if (baseFontSlider && settings.baseFont) baseFontSlider.value = settings.baseFont;
-                        if (blurSlider && settings.blur) blurSlider.value = settings.blur;
-                        if (metaGapSlider && settings.metaGap) metaGapSlider.value = settings.metaGap;
-                        updateLayout();
-                    } catch (e) {}
-                } else {
-                    updateLayout();
-                }
-            }
-
             function initLayoutControls() {
-                const radiusSlider = document.getElementById('radiusSlider');
-                const paddingSlider = document.getElementById('paddingSlider');
-                const gapSlider = document.getElementById('gapSlider');
-                const titleFontSlider = document.getElementById('titleFontSlider');
-                const baseFontSlider = document.getElementById('baseFontSlider');
-                const blurSlider = document.getElementById('blurSlider');
-                const metaGapSlider = document.getElementById('metaGapSlider');
-                const resetBtn = document.getElementById('resetLayoutBtn');
-                const exportBtn = document.getElementById('exportLayoutBtn');
-                const importBtn = document.getElementById('importLayoutBtn');
-                if (!radiusSlider) return;
-                radiusSlider.addEventListener('input', updateLayout);
-                paddingSlider.addEventListener('input', updateLayout);
-                gapSlider.addEventListener('input', updateLayout);
-                titleFontSlider.addEventListener('input', updateLayout);
-                baseFontSlider.addEventListener('input', updateLayout);
-                blurSlider.addEventListener('input', updateLayout);
-                metaGapSlider.addEventListener('input', updateLayout);
-                if (resetBtn) resetBtn.addEventListener('click', () => {
-                    radiusSlider.value = 20;
-                    paddingSlider.value = 20;
-                    gapSlider.value = 28;
-                    titleFontSlider.value = 1.2;
-                    baseFontSlider.value = 0.95;
-                    blurSlider.value = 16;
-                    metaGapSlider.value = 8;
-                    updateLayout();
-                });
-                if (exportBtn) exportBtn.addEventListener('click', () => {
-                    const settings = {
-                        radius: radiusSlider.value,
-                        padding: paddingSlider.value,
-                        gap: gapSlider.value,
-                        titleFont: titleFontSlider.value,
-                        baseFont: baseFontSlider.value,
-                        blur: blurSlider.value,
-                        metaGap: metaGapSlider.value
-                    };
-                    const dataStr = JSON.stringify(settings, null, 2);
-                    const blob = new Blob([dataStr], { type: 'application/json' });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'layout_settings.json';
-                    a.click();
-                    URL.revokeObjectURL(url);
-                });
-                if (importBtn) importBtn.addEventListener('click', () => {
-                    const input = document.createElement('input');
-                    input.type = 'file';
-                    input.accept = 'application/json';
-                    input.onchange = (e) => {
-                        const file = e.target.files[0];
-                        if (!file) return;
+                document.querySelectorAll('#layoutPanel input[type=range]').forEach(slider => slider.addEventListener('input', updateLayout));
+                document.getElementById('resetLayoutBtn').onclick = () => { ['radius','padding','gap','titleFont','baseFont','blur','metaGap'].forEach(k => document.getElementById(k+'Slider').value = {radius:20,padding:20,gap:28,titleFont:1.2,baseFont:0.95,blur:16,metaGap:8}[k]); updateLayout(); };
+                document.getElementById('exportLayoutBtn').onclick = () => {
+                    const settings = JSON.parse(localStorage.getItem('layout_settings'));
+                    const blob = new Blob([JSON.stringify(settings,null,2)],{type:'application/json'});
+                    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download='layout_settings.json'; a.click();
+                };
+                document.getElementById('importLayoutBtn').onclick = () => {
+                    const input = document.createElement('input'); input.type='file'; input.accept='.json';
+                    input.onchange = e => {
                         const reader = new FileReader();
-                        reader.onload = (ev) => {
-                            try {
-                                const settings = JSON.parse(ev.target.result);
-                                radiusSlider.value = settings.radius;
-                                paddingSlider.value = settings.padding;
-                                gapSlider.value = settings.gap;
-                                titleFontSlider.value = settings.titleFont;
-                                baseFontSlider.value = settings.baseFont;
-                                blurSlider.value = settings.blur;
-                                metaGapSlider.value = settings.metaGap;
-                                updateLayout();
-                                alert('布局已导入');
-                            } catch (err) { alert('导入失败'); }
-                        };
-                        reader.readAsText(file);
+                        reader.onload = ev => { try{ const s=JSON.parse(ev.target.result); Object.keys(s).forEach(k=>{ const slider=document.getElementById(k+'Slider'); if(slider)slider.value=s[k]; }); updateLayout(); } catch(err){ alert('导入失败'); } };
+                        reader.readAsText(e.target.files[0]);
                     };
                     input.click();
-                });
+                };
             }
 
             function enableAdminMode() {
                 isAdminMode = true;
-                if (adminToolbar) adminToolbar.style.display = 'flex';
-                if (addGroupBtn) addGroupBtn.style.display = 'inline-flex';
-                if (layoutSettingsBtn) layoutSettingsBtn.style.display = 'inline-block';
-                if (sidebarContainer) sidebarContainer.classList.add('admin-mode');
-                renderCards();
-                renderGroupButtons();
+                adminToolbar.style.display = 'flex';
+                addGroupBtn.style.display = 'inline-flex';
+                layoutSettingsBtn.style.display = 'inline-block';
+                sidebarContainer.classList.add('admin-mode');
+                renderCards(); renderGroupButtons();
                 sessionStorage.setItem('adminModeAuto', 'true');
             }
-
             function disableAdminMode() {
                 isAdminMode = false;
-                if (adminToolbar) adminToolbar.style.display = 'none';
-                if (addGroupBtn) addGroupBtn.style.display = 'none';
-                if (sidebarContainer) sidebarContainer.classList.remove('admin-mode');
-                renderCards();
-                renderGroupButtons();
+                adminToolbar.style.display = 'none';
+                addGroupBtn.style.display = 'none';
+                sidebarContainer.classList.remove('admin-mode');
+                renderCards(); renderGroupButtons();
                 sessionStorage.removeItem('adminModeAuto');
                 if (confirm('退出编辑模式，是否重新从云端加载最新数据？')) location.reload();
             }
 
             function checkAdminPassword() {
                 const pwd = prompt('管理员密码：');
-                if (pwd === 'admin123') enableAdminMode();
-                else alert('密码错误');
+                if (pwd === 'admin123') enableAdminMode(); else alert('密码错误');
             }
 
-            function addNewCard() {
-                openEditModal(currentGroupIndex, undefined, { title: '', description: '', url: '', author: '',
-                    tags: [], version: '', stats: { downloads: '—', updated: '' }, type: 'link',
-                    textContent: '', mindmap: '' });
+            // 主题控制
+            const GRADIENT_THEMES = ["sunset","aurora","ocean","sakura","forest","midnight","peach","mint"];
+            function setTheme(name) {
+                document.body.setAttribute('data-theme', name);
+                const accentMap = { white:'#5b6e8c',black:'#c0b7a6',red:'#c2675e',orange:'#d98c2b',yellow:'#c9a12b',green:'#4f7a5e',cyan:'#3f7a85',blue:'#4a6fa5',purple:'#8b6cb0',sunset:'#d96c6e',aurora:'#3b82f6',ocean:'#7c83b9',sakura:'#c45692',forest:'#5c8a4a',midnight:'#9c88ff',peach:'#d97846',mint:'#4a9e7c'};
+                document.body.style.setProperty('--theme-accent', accentMap[name] || '#5b6e8c');
+                document.documentElement.style.setProperty('--scrollbar-thumb', ['black','ocean','midnight'].includes(name) ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.18)');
+                localStorage.setItem('glass_custom_theme', name);
             }
-
-            function bindQuickTagButtons() {
-                document.querySelectorAll('.quick-tag-btn:not(.dynamic-tag)').forEach(btn => {
-                    btn.removeEventListener('click', quickTagHandler);
-                    btn.addEventListener('click', quickTagHandler);
-                });
-            }
-
-            function quickTagHandler(e) {
-                const tag = e.currentTarget.getAttribute('data-tag');
-                if (tag && cardTagsInput) {
-                    let cur = cardTagsInput.value.trim();
-                    if (cur === "") cardTagsInput.value = tag;
-                    else {
-                        let arr = cur.split(',').map(s => s.trim());
-                        if (!arr.includes(tag)) { arr.push(tag);
-                            cardTagsInput.value = arr.join(', '); }
-                    }
-                }
-            }
-
-            function onTypeChange() {
-                let type = 'link';
-                for (const radio of typeRadios) { if (radio.checked) { type = radio.value; break; } }
-                linkContentArea.style.display = type === 'link' ? 'block' : 'none';
-                textContentArea.style.display = type === 'text' ? 'block' : 'none';
-                mindmapContentArea.style.display = type === 'mindmap' ? 'block' : 'none';
-            }
-
-            // 事件绑定
-            if (layoutSettingsBtn && layoutPanel) layoutSettingsBtn.addEventListener('click', () => layoutPanel
-                .classList.toggle('show'));
-            if (clearTagFilterBtn) clearTagFilterBtn.addEventListener('click', clearTagFilter);
-            if (addGroupBtn) addGroupBtn.addEventListener('click', addNewGroup);
-            if (mindmapCancel) mindmapCancel.addEventListener('click', closeMindmap);
-            if (mindmapSave) mindmapSave.addEventListener('click', saveMindmap);
-            if (mindmapModal) mindmapModal.addEventListener('click', (e) => { if (e.target === mindmapModal)
-                    closeMindmap(); });
-            if (textModalCancel) textModalCancel.addEventListener('click', closeTextModal);
-            if (textModal) textModal.addEventListener('click', (e) => { if (e.target === textModal)
-                closeTextModal(); });
-            if (adminBtn) adminBtn.addEventListener('click', checkAdminPassword);
-            if (addCardBtn) addCardBtn.addEventListener('click', addNewCard);
-            if (resetDataBtn) resetDataBtn.addEventListener('click', resetToDefault);
-            if (exportDataBtn) exportDataBtn.addEventListener('click', exportData);
-            if (exitAdminBtn) exitAdminBtn.addEventListener('click', disableAdminMode);
-            if (modalCancel) modalCancel.addEventListener('click', closeModal);
-            if (modalSave) modalSave.addEventListener('click', saveCardFromModal);
-            if (viewToggleBtn) viewToggleBtn.addEventListener('click', toggleView);
-            if (sortSelect) sortSelect.addEventListener('change', changeSort);
-            if (searchInput) searchInput.addEventListener('input', (e) => { currentKeyword = e.target.value;
-                renderCards(); });
-            typeRadios.forEach(radio => radio.addEventListener('change', onTypeChange));
-
-            // 加载上次视图模式
-            const savedView = localStorage.getItem('listViewPreference');
-            if (savedView === 'true') {
-                isListView = true;
-                if (viewToggleBtn) viewToggleBtn.innerText = '🗂️ 卡片视图';
-            } else {
-                isListView = false;
-                if (viewToggleBtn) viewToggleBtn.innerText = '📋 列表视图';
-            }
-
-            // 主题与壁纸
-            const GRADIENT_THEMES = ["sunset", "aurora", "ocean", "sakura", "forest", "midnight", "peach",
-            "mint"];
-
-            function setTheme(themeName) {
-                document.body.setAttribute('data-theme', themeName);
-                const accentMap = { white: '#5b6e8c', black: '#c0b7a6', red: '#c2675e', orange: '#d98c2b',
-                    yellow: '#c9a12b', green: '#4f7a5e', cyan: '#3f7a85', blue: '#4a6fa5',
-                    purple: '#8b6cb0', sunset: '#d96c6e', aurora: '#3b82f6', ocean: '#7c83b9',
-                    sakura: '#c45692', forest: '#5c8a4a', midnight: '#9c88ff', peach: '#d97846',
-                    mint: '#4a9e7c' };
-                document.body.style.setProperty('--theme-accent', accentMap[themeName] || '#5b6e8c');
-                // 更新滚动条颜色
-                if (['black', 'ocean', 'midnight'].includes(themeName)) {
-                    document.documentElement.style.setProperty('--scrollbar-thumb',
-                        'rgba(255,255,255,0.3)');
-                } else {
-                    document.documentElement.style.setProperty('--scrollbar-thumb', 'rgba(0,0,0,0.18)');
-                }
-                localStorage.setItem('glass_custom_theme', themeName);
-                if (GRADIENT_THEMES.includes(themeName)) {
-                    localStorage.removeItem('custom_bg_image');
-                    localStorage.removeItem('custom_bg_color');
-                    document.body.classList.remove('custom-bg');
-                }
-            }
-
-            function isDarkColor(hex) {
-                let r = parseInt(hex.slice(1, 3), 16),
-                    g = parseInt(hex.slice(3, 5), 16),
-                    b = parseInt(hex.slice(5, 7), 16);
-                return (r * 0.299 + g * 0.587 + b * 0.114) < 128;
-            }
-
-            function compressImage(file, maxWidth = 1920, quality = 0.8) {
-                return new Promise((resolve, reject) => {
-                    const reader = new FileReader();
-                    reader.readAsDataURL(file);
-                    reader.onload = (e) => {
-                        const img = new Image();
-                        img.src = e.target.result;
-                        img.onload = () => {
-                            let w = img.width,
-                                h = img.height;
-                            if (w > maxWidth) { h = (h * maxWidth) / w;
-                                w = maxWidth; }
-                            const canvas = document.createElement('canvas');
-                            canvas.width = w;
-                            canvas.height = h;
-                            const ctx = canvas.getContext('2d');
-                            ctx.drawImage(img, 0, 0, w, h);
-                            resolve(canvas.toDataURL('image/jpeg', quality));
-                        };
-                        img.onerror = reject;
-                    };
-                    reader.onerror = reject;
-                });
-            }
-            async function saveAndApplyWallpaper(file) {
-                try {
-                    const compressed = await compressImage(file, 1920, 0.8);
-                    const size = Math.ceil(compressed.length * 0.75);
-                    if (size > 4.5 * 1024 * 1024) { alert('图片过大'); return false; }
-                    setTheme('white');
-                    localStorage.setItem('custom_bg_image', compressed);
-                    document.body.style.backgroundImage = `url(${compressed})`;
-                    document.body.style.backgroundSize = 'cover';
-                    document.body.style.backgroundPosition = 'center';
-                    document.body.style.backgroundAttachment = 'fixed';
-                    document.body.classList.add('custom-bg');
-                    localStorage.removeItem('custom_bg_color');
-                    localStorage.removeItem('glass_custom_theme');
-                    alert('壁纸设置成功');
-                    return true;
-                } catch (e) { alert('失败'); return false; }
-            }
-
-            function initBackground() {
-                const savedImg = localStorage.getItem('custom_bg_image');
-                if (savedImg && savedImg.startsWith('data:image')) {
-                    document.body.style.backgroundImage = `url(${savedImg})`;
-                    document.body.style.backgroundSize = 'cover';
-                    document.body.style.backgroundPosition = 'center';
-                    document.body.style.backgroundAttachment = 'fixed';
-                    document.body.classList.add('custom-bg');
-                    return;
-                }
-                const savedColor = localStorage.getItem('custom_bg_color');
-                if (savedColor) {
-                    document.body.style.background = savedColor;
-                    setTheme(isDarkColor(savedColor) ? 'black' : 'white');
-                    return;
-                }
-                const savedTheme = localStorage.getItem('glass_custom_theme');
-                if (savedTheme && GRADIENT_THEMES.includes(savedTheme)) setTheme(savedTheme);
-                else setTheme('white');
-            }
-            const solidPresets = [
-                { color: "#eef2f8", theme: "white" }, { color: "#12151c", theme: "black" },
-                { color: "#fce9e6", theme: "white" }, { color: "#fef0e0", theme: "white" },
-                { color: "#fef9e0", theme: "white" }, { color: "#eaf4ea", theme: "white" },
-                { color: "#e0f2f5", theme: "white" }, { color: "#e3edfa", theme: "white" },
-                { color: "#f0e9fc", theme: "white" }, { color: "#ffe0f0", theme: "white" },
-                { color: "#d9e6f2", theme: "white" }, { color: "#f5e6d3", theme: "white" }
-            ];
-            const gradientPresets = [
-                "linear-gradient(135deg, #ff9a9e, #fecfef)",
-                "linear-gradient(135deg, #a1c4fd, #c2e9fb)",
-                "linear-gradient(135deg, #2b5876, #4e4376)",
-                "linear-gradient(135deg, #fbc2eb, #a6c1ee)",
-                "linear-gradient(135deg, #b5d6a7, #9bbd8c)",
-                "linear-gradient(135deg, #1f1c2c, #2a2a4a)",
-                "linear-gradient(135deg, #ffe29a, #ffb7b2)",
-                "linear-gradient(135deg, #c7e9fb, #b6e0fe)"
-            ];
-            const gradientThemeNames = ["sunset", "aurora", "ocean", "sakura", "forest", "midnight", "peach",
-            "mint"];
 
             function buildPalette() {
                 const solidGrid = document.getElementById('solidColorGrid');
-                if (solidGrid) {
-                    solidGrid.innerHTML = '';
-                    solidPresets.forEach(preset => {
-                        const swatch = document.createElement('div');
-                        swatch.className = 'color-swatch';
-                        swatch.style.backgroundColor = preset.color;
-                        swatch.addEventListener('click', () => {
-                            localStorage.removeItem('custom_bg_image');
-                            document.body.classList.remove('custom-bg');
-                            document.body.style.background = preset.color;
-                            setTheme(isDarkColor(preset.color) ? 'black' : 'white');
-                            localStorage.setItem('custom_bg_color', preset.color);
-                        });
-                        solidGrid.appendChild(swatch);
-                    });
-                }
+                solidGrid.innerHTML = '';
+                [{color:"#eef2f8",theme:"white"},{color:"#12151c",theme:"black"},{color:"#fce9e6",theme:"white"},{color:"#fef0e0",theme:"white"},{color:"#fef9e0",theme:"white"},{color:"#eaf4ea",theme:"white"},{color:"#e0f2f5",theme:"white"},{color:"#e3edfa",theme:"white"},{color:"#f0e9fc",theme:"white"},{color:"#ffe0f0",theme:"white"},{color:"#d9e6f2",theme:"white"},{color:"#f5e6d3",theme:"white"}].forEach(p=>{
+                    const div = document.createElement('div'); div.className='color-swatch'; div.style.backgroundColor=p.color;
+                    div.onclick = () => { localStorage.removeItem('custom_bg_image'); document.body.classList.remove('custom-bg'); document.body.style.background=p.color; setTheme(p.theme); localStorage.setItem('custom_bg_color',p.color); };
+                    solidGrid.appendChild(div);
+                });
                 const gradGrid = document.getElementById('gradientColorGrid');
-                if (gradGrid) {
-                    gradGrid.innerHTML = '';
-                    gradientPresets.forEach((grad, idx) => {
-                        const swatch = document.createElement('div');
-                        swatch.className = 'color-swatch gradient-swatch';
-                        swatch.style.background = grad;
-                        swatch.addEventListener('click', () => {
-                            localStorage.removeItem('custom_bg_image');
-                            localStorage.removeItem('custom_bg_color');
-                            document.body.classList.remove('custom-bg');
-                            setTheme(gradientThemeNames[idx]);
-                            document.body.style.background = '';
-                        });
-                        gradGrid.appendChild(swatch);
-                    });
-                }
+                ["linear-gradient(135deg,#ff9a9e,#fecfef)","linear-gradient(135deg,#a1c4fd,#c2e9fb)","linear-gradient(135deg,#2b5876,#4e4376)","linear-gradient(135deg,#fbc2eb,#a6c1ee)","linear-gradient(135deg,#b5d6a7,#9bbd8c)","linear-gradient(135deg,#1f1c2c,#2a2a4a)","linear-gradient(135deg,#ffe29a,#ffb7b2)","linear-gradient(135deg,#c7e9fb,#b6e0fe)"].forEach((grad,i)=>{
+                    const div = document.createElement('div'); div.className='color-swatch'; div.style.background=grad;
+                    div.onclick = () => { localStorage.removeItem('custom_bg_image'); localStorage.removeItem('custom_bg_color'); document.body.classList.remove('custom-bg'); setTheme(GRADIENT_THEMES[i]); document.body.style.background=''; };
+                    gradGrid.appendChild(div);
+                });
             }
 
-            function updateOpacity(val) {
-                document.body.style.setProperty('--glass-opacity', val);
-                const opacityValueSpan = document.getElementById('opacityValue');
-                if (opacityValueSpan) opacityValueSpan.innerText = val;
-                localStorage.setItem('glass_opacity', val);
-            }
-
-            function updateAngle(val) {
-                document.body.style.setProperty('--gradient-angle', val + 'deg');
-                const angleValueSpan = document.getElementById('angleValue');
-                if (angleValueSpan) angleValueSpan.innerText = val + '°';
-                localStorage.setItem('gradient_angle', val);
-            }
-
-            function initControls() {
-                if (paletteBtn && palettePanel) {
-                    paletteBtn.addEventListener('click', (e) => { e.stopPropagation();
-                        palettePanel.classList.toggle('show'); });
-                    document.addEventListener('click', (e) => { if (!palettePanel.contains(e.target) && e
-                            .target !== paletteBtn) palettePanel.classList.remove('show'); });
+            // 初始化
+            async function start() {
+                await loadInitialData();
+                buildPalette();
+                // 加载本地布局
+                const savedLayout = localStorage.getItem('layout_settings');
+                if (savedLayout) {
+                    const s = JSON.parse(savedLayout);
+                    Object.keys(s).forEach(k => { const slider = document.getElementById(k+'Slider'); if(slider) slider.value = s[k]; });
+                    updateLayout();
                 }
-                const opacitySlider = document.getElementById('opacitySlider');
-                const angleSlider = document.getElementById('angleSlider');
-                if (opacitySlider) opacitySlider.addEventListener('input', (e) => updateOpacity(parseFloat(e
-                    .target.value)));
-                if (angleSlider) angleSlider.addEventListener('input', (e) => updateAngle(parseInt(e.target
-                    .value)));
-                const savedOp = localStorage.getItem('glass_opacity');
-                updateOpacity(savedOp ? parseFloat(savedOp) : 0.20);
-                const savedAng = localStorage.getItem('gradient_angle');
-                updateAngle(savedAng ? parseInt(savedAng) : 135);
-                if (opacitySlider) opacitySlider.value = 0.20;
-                if (angleSlider) angleSlider.value = 135;
-                initBackground();
-                const uploadBtn = document.getElementById('uploadBgBtn');
-                const bgInput = document.getElementById('bgUpload');
-                if (uploadBtn && bgInput) {
-                    uploadBtn.addEventListener('click', () => bgInput.click());
-                    bgInput.addEventListener('change', async (e) => {
-                        const f = e.target.files[0];
-                        if (f && f.type.startsWith('image/')) await saveAndApplyWallpaper(f);
-                        bgInput.value = '';
-                    });
-                }
-                const resetBgBtn = document.getElementById('resetBgBtn');
-                if (resetBgBtn) resetBgBtn.addEventListener('click', () => {
+                initLayoutControls();
+                // 事件绑定
+                paletteBtn.onclick = (e) => { e.stopPropagation(); palettePanel.classList.toggle('show'); };
+                document.addEventListener('click', (e) => { if(!palettePanel.contains(e.target) && e.target!==paletteBtn) palettePanel.classList.remove('show'); });
+                document.getElementById('opacitySlider').oninput = (e) => { document.body.style.setProperty('--glass-opacity', e.target.value); document.getElementById('opacityValue').innerText = e.target.value; localStorage.setItem('glass_opacity', e.target.value); };
+                document.getElementById('angleSlider').oninput = (e) => { document.body.style.setProperty('--gradient-angle', e.target.value+'deg'); document.getElementById('angleValue').innerText = e.target.value+'°'; localStorage.setItem('gradient_angle', e.target.value); };
+                document.getElementById('uploadBgBtn').onclick = () => document.getElementById('bgUpload').click();
+                document.getElementById('bgUpload').onchange = async (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (ev) => {
+                            localStorage.setItem('custom_bg_image', ev.target.result);
+                            document.body.style.backgroundImage = `url(${ev.target.result})`;
+                            document.body.style.backgroundSize = 'cover';
+                            document.body.style.backgroundPosition = 'center';
+                            document.body.classList.add('custom-bg');
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                };
+                document.getElementById('resetBgBtn').onclick = () => {
                     localStorage.removeItem('custom_bg_image');
                     document.body.classList.remove('custom-bg');
                     document.body.style.backgroundImage = '';
                     const savedColor = localStorage.getItem('custom_bg_color');
-                    if (savedColor) {
-                        document.body.style.background = savedColor;
-                        setTheme(isDarkColor(savedColor) ? 'black' : 'white');
-                    } else {
-                        const savedTheme = localStorage.getItem('glass_custom_theme');
-                        if (savedTheme) setTheme(savedTheme);
-                        else setTheme('white');
-                    }
-                });
+                    if (savedColor) { document.body.style.background = savedColor; setTheme(isDarkColor(savedColor)?'black':'white'); }
+                    else setTheme('white');
+                };
+                // 加载保存的主题
+                const savedImg = localStorage.getItem('custom_bg_image');
+                if (savedImg) { document.body.style.backgroundImage = `url(${savedImg})`; document.body.style.backgroundSize='cover'; document.body.style.backgroundPosition='center'; document.body.classList.add('custom-bg'); }
+                else {
+                    const savedTheme = localStorage.getItem('glass_custom_theme');
+                    if (savedTheme && GRADIENT_THEMES.includes(savedTheme)) setTheme(savedTheme);
+                    else setTheme('white');
+                }
+                renderAll();
+                searchInput.oninput = (e) => { currentKeyword = e.target.value; renderCards(); };
+                viewToggleBtn.onclick = toggleView;
+                sortSelect.onchange = changeSort;
+                adminBtn.onclick = checkAdminPassword;
+                addCardBtn.onclick = () => openEditModal(currentGroupIndex, undefined, {title:'',description:'',url:'',author:'',tags:[],version:'',stats:{downloads:'—',updated:''},type:'link',textContent:'',mindmap:''});
+                resetDataBtn.onclick = resetToDefault;
+                exportDataBtn.onclick = exportData;
+                exitAdminBtn.onclick = disableAdminMode;
+                modalCancel.onclick = closeModal;
+                modalSave.onclick = saveCardFromModal;
+                mindmapCancel.onclick = closeMindmap;
+                mindmapSave.onclick = saveMindmap;
+                textModalCancel.onclick = closeTextModal;
+                layoutSettingsBtn.onclick = () => layoutPanel.classList.toggle('show');
+                clearTagFilterBtn.onclick = clearTagFilter;
+                typeRadios.forEach(r => r.onchange = () => { linkContentArea.style.display = r.value==='link'?'block':'none'; textContentArea.style.display = r.value==='text'?'block':'none'; mindmapContentArea.style.display = r.value==='mindmap'?'block':'none'; });
+                document.querySelectorAll('.quick-tag-btn:not(.dynamic-tag)').forEach(btn => btn.onclick = function() { const tag = this.dataset.tag; if(tag && cardTagsInput) { let cur = cardTagsInput.value.trim(); cardTagsInput.value = cur ? (cur.split(',').map(s=>s.trim()).includes(tag) ? cur : cur+', '+tag) : tag; } });
+                // 加载视图偏好
+                if (localStorage.getItem('listViewPreference') === 'true') { isListView = true; viewToggleBtn.innerText = '🗂️ 卡片视图'; }
             }
-
-            async function start() {
-                await loadInitialData();
-                initBackground();
-                buildPalette();
-                initControls();
-                await loadRemoteLayoutSettings();
-                loadLocalLayoutSettings();
-                initLayoutControls();
-                renderGroupButtons();
-                renderCards();
-                renderTagList();
-                if (searchInput) searchInput.addEventListener('input', (e) => { currentKeyword = e.target.value;
-                    renderCards(); });
-            }
+            function isDarkColor(hex) { let r=parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16); return (r*0.299+g*0.587+b*0.114)<128; }
             start();
         })();
     </script>
