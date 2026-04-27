@@ -4,6 +4,7 @@
     "items": [
       {
         "title": "Fabric API",
+        "description": "轻量级且模块化的 API 提供了通用的钩子和互兼容性措施，供使用 Fabric 工具链的模组使用。",
         "author": "Modmuss50",
         "tags": [
           "Fabric",
@@ -15,13 +16,13 @@
           "updated": "4天前"
         },
         "type": "link",
-        "description": "https://modrinth.com/mod/fabric-api",
         "url": "https://modrinth.com/mod/fabric-api",
         "textContent": "",
         "mindmap": ""
       },
       {
         "title": "Sodium (钠)",
+        "description": "Minecraft 最快且最兼容的渲染优化模组。现已支持 NeoForge 和 Fabric！",
         "author": "CaffeineMC",
         "tags": [
           "Fabric",
@@ -34,13 +35,13 @@
           "updated": "55分钟前"
         },
         "type": "link",
-        "description": "https://modrinth.com/mod/sodium",
         "url": "https://modrinth.com/mod/sodium",
         "textContent": "",
         "mindmap": ""
       },
       {
         "title": "Iris Shaders",
+        "description": "一款现代的 Minecraft 着色器加载器，旨在兼容现有的 OptiFine 着色器包",
         "author": "coderbot",
         "tags": [
           "Fabric",
@@ -53,13 +54,13 @@
           "updated": "3周前"
         },
         "type": "link",
-        "description": "https://modrinth.com/mod/iris",
         "url": "https://modrinth.com/mod/iris",
         "textContent": "",
         "mindmap": ""
       },
       {
         "title": "Cloth Config API",
+        "description": "Minecraft 模组配置库",
         "author": "shedaniel",
         "tags": [
           "Fabric",
@@ -72,13 +73,13 @@
           "updated": "上个月"
         },
         "type": "link",
-        "description": "https://modrinth.com/mod/cloth-config",
         "url": "https://modrinth.com/mod/cloth-config",
         "textContent": "",
         "mindmap": ""
       },
       {
         "title": "ReplayMod (重播模组)",
+        "description": "一个可以记录、重温并分享你体验的 Minecraft 模组。",
         "author": "Johni0702",
         "tags": [
           "Fabric",
@@ -92,13 +93,13 @@
           "updated": "上个月"
         },
         "type": "link",
-        "description": "https://modrinth.com/mod/replaymod",
         "url": "https://modrinth.com/mod/replaymod",
         "textContent": "",
         "mindmap": ""
       },
       {
         "title": "Visible Barriers (可视化屏障方块)",
+        "description": "让障碍物可见，还有其他地图制作有帮助。",
         "author": "AmyMialee's Mods",
         "tags": [
           "Fabric",
@@ -112,13 +113,13 @@
           "updated": "上个月"
         },
         "type": "link",
-        "description": "https://modrinth.com/mod/visiblebarriers",
         "url": "https://modrinth.com/mod/visiblebarriers",
         "textContent": "",
         "mindmap": ""
       },
       {
         "title": "JEI (Just Enough Items)",
+        "description": "JEI 是一个为 Minecraft 打造的物品和配方查看模组，从零开始设计，旨在提升稳定性和性能。",
         "author": "mezz",
         "tags": [
           "Fabric",
@@ -132,13 +133,13 @@
           "updated": "2周前"
         },
         "type": "link",
-        "description": "https://modrinth.com/mod/jei",
         "url": "https://modrinth.com/mod/jei",
         "textContent": "",
         "mindmap": ""
       },
       {
         "title": "Live Texture Editor  （实时纹理编辑器）",
+        "description": "在不离开 Minecraft 的情况下编辑和创建资源包",
         "author": "zeesea",
         "tags": [
           "Fabric",
@@ -150,13 +151,13 @@
           "updated": ""
         },
         "type": "link",
-        "description": "https://modrinth.com/mod/livetextureeditor",
         "url": "https://modrinth.com/mod/livetextureeditor",
         "textContent": "",
         "mindmap": ""
       },
       {
         "title": "VillEdit（自定义村民交易）",
+        "description": "用 VillEdit 数据包创建自定义村民！这是一个简单的自定义村民创建器，无需模组即可使用。",
         "author": "Silabear",
         "tags": [
           "自定义",
@@ -170,13 +171,13 @@
           "updated": ""
         },
         "type": "link",
-        "description": "https://modrinth.com/datapack/villedit",
         "url": "https://modrinth.com/datapack/villedit",
         "textContent": "",
         "mindmap": ""
       },
       {
         "title": "Graphene-谷歌浏览器",
+        "description": "Graphene 是 Minecraft 客户端 UI（Fabric）库，允许模组开发者构建与网络技术相关的界面。",
         "author": "Tytoo",
         "tags": [
           "Fabric",
@@ -190,13 +191,13 @@
           "updated": ""
         },
         "type": "link",
-        "description": "https://modrinth.com/mod/grapheneui",
         "url": "https://modrinth.com/mod/grapheneui",
         "textContent": "",
         "mindmap": ""
       },
       {
         "title": "Cinematic Smoothness-电影比例UI",
+        "description": "一个轻量级模组，可自定义和增强 Minecraft 的电影摄像机，实现可变平滑度、信箱条和设置菜单。",
         "author": "naw7",
         "tags": [
           "视觉效果",
@@ -208,7 +209,6 @@
           "updated": ""
         },
         "type": "link",
-        "description": "https://modrinth.com/mod/cinematic-smoothness",
         "url": "https://modrinth.com/mod/cinematic-smoothness",
         "textContent": "",
         "mindmap": ""
