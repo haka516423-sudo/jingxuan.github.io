@@ -4,14 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>镜玄·资源搜索 | 独立滚动侧边栏</title>
-    <script src="https://cdn.jsdelivr.net/npm/d3@6.7.0"></script>
-    <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.3"></script>
-    <script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@6.7.0">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.3">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.3">
+    </script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.3/style.css">
     <style>
         /* ---------- 全局样式 ---------- */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { overflow-y: scroll; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        /* 移除强制滚动条，改为自然出现 */
+        html {
+            overflow-y: auto;
+            scrollbar-gutter: stable;
+        }
         :root {
             --card-radius: 20px;
             --card-padding: 20px;
@@ -20,6 +31,8 @@
             --font-size-title: 1.2rem;
             --blur-strength: 16px;
             --meta-gap: 8px;
+            --scrollbar-thumb: rgba(0, 0, 0, 0.18);
+            --scrollbar-track: transparent;
         }
         body {
             font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
@@ -29,27 +42,96 @@
             padding: 28px;
             --glass-opacity: 0.35;
             --gradient-angle: 135deg;
+            /* 防止 body 滚动链 */
+            overscroll-behavior: none;
         }
         /* 主题色 */
-        body[data-theme="white"]  { background: #eef2f8; --theme-accent: #5b6e8c; }
-        body[data-theme="black"]  { background: #12151c; --theme-accent: #c0b7a6; }
-        body[data-theme="red"]    { background: #fce9e6; --theme-accent: #c2675e; }
-        body[data-theme="orange"] { background: #fef0e0; --theme-accent: #d98c2b; }
-        body[data-theme="yellow"] { background: #fef9e0; --theme-accent: #c9a12b; }
-        body[data-theme="green"]  { background: #eaf4ea; --theme-accent: #4f7a5e; }
-        body[data-theme="cyan"]   { background: #e0f2f5; --theme-accent: #3f7a85; }
-        body[data-theme="blue"]   { background: #e3edfa; --theme-accent: #4a6fa5; }
-        body[data-theme="purple"] { background: #f0e9fc; --theme-accent: #8b6cb0; }
-        body[data-theme="sunset"]    { background: linear-gradient(var(--gradient-angle), #ff9a9e 0%, #fecfef 100%); --theme-accent: #d96c6e; }
-        body[data-theme="aurora"]    { background: linear-gradient(var(--gradient-angle), #a1c4fd 0%, #c2e9fb 100%); --theme-accent: #3b82f6; }
-        body[data-theme="ocean"]     { background: linear-gradient(var(--gradient-angle), #2b5876 0%, #4e4376 100%); --theme-accent: #7c83b9; }
-        body[data-theme="sakura"]    { background: linear-gradient(var(--gradient-angle), #fbc2eb 0%, #a6c1ee 100%); --theme-accent: #c45692; }
-        body[data-theme="forest"]    { background: linear-gradient(var(--gradient-angle), #b5d6a7 0%, #9bbd8c 100%); --theme-accent: #5c8a4a; }
-        body[data-theme="midnight"]  { background: linear-gradient(var(--gradient-angle), #1f1c2c 0%, #2a2a4a 100%); --theme-accent: #9c88ff; }
-        body[data-theme="peach"]     { background: linear-gradient(var(--gradient-angle), #ffe29a 0%, #ffb7b2 100%); --theme-accent: #d97846; }
-        body[data-theme="mint"]      { background: linear-gradient(var(--gradient-angle), #c7e9fb 0%, #b6e0fe 100%); --theme-accent: #4a9e7c; }
-        body.custom-bg { background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important; }
-        .sidebar, .card, .search-box, .group-btn, .no-results, .palette-panel, .modal-content, .view-toggle-btn, .sort-select, .tag-btn {
+        body[data-theme="white"] {
+            background: #eef2f8;
+            --theme-accent: #5b6e8c;
+        }
+        body[data-theme="black"] {
+            background: #12151c;
+            --theme-accent: #c0b7a6;
+            --scrollbar-thumb: rgba(255, 255, 255, 0.25);
+        }
+        body[data-theme="red"] {
+            background: #fce9e6;
+            --theme-accent: #c2675e;
+        }
+        body[data-theme="orange"] {
+            background: #fef0e0;
+            --theme-accent: #d98c2b;
+        }
+        body[data-theme="yellow"] {
+            background: #fef9e0;
+            --theme-accent: #c9a12b;
+        }
+        body[data-theme="green"] {
+            background: #eaf4ea;
+            --theme-accent: #4f7a5e;
+        }
+        body[data-theme="cyan"] {
+            background: #e0f2f5;
+            --theme-accent: #3f7a85;
+        }
+        body[data-theme="blue"] {
+            background: #e3edfa;
+            --theme-accent: #4a6fa5;
+        }
+        body[data-theme="purple"] {
+            background: #f0e9fc;
+            --theme-accent: #8b6cb0;
+        }
+        body[data-theme="sunset"] {
+            background: linear-gradient(var(--gradient-angle), #ff9a9e 0%, #fecfef 100%);
+            --theme-accent: #d96c6e;
+        }
+        body[data-theme="aurora"] {
+            background: linear-gradient(var(--gradient-angle), #a1c4fd 0%, #c2e9fb 100%);
+            --theme-accent: #3b82f6;
+        }
+        body[data-theme="ocean"] {
+            background: linear-gradient(var(--gradient-angle), #2b5876 0%, #4e4376 100%);
+            --theme-accent: #7c83b9;
+            --scrollbar-thumb: rgba(255, 255, 255, 0.3);
+        }
+        body[data-theme="sakura"] {
+            background: linear-gradient(var(--gradient-angle), #fbc2eb 0%, #a6c1ee 100%);
+            --theme-accent: #c45692;
+        }
+        body[data-theme="forest"] {
+            background: linear-gradient(var(--gradient-angle), #b5d6a7 0%, #9bbd8c 100%);
+            --theme-accent: #5c8a4a;
+        }
+        body[data-theme="midnight"] {
+            background: linear-gradient(var(--gradient-angle), #1f1c2c 0%, #2a2a4a 100%);
+            --theme-accent: #9c88ff;
+            --scrollbar-thumb: rgba(255, 255, 255, 0.3);
+        }
+        body[data-theme="peach"] {
+            background: linear-gradient(var(--gradient-angle), #ffe29a 0%, #ffb7b2 100%);
+            --theme-accent: #d97846;
+        }
+        body[data-theme="mint"] {
+            background: linear-gradient(var(--gradient-angle), #c7e9fb 0%, #b6e0fe 100%);
+            --theme-accent: #4a9e7c;
+        }
+        body.custom-bg {
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+        }
+        .sidebar,
+        .card,
+        .search-box,
+        .group-btn,
+        .no-results,
+        .palette-panel,
+        .modal-content,
+        .view-toggle-btn,
+        .sort-select,
+        .tag-btn {
             border-radius: var(--card-radius) !important;
         }
         .app {
@@ -59,13 +141,13 @@
             gap: 28px;
             align-items: flex-start;
         }
-        /* 侧边栏：改为 flex 列布局，两个区域独立滚动 */
+        /* 侧边栏：flex 列布局，两个区域独立滚动 */
         .sidebar {
             flex: 0 0 280px;
             background: rgba(255, 255, 255, var(--glass-opacity));
             backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255,255,255,0.6);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6);
             padding: 24px 16px;
             position: sticky;
             top: 28px;
@@ -74,20 +156,20 @@
             flex-direction: column;
             height: calc(100vh - 56px);
             max-height: calc(100vh - 56px);
-            overflow: hidden; /* 整体不滚动，由内部区域滚动 */
+            overflow: hidden;
         }
         body[data-theme="black"] .sidebar,
         body[data-theme="ocean"] .sidebar,
         body[data-theme="midnight"] .sidebar {
             background: rgba(0, 0, 0, calc(var(--glass-opacity) + 0.1));
             border-color: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
         .sidebar-header {
             font-size: 1.3rem;
             font-weight: 600;
             padding: 0 12px 16px 12px;
-            border-bottom: 1px solid rgba(0,0,0,0.08);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
             margin-bottom: 16px;
             display: flex;
             justify-content: space-between;
@@ -96,9 +178,12 @@
             color: #1f2d3d;
             flex-shrink: 0;
         }
-        body[data-theme="black"] .sidebar-header { color: #f5f0e0; border-bottom-color: rgba(255,255,255,0.2); }
+        body[data-theme="black"] .sidebar-header {
+            color: #f5f0e0;
+            border-bottom-color: rgba(255, 255, 255, 0.2);
+        }
         .add-group-btn {
-            background: rgba(255,255,240,0.2);
+            background: rgba(255, 255, 240, 0.2);
             border: none;
             width: 28px;
             height: 28px;
@@ -111,18 +196,63 @@
             transition: 0.1s;
             color: inherit;
         }
-        .add-group-btn:hover { background: rgba(255,255,240,0.5); transform: scale(0.96); }
+        .add-group-btn:hover {
+            background: rgba(255, 255, 240, 0.5);
+            transform: scale(0.96);
+        }
         /* 分组区域（上半部分，独立滚动） */
         .groups-scroll-area {
             flex: 1;
             overflow-y: auto;
             min-height: 0;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
+            overscroll-behavior: contain;
+            /* 防止滚动链接 */;
         }
         .group-buttons {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
+        }
+        /* 分组按钮行：按钮 + 删除按钮 */
+        .group-btn-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .group-btn-row .group-btn {
+            flex: 1;
+            min-width: 0;
+        }
+        .group-delete-btn {
+            background: rgba(255, 70, 70, 0.25);
+            border: none;
+            width: 26px;
+            height: 26px;
+            border-radius: 26px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            color: #c0392b;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: 0.1s;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+        body[data-theme="black"] .group-delete-btn,
+        body[data-theme="ocean"] .group-delete-btn,
+        body[data-theme="midnight"] .group-delete-btn {
+            color: #ff6b6b;
+            background: rgba(255, 70, 70, 0.35);
+        }
+        .group-delete-btn:hover {
+            background: rgba(255, 40, 40, 0.6);
+            color: #fff;
+            transform: scale(0.9);
+        }
+        .admin-mode .group-delete-btn {
+            display: inline-flex;
         }
         .group-btn {
             background: rgba(255, 255, 235, 0.4);
@@ -136,13 +266,20 @@
             cursor: pointer;
             transition: transform 0.08s, background 0.2s;
             transform: scale(1);
+            border-radius: var(--card-radius);
+            width: 100%;
         }
-        .group-btn:active { transform: scale(0.96); background: rgba(0, 0, 0, 0.15); }
-        .group-btn:hover { background: rgba(255,255,250,0.7); }
+        .group-btn:active {
+            transform: scale(0.96);
+            background: rgba(0, 0, 0, 0.15);
+        }
+        .group-btn:hover {
+            background: rgba(255, 255, 250, 0.7);
+        }
         .group-btn.active {
             background: var(--theme-accent);
             color: white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
         body[data-theme="black"] .group-btn,
         body[data-theme="ocean"] .group-btn,
@@ -150,21 +287,30 @@
             background: rgba(60, 68, 84, 0.5);
             color: #f5f0e0;
         }
-        body[data-theme="black"] .group-btn.active { background: var(--theme-accent); color: #12151c; }
-        /* 标签区域（下半部分，独立滚动） */
+        body[data-theme="black"] .group-btn.active {
+            background: var(--theme-accent);
+            color: #12151c;
+        }
+        /* 标签区域（下半部分，标题固定+列表滚动） */
         .tag-section {
             flex: 1;
-            overflow-y: auto;
             min-height: 0;
-            border-top: 1px solid rgba(0,0,0,0.1);
-            padding-top: 16px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            padding-top: 12px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
-        body[data-theme="black"] .tag-section { border-top-color: rgba(255,255,255,0.15); }
+        body[data-theme="black"] .tag-section {
+            border-top-color: rgba(255, 255, 255, 0.15);
+        }
         .tag-section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
+            flex-shrink: 0;
+            /* 固定在滚动区域上方 */;
         }
         .tag-section-title {
             font-size: 0.9rem;
@@ -174,9 +320,11 @@
             gap: 6px;
             color: #1f2d3d;
         }
-        body[data-theme="black"] .tag-section-title { color: #f5f0e0; }
+        body[data-theme="black"] .tag-section-title {
+            color: #f5f0e0;
+        }
         .clear-tag-btn {
-            background: rgba(255,80,80,0.2);
+            background: rgba(255, 80, 80, 0.2);
             border: none;
             padding: 4px 12px;
             font-size: 0.7rem;
@@ -185,7 +333,17 @@
             color: #eee;
             transition: 0.1s;
         }
-        .clear-tag-btn:hover { background: rgba(255,80,80,0.5); }
+        .clear-tag-btn:hover {
+            background: rgba(255, 80, 80, 0.5);
+        }
+        /* 标签滚动区域 */
+        .tag-scroll-area {
+            flex: 1;
+            overflow-y: auto;
+            min-height: 0;
+            overscroll-behavior: contain;
+            /* 防止滚动链接 */;
+        }
         .tag-list {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -193,7 +351,7 @@
             margin-bottom: 0;
         }
         .tag-btn {
-            background: rgba(255,255,240,0.25);
+            background: rgba(255, 255, 240, 0.25);
             border: none;
             padding: 6px 8px;
             font-size: 0.7rem;
@@ -214,7 +372,10 @@
             background: rgba(60, 68, 84, 0.5);
             color: #f5f0e0 !important;
         }
-        .tag-btn:hover { background: rgba(255,255,240,0.6); transform: scale(0.96); }
+        .tag-btn:hover {
+            background: rgba(255, 255, 240, 0.6);
+            transform: scale(0.96);
+        }
         body[data-theme="black"] .tag-btn:hover,
         body[data-theme="ocean"] .tag-btn:hover,
         body[data-theme="midnight"] .tag-btn:hover,
@@ -222,9 +383,54 @@
         body[data-theme="sakura"] .tag-btn:hover {
             background: rgba(100, 110, 130, 0.8);
         }
-        .tag-btn.active { background: var(--theme-accent); color: white; }
+        .tag-btn.active {
+            background: var(--theme-accent);
+            color: white;
+        }
+
+        /* 自定义滚动条 - 透明轨道 */
+        .groups-scroll-area::-webkit-scrollbar,
+        .tag-scroll-area::-webkit-scrollbar,
+        .sidebar::-webkit-scrollbar {
+            width: 5px;
+        }
+        .groups-scroll-area::-webkit-scrollbar-track,
+        .tag-scroll-area::-webkit-scrollbar-track,
+        .sidebar::-webkit-scrollbar-track {
+            background: transparent;
+            /* 无背景 */;
+        }
+        .groups-scroll-area::-webkit-scrollbar-thumb,
+        .tag-scroll-area::-webkit-scrollbar-thumb,
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb);
+            border-radius: 10px;
+        }
+        .groups-scroll-area::-webkit-scrollbar-thumb:hover,
+        .tag-scroll-area::-webkit-scrollbar-thumb:hover,
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
+        body[data-theme="black"] .groups-scroll-area::-webkit-scrollbar-thumb:hover,
+        body[data-theme="ocean"] .groups-scroll-area::-webkit-scrollbar-thumb:hover,
+        body[data-theme="midnight"] .groups-scroll-area::-webkit-scrollbar-thumb:hover,
+        body[data-theme="black"] .tag-scroll-area::-webkit-scrollbar-thumb:hover,
+        body[data-theme="ocean"] .tag-scroll-area::-webkit-scrollbar-thumb:hover,
+        body[data-theme="midnight"] .tag-scroll-area::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+        /* Firefox 滚动条 */
+        .groups-scroll-area,
+        .tag-scroll-area {
+            scrollbar-width: thin;
+            scrollbar-color: var(--scrollbar-thumb) transparent;
+        }
+
         /* 右侧主区域 */
-        .main { flex: 1; }
+        .main {
+            flex: 1;
+            min-width: 0;
+        }
         .header-area {
             display: flex;
             justify-content: space-between;
@@ -266,9 +472,14 @@
         body[data-theme="sakura"] .title-section p {
             color: #cbd5e1 !important;
         }
-        .action-buttons { display: flex; gap: 10px; align-items: center; }
-        .admin-btn, .palette-btn {
-            background: rgba(255,255,240,0.8);
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .admin-btn,
+        .palette-btn {
+            background: rgba(255, 255, 240, 0.8);
             border: none;
             padding: 8px 18px;
             border-radius: 40px;
@@ -276,7 +487,7 @@
             cursor: pointer;
             backdrop-filter: blur(8px);
             transition: 0.1s;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
             color: #1f2d3d;
         }
         body[data-theme="black"] .admin-btn,
@@ -284,13 +495,16 @@
             background: rgba(30, 30, 35, 0.8);
             color: #f5f0e0;
         }
-        .admin-btn:active, .palette-btn:active { transform: scale(0.96); }
+        .admin-btn:active,
+        .palette-btn:active {
+            transform: scale(0.96);
+        }
         .data-source-indicator {
             display: inline-flex;
             align-items: center;
             gap: 6px;
             font-size: 0.7rem;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(4px);
             padding: 4px 10px;
             border-radius: 40px;
@@ -302,10 +516,20 @@
             border-radius: 10px;
             background: gray;
         }
-        .indicator-dot.cloud { background: #10b981; box-shadow: 0 0 4px #10b981; }
-        .indicator-dot.local { background: #f59e0b; box-shadow: 0 0 4px #f59e0b; }
-        .indicator-dot.default { background: #9ca3af; }
-        body[data-theme="black"] .data-source-indicator { background: rgba(0,0,0,0.7); }
+        .indicator-dot.cloud {
+            background: #10b981;
+            box-shadow: 0 0 4px #10b981;
+        }
+        .indicator-dot.local {
+            background: #f59e0b;
+            box-shadow: 0 0 4px #f59e0b;
+        }
+        .indicator-dot.default {
+            background: #9ca3af;
+        }
+        body[data-theme="black"] .data-source-indicator {
+            background: rgba(0, 0, 0, 0.7);
+        }
         .search-bar {
             display: flex;
             gap: 12px;
@@ -332,10 +556,11 @@
         body[data-theme="black"] .search-box {
             background: rgba(35, 42, 56, 0.6);
             color: #f5f0e0;
-            border-color: rgba(255,255,255,0.3);
+            border-color: rgba(255, 255, 255, 0.3);
         }
-        .view-toggle-btn, .sort-select {
-            background: rgba(255,255,240,0.7);
+        .view-toggle-btn,
+        .sort-select {
+            background: rgba(255, 255, 240, 0.7);
             border: none;
             padding: 8px 20px;
             font-size: 0.9rem;
@@ -343,7 +568,7 @@
             cursor: pointer;
             backdrop-filter: blur(8px);
             transition: 0.1s;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
             color: #1f2d3d;
             white-space: nowrap;
         }
@@ -352,7 +577,10 @@
             background: rgba(30, 30, 35, 0.8);
             color: #f5f0e0;
         }
-        .view-toggle-btn:active, .sort-select:active { transform: scale(0.96); }
+        .view-toggle-btn:active,
+        .sort-select:active {
+            transform: scale(0.96);
+        }
         .sort-select {
             appearance: none;
             -webkit-appearance: none;
@@ -371,16 +599,18 @@
             overflow-y: auto;
             background: rgba(20, 22, 27, 0.94);
             backdrop-filter: blur(24px);
-            border: 1px solid rgba(255,255,255,0.4);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             padding: 18px;
             z-index: 300;
             display: none;
             flex-direction: column;
             gap: 18px;
-            box-shadow: 0 20px 35px rgba(0,0,0,0.4);
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.4);
             color: #eef2ff;
         }
-        .palette-panel.show { display: flex; }
+        .palette-panel.show {
+            display: flex;
+        }
         .section-title {
             font-size: 0.85rem;
             font-weight: 600;
@@ -395,11 +625,14 @@
         .color-swatch {
             height: 42px;
             cursor: pointer;
-            border: 1px solid rgba(255,255,255,0.5);
+            border: 1px solid rgba(255, 255, 255, 0.5);
             transition: 0.1s;
             border-radius: 12px;
         }
-        .color-swatch:hover { transform: scale(1.05); border-color: white; }
+        .color-swatch:hover {
+            transform: scale(1.05);
+            border-color: white;
+        }
         .slider-container {
             display: flex;
             flex-direction: column;
@@ -411,7 +644,10 @@
             display: flex;
             justify-content: space-between;
         }
-        input[type="range"] { width: 100%; cursor: pointer; }
+        input[type="range"] {
+            width: 100%;
+            cursor: pointer;
+        }
         .file-upload-area {
             display: flex;
             gap: 12px;
@@ -420,16 +656,22 @@
             margin-top: 6px;
         }
         .upload-btn {
-            background: rgba(255,255,240,0.2);
-            border: 1px solid rgba(255,255,255,0.4);
+            background: rgba(255, 255, 240, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             padding: 6px 12px;
             border-radius: 40px;
             font-size: 0.7rem;
             cursor: pointer;
             color: #eee;
         }
-        .reset-bg { background: rgba(255,80,80,0.3); }
-        .hint-text { font-size: 0.7rem; color: #aaa; text-align: right; }
+        .reset-bg {
+            background: rgba(255, 80, 80, 0.3);
+        }
+        .hint-text {
+            font-size: 0.7rem;
+            color: #aaa;
+            text-align: right;
+        }
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
@@ -473,7 +715,6 @@
             padding-top: 0;
             min-width: 140px;
         }
-        /* 卡片样式 - 添加硬件加速防止闪烁 */
         .card {
             background: rgba(255, 255, 255, calc(var(--glass-opacity) - 0.05));
             backdrop-filter: blur(var(--blur-strength));
@@ -517,9 +758,12 @@
             transition: opacity 0.2s;
             z-index: 10;
         }
-        .card:hover .card-actions { opacity: 1; }
-        .edit-btn, .delete-btn {
-            background: rgba(0,0,0,0.6);
+        .card:hover .card-actions {
+            opacity: 1;
+        }
+        .edit-btn,
+        .delete-btn {
+            background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(4px);
             border: none;
             border-radius: 30px;
@@ -534,18 +778,22 @@
             transition: 0.1s;
             pointer-events: auto;
         }
-        .edit-btn:hover { background: #3b82f6; }
-        .delete-btn:hover { background: #ef4444; }
+        .edit-btn:hover {
+            background: #3b82f6;
+        }
+        .delete-btn:hover {
+            background: #ef4444;
+        }
         body[data-theme="black"] .edit-btn,
         body[data-theme="black"] .delete-btn {
-            background: rgba(30,30,40,0.9);
+            background: rgba(30, 30, 40, 0.9);
         }
         .admin-toolbar {
             display: flex;
             gap: 12px;
             margin-bottom: 20px;
             flex-wrap: wrap;
-            background: rgba(255,255,240,0.2);
+            background: rgba(255, 255, 240, 0.2);
             backdrop-filter: blur(12px);
             padding: 12px 20px;
             border-radius: 60px;
@@ -562,37 +810,47 @@
         .modal {
             display: none;
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(8px);
             z-index: 1000;
             justify-content: center;
             align-items: center;
         }
-        .modal.active { display: flex; }
+        .modal.active {
+            display: flex;
+        }
         .modal-content {
-            background: rgba(30,30,40,0.95);
+            background: rgba(30, 30, 40, 0.95);
             backdrop-filter: blur(20px);
             width: 500px;
             max-width: 90%;
             padding: 24px;
-            border: 1px solid rgba(255,255,255,0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             color: #eee;
             border-radius: 20px;
         }
-        .modal-content h3 { margin-bottom: 16px; }
-        .modal-content input, .modal-content textarea {
+        .modal-content h3 {
+            margin-bottom: 16px;
+        }
+        .modal-content input,
+        .modal-content textarea {
             width: 100%;
             padding: 10px;
             margin-bottom: 12px;
-            background: rgba(255,255,255,0.2);
-            border: 1px solid rgba(255,255,255,0.4);
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             border-radius: 16px;
             color: #fff;
             font-size: 0.9rem;
         }
-        .modal-content textarea { min-height: 80px; resize: vertical; }
+        .modal-content textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
         .type-selector {
             display: flex;
             gap: 12px;
@@ -607,13 +865,21 @@
             cursor: pointer;
             padding: 4px 12px;
             border-radius: 30px;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             transition: 0.1s;
             font-size: 0.8rem;
         }
-        .type-selector label:hover { background: rgba(255,255,255,0.2); }
-        .type-selector input { margin: 0; width: auto; margin-right: 4px; }
-        .type-content-area { margin-bottom: 16px; }
+        .type-selector label:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .type-selector input {
+            margin: 0;
+            width: auto;
+            margin-right: 4px;
+        }
+        .type-content-area {
+            margin-bottom: 16px;
+        }
         .quick-tags {
             display: flex;
             gap: 8px;
@@ -621,8 +887,8 @@
             flex-wrap: wrap;
         }
         .quick-tag-btn {
-            background: rgba(255,255,240,0.3);
-            border: 1px solid rgba(255,255,255,0.4);
+            background: rgba(255, 255, 240, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             padding: 4px 12px;
             border-radius: 30px;
             font-size: 0.75rem;
@@ -631,7 +897,7 @@
             color: #eee;
         }
         .quick-tag-btn:hover {
-            background: rgba(255,255,240,0.6);
+            background: rgba(255, 255, 240, 0.6);
             transform: scale(0.96);
         }
         .modal-buttons {
@@ -646,9 +912,17 @@
             border: none;
             cursor: pointer;
         }
-        .save-btn { background: #10b981; color: white; }
-        .cancel-btn { background: #6b7280; color: white; }
-        .dynamic-tag-area { margin-bottom: 12px; }
+        .save-btn {
+            background: #10b981;
+            color: white;
+        }
+        .cancel-btn {
+            background: #6b7280;
+            color: white;
+        }
+        .dynamic-tag-area {
+            margin-bottom: 12px;
+        }
         .dynamic-tag-area .title {
             font-size: 0.7rem;
             color: #aaa;
@@ -672,7 +946,7 @@
             width: 22px;
             height: 22px;
             border-radius: 6px;
-            background: rgba(255,255,255,0.5);
+            background: rgba(255, 255, 255, 0.5);
             pointer-events: none;
         }
         .card-title span {
@@ -696,9 +970,13 @@
             gap: var(--meta-gap);
             margin-bottom: 10px;
         }
-        .badge-group { display: flex; flex-wrap: wrap; gap: 6px; }
+        .badge-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
         .badge {
-            background: rgba(0,0,0,0.1);
+            background: rgba(0, 0, 0, 0.1);
             padding: 4px 10px;
             border-radius: 40px;
             font-size: calc(var(--font-size-base) * 0.7);
@@ -706,7 +984,7 @@
             color: #1f2937;
         }
         .version-info {
-            background: rgba(0,0,0,0.08);
+            background: rgba(0, 0, 0, 0.08);
             padding: 4px 12px;
             border-radius: 40px;
             font-size: calc(var(--font-size-base) * 0.7);
@@ -715,7 +993,7 @@
         }
         .data-source-badge {
             font-size: calc(var(--font-size-base) * 0.6);
-            background: rgba(0,0,0,0.2);
+            background: rgba(0, 0, 0, 0.2);
             padding: 2px 8px;
             border-radius: 30px;
             display: inline-flex;
@@ -736,7 +1014,7 @@
         .no-results {
             text-align: center;
             padding: 60px 20px;
-            background: rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.3);
             backdrop-filter: blur(12px);
             border-radius: 20px;
             color: #4b5563;
@@ -794,14 +1072,14 @@
         body[data-theme="midnight"] .badge,
         body[data-theme="forest"] .badge,
         body[data-theme="sakura"] .badge {
-            background: rgba(255,255,240,0.25) !important;
+            background: rgba(255, 255, 240, 0.25) !important;
         }
         body[data-theme="black"] .version-info,
         body[data-theme="ocean"] .version-info,
         body[data-theme="midnight"] .version-info,
         body[data-theme="forest"] .version-info,
         body[data-theme="sakura"] .version-info {
-            background: rgba(210,220,250,0.25) !important;
+            background: rgba(210, 220, 250, 0.25) !important;
         }
         body[data-theme="black"] .card-title a:hover,
         body[data-theme="ocean"] .card-title a:hover,
@@ -816,21 +1094,21 @@
         body[data-theme="midnight"] .no-results,
         body[data-theme="forest"] .no-results,
         body[data-theme="sakura"] .no-results {
-            background: rgba(0,0,0,0.4);
+            background: rgba(0, 0, 0, 0.4);
         }
         body[data-theme="black"] .data-source-badge,
         body[data-theme="ocean"] .data-source-badge,
         body[data-theme="midnight"] .data-source-badge,
         body[data-theme="forest"] .data-source-badge,
         body[data-theme="sakura"] .data-source-badge {
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
         }
         .layout-panel {
             position: fixed;
             bottom: 20px;
             right: 20px;
             width: 320px;
-            background: rgba(20,22,27,0.95);
+            background: rgba(20, 22, 27, 0.95);
             backdrop-filter: blur(20px);
             border-radius: 20px;
             padding: 16px;
@@ -838,10 +1116,12 @@
             display: none;
             flex-direction: column;
             gap: 12px;
-            border: 1px solid rgba(255,255,255,0.2);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
-        .layout-panel.show { display: flex; }
+        .layout-panel.show {
+            display: flex;
+        }
         .layout-panel .title {
             font-size: 0.9rem;
             font-weight: 600;
@@ -856,7 +1136,10 @@
             font-size: 0.75rem;
             color: #ddd;
         }
-        .layout-panel input { flex: 1; cursor: pointer; }
+        .layout-panel input {
+            flex: 1;
+            cursor: pointer;
+        }
         .layout-panel button {
             background: var(--theme-accent);
             border: none;
@@ -866,638 +1149,750 @@
             cursor: pointer;
             font-size: 0.7rem;
         }
-        .layout-panel .export-btn { background: #10b981; }
+        .layout-panel .export-btn {
+            background: #10b981;
+        }
         @media (max-width: 780px) {
-            body { padding: 16px; }
-            .app { flex-direction: column; }
-            .sidebar { position: static; width: 100%; height: auto; max-height: none; }
-            .groups-scroll-area, .tag-section { flex: none; max-height: 200px; }
-            .group-buttons { flex-direction: row; flex-wrap: wrap; }
-            .group-btn { flex: 1; text-align: center; }
-            .tag-list { grid-template-columns: repeat(2, 1fr); }
-            .palette-panel { width: 280px; right: 0; left: auto; top: 65px; }
-            .card-actions { opacity: 1; top: 8px; right: 8px; }
+            body {
+                padding: 16px;
+            }
+            .app {
+                flex-direction: column;
+            }
+            .sidebar {
+                position: static;
+                width: 100%;
+                height: auto;
+                max-height: none;
+            }
+            .groups-scroll-area,
+            .tag-scroll-area {
+                flex: none;
+                max-height: 180px;
+            }
+            .tag-section {
+                flex: none;
+                max-height: 220px;
+            }
+            .group-buttons {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            .group-btn-row {
+                flex: 1;
+                min-width: 120px;
+            }
+            .group-btn {
+                flex: 1;
+                text-align: center;
+            }
+            .tag-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .palette-panel {
+                width: 280px;
+                right: 0;
+                left: auto;
+                top: 65px;
+            }
+            .card-actions {
+                opacity: 1;
+                top: 8px;
+                right: 8px;
+            }
             .cards-grid.list-view .card {
                 flex-direction: column;
                 align-items: stretch;
             }
-            .search-bar { flex-wrap: wrap; }
-            .search-box { width: 100%; }
-            .card-meta { flex-direction: column; align-items: flex-start; gap: 6px; }
-            .layout-panel { width: 280px; right: 10px; bottom: 10px; }
+            .search-bar {
+                flex-wrap: wrap;
+            }
+            .search-box {
+                width: 100%;
+            }
+            .card-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+            }
+            .layout-panel {
+                width: 280px;
+                right: 10px;
+                bottom: 10px;
+            }
         }
     </style>
 </head>
 <body data-theme="white">
-<div class="app">
-    <aside class="sidebar">
-        <div class="sidebar-header">
-            📁 分组导航
-            <button id="addGroupBtn" class="add-group-btn" style="display: none;">➕</button>
-        </div>
-        <!-- 分组区域（独立滚动） -->
-        <div class="groups-scroll-area">
-            <div class="group-buttons" id="groupButtonsContainer"></div>
-        </div>
-        <!-- 标签区域（独立滚动） -->
-        <div class="tag-section">
-            <div class="tag-section-header">
-                <div class="tag-section-title">🏷️ 快捷标签</div>
-                <button id="clearTagFilterBtn" class="clear-tag-btn" style="display: none;">✖️ 清除</button>
+    <div class="app">
+        <aside class="sidebar" id="sidebarContainer">
+            <div class="sidebar-header">
+                📁 分组导航
+                <button id="addGroupBtn" class="add-group-btn" style="display: none;">➕</button>
             </div>
-            <div class="tag-list" id="tagListContainer"></div>
-        </div>
-    </aside>
-
-    <div class="main">
-        <div class="header-area">
-            <div class="title-section">
-                <h1 id="dynamicTitle">🎮 Minecraft 模组</h1>
-                <p>自定义壁纸 | 通透模糊 | 管理员持久化 | 标签筛选</p>
+            <!-- 分组区域（独立滚动） -->
+            <div class="groups-scroll-area">
+                <div class="group-buttons" id="groupButtonsContainer"></div>
             </div>
-            <div class="action-buttons">
-                <div id="dataSourceIndicator" class="data-source-indicator" style="display: none;">
-                    <span class="indicator-dot"></span>
-                    <span id="sourceText">云端</span>
+            <!-- 标签区域：标题固定 + 列表独立滚动 -->
+            <div class="tag-section">
+                <div class="tag-section-header">
+                    <div class="tag-section-title">🏷️ 快捷标签</div>
+                    <button id="clearTagFilterBtn" class="clear-tag-btn" style="display: none;">✖️ 清除</button>
                 </div>
-                <button class="palette-btn" id="paletteBtn">🎨 调色板</button>
-                <button class="admin-btn" id="adminBtn">🔐 管理员</button>
+                <div class="tag-scroll-area">
+                    <div class="tag-list" id="tagListContainer"></div>
+                </div>
             </div>
-            <div class="palette-panel" id="palettePanel">
-                <div><div class="section-title">🎨 纯色预设</div><div class="color-grid" id="solidColorGrid"></div></div>
-                <div><div class="section-title">🌈 渐变预设</div><div class="color-grid" id="gradientColorGrid"></div></div>
-                <div class="slider-container"><label>🔮 玻璃透明度 <span id="opacityValue">0.20</span></label><input type="range" id="opacitySlider" min="0.1" max="0.5" step="0.01" value="0.20"></div>
-                <div class="slider-container"><label>🔄 渐变角度 <span id="angleValue">135°</span> <span style="font-weight: normal;">(仅渐变主题)</span></label><input type="range" id="angleSlider" min="0" max="360" step="1" value="135"></div>
-                <div><div class="section-title">🖼️ 自定义壁纸</div><div class="file-upload-area"><input type="file" id="bgUpload" accept="image/*" style="display: none;"><button class="upload-btn" id="uploadBgBtn">📁 选择图片</button><button class="upload-btn reset-bg" id="resetBgBtn">🗑️ 重置背景</button></div><div class="hint-text">支持 JPG/PNG，自动压缩存储</div></div>
-                <div class="hint-text">点击色板换肤 | 滑块调节玻璃强度</div>
+        </aside>
+
+        <div class="main">
+            <div class="header-area">
+                <div class="title-section">
+                    <h1 id="dynamicTitle">🎮 Minecraft 模组</h1>
+                    <p>自定义壁纸 | 通透模糊 | 管理员持久化 | 标签筛选</p>
+                </div>
+                <div class="action-buttons">
+                    <div id="dataSourceIndicator" class="data-source-indicator" style="display: none;">
+                        <span class="indicator-dot"></span>
+                        <span id="sourceText">云端</span>
+                    </div>
+                    <button class="palette-btn" id="paletteBtn">🎨 调色板</button>
+                    <button class="admin-btn" id="adminBtn">🔐 管理员</button>
+                </div>
+                <div class="palette-panel" id="palettePanel">
+                    <div><div class="section-title">🎨 纯色预设</div><div class="color-grid" id="solidColorGrid"></div></div>
+                    <div><div class="section-title">🌈 渐变预设</div><div class="color-grid" id="gradientColorGrid"></div></div>
+                    <div class="slider-container"><label>🔮 玻璃透明度 <span id="opacityValue">0.20</span></label><input type="range" id="opacitySlider" min="0.1" max="0.5" step="0.01" value="0.20"></div>
+                    <div class="slider-container"><label>🔄 渐变角度 <span id="angleValue">135°</span> <span style="font-weight: normal;">(仅渐变主题)</span></label><input type="range" id="angleSlider" min="0" max="360" step="1" value="135"></div>
+                    <div><div class="section-title">🖼️ 自定义壁纸</div><div class="file-upload-area"><input type="file" id="bgUpload" accept="image/*" style="display: none;"><button class="upload-btn" id="uploadBgBtn">📁 选择图片</button><button class="upload-btn reset-bg" id="resetBgBtn">🗑️ 重置背景</button></div><div class="hint-text">支持 JPG/PNG，自动压缩存储</div></div>
+                    <div class="hint-text">点击色板换肤 | 滑块调节玻璃强度</div>
+                </div>
+            </div>
+
+            <div id="adminToolbar" class="admin-toolbar" style="display: none;">
+                <button id="addCardBtn">➕ 新增卡片到当前分组</button>
+                <button id="resetDataBtn">🔄 重置为默认数据</button>
+                <button id="exportDataBtn">📤 导出数据(JSON)</button>
+                <button id="layoutSettingsBtn">🎛️ 布局设置</button>
+                <button id="exitAdminBtn">🔒 退出编辑模式</button>
+            </div>
+
+            <div class="search-bar">
+                <input type="text" class="search-box" id="searchInput" placeholder="🔍 实时过滤 · 标题 / 描述 / 作者 / 标签 / 版本">
+                <button class="view-toggle-btn" id="viewToggleBtn">📋 列表视图</button>
+                <select class="sort-select" id="sortSelect">
+                    <option value="title-asc">🔤 标题 A-Z</option>
+                    <option value="date-desc">📅 最新优先</option>
+                </select>
+            </div>
+
+            <div id="cardsContainer" class="cards-grid"></div>
+        </div>
+    </div>
+
+    <!-- 布局设置面板 -->
+    <div id="layoutPanel" class="layout-panel">
+        <div class="title">🎨 布局定制</div>
+        <div class="slider-item">卡片圆角 <span id="radiusVal">20px</span><input type="range" id="radiusSlider" min="8" max="40" step="1" value="20"></div>
+        <div class="slider-item">卡片内边距 <span id="paddingVal">20px</span><input type="range" id="paddingSlider" min="12" max="32" step="1" value="20"></div>
+        <div class="slider-item">卡片间距 <span id="gapVal">28px</span><input type="range" id="gapSlider" min="16" max="48" step="2" value="28"></div>
+        <div class="slider-item">标题字体大小 <span id="titleFontVal">1.2rem</span><input type="range" id="titleFontSlider" min="1" max="1.8" step="0.05" value="1.2"></div>
+        <div class="slider-item">正文字体大小 <span id="baseFontVal">0.95rem</span><input type="range" id="baseFontSlider" min="0.75" max="1.2" step="0.05" value="0.95"></div>
+        <div class="slider-item">背景模糊强度 <span id="blurVal">16px</span><input type="range" id="blurSlider" min="4" max="32" step="2" value="16"></div>
+        <div class="slider-item">元数据间距 <span id="metaGapVal">8px</span><input type="range" id="metaGapSlider" min="4" max="20" step="1" value="8"></div>
+        <button id="resetLayoutBtn">重置为默认</button>
+        <button id="exportLayoutBtn" class="export-btn">导出布局设置</button>
+        <button id="importLayoutBtn" class="export-btn">📂 导入布局设置</button>
+    </div>
+
+    <!-- 文本查看模态框 -->
+    <div id="textModal" class="modal">
+        <div class="modal-content" style="width: 90%; max-width: 800px; height: 80vh; display: flex; flex-direction: column;">
+            <h3 id="textModalTitle">文本内容</h3>
+            <div id="textContentDisplay" style="flex: 1; overflow-y: auto; padding: 16px; background: rgba(0,0,0,0.2); border-radius: 16px; font-family: monospace; white-space: pre-wrap;"></div>
+            <div class="modal-buttons"><button id="textModalCancel" class="cancel-btn">关闭</button></div>
+        </div>
+    </div>
+
+    <!-- 思维导图模态框 -->
+    <div id="mindmapModal" class="modal">
+        <div class="modal-content" style="width: 90%; max-width: 900px; height: 80vh; display: flex; flex-direction: column;">
+            <h3 id="mindmapTitle">思维导图</h3>
+            <textarea id="mindmapEditor" placeholder="输入 Markdown 大纲，例如：&#10;# 中心主题&#10;## 分支1&#10;### 子分支" style="width: 100%; height: 200px; font-family: monospace; display: none;"></textarea>
+            <div id="mindmapContainer" style="flex:1; min-height: 300px;"></div>
+            <div class="modal-buttons">
+                <button id="mindmapCancel" class="cancel-btn">关闭</button>
+                <button id="mindmapSave" class="save-btn" style="display: none;">保存</button>
             </div>
         </div>
-
-        <div id="adminToolbar" class="admin-toolbar" style="display: none;">
-            <button id="addCardBtn">➕ 新增卡片到当前分组</button>
-            <button id="resetDataBtn">🔄 重置为默认数据</button>
-            <button id="exportDataBtn">📤 导出数据(JSON)</button>
-            <button id="layoutSettingsBtn">🎛️ 布局设置</button>
-            <button id="exitAdminBtn">🔒 退出编辑模式</button>
-        </div>
-
-        <div class="search-bar">
-            <input type="text" class="search-box" id="searchInput" placeholder="🔍 实时过滤 · 标题 / 描述 / 作者 / 标签 / 版本">
-            <button class="view-toggle-btn" id="viewToggleBtn">📋 列表视图</button>
-            <select class="sort-select" id="sortSelect">
-                <option value="title-asc">🔤 标题 A-Z</option>
-                <option value="date-desc">📅 最新优先</option>
-            </select>
-        </div>
-
-        <div id="cardsContainer" class="cards-grid"></div>
     </div>
-</div>
 
-<!-- 布局设置面板 -->
-<div id="layoutPanel" class="layout-panel">
-    <div class="title">🎨 布局定制</div>
-    <div class="slider-item">卡片圆角 <span id="radiusVal">20px</span><input type="range" id="radiusSlider" min="8" max="40" step="1" value="20"></div>
-    <div class="slider-item">卡片内边距 <span id="paddingVal">20px</span><input type="range" id="paddingSlider" min="12" max="32" step="1" value="20"></div>
-    <div class="slider-item">卡片间距 <span id="gapVal">28px</span><input type="range" id="gapSlider" min="16" max="48" step="2" value="28"></div>
-    <div class="slider-item">标题字体大小 <span id="titleFontVal">1.2rem</span><input type="range" id="titleFontSlider" min="1" max="1.8" step="0.05" value="1.2"></div>
-    <div class="slider-item">正文字体大小 <span id="baseFontVal">0.95rem</span><input type="range" id="baseFontSlider" min="0.75" max="1.2" step="0.05" value="0.95"></div>
-    <div class="slider-item">背景模糊强度 <span id="blurVal">16px</span><input type="range" id="blurSlider" min="4" max="32" step="2" value="16"></div>
-    <div class="slider-item">元数据间距 <span id="metaGapVal">8px</span><input type="range" id="metaGapSlider" min="4" max="20" step="1" value="8"></div>
-    <button id="resetLayoutBtn">重置为默认</button>
-    <button id="exportLayoutBtn" class="export-btn">导出布局设置</button>
-    <button id="importLayoutBtn" class="export-btn">📂 导入布局设置</button>
-</div>
-
-<!-- 文本查看模态框 -->
-<div id="textModal" class="modal">
-    <div class="modal-content" style="width: 90%; max-width: 800px; height: 80vh; display: flex; flex-direction: column;">
-        <h3 id="textModalTitle">文本内容</h3>
-        <div id="textContentDisplay" style="flex: 1; overflow-y: auto; padding: 16px; background: rgba(0,0,0,0.2); border-radius: 16px; font-family: monospace; white-space: pre-wrap;"></div>
-        <div class="modal-buttons"><button id="textModalCancel" class="cancel-btn">关闭</button></div>
-    </div>
-</div>
-
-<!-- 思维导图模态框 -->
-<div id="mindmapModal" class="modal">
-    <div class="modal-content" style="width: 90%; max-width: 900px; height: 80vh; display: flex; flex-direction: column;">
-        <h3 id="mindmapTitle">思维导图</h3>
-        <textarea id="mindmapEditor" placeholder="输入 Markdown 大纲，例如：&#10;# 中心主题&#10;## 分支1&#10;### 子分支" style="width: 100%; height: 200px; font-family: monospace; display: none;"></textarea>
-        <div id="mindmapContainer" style="flex:1; min-height: 300px;"></div>
-        <div class="modal-buttons">
-            <button id="mindmapCancel" class="cancel-btn">关闭</button>
-            <button id="mindmapSave" class="save-btn" style="display: none;">保存</button>
+    <!-- 编辑卡片模态框 -->
+    <div id="cardModal" class="modal">
+        <div class="modal-content">
+            <h3 id="modalTitle">编辑卡片</h3>
+            <input type="text" id="cardTitle" placeholder="标题" autocomplete="off">
+            <div class="type-selector">
+                <label><input type="radio" name="cardType" value="link"> 🔗 网页链接</label>
+                <label><input type="radio" name="cardType" value="text"> 📄 文本查看</label>
+                <label><input type="radio" name="cardType" value="mindmap"> 🧠 思维导图</label>
+            </div>
+            <textarea id="cardDesc" placeholder="描述 (可自定义)" rows="2"></textarea>
+            <div id="linkContentArea" class="type-content-area">
+                <input type="url" id="cardUrl" placeholder="网址 (https://...)" autocomplete="off">
+            </div>
+            <div id="textContentArea" class="type-content-area" style="display: none;">
+                <textarea id="cardTextContent" placeholder="输入文本内容" rows="6"></textarea>
+            </div>
+            <div id="mindmapContentArea" class="type-content-area" style="display: none;">
+                <textarea id="cardMindmapContent" placeholder="输入 Markdown 大纲" rows="6"></textarea>
+            </div>
+            <input type="text" id="cardAuthor" placeholder="作者">
+            <input type="text" id="cardTags" placeholder="标签 (用英文逗号分隔，例如: Fabric, 库)" autocomplete="off">
+            <div class="quick-tags">
+                <button type="button" class="quick-tag-btn" data-tag="Fabric">🔹 Fabric</button>
+                <button type="button" class="quick-tag-btn" data-tag="Forge">⚙️ Forge</button>
+                <button type="button" class="quick-tag-btn" data-tag="NeoForge">✨ NeoForge</button>
+            </div>
+            <div id="dynamicTagArea" class="dynamic-tag-area">
+                <div class="title">📌 常用标签</div>
+                <div id="dynamicTagList" class="tag-list"></div>
+            </div>
+            <input type="text" id="cardVersion" placeholder="版本 (可选)" autocomplete="off">
+            <input type="text" id="cardDownloads" placeholder="下载量 (可选)" autocomplete="off">
+            <div class="modal-buttons">
+                <button class="cancel-btn" id="modalCancel">取消</button>
+                <button class="save-btn" id="modalSave">保存</button>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- 编辑卡片模态框 -->
-<div id="cardModal" class="modal">
-    <div class="modal-content">
-        <h3 id="modalTitle">编辑卡片</h3>
-        <input type="text" id="cardTitle" placeholder="标题" autocomplete="off">
-        <div class="type-selector">
-            <label><input type="radio" name="cardType" value="link"> 🔗 网页链接</label>
-            <label><input type="radio" name="cardType" value="text"> 📄 文本查看</label>
-            <label><input type="radio" name="cardType" value="mindmap"> 🧠 思维导图</label>
-        </div>
-        <textarea id="cardDesc" placeholder="描述 (可自定义)" rows="2"></textarea>
-        <div id="linkContentArea" class="type-content-area">
-            <input type="url" id="cardUrl" placeholder="网址 (https://...)" autocomplete="off">
-        </div>
-        <div id="textContentArea" class="type-content-area" style="display: none;">
-            <textarea id="cardTextContent" placeholder="输入文本内容" rows="6"></textarea>
-        </div>
-        <div id="mindmapContentArea" class="type-content-area" style="display: none;">
-            <textarea id="cardMindmapContent" placeholder="输入 Markdown 大纲" rows="6"></textarea>
-        </div>
-        <input type="text" id="cardAuthor" placeholder="作者">
-        <input type="text" id="cardTags" placeholder="标签 (用英文逗号分隔，例如: Fabric, 库)" autocomplete="off">
-        <div class="quick-tags">
-            <button type="button" class="quick-tag-btn" data-tag="Fabric">🔹 Fabric</button>
-            <button type="button" class="quick-tag-btn" data-tag="Forge">⚙️ Forge</button>
-            <button type="button" class="quick-tag-btn" data-tag="NeoForge">✨ NeoForge</button>
-        </div>
-        <div id="dynamicTagArea" class="dynamic-tag-area">
-            <div class="title">📌 常用标签</div>
-            <div id="dynamicTagList" class="tag-list"></div>
-        </div>
-        <input type="text" id="cardVersion" placeholder="版本 (可选)" autocomplete="off">
-        <input type="text" id="cardDownloads" placeholder="下载量 (可选)" autocomplete="off">
-        <div class="modal-buttons">
-            <button class="cancel-btn" id="modalCancel">取消</button>
-            <button class="save-btn" id="modalSave">保存</button>
-        </div>
-    </div>
-</div>
+    <script>
+        (function() {
+            // ========== 默认数据 ==========
+            const DEFAULT_GROUPS_DATA = [
+                { groupName: "🎮 Minecraft 模组", items: [
+                    { title: "Fabric API", url: "https://modrinth.com/mod/fabric-api",
+                        description: "轻量级且模块化的API，提供通用钩子和互操作性。", author: "Modmuss50",
+                        tags: ["Fabric", "库"], stats: { downloads: "162M", updated: "4天前" },
+                        version: "0.16.5", type: "link", textContent: "", mindmap: "" },
+                    { title: "Sodium (钠)", url: "https://modrinth.com/mod/sodium",
+                        description: "最快渲染优化模组。", author: "CaffeineMC",
+                        tags: ["Fabric", "NeoForge", "优化"], stats: { downloads: "147M",
+                            updated: "55分钟前" }, version: "0.5.8", type: "link", textContent: "",
+                    mindmap: "" },
+                    { title: "Iris Shaders", url: "https://modrinth.com/mod/iris",
+                        description: "现代光影加载器。", author: "coderbot",
+                        tags: ["Fabric", "NeoForge", "视觉"], stats: { downloads: "115M", updated: "3周前" },
+                        version: "1.7.0", type: "link", textContent: "", mindmap: "" }
+                ] },
+                { groupName: "🌐 常用开发网站", items: [
+                    { title: "GitHub", url: "https://github.com", description: "全球开发者平台。", author: "GitHub",
+                        tags: ["开发"], stats: { downloads: "—", updated: "在线" }, type: "link",
+                        textContent: "", mindmap: "" }
+                ] },
+                { groupName: "📺 视频&学习", items: [
+                    { title: "哔哩哔哩", url: "https://www.bilibili.com", description: "中文弹幕视频网站。",
+                        author: "Bilibili", tags: ["视频"], stats: { downloads: "—", updated: "每日更新" },
+                        type: "link", textContent: "", mindmap: "" }
+                ] }
+            ];
 
-<script>
-    (function() {
-        // ========== 默认数据 ==========
-        const DEFAULT_GROUPS_DATA = [
-            { groupName: "🎮 Minecraft 模组", items: [ 
-                { title: "Fabric API", url: "https://modrinth.com/mod/fabric-api", description: "轻量级且模块化的API，提供通用钩子和互操作性。", author: "Modmuss50", tags: ["Fabric", "库"], stats: { downloads: "162M", updated: "4天前" }, version: "0.16.5", type: "link", textContent: "", mindmap: "" },
-                { title: "Sodium (钠)", url: "https://modrinth.com/mod/sodium", description: "最快渲染优化模组。", author: "CaffeineMC", tags: ["Fabric", "NeoForge", "优化"], stats: { downloads: "147M", updated: "55分钟前" }, version: "0.5.8", type: "link", textContent: "", mindmap: "" },
-                { title: "Iris Shaders", url: "https://modrinth.com/mod/iris", description: "现代光影加载器。", author: "coderbot", tags: ["Fabric", "NeoForge", "视觉"], stats: { downloads: "115M", updated: "3周前" }, version: "1.7.0", type: "link", textContent: "", mindmap: "" }
-            ] },
-            { groupName: "🌐 常用开发网站", items: [ 
-                { title: "GitHub", url: "https://github.com", description: "全球开发者平台。", author: "GitHub", tags: ["开发"], stats: { downloads: "—", updated: "在线" }, type: "link", textContent: "", mindmap: "" }
-            ] },
-            { groupName: "📺 视频&学习", items: [ 
-                { title: "哔哩哔哩", url: "https://www.bilibili.com", description: "中文弹幕视频网站。", author: "Bilibili", tags: ["视频"], stats: { downloads: "—", updated: "每日更新" }, type: "link", textContent: "", mindmap: "" }
-            ] }
-        ];
+            let groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
+            let currentGroupIndex = 0;
+            let currentKeyword = '';
+            let isAdminMode = false;
+            let editingCardInfo = null;
+            let currentDataSource = 'default';
+            let isListView = false;
+            let hasLocalChanges = false;
+            let currentSort = 'title-asc';
+            let currentTagFilter = null;
+            let currentMindmapCard = null;
 
-        let groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
-        let currentGroupIndex = 0;
-        let currentKeyword = '';
-        let isAdminMode = false;
-        let editingCardInfo = null;
-        let currentDataSource = 'default';
-        let isListView = false;
-        let hasLocalChanges = false;
-        let currentSort = 'title-asc';
-        let currentTagFilter = null;
-        let currentMindmapCard = null;
+            // DOM 元素
+            const groupContainer = document.getElementById('groupButtonsContainer');
+            const cardsContainer = document.getElementById('cardsContainer');
+            const searchInput = document.getElementById('searchInput');
+            const dynamicTitle = document.getElementById('dynamicTitle');
+            const paletteBtn = document.getElementById('paletteBtn');
+            const palettePanel = document.getElementById('palettePanel');
+            const adminBtn = document.getElementById('adminBtn');
+            const adminToolbar = document.getElementById('adminToolbar');
+            const addCardBtn = document.getElementById('addCardBtn');
+            const resetDataBtn = document.getElementById('resetDataBtn');
+            const exportDataBtn = document.getElementById('exportDataBtn');
+            const exitAdminBtn = document.getElementById('exitAdminBtn');
+            const addGroupBtn = document.getElementById('addGroupBtn');
+            const layoutSettingsBtn = document.getElementById('layoutSettingsBtn');
+            const layoutPanel = document.getElementById('layoutPanel');
+            const modal = document.getElementById('cardModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const cardTitleInput = document.getElementById('cardTitle');
+            const cardDescInput = document.getElementById('cardDesc');
+            const cardUrlInput = document.getElementById('cardUrl');
+            const cardTextContent = document.getElementById('cardTextContent');
+            const cardMindmapContent = document.getElementById('cardMindmapContent');
+            const cardAuthorInput = document.getElementById('cardAuthor');
+            const cardTagsInput = document.getElementById('cardTags');
+            const cardVersionInput = document.getElementById('cardVersion');
+            const cardDownloadsInput = document.getElementById('cardDownloads');
+            const modalCancel = document.getElementById('modalCancel');
+            const modalSave = document.getElementById('modalSave');
+            const viewToggleBtn = document.getElementById('viewToggleBtn');
+            const sortSelect = document.getElementById('sortSelect');
+            const tagListContainer = document.getElementById('tagListContainer');
+            const clearTagFilterBtn = document.getElementById('clearTagFilterBtn');
+            const dynamicTagList = document.getElementById('dynamicTagList');
+            const mindmapModal = document.getElementById('mindmapModal');
+            const mindmapTitle = document.getElementById('mindmapTitle');
+            const mindmapEditor = document.getElementById('mindmapEditor');
+            const mindmapContainer = document.getElementById('mindmapContainer');
+            const mindmapCancel = document.getElementById('mindmapCancel');
+            const mindmapSave = document.getElementById('mindmapSave');
+            const textModal = document.getElementById('textModal');
+            const textModalTitle = document.getElementById('textModalTitle');
+            const textContentDisplay = document.getElementById('textContentDisplay');
+            const textModalCancel = document.getElementById('textModalCancel');
+            const linkContentArea = document.getElementById('linkContentArea');
+            const textContentArea = document.getElementById('textContentArea');
+            const mindmapContentArea = document.getElementById('mindmapContentArea');
+            const typeRadios = document.querySelectorAll('input[name="cardType"]');
+            const sidebarContainer = document.getElementById('sidebarContainer');
 
-        // DOM 元素
-        const groupContainer = document.getElementById('groupButtonsContainer');
-        const cardsContainer = document.getElementById('cardsContainer');
-        const searchInput = document.getElementById('searchInput');
-        const dynamicTitle = document.getElementById('dynamicTitle');
-        const paletteBtn = document.getElementById('paletteBtn');
-        const palettePanel = document.getElementById('palettePanel');
-        const adminBtn = document.getElementById('adminBtn');
-        const adminToolbar = document.getElementById('adminToolbar');
-        const addCardBtn = document.getElementById('addCardBtn');
-        const resetDataBtn = document.getElementById('resetDataBtn');
-        const exportDataBtn = document.getElementById('exportDataBtn');
-        const exitAdminBtn = document.getElementById('exitAdminBtn');
-        const addGroupBtn = document.getElementById('addGroupBtn');
-        const layoutSettingsBtn = document.getElementById('layoutSettingsBtn');
-        const layoutPanel = document.getElementById('layoutPanel');
-        const modal = document.getElementById('cardModal');
-        const modalTitle = document.getElementById('modalTitle');
-        const cardTitleInput = document.getElementById('cardTitle');
-        const cardDescInput = document.getElementById('cardDesc');
-        const cardUrlInput = document.getElementById('cardUrl');
-        const cardTextContent = document.getElementById('cardTextContent');
-        const cardMindmapContent = document.getElementById('cardMindmapContent');
-        const cardAuthorInput = document.getElementById('cardAuthor');
-        const cardTagsInput = document.getElementById('cardTags');
-        const cardVersionInput = document.getElementById('cardVersion');
-        const cardDownloadsInput = document.getElementById('cardDownloads');
-        const modalCancel = document.getElementById('modalCancel');
-        const modalSave = document.getElementById('modalSave');
-        const viewToggleBtn = document.getElementById('viewToggleBtn');
-        const sortSelect = document.getElementById('sortSelect');
-        const tagListContainer = document.getElementById('tagListContainer');
-        const clearTagFilterBtn = document.getElementById('clearTagFilterBtn');
-        const dynamicTagList = document.getElementById('dynamicTagList');
-        const mindmapModal = document.getElementById('mindmapModal');
-        const mindmapTitle = document.getElementById('mindmapTitle');
-        const mindmapEditor = document.getElementById('mindmapEditor');
-        const mindmapContainer = document.getElementById('mindmapContainer');
-        const mindmapCancel = document.getElementById('mindmapCancel');
-        const mindmapSave = document.getElementById('mindmapSave');
-        const textModal = document.getElementById('textModal');
-        const textModalTitle = document.getElementById('textModalTitle');
-        const textContentDisplay = document.getElementById('textContentDisplay');
-        const textModalCancel = document.getElementById('textModalCancel');
-        const linkContentArea = document.getElementById('linkContentArea');
-        const textContentArea = document.getElementById('textContentArea');
-        const mindmapContentArea = document.getElementById('mindmapContentArea');
-        const typeRadios = document.querySelectorAll('input[name="cardType"]');
-
-        // 辅助函数
-        function normalizeTags(tags) {
-            if (!tags) return [];
-            if (Array.isArray(tags)) return tags;
-            if (typeof tags === 'string') {
-                let str = tags.replace(/，/g, ',');
-                return str.split(',').map(s => s.trim()).filter(s => s);
-            }
-            return [];
-        }
-
-        function escapeHtml(s) { if(!s) return ''; return s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
-        function getFavicon(url) { return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(url)}`; }
-
-        function getCurrentTimeString() {
-            const now = new Date();
-            return `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
-        }
-
-        function extractAllTags() {
-            const tagCount = new Map();
-            for (const group of groupsData) {
-                for (const item of group.items) {
-                    const tagsArray = normalizeTags(item.tags);
-                    for (const tag of tagsArray) {
-                        const key = tag.trim();
-                        if (key) tagCount.set(key, (tagCount.get(key) || 0) + 1);
-                    }
+            // 辅助函数
+            function normalizeTags(tags) {
+                if (!tags) return [];
+                if (Array.isArray(tags)) return tags;
+                if (typeof tags === 'string') {
+                    let str = tags.replace(/，/g, ',');
+                    return str.split(',').map(s => s.trim()).filter(s => s);
                 }
+                return [];
             }
-            return Array.from(tagCount.entries()).sort((a, b) => b[1] - a[1]);
-        }
 
-        function renderTagList() {
-            if (!tagListContainer) return;
-            const tags = extractAllTags();
-            if (tags.length === 0) {
-                tagListContainer.innerHTML = '<div style="font-size:0.7rem; color:#aaa;">暂无标签</div>';
-                if (clearTagFilterBtn) clearTagFilterBtn.style.display = 'none';
-                return;
+            function escapeHtml(s) {
+                if (!s) return '';
+                return s.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]);
             }
-            const fixedOrder = ['Fabric', 'Forge', 'NeoForge'];
-            let fixedTags = [], otherTags = [];
-            for (const [tag, count] of tags) {
-                if (fixedOrder.includes(tag)) fixedTags.push([tag, count]);
-                else otherTags.push([tag, count]);
-            }
-            fixedTags.sort((a, b) => fixedOrder.indexOf(a[0]) - fixedOrder.indexOf(b[0]));
-            otherTags.sort((a, b) => b[1] - a[1]);
-            const sortedTags = [...fixedTags, ...otherTags];
-            let html = '';
-            for (const [tag, count] of sortedTags) {
-                const activeClass = (currentTagFilter === tag) ? 'active' : '';
-                html += `<button class="tag-btn ${activeClass}" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)} (${count})</button>`;
-            }
-            tagListContainer.innerHTML = html;
-            if (clearTagFilterBtn) clearTagFilterBtn.style.display = currentTagFilter ? 'inline-flex' : 'none';
-            document.querySelectorAll('.tag-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const tag = btn.getAttribute('data-tag');
-                    if (currentTagFilter === tag) clearTagFilter();
-                    else {
-                        currentTagFilter = tag;
-                        renderTagList();
-                        renderCards();
-                        renderGroupButtons();
-                    }
-                });
-            });
-        }
 
-        function clearTagFilter() {
-            currentTagFilter = null;
-            renderTagList();
-            renderCards();
-            renderGroupButtons();
-        }
-
-        function renderDynamicTags() {
-            if (!dynamicTagList) return;
-            const allTags = extractAllTags().map(([tag]) => tag);
-            const fixed = ['Fabric', 'Forge', 'NeoForge'];
-            const otherTags = allTags.filter(t => !fixed.includes(t));
-            if (otherTags.length === 0) {
-                dynamicTagList.innerHTML = '<div style="font-size:0.7rem; color:#aaa;">暂无其他标签</div>';
-                return;
+            function getFavicon(url) {
+                return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(url)}`;
             }
-            let html = '';
-            otherTags.forEach(tag => {
-                html += `<button type="button" class="quick-tag-btn dynamic-tag" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`;
-            });
-            dynamicTagList.innerHTML = html;
-            document.querySelectorAll('.dynamic-tag').forEach(btn => {
-                btn.removeEventListener('click', dynamicTagHandler);
-                btn.addEventListener('click', dynamicTagHandler);
-            });
-        }
-        function dynamicTagHandler(e) {
-            const tag = e.currentTarget.getAttribute('data-tag');
-            if (tag && cardTagsInput) {
-                let cur = cardTagsInput.value.trim();
-                if (cur === "") cardTagsInput.value = tag;
-                else {
-                    let arr = cur.split(',').map(s => s.trim());
-                    if (!arr.includes(tag)) {
-                        arr.push(tag);
-                        cardTagsInput.value = arr.join(', ');
-                    }
-                }
+
+            function getCurrentTimeString() {
+                const now = new Date();
+                return `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
             }
-        }
 
-        function updateDataSourceIndicator() {
-            const container = document.getElementById('dataSourceIndicator');
-            const dot = container?.querySelector('.indicator-dot');
-            const textSpan = document.getElementById('sourceText');
-            if (!container) return;
-            container.style.display = 'flex';
-            if (hasLocalChanges) {
-                dot.className = 'indicator-dot local';
-                textSpan.innerText = '本地草稿 (需导出)';
-            } else if (currentDataSource === 'cloud') {
-                dot.className = 'indicator-dot cloud';
-                textSpan.innerText = '云端同步';
-            } else if (currentDataSource === 'local') {
-                dot.className = 'indicator-dot local';
-                textSpan.innerText = '本地缓存';
-            } else {
-                dot.className = 'indicator-dot default';
-                textSpan.innerText = '默认数据';
-            }
-        }
-
-        function saveDataToStorage() {
-            localStorage.setItem('editable_groups_data', JSON.stringify(groupsData));
-            hasLocalChanges = true;
-            if (currentDataSource !== 'cloud') currentDataSource = 'local';
-            updateDataSourceIndicator();
-            renderTagList();
-            if (modal && modal.classList.contains('active')) renderDynamicTags();
-        }
-
-        async function loadInitialData() {
-            const autoAdmin = sessionStorage.getItem('adminModeAuto') === 'true';
-            if (autoAdmin) {
-                const stored = localStorage.getItem('editable_groups_data');
-                if (stored) {
-                    try {
-                        const parsed = JSON.parse(stored);
-                        if (parsed && Array.isArray(parsed)) {
-                            groupsData = parsed;
-                            currentDataSource = 'local';
-                            hasLocalChanges = true;
-                            updateDataSourceIndicator();
-                            renderAll();
-                            return;
+            function extractAllTags() {
+                const tagCount = new Map();
+                for (const group of groupsData) {
+                    for (const item of group.items) {
+                        const tagsArray = normalizeTags(item.tags);
+                        for (const tag of tagsArray) {
+                            const key = tag.trim();
+                            if (key) tagCount.set(key, (tagCount.get(key) || 0) + 1);
                         }
-                    } catch(e) {}
-                }
-                groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
-                currentDataSource = 'default';
-                hasLocalChanges = false;
-                updateDataSourceIndicator();
-                renderAll();
-                return;
-            }
-            let cloudLoaded = false;
-            try {
-                const res = await fetch('data.json?v=' + Date.now());
-                if (res.ok) {
-                    const remote = await res.json();
-                    if (remote && Array.isArray(remote)) {
-                        groupsData = remote;
-                        currentDataSource = 'cloud';
-                        hasLocalChanges = false;
-                        localStorage.setItem('editable_groups_data', JSON.stringify(groupsData));
-                        cloudLoaded = true;
                     }
                 }
-            } catch(e) {}
-            if (!cloudLoaded) {
-                const stored = localStorage.getItem('editable_groups_data');
-                if (stored) {
-                    try { groupsData = JSON.parse(stored); currentDataSource = 'local'; hasLocalChanges = false; } catch(e) {}
+                return Array.from(tagCount.entries()).sort((a, b) => b[1] - a[1]);
+            }
+
+            function renderTagList() {
+                if (!tagListContainer) return;
+                const tags = extractAllTags();
+                if (tags.length === 0) {
+                    tagListContainer.innerHTML =
+                        '<div style="font-size:0.7rem; color:#aaa;">暂无标签</div>';
+                    if (clearTagFilterBtn) clearTagFilterBtn.style.display = 'none';
+                    return;
+                }
+                const fixedOrder = ['Fabric', 'Forge', 'NeoForge'];
+                let fixedTags = [],
+                    otherTags = [];
+                for (const [tag, count] of tags) {
+                    if (fixedOrder.includes(tag)) fixedTags.push([tag, count]);
+                    else otherTags.push([tag, count]);
+                }
+                fixedTags.sort((a, b) => fixedOrder.indexOf(a[0]) - fixedOrder.indexOf(b[0]));
+                otherTags.sort((a, b) => b[1] - a[1]);
+                const sortedTags = [...fixedTags, ...otherTags];
+                let html = '';
+                for (const [tag, count] of sortedTags) {
+                    const activeClass = (currentTagFilter === tag) ? 'active' : '';
+                    html +=
+                        `<button class="tag-btn ${activeClass}" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)} (${count})</button>`;
+                }
+                tagListContainer.innerHTML = html;
+                if (clearTagFilterBtn) clearTagFilterBtn.style.display = currentTagFilter ? 'inline-flex' :
+                    'none';
+                document.querySelectorAll('.tag-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const tag = btn.getAttribute('data-tag');
+                        if (currentTagFilter === tag) clearTagFilter();
+                        else {
+                            currentTagFilter = tag;
+                            renderTagList();
+                            renderCards();
+                            renderGroupButtons();
+                        }
+                    });
+                });
+            }
+
+            function clearTagFilter() {
+                currentTagFilter = null;
+                renderTagList();
+                renderCards();
+                renderGroupButtons();
+            }
+
+            function renderDynamicTags() {
+                if (!dynamicTagList) return;
+                const allTags = extractAllTags().map(([tag]) => tag);
+                const fixed = ['Fabric', 'Forge', 'NeoForge'];
+                const otherTags = allTags.filter(t => !fixed.includes(t));
+                if (otherTags.length === 0) {
+                    dynamicTagList.innerHTML =
+                        '<div style="font-size:0.7rem; color:#aaa;">暂无其他标签</div>';
+                    return;
+                }
+                let html = '';
+                otherTags.forEach(tag => {
+                    html +=
+                        `<button type="button" class="quick-tag-btn dynamic-tag" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`;
+                });
+                dynamicTagList.innerHTML = html;
+                document.querySelectorAll('.dynamic-tag').forEach(btn => {
+                    btn.removeEventListener('click', dynamicTagHandler);
+                    btn.addEventListener('click', dynamicTagHandler);
+                });
+            }
+
+            function dynamicTagHandler(e) {
+                const tag = e.currentTarget.getAttribute('data-tag');
+                if (tag && cardTagsInput) {
+                    let cur = cardTagsInput.value.trim();
+                    if (cur === "") cardTagsInput.value = tag;
+                    else {
+                        let arr = cur.split(',').map(s => s.trim());
+                        if (!arr.includes(tag)) {
+                            arr.push(tag);
+                            cardTagsInput.value = arr.join(', ');
+                        }
+                    }
+                }
+            }
+
+            function updateDataSourceIndicator() {
+                const container = document.getElementById('dataSourceIndicator');
+                const dot = container?.querySelector('.indicator-dot');
+                const textSpan = document.getElementById('sourceText');
+                if (!container) return;
+                container.style.display = 'flex';
+                if (hasLocalChanges) {
+                    dot.className = 'indicator-dot local';
+                    textSpan.innerText = '本地草稿 (需导出)';
+                } else if (currentDataSource === 'cloud') {
+                    dot.className = 'indicator-dot cloud';
+                    textSpan.innerText = '云端同步';
+                } else if (currentDataSource === 'local') {
+                    dot.className = 'indicator-dot local';
+                    textSpan.innerText = '本地缓存';
                 } else {
+                    dot.className = 'indicator-dot default';
+                    textSpan.innerText = '默认数据';
+                }
+            }
+
+            function saveDataToStorage() {
+                localStorage.setItem('editable_groups_data', JSON.stringify(groupsData));
+                hasLocalChanges = true;
+                if (currentDataSource !== 'cloud') currentDataSource = 'local';
+                updateDataSourceIndicator();
+                renderTagList();
+                if (modal && modal.classList.contains('active')) renderDynamicTags();
+            }
+
+            async function loadInitialData() {
+                const autoAdmin = sessionStorage.getItem('adminModeAuto') === 'true';
+                if (autoAdmin) {
+                    const stored = localStorage.getItem('editable_groups_data');
+                    if (stored) {
+                        try {
+                            const parsed = JSON.parse(stored);
+                            if (parsed && Array.isArray(parsed)) {
+                                groupsData = parsed;
+                                currentDataSource = 'local';
+                                hasLocalChanges = true;
+                                updateDataSourceIndicator();
+                                renderAll();
+                                return;
+                            }
+                        } catch (e) {}
+                    }
                     groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
                     currentDataSource = 'default';
                     hasLocalChanges = false;
+                    updateDataSourceIndicator();
+                    renderAll();
+                    return;
                 }
-            }
-            updateDataSourceIndicator();
-            renderAll();
-        }
-
-        function resetToDefault() {
-            if (confirm('重置所有数据将丢失当前本地修改，确定吗？')) {
-                groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
-                saveDataToStorage();
-                currentDataSource = 'default';
-                hasLocalChanges = false;
-                updateDataSourceIndicator();
-                currentGroupIndex = 0;
-                currentKeyword = '';
-                if (searchInput) searchInput.value = '';
-                currentTagFilter = null;
-                renderAll();
-                alert('已重置为默认数据');
-            }
-        }
-
-        function exportData() {
-            const dataStr = JSON.stringify(groupsData, null, 2);
-            const blob = new Blob([dataStr], {type: 'application/json'});
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'card_data_backup.json';
-            a.click();
-            URL.revokeObjectURL(url);
-            alert('数据已导出');
-        }
-
-        function addNewGroup() {
-            let newName = prompt('请输入新分组名称：');
-            if (!newName) return;
-            newName = newName.trim();
-            if (newName === "") { alert('名称不能为空'); return; }
-            if (groupsData.some(g => g.groupName === newName)) { alert('分组已存在'); return; }
-            groupsData.push({ groupName: newName, items: [] });
-            saveDataToStorage();
-            currentGroupIndex = groupsData.length - 1;
-            currentTagFilter = null;
-            renderAll();
-        }
-
-        function openEditModal(groupIdx, cardIdx, card) {
-            editingCardInfo = { groupIdx, cardIdx, card: { ...card } };
-            if (modalTitle) modalTitle.innerText = cardIdx === undefined ? '新增卡片' : '编辑卡片';
-            if (cardTitleInput) cardTitleInput.value = card.title || '';
-            if (cardDescInput) cardDescInput.value = card.description || '';
-            const type = card.type || 'link';
-            typeRadios.forEach(radio => { if (radio.value === type) radio.checked = true; });
-            linkContentArea.style.display = type === 'link' ? 'block' : 'none';
-            textContentArea.style.display = type === 'text' ? 'block' : 'none';
-            mindmapContentArea.style.display = type === 'mindmap' ? 'block' : 'none';
-            if (cardUrlInput) cardUrlInput.value = card.url || '';
-            if (cardTextContent) cardTextContent.value = card.textContent || '';
-            if (cardMindmapContent) cardMindmapContent.value = card.mindmap || '';
-            if (cardAuthorInput) cardAuthorInput.value = card.author || '';
-            const tagsForInput = (card.tags && Array.isArray(card.tags)) ? card.tags.join(', ') : (typeof card.tags === 'string' ? card.tags : '');
-            if (cardTagsInput) cardTagsInput.value = tagsForInput;
-            if (cardVersionInput) cardVersionInput.value = card.version || '';
-            if (cardDownloadsInput) cardDownloadsInput.value = card.stats?.downloads || '';
-            if (modal) modal.classList.add('active');
-            bindQuickTagButtons();
-            renderDynamicTags();
-        }
-
-        function saveCardFromModal() {
-            if (!editingCardInfo) return;
-            const { groupIdx, cardIdx } = editingCardInfo;
-            let type = 'link';
-            for (const radio of typeRadios) { if (radio.checked) { type = radio.value; break; } }
-            const tagsRaw = cardTagsInput ? cardTagsInput.value.trim() : '';
-            let tagsArray = tagsRaw ? tagsRaw.split(',').map(s => s.trim()).filter(s => s) : [];
-            const newCard = {
-                title: cardTitleInput ? cardTitleInput.value.trim() : '',
-                description: cardDescInput ? cardDescInput.value.trim() : '',
-                author: cardAuthorInput ? cardAuthorInput.value.trim() : '',
-                tags: tagsArray,
-                version: cardVersionInput ? cardVersionInput.value.trim() || undefined : undefined,
-                stats: {
-                    downloads: cardDownloadsInput ? cardDownloadsInput.value.trim() || '—' : '—',
-                    updated: getCurrentTimeString()
-                },
-                type: type,
-                url: "",
-                textContent: "",
-                mindmap: ""
-            };
-            if (type === 'link') {
-                newCard.url = cardUrlInput ? cardUrlInput.value.trim() : '';
-                if (!newCard.url) { alert('网址不能为空'); return; }
-                if (!newCard.description) newCard.description = newCard.url;
-            } else if (type === 'text') {
-                newCard.textContent = cardTextContent ? cardTextContent.value.trim() : '';
-                if (!newCard.textContent) { alert('文本内容不能为空'); return; }
-                if (!newCard.description) newCard.description = newCard.textContent.substring(0, 100) + (newCard.textContent.length > 100 ? '…' : '');
-            } else if (type === 'mindmap') {
-                newCard.mindmap = cardMindmapContent ? cardMindmapContent.value.trim() : '';
-                if (!newCard.mindmap) { alert('思维导图内容不能为空'); return; }
-                if (!newCard.description) newCard.description = '思维导图已保存';
-            }
-            if (!newCard.title) { alert('标题不能为空'); return; }
-            if (cardIdx === undefined) groupsData[groupIdx].items.push(newCard);
-            else groupsData[groupIdx].items[cardIdx] = newCard;
-            saveDataToStorage();
-            closeModal();
-            renderAll();
-        }
-
-        function deleteCard(groupIdx, cardIdx) {
-            if (confirm('确定删除？')) {
-                groupsData[groupIdx].items.splice(cardIdx, 1);
-                saveDataToStorage();
-                renderAll();
-            }
-        }
-
-        function closeModal() { if (modal) modal.classList.remove('active'); editingCardInfo = null; }
-
-        function openTextView(title, content) {
-            if (textModalTitle) textModalTitle.innerText = title;
-            if (textContentDisplay) textContentDisplay.innerHTML = escapeHtml(content).replace(/\n/g, '<br>');
-            if (textModal) textModal.classList.add('active');
-        }
-        function closeTextModal() { if (textModal) textModal.classList.remove('active'); }
-
-        function openMindmap(groupIdx, cardIdx) {
-            currentMindmapCard = { groupIdx, cardIdx };
-            const card = groupsData[groupIdx].items[cardIdx];
-            if (mindmapTitle) mindmapTitle.innerText = `思维导图 - ${card.title}`;
-            const content = card.mindmap || '';
-            if (isAdminMode) {
-                if (mindmapEditor) mindmapEditor.style.display = 'block';
-                if (mindmapSave) mindmapSave.style.display = 'inline-block';
-                if (mindmapEditor) mindmapEditor.value = content;
-            } else {
-                if (mindmapEditor) mindmapEditor.style.display = 'none';
-                if (mindmapSave) mindmapSave.style.display = 'none';
-            }
-            renderMindmap(content || '# 思维导图\n请编辑内容');
-            if (mindmapModal) mindmapModal.classList.add('active');
-        }
-
-        function renderMindmap(markdown) {
-            if (!mindmapContainer) return;
-            mindmapContainer.innerHTML = '';
-            try {
-                let content = markdown.trim();
-                if (!content) content = '# 思维导图\n请编辑内容';
-                if (!content.startsWith('#')) content = '# 根节点\n' + content;
-                const { Transformer } = window.markmap;
-                const transformer = new Transformer();
-                const { root } = transformer.transform(content);
-                const mm = markmap.Markmap.create(mindmapContainer, null, root);
-                if (window.markmap.Toolbar) {
-                    const toolbar = new window.markmap.Toolbar();
-                    toolbar.attach(mm);
-                    if (mindmapContainer.parentNode && !mindmapContainer.parentNode.querySelector('.markmap-toolbar')) {
-                        mindmapContainer.parentNode.appendChild(toolbar.render());
+                let cloudLoaded = false;
+                try {
+                    const res = await fetch('data.json?v=' + Date.now());
+                    if (res.ok) {
+                        const remote = await res.json();
+                        if (remote && Array.isArray(remote)) {
+                            groupsData = remote;
+                            currentDataSource = 'cloud';
+                            hasLocalChanges = false;
+                            localStorage.setItem('editable_groups_data', JSON.stringify(groupsData));
+                            cloudLoaded = true;
+                        }
+                    }
+                } catch (e) {}
+                if (!cloudLoaded) {
+                    const stored = localStorage.getItem('editable_groups_data');
+                    if (stored) {
+                        try { groupsData = JSON.parse(stored);
+                            currentDataSource = 'local';
+                            hasLocalChanges = false; } catch (e) {}
+                    } else {
+                        groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
+                        currentDataSource = 'default';
+                        hasLocalChanges = false;
                     }
                 }
-            } catch(e) {
-                mindmapContainer.innerHTML = '<div style="color:red; padding:20px;">渲染失败，检查格式</div>';
+                updateDataSourceIndicator();
+                renderAll();
             }
-        }
 
-        function saveMindmap() {
-            if (!currentMindmapCard || !isAdminMode) return;
-            const newContent = mindmapEditor ? mindmapEditor.value.trim() : '';
-            const { groupIdx, cardIdx } = currentMindmapCard;
-            groupsData[groupIdx].items[cardIdx].mindmap = newContent;
-            groupsData[groupIdx].items[cardIdx].stats.updated = getCurrentTimeString();
-            saveDataToStorage();
-            renderMindmap(newContent);
-            alert('已保存');
-        }
+            function resetToDefault() {
+                if (confirm('重置所有数据将丢失当前本地修改，确定吗？')) {
+                    groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
+                    saveDataToStorage();
+                    currentDataSource = 'default';
+                    hasLocalChanges = false;
+                    updateDataSourceIndicator();
+                    currentGroupIndex = 0;
+                    currentKeyword = '';
+                    if (searchInput) searchInput.value = '';
+                    currentTagFilter = null;
+                    renderAll();
+                    alert('已重置为默认数据');
+                }
+            }
 
-        function closeMindmap() { if (mindmapModal) mindmapModal.classList.remove('active'); currentMindmapCard = null; }
+            function exportData() {
+                const dataStr = JSON.stringify(groupsData, null, 2);
+                const blob = new Blob([dataStr], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'card_data_backup.json';
+                a.click();
+                URL.revokeObjectURL(url);
+                alert('数据已导出');
+            }
 
-        function renderCard(item, groupIdx, cardIdx) {
-            const tagsArray = normalizeTags(item.tags);
-            const tagsHtml = tagsArray.map(t => `<span class="badge">${escapeHtml(t)}</span>`).join('');
-            const versionHtml = item.version ? `<div class="version-info">📌 ${escapeHtml(item.version)}</div>` : '';
-            const downloads = item.stats?.downloads || '';
-            const updated = item.stats?.updated || '';
-            let sourceBadge = '';
-            if (hasLocalChanges) sourceBadge = `<span class="data-source-badge">💾 本地草稿</span>`;
-            else if (currentDataSource === 'cloud') sourceBadge = `<span class="data-source-badge">☁️ 云端</span>`;
-            else sourceBadge = `<span class="data-source-badge">📄 默认</span>`;
+            function addNewGroup() {
+                let newName = prompt('请输入新分组名称：');
+                if (!newName) return;
+                newName = newName.trim();
+                if (newName === "") { alert('名称不能为空'); return; }
+                if (groupsData.some(g => g.groupName === newName)) { alert('分组已存在'); return; }
+                groupsData.push({ groupName: newName, items: [] });
+                saveDataToStorage();
+                currentGroupIndex = groupsData.length - 1;
+                currentTagFilter = null;
+                renderAll();
+            }
 
-            const adminActions = isAdminMode ? `
+            // 删除分组
+            function deleteGroup(groupIdx) {
+                if (groupsData.length <= 1) {
+                    alert('至少需要保留一个分组');
+                    return;
+                }
+                const groupName = groupsData[groupIdx].groupName;
+                if (confirm(`确定删除分组「${groupName}」及其所有卡片吗？此操作不可撤销。`)) {
+                    groupsData.splice(groupIdx, 1);
+                    saveDataToStorage();
+                    if (currentGroupIndex >= groupsData.length) {
+                        currentGroupIndex = groupsData.length - 1;
+                    }
+                    if (currentGroupIndex < 0) currentGroupIndex = 0;
+                    currentTagFilter = null;
+                    renderAll();
+                }
+            }
+
+            function openEditModal(groupIdx, cardIdx, card) {
+                editingCardInfo = { groupIdx, cardIdx, card: { ...card } };
+                if (modalTitle) modalTitle.innerText = cardIdx === undefined ? '新增卡片' : '编辑卡片';
+                if (cardTitleInput) cardTitleInput.value = card.title || '';
+                if (cardDescInput) cardDescInput.value = card.description || '';
+                const type = card.type || 'link';
+                typeRadios.forEach(radio => { if (radio.value === type) radio.checked = true; });
+                linkContentArea.style.display = type === 'link' ? 'block' : 'none';
+                textContentArea.style.display = type === 'text' ? 'block' : 'none';
+                mindmapContentArea.style.display = type === 'mindmap' ? 'block' : 'none';
+                if (cardUrlInput) cardUrlInput.value = card.url || '';
+                if (cardTextContent) cardTextContent.value = card.textContent || '';
+                if (cardMindmapContent) cardMindmapContent.value = card.mindmap || '';
+                if (cardAuthorInput) cardAuthorInput.value = card.author || '';
+                const tagsForInput = (card.tags && Array.isArray(card.tags)) ? card.tags.join(', ') : (
+                    typeof card.tags === 'string' ? card.tags : '');
+                if (cardTagsInput) cardTagsInput.value = tagsForInput;
+                if (cardVersionInput) cardVersionInput.value = card.version || '';
+                if (cardDownloadsInput) cardDownloadsInput.value = card.stats?.downloads || '';
+                if (modal) modal.classList.add('active');
+                bindQuickTagButtons();
+                renderDynamicTags();
+            }
+
+            function saveCardFromModal() {
+                if (!editingCardInfo) return;
+                const { groupIdx, cardIdx } = editingCardInfo;
+                let type = 'link';
+                for (const radio of typeRadios) { if (radio.checked) { type = radio.value; break; } }
+                const tagsRaw = cardTagsInput ? cardTagsInput.value.trim() : '';
+                let tagsArray = tagsRaw ? tagsRaw.split(',').map(s => s.trim()).filter(s => s) : [];
+                const newCard = {
+                    title: cardTitleInput ? cardTitleInput.value.trim() : '',
+                    description: cardDescInput ? cardDescInput.value.trim() : '',
+                    author: cardAuthorInput ? cardAuthorInput.value.trim() : '',
+                    tags: tagsArray,
+                    version: cardVersionInput ? cardVersionInput.value.trim() || undefined : undefined,
+                    stats: {
+                        downloads: cardDownloadsInput ? cardDownloadsInput.value.trim() || '—' : '—',
+                        updated: getCurrentTimeString()
+                    },
+                    type: type,
+                    url: "",
+                    textContent: "",
+                    mindmap: ""
+                };
+                if (type === 'link') {
+                    newCard.url = cardUrlInput ? cardUrlInput.value.trim() : '';
+                    if (!newCard.url) { alert('网址不能为空'); return; }
+                    if (!newCard.description) newCard.description = newCard.url;
+                } else if (type === 'text') {
+                    newCard.textContent = cardTextContent ? cardTextContent.value.trim() : '';
+                    if (!newCard.textContent) { alert('文本内容不能为空'); return; }
+                    if (!newCard.description) newCard.description = newCard.textContent.substring(0, 100) + (
+                        newCard.textContent.length > 100 ? '…' : '');
+                } else if (type === 'mindmap') {
+                    newCard.mindmap = cardMindmapContent ? cardMindmapContent.value.trim() : '';
+                    if (!newCard.mindmap) { alert('思维导图内容不能为空'); return; }
+                    if (!newCard.description) newCard.description = '思维导图已保存';
+                }
+                if (!newCard.title) { alert('标题不能为空'); return; }
+                if (cardIdx === undefined) groupsData[groupIdx].items.push(newCard);
+                else groupsData[groupIdx].items[cardIdx] = newCard;
+                saveDataToStorage();
+                closeModal();
+                renderAll();
+            }
+
+            function deleteCard(groupIdx, cardIdx) {
+                if (confirm('确定删除？')) {
+                    groupsData[groupIdx].items.splice(cardIdx, 1);
+                    saveDataToStorage();
+                    renderAll();
+                }
+            }
+
+            function closeModal() { if (modal) modal.classList.remove('active');
+                editingCardInfo = null; }
+
+            function openTextView(title, content) {
+                if (textModalTitle) textModalTitle.innerText = title;
+                if (textContentDisplay) textContentDisplay.innerHTML = escapeHtml(content).replace(/\n/g, '<br>');
+                if (textModal) textModal.classList.add('active');
+            }
+
+            function closeTextModal() { if (textModal) textModal.classList.remove('active'); }
+
+            function openMindmap(groupIdx, cardIdx) {
+                currentMindmapCard = { groupIdx, cardIdx };
+                const card = groupsData[groupIdx].items[cardIdx];
+                if (mindmapTitle) mindmapTitle.innerText = `思维导图 - ${card.title}`;
+                const content = card.mindmap || '';
+                if (isAdminMode) {
+                    if (mindmapEditor) mindmapEditor.style.display = 'block';
+                    if (mindmapSave) mindmapSave.style.display = 'inline-block';
+                    if (mindmapEditor) mindmapEditor.value = content;
+                } else {
+                    if (mindmapEditor) mindmapEditor.style.display = 'none';
+                    if (mindmapSave) mindmapSave.style.display = 'none';
+                }
+                renderMindmap(content || '# 思维导图\n请编辑内容');
+                if (mindmapModal) mindmapModal.classList.add('active');
+            }
+
+            function renderMindmap(markdown) {
+                if (!mindmapContainer) return;
+                mindmapContainer.innerHTML = '';
+                try {
+                    let content = markdown.trim();
+                    if (!content) content = '# 思维导图\n请编辑内容';
+                    if (!content.startsWith('#')) content = '# 根节点\n' + content;
+                    const { Transformer } = window.markmap;
+                    const transformer = new Transformer();
+                    const { root } = transformer.transform(content);
+                    const mm = markmap.Markmap.create(mindmapContainer, null, root);
+                    if (window.markmap.Toolbar) {
+                        const toolbar = new window.markmap.Toolbar();
+                        toolbar.attach(mm);
+                        if (mindmapContainer.parentNode && !mindmapContainer.parentNode.querySelector(
+                                '.markmap-toolbar')) {
+                            mindmapContainer.parentNode.appendChild(toolbar.render());
+                        }
+                    }
+                } catch (e) {
+                    mindmapContainer.innerHTML =
+                        '<div style="color:red; padding:20px;">渲染失败，检查格式</div>';
+                }
+            }
+
+            function saveMindmap() {
+                if (!currentMindmapCard || !isAdminMode) return;
+                const newContent = mindmapEditor ? mindmapEditor.value.trim() : '';
+                const { groupIdx, cardIdx } = currentMindmapCard;
+                groupsData[groupIdx].items[cardIdx].mindmap = newContent;
+                groupsData[groupIdx].items[cardIdx].stats.updated = getCurrentTimeString();
+                saveDataToStorage();
+                renderMindmap(newContent);
+                alert('已保存');
+            }
+
+            function closeMindmap() { if (mindmapModal) mindmapModal.classList.remove('active');
+                currentMindmapCard = null; }
+
+            function renderCard(item, groupIdx, cardIdx) {
+                const tagsArray = normalizeTags(item.tags);
+                const tagsHtml = tagsArray.map(t => `<span class="badge">${escapeHtml(t)}</span>`).join('');
+                const versionHtml = item.version ?
+                    `<div class="version-info">📌 ${escapeHtml(item.version)}</div>` : '';
+                const downloads = item.stats?.downloads || '';
+                const updated = item.stats?.updated || '';
+                let sourceBadge = '';
+                if (hasLocalChanges) sourceBadge = `<span class="data-source-badge">💾 本地草稿</span>`;
+                else if (currentDataSource === 'cloud') sourceBadge =
+                    `<span class="data-source-badge">☁️ 云端</span>`;
+                else sourceBadge = `<span class="data-source-badge">📄 默认</span>`;
+
+                const adminActions = isAdminMode ? `
                 <div class="card-actions">
                     <button class="edit-btn" data-group="${groupIdx}" data-card="${cardIdx}">✏️</button>
                     <button class="delete-btn" data-group="${groupIdx}" data-card="${cardIdx}">🗑️</button>
                 </div>
             ` : '';
-            return `
+                return `
                 <div class="card" data-group="${groupIdx}" data-card="${cardIdx}" data-type="${item.type}" data-url="${escapeHtml(item.url)}" data-title="${escapeHtml(item.title)}" data-content="${escapeHtml(item.textContent)}">
                     ${adminActions}
                     <div class="card-title">
@@ -1519,582 +1914,683 @@
                     </div>
                 </div>
             `;
-        }
+            }
 
-        function getDisplayItems() {
-            if (currentTagFilter) {
-                const all = [];
-                for (const group of groupsData) {
-                    for (const item of group.items) {
-                        if (normalizeTags(item.tags).includes(currentTagFilter)) all.push(item);
+            function getDisplayItems() {
+                if (currentTagFilter) {
+                    const all = [];
+                    for (const group of groupsData) {
+                        for (const item of group.items) {
+                            if (normalizeTags(item.tags).includes(currentTagFilter)) all.push(item);
+                        }
                     }
+                    return all;
+                } else {
+                    return groupsData[currentGroupIndex]?.items || [];
                 }
-                return all;
-            } else {
-                return groupsData[currentGroupIndex]?.items || [];
             }
-        }
 
-        function sortItems(items) {
-            const sorted = [...items];
-            if (currentSort === 'title-asc') {
-                sorted.sort((a, b) => (a.title || '').localeCompare(b.title || '', 'zh'));
-            } else if (currentSort === 'date-desc') {
-                sorted.sort((a, b) => {
-                    const da = a.stats?.updated || '', db = b.stats?.updated || '';
-                    if (!da && !db) return 0;
-                    if (!da) return 1;
-                    if (!db) return -1;
-                    return db.localeCompare(da);
-                });
-            }
-            return sorted;
-        }
-
-        function getFilteredAndSortedItems() {
-            let items = getDisplayItems();
-            const kw = currentKeyword.trim().toLowerCase();
-            if (kw) {
-                items = items.filter(it => 
-                    it.title.toLowerCase().includes(kw) ||
-                    it.description.toLowerCase().includes(kw) ||
-                    it.author.toLowerCase().includes(kw) ||
-                    normalizeTags(it.tags).some(t => t.toLowerCase().includes(kw)) ||
-                    (it.version && it.version.toLowerCase().includes(kw)) ||
-                    (it.stats?.downloads && it.stats.downloads.toLowerCase().includes(kw)) ||
-                    (it.stats?.updated && it.stats.updated.toLowerCase().includes(kw))
-                );
-            }
-            return sortItems(items);
-        }
-
-        function bindCardClickEvents() {
-            document.querySelectorAll('.card').forEach(card => {
-                card.addEventListener('click', (e) => {
-                    if (e.target.classList.contains('edit-btn') || e.target.classList.contains('delete-btn')) return;
-                    const type = card.getAttribute('data-type');
-                    const url = card.getAttribute('data-url');
-                    const title = card.getAttribute('data-title');
-                    const content = card.getAttribute('data-content');
-                    const groupIdx = parseInt(card.getAttribute('data-group'));
-                    const cardIdx = parseInt(card.getAttribute('data-card'));
-                    if (type === 'link' && url) window.open(url, '_blank');
-                    else if (type === 'text') openTextView(title, content);
-                    else if (type === 'mindmap' && !isNaN(groupIdx) && !isNaN(cardIdx)) openMindmap(groupIdx, cardIdx);
-                });
-            });
-        }
-
-        function renderCards() {
-            if (!cardsContainer) return;
-            const items = getFilteredAndSortedItems();
-            if (!items.length) {
-                cardsContainer.innerHTML = `<div class="no-results">✨ 没有找到相关内容</div>`;
-                return;
-            }
-            let html = '';
-            items.forEach(item => {
-                const loc = getCardLocation(item);
-                if (loc.groupIdx !== -1 && loc.cardIdx !== -1) html += renderCard(item, loc.groupIdx, loc.cardIdx);
-            });
-            cardsContainer.innerHTML = html;
-            if (isAdminMode) {
-                document.querySelectorAll('.edit-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        const g = parseInt(btn.dataset.group), c = parseInt(btn.dataset.card);
-                        openEditModal(g, c, groupsData[g].items[c]);
+            function sortItems(items) {
+                const sorted = [...items];
+                if (currentSort === 'title-asc') {
+                    sorted.sort((a, b) => (a.title || '').localeCompare(b.title || '', 'zh'));
+                } else if (currentSort === 'date-desc') {
+                    sorted.sort((a, b) => {
+                        const da = a.stats?.updated || '',
+                            db = b.stats?.updated || '';
+                        if (!da && !db) return 0;
+                        if (!da) return 1;
+                        if (!db) return -1;
+                        return db.localeCompare(da);
                     });
-                });
-                document.querySelectorAll('.delete-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        const g = parseInt(btn.dataset.group), c = parseInt(btn.dataset.card);
-                        deleteCard(g, c);
+                }
+                return sorted;
+            }
+
+            function getFilteredAndSortedItems() {
+                let items = getDisplayItems();
+                const kw = currentKeyword.trim().toLowerCase();
+                if (kw) {
+                    items = items.filter(it =>
+                        it.title.toLowerCase().includes(kw) ||
+                        it.description.toLowerCase().includes(kw) ||
+                        it.author.toLowerCase().includes(kw) ||
+                        normalizeTags(it.tags).some(t => t.toLowerCase().includes(kw)) ||
+                        (it.version && it.version.toLowerCase().includes(kw)) ||
+                        (it.stats?.downloads && it.stats.downloads.toLowerCase().includes(kw)) ||
+                        (it.stats?.updated && it.stats.updated.toLowerCase().includes(kw))
+                    );
+                }
+                return sortItems(items);
+            }
+
+            function bindCardClickEvents() {
+                document.querySelectorAll('.card').forEach(card => {
+                    card.addEventListener('click', (e) => {
+                        if (e.target.classList.contains('edit-btn') || e.target.classList.contains(
+                                'delete-btn')) return;
+                        const type = card.getAttribute('data-type');
+                        const url = card.getAttribute('data-url');
+                        const title = card.getAttribute('data-title');
+                        const content = card.getAttribute('data-content');
+                        const groupIdx = parseInt(card.getAttribute('data-group'));
+                        const cardIdx = parseInt(card.getAttribute('data-card'));
+                        if (type === 'link' && url) window.open(url, '_blank');
+                        else if (type === 'text') openTextView(title, content);
+                        else if (type === 'mindmap' && !isNaN(groupIdx) && !isNaN(cardIdx))
+                            openMindmap(groupIdx, cardIdx);
                     });
                 });
             }
-            bindCardClickEvents();
-            if (isListView) cardsContainer.classList.add('list-view');
-            else cardsContainer.classList.remove('list-view');
-        }
 
-        function getCardLocation(target) {
-            for (let g = 0; g < groupsData.length; g++) {
-                for (let i = 0; i < groupsData[g].items.length; i++) {
-                    if (groupsData[g].items[i] === target) return { groupIdx: g, cardIdx: i };
+            function renderCards() {
+                if (!cardsContainer) return;
+                const items = getFilteredAndSortedItems();
+                if (!items.length) {
+                    cardsContainer.innerHTML = `<div class="no-results">✨ 没有找到相关内容</div>`;
+                    return;
+                }
+                let html = '';
+                items.forEach(item => {
+                    const loc = getCardLocation(item);
+                    if (loc.groupIdx !== -1 && loc.cardIdx !== -1) html += renderCard(item, loc.groupIdx,
+                        loc.cardIdx);
+                });
+                cardsContainer.innerHTML = html;
+                if (isAdminMode) {
+                    document.querySelectorAll('.edit-btn').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            const g = parseInt(btn.dataset.group),
+                                c = parseInt(btn.dataset.card);
+                            openEditModal(g, c, groupsData[g].items[c]);
+                        });
+                    });
+                    document.querySelectorAll('.delete-btn').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            const g = parseInt(btn.dataset.group),
+                                c = parseInt(btn.dataset.card);
+                            deleteCard(g, c);
+                        });
+                    });
+                }
+                bindCardClickEvents();
+                if (isListView) cardsContainer.classList.add('list-view');
+                else cardsContainer.classList.remove('list-view');
+            }
+
+            function getCardLocation(target) {
+                for (let g = 0; g < groupsData.length; g++) {
+                    for (let i = 0; i < groupsData[g].items.length; i++) {
+                        if (groupsData[g].items[i] === target) return { groupIdx: g, cardIdx: i };
+                    }
+                }
+                return { groupIdx: -1, cardIdx: -1 };
+            }
+
+            function renderGroupButtons() {
+                if (!groupContainer) return;
+                let html = '';
+                groupsData.forEach((g, idx) => {
+                    const active = (idx === currentGroupIndex && !currentTagFilter) ? 'active' : '';
+                    html += `
+                <div class="group-btn-row">
+                    <button class="group-btn ${active}" data-idx="${idx}">${escapeHtml(g.groupName)}</button>
+                    <button class="group-delete-btn" data-idx="${idx}" title="删除分组">×</button>
+                </div>`;
+                });
+                groupContainer.innerHTML = html;
+                if (dynamicTitle) dynamicTitle.textContent = currentTagFilter ? `标签: ${currentTagFilter}` :
+                    groupsData[currentGroupIndex].groupName;
+
+                // 绑定分组按钮点击
+                document.querySelectorAll('.group-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const idx = parseInt(btn.dataset.idx);
+                        if (!isNaN(idx) && idx !== currentGroupIndex) {
+                            if (currentTagFilter) { currentTagFilter = null;
+                                renderTagList(); }
+                            currentGroupIndex = idx;
+                            currentKeyword = '';
+                            if (searchInput) searchInput.value = '';
+                            renderGroupButtons();
+                            renderCards();
+                        }
+                    });
+                });
+
+                // 绑定删除分组按钮
+                document.querySelectorAll('.group-delete-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const idx = parseInt(btn.dataset.idx);
+                        if (!isNaN(idx)) deleteGroup(idx);
+                    });
+                });
+
+                // 根据管理员模式切换删除按钮可见性和侧边栏class
+                if (sidebarContainer) {
+                    if (isAdminMode) {
+                        sidebarContainer.classList.add('admin-mode');
+                    } else {
+                        sidebarContainer.classList.remove('admin-mode');
+                    }
                 }
             }
-            return { groupIdx: -1, cardIdx: -1 };
-        }
 
-        function renderGroupButtons() {
-            if (!groupContainer) return;
-            let html = '';
-            groupsData.forEach((g, idx) => {
-                const active = (idx === currentGroupIndex && !currentTagFilter) ? 'active' : '';
-                html += `<button class="group-btn ${active}" data-idx="${idx}">${escapeHtml(g.groupName)}</button>`;
-            });
-            groupContainer.innerHTML = html;
-            if (dynamicTitle) dynamicTitle.textContent = currentTagFilter ? `标签: ${currentTagFilter}` : groupsData[currentGroupIndex].groupName;
-            document.querySelectorAll('.group-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const idx = parseInt(btn.dataset.idx);
-                    if (!isNaN(idx) && idx !== currentGroupIndex) {
-                        if (currentTagFilter) { currentTagFilter = null; renderTagList(); }
-                        currentGroupIndex = idx;
-                        currentKeyword = '';
-                        if (searchInput) searchInput.value = '';
-                        renderGroupButtons();
-                        renderCards();
-                    }
-                });
-            });
-        }
+            function renderAll() { renderGroupButtons();
+                renderCards();
+                renderTagList(); }
 
-        function renderAll() { renderGroupButtons(); renderCards(); renderTagList(); }
+            function toggleView() {
+                isListView = !isListView;
+                if (viewToggleBtn) viewToggleBtn.innerText = isListView ? '🗂️ 卡片视图' : '📋 列表视图';
+                localStorage.setItem('listViewPreference', isListView ? 'true' : 'false');
+                renderCards();
+            }
 
-        function toggleView() {
-            isListView = !isListView;
-            if (viewToggleBtn) viewToggleBtn.innerText = isListView ? '🗂️ 卡片视图' : '📋 列表视图';
-            localStorage.setItem('listViewPreference', isListView ? 'true' : 'false');
-            renderCards();
-        }
+            function changeSort() { currentSort = sortSelect ? sortSelect.value : 'title-asc';
+                renderCards(); }
 
-        function changeSort() { currentSort = sortSelect ? sortSelect.value : 'title-asc'; renderCards(); }
+            // 布局控制
+            function updateLayout() {
+                const radiusSlider = document.getElementById('radiusSlider');
+                const paddingSlider = document.getElementById('paddingSlider');
+                const gapSlider = document.getElementById('gapSlider');
+                const titleFontSlider = document.getElementById('titleFontSlider');
+                const baseFontSlider = document.getElementById('baseFontSlider');
+                const blurSlider = document.getElementById('blurSlider');
+                const metaGapSlider = document.getElementById('metaGapSlider');
+                if (!radiusSlider) return;
+                document.documentElement.style.setProperty('--card-radius', radiusSlider.value + 'px');
+                document.documentElement.style.setProperty('--card-padding', paddingSlider.value + 'px');
+                document.documentElement.style.setProperty('--card-gap', gapSlider.value + 'px');
+                document.documentElement.style.setProperty('--font-size-title', titleFontSlider.value + 'rem');
+                document.documentElement.style.setProperty('--font-size-base', baseFontSlider.value + 'rem');
+                document.documentElement.style.setProperty('--blur-strength', blurSlider.value + 'px');
+                document.documentElement.style.setProperty('--meta-gap', metaGapSlider.value + 'px');
+                const radiusVal = document.getElementById('radiusVal');
+                const paddingVal = document.getElementById('paddingVal');
+                const gapVal = document.getElementById('gapVal');
+                const titleFontVal = document.getElementById('titleFontVal');
+                const baseFontVal = document.getElementById('baseFontVal');
+                const blurVal = document.getElementById('blurVal');
+                const metaGapVal = document.getElementById('metaGapVal');
+                if (radiusVal) radiusVal.innerText = radiusSlider.value + 'px';
+                if (paddingVal) paddingVal.innerText = paddingSlider.value + 'px';
+                if (gapVal) gapVal.innerText = gapSlider.value + 'px';
+                if (titleFontVal) titleFontVal.innerText = titleFontSlider.value + 'rem';
+                if (baseFontVal) baseFontVal.innerText = baseFontSlider.value + 'rem';
+                if (blurVal) blurVal.innerText = blurSlider.value + 'px';
+                if (metaGapVal) metaGapVal.innerText = metaGapSlider.value + 'px';
+                localStorage.setItem('layout_settings', JSON.stringify({
+                    radius: radiusSlider.value,
+                    padding: paddingSlider.value,
+                    gap: gapSlider.value,
+                    titleFont: titleFontSlider.value,
+                    baseFont: baseFontSlider.value,
+                    blur: blurSlider.value,
+                    metaGap: metaGapSlider.value
+                }));
+            }
 
-        // 布局控制
-        function updateLayout() {
-            const radiusSlider = document.getElementById('radiusSlider');
-            const paddingSlider = document.getElementById('paddingSlider');
-            const gapSlider = document.getElementById('gapSlider');
-            const titleFontSlider = document.getElementById('titleFontSlider');
-            const baseFontSlider = document.getElementById('baseFontSlider');
-            const blurSlider = document.getElementById('blurSlider');
-            const metaGapSlider = document.getElementById('metaGapSlider');
-            if (!radiusSlider) return;
-            document.documentElement.style.setProperty('--card-radius', radiusSlider.value + 'px');
-            document.documentElement.style.setProperty('--card-padding', paddingSlider.value + 'px');
-            document.documentElement.style.setProperty('--card-gap', gapSlider.value + 'px');
-            document.documentElement.style.setProperty('--font-size-title', titleFontSlider.value + 'rem');
-            document.documentElement.style.setProperty('--font-size-base', baseFontSlider.value + 'rem');
-            document.documentElement.style.setProperty('--blur-strength', blurSlider.value + 'px');
-            document.documentElement.style.setProperty('--meta-gap', metaGapSlider.value + 'px');
-            const radiusVal = document.getElementById('radiusVal');
-            const paddingVal = document.getElementById('paddingVal');
-            const gapVal = document.getElementById('gapVal');
-            const titleFontVal = document.getElementById('titleFontVal');
-            const baseFontVal = document.getElementById('baseFontVal');
-            const blurVal = document.getElementById('blurVal');
-            const metaGapVal = document.getElementById('metaGapVal');
-            if (radiusVal) radiusVal.innerText = radiusSlider.value + 'px';
-            if (paddingVal) paddingVal.innerText = paddingSlider.value + 'px';
-            if (gapVal) gapVal.innerText = gapSlider.value + 'px';
-            if (titleFontVal) titleFontVal.innerText = titleFontSlider.value + 'rem';
-            if (baseFontVal) baseFontVal.innerText = baseFontSlider.value + 'rem';
-            if (blurVal) blurVal.innerText = blurSlider.value + 'px';
-            if (metaGapVal) metaGapVal.innerText = metaGapSlider.value + 'px';
-            localStorage.setItem('layout_settings', JSON.stringify({
-                radius: radiusSlider.value, padding: paddingSlider.value, gap: gapSlider.value,
-                titleFont: titleFontSlider.value, baseFont: baseFontSlider.value,
-                blur: blurSlider.value, metaGap: metaGapSlider.value
-            }));
-        }
-
-        async function loadRemoteLayoutSettings() {
-            try {
-                const res = await fetch('layout_settings.json?v=' + Date.now());
-                if (res.ok) {
-                    const settings = await res.json();
-                    const radiusSlider = document.getElementById('radiusSlider');
-                    const paddingSlider = document.getElementById('paddingSlider');
-                    const gapSlider = document.getElementById('gapSlider');
-                    const titleFontSlider = document.getElementById('titleFontSlider');
-                    const baseFontSlider = document.getElementById('baseFontSlider');
-                    const blurSlider = document.getElementById('blurSlider');
-                    const metaGapSlider = document.getElementById('metaGapSlider');
-                    if (radiusSlider && settings.radius) radiusSlider.value = settings.radius;
-                    if (paddingSlider && settings.padding) paddingSlider.value = settings.padding;
-                    if (gapSlider && settings.gap) gapSlider.value = settings.gap;
-                    if (titleFontSlider && settings.titleFont) titleFontSlider.value = settings.titleFont;
-                    if (baseFontSlider && settings.baseFont) baseFontSlider.value = settings.baseFont;
-                    if (blurSlider && settings.blur) blurSlider.value = settings.blur;
-                    if (metaGapSlider && settings.metaGap) metaGapSlider.value = settings.metaGap;
-                    updateLayout();
-                    localStorage.setItem('layout_settings', JSON.stringify(settings));
-                }
-            } catch(e) {}
-        }
-
-        function loadLocalLayoutSettings() {
-            const saved = localStorage.getItem('layout_settings');
-            if (saved) {
+            async function loadRemoteLayoutSettings() {
                 try {
-                    const settings = JSON.parse(saved);
-                    const radiusSlider = document.getElementById('radiusSlider');
-                    const paddingSlider = document.getElementById('paddingSlider');
-                    const gapSlider = document.getElementById('gapSlider');
-                    const titleFontSlider = document.getElementById('titleFontSlider');
-                    const baseFontSlider = document.getElementById('baseFontSlider');
-                    const blurSlider = document.getElementById('blurSlider');
-                    const metaGapSlider = document.getElementById('metaGapSlider');
-                    if (radiusSlider && settings.radius) radiusSlider.value = settings.radius;
-                    if (paddingSlider && settings.padding) paddingSlider.value = settings.padding;
-                    if (gapSlider && settings.gap) gapSlider.value = settings.gap;
-                    if (titleFontSlider && settings.titleFont) titleFontSlider.value = settings.titleFont;
-                    if (baseFontSlider && settings.baseFont) baseFontSlider.value = settings.baseFont;
-                    if (blurSlider && settings.blur) blurSlider.value = settings.blur;
-                    if (metaGapSlider && settings.metaGap) metaGapSlider.value = settings.metaGap;
-                    updateLayout();
-                } catch(e) {}
-            } else {
-                updateLayout();
+                    const res = await fetch('layout_settings.json?v=' + Date.now());
+                    if (res.ok) {
+                        const settings = await res.json();
+                        const radiusSlider = document.getElementById('radiusSlider');
+                        const paddingSlider = document.getElementById('paddingSlider');
+                        const gapSlider = document.getElementById('gapSlider');
+                        const titleFontSlider = document.getElementById('titleFontSlider');
+                        const baseFontSlider = document.getElementById('baseFontSlider');
+                        const blurSlider = document.getElementById('blurSlider');
+                        const metaGapSlider = document.getElementById('metaGapSlider');
+                        if (radiusSlider && settings.radius) radiusSlider.value = settings.radius;
+                        if (paddingSlider && settings.padding) paddingSlider.value = settings.padding;
+                        if (gapSlider && settings.gap) gapSlider.value = settings.gap;
+                        if (titleFontSlider && settings.titleFont) titleFontSlider.value = settings.titleFont;
+                        if (baseFontSlider && settings.baseFont) baseFontSlider.value = settings.baseFont;
+                        if (blurSlider && settings.blur) blurSlider.value = settings.blur;
+                        if (metaGapSlider && settings.metaGap) metaGapSlider.value = settings.metaGap;
+                        updateLayout();
+                        localStorage.setItem('layout_settings', JSON.stringify(settings));
+                    }
+                } catch (e) {}
             }
-        }
 
-        function initLayoutControls() {
-            const radiusSlider = document.getElementById('radiusSlider');
-            const paddingSlider = document.getElementById('paddingSlider');
-            const gapSlider = document.getElementById('gapSlider');
-            const titleFontSlider = document.getElementById('titleFontSlider');
-            const baseFontSlider = document.getElementById('baseFontSlider');
-            const blurSlider = document.getElementById('blurSlider');
-            const metaGapSlider = document.getElementById('metaGapSlider');
-            const resetBtn = document.getElementById('resetLayoutBtn');
-            const exportBtn = document.getElementById('exportLayoutBtn');
-            const importBtn = document.getElementById('importLayoutBtn');
-            if (!radiusSlider) return;
-            radiusSlider.addEventListener('input', updateLayout);
-            paddingSlider.addEventListener('input', updateLayout);
-            gapSlider.addEventListener('input', updateLayout);
-            titleFontSlider.addEventListener('input', updateLayout);
-            baseFontSlider.addEventListener('input', updateLayout);
-            blurSlider.addEventListener('input', updateLayout);
-            metaGapSlider.addEventListener('input', updateLayout);
-            if (resetBtn) resetBtn.addEventListener('click', () => {
-                radiusSlider.value = 20; paddingSlider.value = 20; gapSlider.value = 28;
-                titleFontSlider.value = 1.2; baseFontSlider.value = 0.95;
-                blurSlider.value = 16; metaGapSlider.value = 8;
-                updateLayout();
-            });
-            if (exportBtn) exportBtn.addEventListener('click', () => {
-                const settings = {
-                    radius: radiusSlider.value, padding: paddingSlider.value, gap: gapSlider.value,
-                    titleFont: titleFontSlider.value, baseFont: baseFontSlider.value,
-                    blur: blurSlider.value, metaGap: metaGapSlider.value
-                };
-                const dataStr = JSON.stringify(settings, null, 2);
-                const blob = new Blob([dataStr], {type: 'application/json'});
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'layout_settings.json';
-                a.click();
-                URL.revokeObjectURL(url);
-            });
-            if (importBtn) importBtn.addEventListener('click', () => {
-                const input = document.createElement('input');
-                input.type = 'file';
-                input.accept = 'application/json';
-                input.onchange = (e) => {
-                    const file = e.target.files[0];
-                    if (!file) return;
-                    const reader = new FileReader();
-                    reader.onload = (ev) => {
-                        try {
-                            const settings = JSON.parse(ev.target.result);
-                            radiusSlider.value = settings.radius;
-                            paddingSlider.value = settings.padding;
-                            gapSlider.value = settings.gap;
-                            titleFontSlider.value = settings.titleFont;
-                            baseFontSlider.value = settings.baseFont;
-                            blurSlider.value = settings.blur;
-                            metaGapSlider.value = settings.metaGap;
-                            updateLayout();
-                            alert('布局已导入');
-                        } catch(err) { alert('导入失败'); }
-                    };
-                    reader.readAsText(file);
-                };
-                input.click();
-            });
-        }
-
-        function enableAdminMode() {
-            isAdminMode = true;
-            if (adminToolbar) adminToolbar.style.display = 'flex';
-            if (addGroupBtn) addGroupBtn.style.display = 'inline-flex';
-            if (layoutSettingsBtn) layoutSettingsBtn.style.display = 'inline-block';
-            renderCards();
-            sessionStorage.setItem('adminModeAuto', 'true');
-        }
-        function disableAdminMode() {
-            isAdminMode = false;
-            if (adminToolbar) adminToolbar.style.display = 'none';
-            if (addGroupBtn) addGroupBtn.style.display = 'none';
-            renderCards();
-            sessionStorage.removeItem('adminModeAuto');
-            if (confirm('退出编辑模式，是否重新从云端加载最新数据？')) location.reload();
-        }
-        function checkAdminPassword() {
-            const pwd = prompt('管理员密码：');
-            if (pwd === 'admin123') enableAdminMode();
-            else alert('密码错误');
-        }
-        function addNewCard() { openEditModal(currentGroupIndex, undefined, { title: '', description: '', url: '', author: '', tags: [], version: '', stats: { downloads: '—', updated: '' }, type: 'link', textContent: '', mindmap: '' }); }
-        function bindQuickTagButtons() {
-            document.querySelectorAll('.quick-tag-btn:not(.dynamic-tag)').forEach(btn => {
-                btn.removeEventListener('click', quickTagHandler);
-                btn.addEventListener('click', quickTagHandler);
-            });
-        }
-        function quickTagHandler(e) {
-            const tag = e.currentTarget.getAttribute('data-tag');
-            if (tag && cardTagsInput) {
-                let cur = cardTagsInput.value.trim();
-                if (cur === "") cardTagsInput.value = tag;
-                else {
-                    let arr = cur.split(',').map(s => s.trim());
-                    if (!arr.includes(tag)) { arr.push(tag); cardTagsInput.value = arr.join(', '); }
+            function loadLocalLayoutSettings() {
+                const saved = localStorage.getItem('layout_settings');
+                if (saved) {
+                    try {
+                        const settings = JSON.parse(saved);
+                        const radiusSlider = document.getElementById('radiusSlider');
+                        const paddingSlider = document.getElementById('paddingSlider');
+                        const gapSlider = document.getElementById('gapSlider');
+                        const titleFontSlider = document.getElementById('titleFontSlider');
+                        const baseFontSlider = document.getElementById('baseFontSlider');
+                        const blurSlider = document.getElementById('blurSlider');
+                        const metaGapSlider = document.getElementById('metaGapSlider');
+                        if (radiusSlider && settings.radius) radiusSlider.value = settings.radius;
+                        if (paddingSlider && settings.padding) paddingSlider.value = settings.padding;
+                        if (gapSlider && settings.gap) gapSlider.value = settings.gap;
+                        if (titleFontSlider && settings.titleFont) titleFontSlider.value = settings.titleFont;
+                        if (baseFontSlider && settings.baseFont) baseFontSlider.value = settings.baseFont;
+                        if (blurSlider && settings.blur) blurSlider.value = settings.blur;
+                        if (metaGapSlider && settings.metaGap) metaGapSlider.value = settings.metaGap;
+                        updateLayout();
+                    } catch (e) {}
+                } else {
+                    updateLayout();
                 }
             }
-        }
-        function onTypeChange() {
-            let type = 'link';
-            for (const radio of typeRadios) { if (radio.checked) { type = radio.value; break; } }
-            linkContentArea.style.display = type === 'link' ? 'block' : 'none';
-            textContentArea.style.display = type === 'text' ? 'block' : 'none';
-            mindmapContentArea.style.display = type === 'mindmap' ? 'block' : 'none';
-        }
 
-        // 事件绑定
-        if (layoutSettingsBtn && layoutPanel) layoutSettingsBtn.addEventListener('click', () => layoutPanel.classList.toggle('show'));
-        if (clearTagFilterBtn) clearTagFilterBtn.addEventListener('click', clearTagFilter);
-        if (addGroupBtn) addGroupBtn.addEventListener('click', addNewGroup);
-        if (mindmapCancel) mindmapCancel.addEventListener('click', closeMindmap);
-        if (mindmapSave) mindmapSave.addEventListener('click', saveMindmap);
-        if (mindmapModal) mindmapModal.addEventListener('click', (e) => { if (e.target === mindmapModal) closeMindmap(); });
-        if (textModalCancel) textModalCancel.addEventListener('click', closeTextModal);
-        if (textModal) textModal.addEventListener('click', (e) => { if (e.target === textModal) closeTextModal(); });
-        if (adminBtn) adminBtn.addEventListener('click', checkAdminPassword);
-        if (addCardBtn) addCardBtn.addEventListener('click', addNewCard);
-        if (resetDataBtn) resetDataBtn.addEventListener('click', resetToDefault);
-        if (exportDataBtn) exportDataBtn.addEventListener('click', exportData);
-        if (exitAdminBtn) exitAdminBtn.addEventListener('click', disableAdminMode);
-        if (modalCancel) modalCancel.addEventListener('click', closeModal);
-        if (modalSave) modalSave.addEventListener('click', saveCardFromModal);
-        if (viewToggleBtn) viewToggleBtn.addEventListener('click', toggleView);
-        if (sortSelect) sortSelect.addEventListener('change', changeSort);
-        if (searchInput) searchInput.addEventListener('input', (e) => { currentKeyword = e.target.value; renderCards(); });
-        typeRadios.forEach(radio => radio.addEventListener('change', onTypeChange));
-
-        // 加载上次视图模式
-        const savedView = localStorage.getItem('listViewPreference');
-        if (savedView === 'true') {
-            isListView = true;
-            if (viewToggleBtn) viewToggleBtn.innerText = '🗂️ 卡片视图';
-        } else {
-            isListView = false;
-            if (viewToggleBtn) viewToggleBtn.innerText = '📋 列表视图';
-        }
-
-        // 主题与壁纸（保留原有）
-        const GRADIENT_THEMES = ["sunset","aurora","ocean","sakura","forest","midnight","peach","mint"];
-        function setTheme(themeName) {
-            document.body.setAttribute('data-theme', themeName);
-            const accentMap = { white:'#5b6e8c', black:'#c0b7a6', red:'#c2675e', orange:'#d98c2b', yellow:'#c9a12b', green:'#4f7a5e', cyan:'#3f7a85', blue:'#4a6fa5', purple:'#8b6cb0', sunset:'#d96c6e', aurora:'#3b82f6', ocean:'#7c83b9', sakura:'#c45692', forest:'#5c8a4a', midnight:'#9c88ff', peach:'#d97846', mint:'#4a9e7c' };
-            document.body.style.setProperty('--theme-accent', accentMap[themeName] || '#5b6e8c');
-            localStorage.setItem('glass_custom_theme', themeName);
-            if (GRADIENT_THEMES.includes(themeName)) {
-                localStorage.removeItem('custom_bg_image');
-                localStorage.removeItem('custom_bg_color');
-                document.body.classList.remove('custom-bg');
-            }
-        }
-        function isDarkColor(hex) {
-            let r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
-            return (r*0.299 + g*0.587 + b*0.114) < 128;
-        }
-        function compressImage(file, maxWidth=1920, quality=0.8) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = (e) => {
-                    const img = new Image();
-                    img.src = e.target.result;
-                    img.onload = () => {
-                        let w = img.width, h = img.height;
-                        if (w > maxWidth) { h = (h * maxWidth) / w; w = maxWidth; }
-                        const canvas = document.createElement('canvas');
-                        canvas.width = w; canvas.height = h;
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0, w, h);
-                        resolve(canvas.toDataURL('image/jpeg', quality));
+            function initLayoutControls() {
+                const radiusSlider = document.getElementById('radiusSlider');
+                const paddingSlider = document.getElementById('paddingSlider');
+                const gapSlider = document.getElementById('gapSlider');
+                const titleFontSlider = document.getElementById('titleFontSlider');
+                const baseFontSlider = document.getElementById('baseFontSlider');
+                const blurSlider = document.getElementById('blurSlider');
+                const metaGapSlider = document.getElementById('metaGapSlider');
+                const resetBtn = document.getElementById('resetLayoutBtn');
+                const exportBtn = document.getElementById('exportLayoutBtn');
+                const importBtn = document.getElementById('importLayoutBtn');
+                if (!radiusSlider) return;
+                radiusSlider.addEventListener('input', updateLayout);
+                paddingSlider.addEventListener('input', updateLayout);
+                gapSlider.addEventListener('input', updateLayout);
+                titleFontSlider.addEventListener('input', updateLayout);
+                baseFontSlider.addEventListener('input', updateLayout);
+                blurSlider.addEventListener('input', updateLayout);
+                metaGapSlider.addEventListener('input', updateLayout);
+                if (resetBtn) resetBtn.addEventListener('click', () => {
+                    radiusSlider.value = 20;
+                    paddingSlider.value = 20;
+                    gapSlider.value = 28;
+                    titleFontSlider.value = 1.2;
+                    baseFontSlider.value = 0.95;
+                    blurSlider.value = 16;
+                    metaGapSlider.value = 8;
+                    updateLayout();
+                });
+                if (exportBtn) exportBtn.addEventListener('click', () => {
+                    const settings = {
+                        radius: radiusSlider.value,
+                        padding: paddingSlider.value,
+                        gap: gapSlider.value,
+                        titleFont: titleFontSlider.value,
+                        baseFont: baseFontSlider.value,
+                        blur: blurSlider.value,
+                        metaGap: metaGapSlider.value
                     };
-                    img.onerror = reject;
-                };
-                reader.onerror = reject;
-            });
-        }
-        async function saveAndApplyWallpaper(file) {
-            try {
-                const compressed = await compressImage(file, 1920, 0.8);
-                const size = Math.ceil(compressed.length * 0.75);
-                if (size > 4.5 * 1024 * 1024) { alert('图片过大'); return false; }
-                setTheme('white');
-                localStorage.setItem('custom_bg_image', compressed);
-                document.body.style.backgroundImage = `url(${compressed})`;
-                document.body.style.backgroundSize = 'cover';
-                document.body.style.backgroundPosition = 'center';
-                document.body.style.backgroundAttachment = 'fixed';
-                document.body.classList.add('custom-bg');
-                localStorage.removeItem('custom_bg_color');
-                localStorage.removeItem('glass_custom_theme');
-                alert('壁纸设置成功');
-                return true;
-            } catch(e) { alert('失败'); return false; }
-        }
-        function initBackground() {
-            const savedImg = localStorage.getItem('custom_bg_image');
-            if (savedImg && savedImg.startsWith('data:image')) {
-                document.body.style.backgroundImage = `url(${savedImg})`;
-                document.body.style.backgroundSize = 'cover';
-                document.body.style.backgroundPosition = 'center';
-                document.body.style.backgroundAttachment = 'fixed';
-                document.body.classList.add('custom-bg');
-                return;
-            }
-            const savedColor = localStorage.getItem('custom_bg_color');
-            if (savedColor) {
-                document.body.style.background = savedColor;
-                setTheme(isDarkColor(savedColor) ? 'black' : 'white');
-                return;
-            }
-            const savedTheme = localStorage.getItem('glass_custom_theme');
-            if (savedTheme && GRADIENT_THEMES.includes(savedTheme)) setTheme(savedTheme);
-            else setTheme('white');
-        }
-        const solidPresets = [
-            { color: "#eef2f8", theme: "white" }, { color: "#12151c", theme: "black" },
-            { color: "#fce9e6", theme: "white" }, { color: "#fef0e0", theme: "white" },
-            { color: "#fef9e0", theme: "white" }, { color: "#eaf4ea", theme: "white" },
-            { color: "#e0f2f5", theme: "white" }, { color: "#e3edfa", theme: "white" },
-            { color: "#f0e9fc", theme: "white" }, { color: "#ffe0f0", theme: "white" },
-            { color: "#d9e6f2", theme: "white" }, { color: "#f5e6d3", theme: "white" }
-        ];
-        const gradientPresets = [
-            "linear-gradient(135deg, #ff9a9e, #fecfef)", "linear-gradient(135deg, #a1c4fd, #c2e9fb)",
-            "linear-gradient(135deg, #2b5876, #4e4376)", "linear-gradient(135deg, #fbc2eb, #a6c1ee)",
-            "linear-gradient(135deg, #b5d6a7, #9bbd8c)", "linear-gradient(135deg, #1f1c2c, #2a2a4a)",
-            "linear-gradient(135deg, #ffe29a, #ffb7b2)", "linear-gradient(135deg, #c7e9fb, #b6e0fe)"
-        ];
-        const gradientThemeNames = ["sunset","aurora","ocean","sakura","forest","midnight","peach","mint"];
-        function buildPalette() {
-            const solidGrid = document.getElementById('solidColorGrid');
-            if (solidGrid) {
-                solidGrid.innerHTML = '';
-                solidPresets.forEach(preset => {
-                    const swatch = document.createElement('div');
-                    swatch.className = 'color-swatch';
-                    swatch.style.backgroundColor = preset.color;
-                    swatch.addEventListener('click', () => {
-                        localStorage.removeItem('custom_bg_image');
-                        document.body.classList.remove('custom-bg');
-                        document.body.style.background = preset.color;
-                        setTheme(isDarkColor(preset.color) ? 'black' : 'white');
-                        localStorage.setItem('custom_bg_color', preset.color);
-                    });
-                    solidGrid.appendChild(swatch);
+                    const dataStr = JSON.stringify(settings, null, 2);
+                    const blob = new Blob([dataStr], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'layout_settings.json';
+                    a.click();
+                    URL.revokeObjectURL(url);
+                });
+                if (importBtn) importBtn.addEventListener('click', () => {
+                    const input = document.createElement('input');
+                    input.type = 'file';
+                    input.accept = 'application/json';
+                    input.onchange = (e) => {
+                        const file = e.target.files[0];
+                        if (!file) return;
+                        const reader = new FileReader();
+                        reader.onload = (ev) => {
+                            try {
+                                const settings = JSON.parse(ev.target.result);
+                                radiusSlider.value = settings.radius;
+                                paddingSlider.value = settings.padding;
+                                gapSlider.value = settings.gap;
+                                titleFontSlider.value = settings.titleFont;
+                                baseFontSlider.value = settings.baseFont;
+                                blurSlider.value = settings.blur;
+                                metaGapSlider.value = settings.metaGap;
+                                updateLayout();
+                                alert('布局已导入');
+                            } catch (err) { alert('导入失败'); }
+                        };
+                        reader.readAsText(file);
+                    };
+                    input.click();
                 });
             }
-            const gradGrid = document.getElementById('gradientColorGrid');
-            if (gradGrid) {
-                gradGrid.innerHTML = '';
-                gradientPresets.forEach((grad, idx) => {
-                    const swatch = document.createElement('div');
-                    swatch.className = 'color-swatch gradient-swatch';
-                    swatch.style.background = grad;
-                    swatch.addEventListener('click', () => {
-                        localStorage.removeItem('custom_bg_image');
-                        localStorage.removeItem('custom_bg_color');
-                        document.body.classList.remove('custom-bg');
-                        setTheme(gradientThemeNames[idx]);
-                        document.body.style.background = '';
-                    });
-                    gradGrid.appendChild(swatch);
+
+            function enableAdminMode() {
+                isAdminMode = true;
+                if (adminToolbar) adminToolbar.style.display = 'flex';
+                if (addGroupBtn) addGroupBtn.style.display = 'inline-flex';
+                if (layoutSettingsBtn) layoutSettingsBtn.style.display = 'inline-block';
+                if (sidebarContainer) sidebarContainer.classList.add('admin-mode');
+                renderCards();
+                renderGroupButtons();
+                sessionStorage.setItem('adminModeAuto', 'true');
+            }
+
+            function disableAdminMode() {
+                isAdminMode = false;
+                if (adminToolbar) adminToolbar.style.display = 'none';
+                if (addGroupBtn) addGroupBtn.style.display = 'none';
+                if (sidebarContainer) sidebarContainer.classList.remove('admin-mode');
+                renderCards();
+                renderGroupButtons();
+                sessionStorage.removeItem('adminModeAuto');
+                if (confirm('退出编辑模式，是否重新从云端加载最新数据？')) location.reload();
+            }
+
+            function checkAdminPassword() {
+                const pwd = prompt('管理员密码：');
+                if (pwd === 'admin123') enableAdminMode();
+                else alert('密码错误');
+            }
+
+            function addNewCard() {
+                openEditModal(currentGroupIndex, undefined, { title: '', description: '', url: '', author: '',
+                    tags: [], version: '', stats: { downloads: '—', updated: '' }, type: 'link',
+                    textContent: '', mindmap: '' });
+            }
+
+            function bindQuickTagButtons() {
+                document.querySelectorAll('.quick-tag-btn:not(.dynamic-tag)').forEach(btn => {
+                    btn.removeEventListener('click', quickTagHandler);
+                    btn.addEventListener('click', quickTagHandler);
                 });
             }
-        }
-        function updateOpacity(val) {
-            document.body.style.setProperty('--glass-opacity', val);
-            const opacityValueSpan = document.getElementById('opacityValue');
-            if (opacityValueSpan) opacityValueSpan.innerText = val;
-            localStorage.setItem('glass_opacity', val);
-        }
-        function updateAngle(val) {
-            document.body.style.setProperty('--gradient-angle', val+'deg');
-            const angleValueSpan = document.getElementById('angleValue');
-            if (angleValueSpan) angleValueSpan.innerText = val+'°';
-            localStorage.setItem('gradient_angle', val);
-        }
-        function initControls() {
-            if (paletteBtn && palettePanel) {
-                paletteBtn.addEventListener('click', (e) => { e.stopPropagation(); palettePanel.classList.toggle('show'); });
-                document.addEventListener('click', (e) => { if(!palettePanel.contains(e.target) && e.target !== paletteBtn) palettePanel.classList.remove('show'); });
+
+            function quickTagHandler(e) {
+                const tag = e.currentTarget.getAttribute('data-tag');
+                if (tag && cardTagsInput) {
+                    let cur = cardTagsInput.value.trim();
+                    if (cur === "") cardTagsInput.value = tag;
+                    else {
+                        let arr = cur.split(',').map(s => s.trim());
+                        if (!arr.includes(tag)) { arr.push(tag);
+                            cardTagsInput.value = arr.join(', '); }
+                    }
+                }
             }
-            const opacitySlider = document.getElementById('opacitySlider');
-            const angleSlider = document.getElementById('angleSlider');
-            if (opacitySlider) opacitySlider.addEventListener('input', (e) => updateOpacity(parseFloat(e.target.value)));
-            if (angleSlider) angleSlider.addEventListener('input', (e) => updateAngle(parseInt(e.target.value)));
-            const savedOp = localStorage.getItem('glass_opacity');
-            updateOpacity(savedOp ? parseFloat(savedOp) : 0.20);
-            const savedAng = localStorage.getItem('gradient_angle');
-            updateAngle(savedAng ? parseInt(savedAng) : 135);
-            if (opacitySlider) opacitySlider.value = 0.20;
-            if (angleSlider) angleSlider.value = 135;
-            initBackground();
-            const uploadBtn = document.getElementById('uploadBgBtn');
-            const bgInput = document.getElementById('bgUpload');
-            if (uploadBtn && bgInput) {
-                uploadBtn.addEventListener('click', () => bgInput.click());
-                bgInput.addEventListener('change', async (e) => {
-                    const f = e.target.files[0];
-                    if (f && f.type.startsWith('image/')) await saveAndApplyWallpaper(f);
-                    bgInput.value = '';
+
+            function onTypeChange() {
+                let type = 'link';
+                for (const radio of typeRadios) { if (radio.checked) { type = radio.value; break; } }
+                linkContentArea.style.display = type === 'link' ? 'block' : 'none';
+                textContentArea.style.display = type === 'text' ? 'block' : 'none';
+                mindmapContentArea.style.display = type === 'mindmap' ? 'block' : 'none';
+            }
+
+            // 事件绑定
+            if (layoutSettingsBtn && layoutPanel) layoutSettingsBtn.addEventListener('click', () => layoutPanel
+                .classList.toggle('show'));
+            if (clearTagFilterBtn) clearTagFilterBtn.addEventListener('click', clearTagFilter);
+            if (addGroupBtn) addGroupBtn.addEventListener('click', addNewGroup);
+            if (mindmapCancel) mindmapCancel.addEventListener('click', closeMindmap);
+            if (mindmapSave) mindmapSave.addEventListener('click', saveMindmap);
+            if (mindmapModal) mindmapModal.addEventListener('click', (e) => { if (e.target === mindmapModal)
+                    closeMindmap(); });
+            if (textModalCancel) textModalCancel.addEventListener('click', closeTextModal);
+            if (textModal) textModal.addEventListener('click', (e) => { if (e.target === textModal)
+                closeTextModal(); });
+            if (adminBtn) adminBtn.addEventListener('click', checkAdminPassword);
+            if (addCardBtn) addCardBtn.addEventListener('click', addNewCard);
+            if (resetDataBtn) resetDataBtn.addEventListener('click', resetToDefault);
+            if (exportDataBtn) exportDataBtn.addEventListener('click', exportData);
+            if (exitAdminBtn) exitAdminBtn.addEventListener('click', disableAdminMode);
+            if (modalCancel) modalCancel.addEventListener('click', closeModal);
+            if (modalSave) modalSave.addEventListener('click', saveCardFromModal);
+            if (viewToggleBtn) viewToggleBtn.addEventListener('click', toggleView);
+            if (sortSelect) sortSelect.addEventListener('change', changeSort);
+            if (searchInput) searchInput.addEventListener('input', (e) => { currentKeyword = e.target.value;
+                renderCards(); });
+            typeRadios.forEach(radio => radio.addEventListener('change', onTypeChange));
+
+            // 加载上次视图模式
+            const savedView = localStorage.getItem('listViewPreference');
+            if (savedView === 'true') {
+                isListView = true;
+                if (viewToggleBtn) viewToggleBtn.innerText = '🗂️ 卡片视图';
+            } else {
+                isListView = false;
+                if (viewToggleBtn) viewToggleBtn.innerText = '📋 列表视图';
+            }
+
+            // 主题与壁纸
+            const GRADIENT_THEMES = ["sunset", "aurora", "ocean", "sakura", "forest", "midnight", "peach",
+            "mint"];
+
+            function setTheme(themeName) {
+                document.body.setAttribute('data-theme', themeName);
+                const accentMap = { white: '#5b6e8c', black: '#c0b7a6', red: '#c2675e', orange: '#d98c2b',
+                    yellow: '#c9a12b', green: '#4f7a5e', cyan: '#3f7a85', blue: '#4a6fa5',
+                    purple: '#8b6cb0', sunset: '#d96c6e', aurora: '#3b82f6', ocean: '#7c83b9',
+                    sakura: '#c45692', forest: '#5c8a4a', midnight: '#9c88ff', peach: '#d97846',
+                    mint: '#4a9e7c' };
+                document.body.style.setProperty('--theme-accent', accentMap[themeName] || '#5b6e8c');
+                // 更新滚动条颜色
+                if (['black', 'ocean', 'midnight'].includes(themeName)) {
+                    document.documentElement.style.setProperty('--scrollbar-thumb',
+                        'rgba(255,255,255,0.3)');
+                } else {
+                    document.documentElement.style.setProperty('--scrollbar-thumb', 'rgba(0,0,0,0.18)');
+                }
+                localStorage.setItem('glass_custom_theme', themeName);
+                if (GRADIENT_THEMES.includes(themeName)) {
+                    localStorage.removeItem('custom_bg_image');
+                    localStorage.removeItem('custom_bg_color');
+                    document.body.classList.remove('custom-bg');
+                }
+            }
+
+            function isDarkColor(hex) {
+                let r = parseInt(hex.slice(1, 3), 16),
+                    g = parseInt(hex.slice(3, 5), 16),
+                    b = parseInt(hex.slice(5, 7), 16);
+                return (r * 0.299 + g * 0.587 + b * 0.114) < 128;
+            }
+
+            function compressImage(file, maxWidth = 1920, quality = 0.8) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = (e) => {
+                        const img = new Image();
+                        img.src = e.target.result;
+                        img.onload = () => {
+                            let w = img.width,
+                                h = img.height;
+                            if (w > maxWidth) { h = (h * maxWidth) / w;
+                                w = maxWidth; }
+                            const canvas = document.createElement('canvas');
+                            canvas.width = w;
+                            canvas.height = h;
+                            const ctx = canvas.getContext('2d');
+                            ctx.drawImage(img, 0, 0, w, h);
+                            resolve(canvas.toDataURL('image/jpeg', quality));
+                        };
+                        img.onerror = reject;
+                    };
+                    reader.onerror = reject;
                 });
             }
-            const resetBgBtn = document.getElementById('resetBgBtn');
-            if (resetBgBtn) resetBgBtn.addEventListener('click', () => {
-                localStorage.removeItem('custom_bg_image');
-                document.body.classList.remove('custom-bg');
-                document.body.style.backgroundImage = '';
+            async function saveAndApplyWallpaper(file) {
+                try {
+                    const compressed = await compressImage(file, 1920, 0.8);
+                    const size = Math.ceil(compressed.length * 0.75);
+                    if (size > 4.5 * 1024 * 1024) { alert('图片过大'); return false; }
+                    setTheme('white');
+                    localStorage.setItem('custom_bg_image', compressed);
+                    document.body.style.backgroundImage = `url(${compressed})`;
+                    document.body.style.backgroundSize = 'cover';
+                    document.body.style.backgroundPosition = 'center';
+                    document.body.style.backgroundAttachment = 'fixed';
+                    document.body.classList.add('custom-bg');
+                    localStorage.removeItem('custom_bg_color');
+                    localStorage.removeItem('glass_custom_theme');
+                    alert('壁纸设置成功');
+                    return true;
+                } catch (e) { alert('失败'); return false; }
+            }
+
+            function initBackground() {
+                const savedImg = localStorage.getItem('custom_bg_image');
+                if (savedImg && savedImg.startsWith('data:image')) {
+                    document.body.style.backgroundImage = `url(${savedImg})`;
+                    document.body.style.backgroundSize = 'cover';
+                    document.body.style.backgroundPosition = 'center';
+                    document.body.style.backgroundAttachment = 'fixed';
+                    document.body.classList.add('custom-bg');
+                    return;
+                }
                 const savedColor = localStorage.getItem('custom_bg_color');
                 if (savedColor) {
                     document.body.style.background = savedColor;
                     setTheme(isDarkColor(savedColor) ? 'black' : 'white');
-                } else {
-                    const savedTheme = localStorage.getItem('glass_custom_theme');
-                    if (savedTheme) setTheme(savedTheme);
-                    else setTheme('white');
+                    return;
                 }
-            });
-        }
+                const savedTheme = localStorage.getItem('glass_custom_theme');
+                if (savedTheme && GRADIENT_THEMES.includes(savedTheme)) setTheme(savedTheme);
+                else setTheme('white');
+            }
+            const solidPresets = [
+                { color: "#eef2f8", theme: "white" }, { color: "#12151c", theme: "black" },
+                { color: "#fce9e6", theme: "white" }, { color: "#fef0e0", theme: "white" },
+                { color: "#fef9e0", theme: "white" }, { color: "#eaf4ea", theme: "white" },
+                { color: "#e0f2f5", theme: "white" }, { color: "#e3edfa", theme: "white" },
+                { color: "#f0e9fc", theme: "white" }, { color: "#ffe0f0", theme: "white" },
+                { color: "#d9e6f2", theme: "white" }, { color: "#f5e6d3", theme: "white" }
+            ];
+            const gradientPresets = [
+                "linear-gradient(135deg, #ff9a9e, #fecfef)",
+                "linear-gradient(135deg, #a1c4fd, #c2e9fb)",
+                "linear-gradient(135deg, #2b5876, #4e4376)",
+                "linear-gradient(135deg, #fbc2eb, #a6c1ee)",
+                "linear-gradient(135deg, #b5d6a7, #9bbd8c)",
+                "linear-gradient(135deg, #1f1c2c, #2a2a4a)",
+                "linear-gradient(135deg, #ffe29a, #ffb7b2)",
+                "linear-gradient(135deg, #c7e9fb, #b6e0fe)"
+            ];
+            const gradientThemeNames = ["sunset", "aurora", "ocean", "sakura", "forest", "midnight", "peach",
+            "mint"];
 
-        async function start() {
-            await loadInitialData();
-            initBackground();
-            buildPalette();
-            initControls();
-            await loadRemoteLayoutSettings();
-            loadLocalLayoutSettings();
-            initLayoutControls();
-            renderGroupButtons();
-            renderCards();
-            renderTagList();
-            if (searchInput) searchInput.addEventListener('input', (e) => { currentKeyword = e.target.value; renderCards(); });
-        }
-        start();
-    })();
-</script>
+            function buildPalette() {
+                const solidGrid = document.getElementById('solidColorGrid');
+                if (solidGrid) {
+                    solidGrid.innerHTML = '';
+                    solidPresets.forEach(preset => {
+                        const swatch = document.createElement('div');
+                        swatch.className = 'color-swatch';
+                        swatch.style.backgroundColor = preset.color;
+                        swatch.addEventListener('click', () => {
+                            localStorage.removeItem('custom_bg_image');
+                            document.body.classList.remove('custom-bg');
+                            document.body.style.background = preset.color;
+                            setTheme(isDarkColor(preset.color) ? 'black' : 'white');
+                            localStorage.setItem('custom_bg_color', preset.color);
+                        });
+                        solidGrid.appendChild(swatch);
+                    });
+                }
+                const gradGrid = document.getElementById('gradientColorGrid');
+                if (gradGrid) {
+                    gradGrid.innerHTML = '';
+                    gradientPresets.forEach((grad, idx) => {
+                        const swatch = document.createElement('div');
+                        swatch.className = 'color-swatch gradient-swatch';
+                        swatch.style.background = grad;
+                        swatch.addEventListener('click', () => {
+                            localStorage.removeItem('custom_bg_image');
+                            localStorage.removeItem('custom_bg_color');
+                            document.body.classList.remove('custom-bg');
+                            setTheme(gradientThemeNames[idx]);
+                            document.body.style.background = '';
+                        });
+                        gradGrid.appendChild(swatch);
+                    });
+                }
+            }
+
+            function updateOpacity(val) {
+                document.body.style.setProperty('--glass-opacity', val);
+                const opacityValueSpan = document.getElementById('opacityValue');
+                if (opacityValueSpan) opacityValueSpan.innerText = val;
+                localStorage.setItem('glass_opacity', val);
+            }
+
+            function updateAngle(val) {
+                document.body.style.setProperty('--gradient-angle', val + 'deg');
+                const angleValueSpan = document.getElementById('angleValue');
+                if (angleValueSpan) angleValueSpan.innerText = val + '°';
+                localStorage.setItem('gradient_angle', val);
+            }
+
+            function initControls() {
+                if (paletteBtn && palettePanel) {
+                    paletteBtn.addEventListener('click', (e) => { e.stopPropagation();
+                        palettePanel.classList.toggle('show'); });
+                    document.addEventListener('click', (e) => { if (!palettePanel.contains(e.target) && e
+                            .target !== paletteBtn) palettePanel.classList.remove('show'); });
+                }
+                const opacitySlider = document.getElementById('opacitySlider');
+                const angleSlider = document.getElementById('angleSlider');
+                if (opacitySlider) opacitySlider.addEventListener('input', (e) => updateOpacity(parseFloat(e
+                    .target.value)));
+                if (angleSlider) angleSlider.addEventListener('input', (e) => updateAngle(parseInt(e.target
+                    .value)));
+                const savedOp = localStorage.getItem('glass_opacity');
+                updateOpacity(savedOp ? parseFloat(savedOp) : 0.20);
+                const savedAng = localStorage.getItem('gradient_angle');
+                updateAngle(savedAng ? parseInt(savedAng) : 135);
+                if (opacitySlider) opacitySlider.value = 0.20;
+                if (angleSlider) angleSlider.value = 135;
+                initBackground();
+                const uploadBtn = document.getElementById('uploadBgBtn');
+                const bgInput = document.getElementById('bgUpload');
+                if (uploadBtn && bgInput) {
+                    uploadBtn.addEventListener('click', () => bgInput.click());
+                    bgInput.addEventListener('change', async (e) => {
+                        const f = e.target.files[0];
+                        if (f && f.type.startsWith('image/')) await saveAndApplyWallpaper(f);
+                        bgInput.value = '';
+                    });
+                }
+                const resetBgBtn = document.getElementById('resetBgBtn');
+                if (resetBgBtn) resetBgBtn.addEventListener('click', () => {
+                    localStorage.removeItem('custom_bg_image');
+                    document.body.classList.remove('custom-bg');
+                    document.body.style.backgroundImage = '';
+                    const savedColor = localStorage.getItem('custom_bg_color');
+                    if (savedColor) {
+                        document.body.style.background = savedColor;
+                        setTheme(isDarkColor(savedColor) ? 'black' : 'white');
+                    } else {
+                        const savedTheme = localStorage.getItem('glass_custom_theme');
+                        if (savedTheme) setTheme(savedTheme);
+                        else setTheme('white');
+                    }
+                });
+            }
+
+            async function start() {
+                await loadInitialData();
+                initBackground();
+                buildPalette();
+                initControls();
+                await loadRemoteLayoutSettings();
+                loadLocalLayoutSettings();
+                initLayoutControls();
+                renderGroupButtons();
+                renderCards();
+                renderTagList();
+                if (searchInput) searchInput.addEventListener('input', (e) => { currentKeyword = e.target.value;
+                    renderCards(); });
+            }
+            start();
+        })();
+    </script>
 </body>
 </html>
