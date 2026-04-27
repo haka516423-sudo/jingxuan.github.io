@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>镜玄·资源搜索 | 最终版标识仅展示</title>
+    <title>镜玄·资源搜索 | 无类型标识版</title>
     <script src="https://cdn.jsdelivr.net/npm/d3@6.7.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.3"></script>
     <script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.3"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.3/style.css">
     <style>
-        /* ========== 完整样式 ========== */
+        /* 完整样式（无类型标识相关） */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { overflow-y: scroll; }
         :root {
@@ -48,12 +48,22 @@
         body[data-theme="midnight"]  { background: linear-gradient(var(--gradient-angle), #1f1c2c 0%, #2a2a4a 100%); --theme-accent: #9c88ff; }
         body[data-theme="peach"]     { background: linear-gradient(var(--gradient-angle), #ffe29a 0%, #ffb7b2 100%); --theme-accent: #d97846; }
         body[data-theme="mint"]      { background: linear-gradient(var(--gradient-angle), #c7e9fb 0%, #b6e0fe 100%); --theme-accent: #4a9e7c; }
-        body.custom-bg { background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important; }
+        body.custom-bg {
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+        }
         .sidebar, .card, .search-box, .group-btn, .no-results, .palette-panel, .modal-content, .view-toggle-btn, .sort-select, .tag-btn {
             border-radius: var(--card-radius) !important;
         }
-        .app { max-width: 1400px; margin: 0 auto; display: flex; gap: 28px; align-items: flex-start; }
-        /* 侧边栏样式 */
+        .app {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 28px;
+            align-items: flex-start;
+        }
+        /* 侧边栏（完整保留） */
         .sidebar {
             flex: 0 0 280px;
             background: rgba(255, 255, 255, var(--glass-opacity));
@@ -84,7 +94,10 @@
             gap: 8px;
             color: #1f2d3d;
         }
-        body[data-theme="black"] .sidebar-header { color: #f5f0e0; border-bottom-color: rgba(255,255,255,0.2); }
+        body[data-theme="black"] .sidebar-header {
+            color: #f5f0e0;
+            border-bottom-color: rgba(255,255,255,0.2);
+        }
         .add-group-btn {
             background: rgba(255,255,240,0.2);
             border: none;
@@ -99,8 +112,15 @@
             transition: 0.1s;
             color: inherit;
         }
-        .add-group-btn:hover { background: rgba(255,255,240,0.5); transform: scale(0.96); }
-        .group-buttons { display: flex; flex-direction: column; gap: 12px; }
+        .add-group-btn:hover {
+            background: rgba(255,255,240,0.5);
+            transform: scale(0.96);
+        }
+        .group-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
         .group-btn {
             background: rgba(255, 255, 235, 0.4);
             backdrop-filter: blur(6px);
@@ -114,8 +134,13 @@
             transition: transform 0.08s, background 0.2s;
             transform: scale(1);
         }
-        .group-btn:active { transform: scale(0.96); background: rgba(0, 0, 0, 0.15); }
-        .group-btn:hover { background: rgba(255,255,250,0.7); }
+        .group-btn:active {
+            transform: scale(0.96);
+            background: rgba(0, 0, 0, 0.15);
+        }
+        .group-btn:hover {
+            background: rgba(255,255,250,0.7);
+        }
         .group-btn.active {
             background: var(--theme-accent);
             color: white;
@@ -127,13 +152,18 @@
             background: rgba(60, 68, 84, 0.5);
             color: #f5f0e0;
         }
-        body[data-theme="black"] .group-btn.active { background: var(--theme-accent); color: #12151c; }
+        body[data-theme="black"] .group-btn.active {
+            background: var(--theme-accent);
+            color: #12151c;
+        }
         .tag-section {
             margin-top: 24px;
             border-top: 1px solid rgba(0,0,0,0.1);
             padding-top: 16px;
         }
-        body[data-theme="black"] .tag-section { border-top-color: rgba(255,255,255,0.15); }
+        body[data-theme="black"] .tag-section {
+            border-top-color: rgba(255,255,255,0.15);
+        }
         .tag-section-header {
             display: flex;
             justify-content: space-between;
@@ -148,7 +178,9 @@
             gap: 6px;
             color: #1f2d3d;
         }
-        body[data-theme="black"] .tag-section-title { color: #f5f0e0; }
+        body[data-theme="black"] .tag-section-title {
+            color: #f5f0e0;
+        }
         .clear-tag-btn {
             background: rgba(255,80,80,0.2);
             border: none;
@@ -159,7 +191,9 @@
             color: #eee;
             transition: 0.1s;
         }
-        .clear-tag-btn:hover { background: rgba(255,80,80,0.5); }
+        .clear-tag-btn:hover {
+            background: rgba(255,80,80,0.5);
+        }
         .tag-list {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -188,7 +222,10 @@
             background: rgba(60, 68, 84, 0.5);
             color: #f5f0e0 !important;
         }
-        .tag-btn:hover { background: rgba(255,255,240,0.6); transform: scale(0.96); }
+        .tag-btn:hover {
+            background: rgba(255,255,240,0.6);
+            transform: scale(0.96);
+        }
         body[data-theme="black"] .tag-btn:hover,
         body[data-theme="ocean"] .tag-btn:hover,
         body[data-theme="midnight"] .tag-btn:hover,
@@ -196,8 +233,13 @@
         body[data-theme="sakura"] .tag-btn:hover {
             background: rgba(100, 110, 130, 0.8);
         }
-        .tag-btn.active { background: var(--theme-accent); color: white; }
-        .main { flex: 1; }
+        .tag-btn.active {
+            background: var(--theme-accent);
+            color: white;
+        }
+        .main {
+            flex: 1;
+        }
         .header-area {
             display: flex;
             justify-content: space-between;
@@ -239,7 +281,11 @@
         body[data-theme="sakura"] .title-section p {
             color: #cbd5e1 !important;
         }
-        .action-buttons { display: flex; gap: 10px; align-items: center; }
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
         .admin-btn, .palette-btn {
             background: rgba(255,255,240,0.8);
             border: none;
@@ -257,7 +303,9 @@
             background: rgba(30, 30, 35, 0.8);
             color: #f5f0e0;
         }
-        .admin-btn:active, .palette-btn:active { transform: scale(0.96); }
+        .admin-btn:active, .palette-btn:active {
+            transform: scale(0.96);
+        }
         .data-source-indicator {
             display: inline-flex;
             align-items: center;
@@ -278,7 +326,9 @@
         .indicator-dot.cloud { background: #10b981; box-shadow: 0 0 4px #10b981; }
         .indicator-dot.local { background: #f59e0b; box-shadow: 0 0 4px #f59e0b; }
         .indicator-dot.default { background: #9ca3af; }
-        body[data-theme="black"] .data-source-indicator { background: rgba(0,0,0,0.7); }
+        body[data-theme="black"] .data-source-indicator {
+            background: rgba(0,0,0,0.7);
+        }
         .search-bar {
             display: flex;
             gap: 12px;
@@ -325,7 +375,9 @@
             background: rgba(30, 30, 35, 0.8);
             color: #f5f0e0;
         }
-        .view-toggle-btn:active, .sort-select:active { transform: scale(0.96); }
+        .view-toggle-btn:active, .sort-select:active {
+            transform: scale(0.96);
+        }
         .sort-select {
             appearance: none;
             -webkit-appearance: none;
@@ -353,7 +405,9 @@
             box-shadow: 0 20px 35px rgba(0,0,0,0.4);
             color: #eef2ff;
         }
-        .palette-panel.show { display: flex; }
+        .palette-panel.show {
+            display: flex;
+        }
         .section-title {
             font-size: 0.85rem;
             font-weight: 600;
@@ -372,7 +426,10 @@
             transition: 0.1s;
             border-radius: 12px;
         }
-        .color-swatch:hover { transform: scale(1.05); border-color: white; }
+        .color-swatch:hover {
+            transform: scale(1.05);
+            border-color: white;
+        }
         .slider-container {
             display: flex;
             flex-direction: column;
@@ -384,7 +441,10 @@
             display: flex;
             justify-content: space-between;
         }
-        input[type="range"] { width: 100%; cursor: pointer; }
+        input[type="range"] {
+            width: 100%;
+            cursor: pointer;
+        }
         .file-upload-area {
             display: flex;
             gap: 12px;
@@ -401,8 +461,14 @@
             cursor: pointer;
             color: #eee;
         }
-        .reset-bg { background: rgba(255,80,80,0.3); }
-        .hint-text { font-size: 0.7rem; color: #aaa; text-align: right; }
+        .reset-bg {
+            background: rgba(255,80,80,0.3);
+        }
+        .hint-text {
+            font-size: 0.7rem;
+            color: #aaa;
+            text-align: right;
+        }
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
@@ -486,7 +552,9 @@
             transition: opacity 0.2s;
             z-index: 10;
         }
-        .card:hover .card-actions { opacity: 1; }
+        .card:hover .card-actions {
+            opacity: 1;
+        }
         .edit-btn, .delete-btn {
             background: rgba(0,0,0,0.6);
             backdrop-filter: blur(4px);
@@ -539,7 +607,9 @@
             justify-content: center;
             align-items: center;
         }
-        .modal.active { display: flex; }
+        .modal.active {
+            display: flex;
+        }
         .modal-content {
             background: rgba(30,30,40,0.95);
             backdrop-filter: blur(20px);
@@ -550,7 +620,9 @@
             color: #eee;
             border-radius: 20px;
         }
-        .modal-content h3 { margin-bottom: 16px; }
+        .modal-content h3 {
+            margin-bottom: 16px;
+        }
         .modal-content input, .modal-content textarea {
             width: 100%;
             padding: 10px;
@@ -561,7 +633,10 @@
             color: #fff;
             font-size: 0.9rem;
         }
-        .modal-content textarea { min-height: 80px; resize: vertical; }
+        .modal-content textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
         .type-selector {
             display: flex;
             gap: 12px;
@@ -580,9 +655,17 @@
             transition: 0.1s;
             font-size: 0.8rem;
         }
-        .type-selector label:hover { background: rgba(255,255,255,0.2); }
-        .type-selector input { margin: 0; width: auto; margin-right: 4px; }
-        .type-content-area { margin-bottom: 16px; }
+        .type-selector label:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        .type-selector input {
+            margin: 0;
+            width: auto;
+            margin-right: 4px;
+        }
+        .type-content-area {
+            margin-bottom: 16px;
+        }
         .quick-tags {
             display: flex;
             gap: 8px;
@@ -617,7 +700,9 @@
         }
         .save-btn { background: #10b981; color: white; }
         .cancel-btn { background: #6b7280; color: white; }
-        .dynamic-tag-area { margin-bottom: 12px; }
+        .dynamic-tag-area {
+            margin-bottom: 12px;
+        }
         .dynamic-tag-area .title {
             font-size: 0.7rem;
             color: #aaa;
@@ -648,17 +733,6 @@
         .card-title span {
             flex: 1;
         }
-        /* 类型标识：仅展示，不可点击 */
-        .type-icon {
-            font-size: 0.7rem;
-            background: rgba(0,0,0,0.25);
-            border-radius: 30px;
-            padding: 4px 10px;
-            display: inline-block;
-            line-height: 1;
-            white-space: nowrap;
-            pointer-events: none;
-        }
         .card-description {
             font-size: calc(var(--font-size-base) * 0.9);
             line-height: 1.4;
@@ -677,7 +751,11 @@
             gap: var(--meta-gap);
             margin-bottom: 10px;
         }
-        .badge-group { display: flex; flex-wrap: wrap; gap: 6px; }
+        .badge-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
         .badge {
             background: rgba(0,0,0,0.1);
             padding: 4px 10px;
@@ -822,7 +900,9 @@
             border: 1px solid rgba(255,255,255,0.2);
             box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
-        .layout-panel.show { display: flex; }
+        .layout-panel.show {
+            display: flex;
+        }
         .layout-panel .title {
             font-size: 0.9rem;
             font-weight: 600;
@@ -837,7 +917,10 @@
             font-size: 0.75rem;
             color: #ddd;
         }
-        .layout-panel input { flex: 1; cursor: pointer; }
+        .layout-panel input {
+            flex: 1;
+            cursor: pointer;
+        }
         .layout-panel button {
             background: var(--theme-accent);
             border: none;
@@ -847,7 +930,9 @@
             cursor: pointer;
             font-size: 0.7rem;
         }
-        .layout-panel .export-btn { background: #10b981; }
+        .layout-panel .export-btn {
+            background: #10b981;
+        }
         @media (max-width: 780px) {
             body { padding: 16px; }
             .app { flex-direction: column; }
@@ -1010,7 +1095,7 @@
 
 <script>
     (function() {
-        // ========== 默认数据 ==========
+        // 默认数据
         const DEFAULT_GROUPS_DATA = [
             { groupName: "🎮 Minecraft 模组", items: [ 
                 { title: "Fabric API", url: "https://modrinth.com/mod/fabric-api", description: "轻量级且模块化的API，提供通用钩子和互操作性。", author: "Modmuss50", tags: ["Fabric", "库"], stats: { downloads: "162M", updated: "4天前" }, version: "0.16.5", type: "link", textContent: "", mindmap: "" },
@@ -1097,10 +1182,8 @@
             }
             return [];
         }
-
         function escapeHtml(s) { if(!s) return ''; return s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
         function getFavicon(url) { return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(url)}`; }
-
         function extractAllTags() {
             const tagCount = new Map();
             for (const group of groupsData) {
@@ -1464,16 +1547,6 @@
             else if (currentDataSource === 'cloud') sourceBadge = `<span class="data-source-badge">☁️ 云端</span>`;
             else sourceBadge = `<span class="data-source-badge">📄 默认</span>`;
 
-            // 类型标识仅展示，不绑定点击
-            let typeIcon = '';
-            if (item.type === 'link') {
-                typeIcon = `<span class="type-icon">🔗 网页</span>`;
-            } else if (item.type === 'text') {
-                typeIcon = `<span class="type-icon">📄 文本</span>`;
-            } else if (item.type === 'mindmap') {
-                typeIcon = `<span class="type-icon">🧠 导图</span>`;
-            }
-
             const adminActions = isAdminMode ? `
                 <div class="card-actions">
                     <button class="edit-btn" data-group="${groupIdx}" data-card="${cardIdx}">✏️</button>
@@ -1486,7 +1559,6 @@
                     <div class="card-title">
                         <img src="${getFavicon(item.type === 'link' ? item.url : '#')}" alt="icon" loading="lazy">
                         <span>${escapeHtml(item.title)}</span>
-                        ${typeIcon}
                     </div>
                     <div class="card-description">${escapeHtml(item.description)}</div>
                     <div class="card-meta">
@@ -1555,7 +1627,7 @@
         function bindCardClickEvents() {
             document.querySelectorAll('.card').forEach(card => {
                 card.addEventListener('click', (e) => {
-                    if (e.target.classList.contains('edit-btn') || e.target.classList.contains('delete-btn') || e.target.closest('.type-icon')) return;
+                    if (e.target.classList.contains('edit-btn') || e.target.classList.contains('delete-btn')) return;
                     const type = card.getAttribute('data-type');
                     const url = card.getAttribute('data-url');
                     const title = card.getAttribute('data-title');
@@ -1598,7 +1670,6 @@
                     });
                 });
             }
-            // 不再为 type-icon 绑定点击事件
             bindCardClickEvents();
             if (isListView) cardsContainer.classList.add('list-view');
             else cardsContainer.classList.remove('list-view');
