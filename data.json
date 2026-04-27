@@ -1271,6 +1271,176 @@
         "url": "https://modrinth.com/mod/rope",
         "textContent": "",
         "mindmap": ""
+      },
+      {
+        "title": "Fluffy Dandelions  毛茸茸的蒲公英",
+        "description": "一个奇思妙想的微模组，添加了可以拔除、放置或“吹气”的蓬松蒲公英，带来临时的幸运，搭配迷人的粒子和音效。",
+        "author": "matekmods",
+        "tags": [
+          "Fabric",
+          "视觉效果",
+          "沉浸感",
+          "Mac",
+          "植物",
+          "装饰"
+        ],
+        "version": "1.21.8-1.21.10",
+        "stats": {
+          "downloads": "—",
+          "updated": "2026-04-27 20:49:21"
+        },
+        "type": "link",
+        "url": "https://modrinth.com/mod/fluffy-dandelions",
+        "textContent": "",
+        "mindmap": ""
+      },
+      {
+        "title": "Item Resizer  物品调整器",
+        "description": "一个客户端模组，可以调整物品的视觉大小。",
+        "author": "Ghost",
+        "tags": [
+          "Fabric",
+          "视觉效果",
+          "物品管理",
+          "实用",
+          "装饰"
+        ],
+        "version": "1.21.11",
+        "stats": {
+          "downloads": "—",
+          "updated": "2026-04-27 20:50:49"
+        },
+        "type": "link",
+        "url": "https://modrinth.com/mod/item-resizer",
+        "textContent": "",
+        "mindmap": ""
+      },
+      {
+        "title": "SmokeShow  烟雾秀",
+        "description": "点燃篝火/灵魂篝火，火把/墙火，使用16种原版染料中的任意一种，看烟雾瞬间变色。染色时按住潜行键，将那一列烟雾切换成彩虹派对模式。取消烟雾键以清除所有烟雾粒子。",
+        "author": "KlooDoh KlooDoh",
+        "tags": [
+          "Fabric",
+          "视觉效果",
+          "装饰",
+          "创作者工具"
+        ],
+        "version": "1.21.10-1.21.11",
+        "stats": {
+          "downloads": "—",
+          "updated": "2026-04-27 20:53:27"
+        },
+        "type": "link",
+        "url": "https://modrinth.com/mod/smokeshow",
+        "textContent": "",
+        "mindmap": ""
+      },
+      {
+        "title": "Placeable Plants  可放置植物",
+        "description": "允许你在几乎所有方块上放置植被。",
+        "author": "BisUmTo",
+        "tags": [
+          "Fabric",
+          "视觉效果",
+          "植物",
+          "创作者工具"
+        ],
+        "version": "1.21.9-1.21.11",
+        "stats": {
+          "downloads": "—",
+          "updated": "2026-04-27 20:56:16"
+        },
+        "type": "link",
+        "url": "https://modrinth.com/mod/placeable",
+        "textContent": "",
+        "mindmap": ""
+      },
+      {
+        "title": "IronRust  铁锈",
+        "description": "通过氧化机制完全实现铁锈，同时也受附近水源影响",
+        "author": "sopze sopze",
+        "tags": [
+          "Fabric",
+          "Forge",
+          "NeoForge",
+          "视觉效果",
+          "创作者工具",
+          "沉浸感",
+          "装饰"
+        ],
+        "version": "1.21.9-1.21.11",
+        "stats": {
+          "downloads": "—",
+          "updated": "2026-04-27 20:59:11"
+        },
+        "type": "link",
+        "url": "https://modrinth.com/mod/ironrust",
+        "textContent": "",
+        "mindmap": ""
+      },
+      {
+        "title": "Harou's Leashed Fences  春的牵引围栏",
+        "description": "一个允许你用牵引绳把围栏拴在一起的 Minecraft Fabric 模组！再也不需要结构鸡了。",
+        "author": "bsharou bsharou",
+        "tags": [
+          "Fabric",
+          "视觉效果",
+          "创作者工具",
+          "装饰"
+        ],
+        "version": "1.21.10-26.1",
+        "stats": {
+          "downloads": "—",
+          "updated": "2026-04-27 21:01:30"
+        },
+        "type": "link",
+        "url": "https://modrinth.com/mod/harous-leashed-fences",
+        "textContent": "",
+        "mindmap": ""
+      },
+      {
+        "title": "Ipla  更好的物品放置",
+        "description": "任意一块方块放置任何物品，一侧最多放4个",
+        "author": "pustoykishka pustoykishka",
+        "tags": [
+          "视觉效果",
+          "实用",
+          "创作者工具",
+          "物品管理",
+          "装饰",
+          "Fabric",
+          "Forge",
+          "NeoForge"
+        ],
+        "version": "1.18.2-1.21.11",
+        "stats": {
+          "downloads": "—",
+          "updated": "2026-04-27 21:04:27"
+        },
+        "type": "link",
+        "url": "https://modrinth.com/mod/ipla",
+        "textContent": "",
+        "mindmap": ""
+      },
+      {
+        "title": "Lead Fences  可栓绳围栏",
+        "description": "一个简单的模组，可以让围栏可以拴绳。",
+        "author": "the-blue-shark the-blue-shark",
+        "tags": [
+          "Fabric",
+          "视觉效果",
+          "创作者工具",
+          "装饰"
+        ],
+        "version": "1.21.8-1.21.11",
+        "stats": {
+          "downloads": "—",
+          "updated": "2026-04-27 21:06:54"
+        },
+        "type": "link",
+        "url": "https://modrinth.com/mod/lead-fences",
+        "textContent": "",
+        "mindmap": ""
       }
     ]
   },
