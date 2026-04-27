@@ -52,8 +52,14 @@
         .sidebar, .card, .search-box, .group-btn, .no-results, .palette-panel, .modal-content, .view-toggle-btn, .sort-select, .tag-btn {
             border-radius: var(--card-radius) !important;
         }
-        .app { max-width: 1400px; margin: 0 auto; display: flex; gap: 28px; align-items: flex-start; }
-        /* 侧边栏样式 */
+        .app {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 28px;
+            align-items: flex-start;
+        }
+        /* 侧边栏：增加滚动支持 */
         .sidebar {
             flex: 0 0 280px;
             background: rgba(255, 255, 255, var(--glass-opacity));
@@ -64,6 +70,8 @@
             position: sticky;
             top: 28px;
             transition: background 0.2s;
+            max-height: calc(100vh - 56px);
+            overflow-y: auto;
         }
         body[data-theme="black"] .sidebar,
         body[data-theme="ocean"] .sidebar,
@@ -629,7 +637,6 @@
             gap: 8px;
             margin-bottom: 0;
         }
-        /* 卡片内部样式 */
         .card-title {
             font-size: var(--font-size-title);
             font-weight: 600;
@@ -840,7 +847,7 @@
         @media (max-width: 780px) {
             body { padding: 16px; }
             .app { flex-direction: column; }
-            .sidebar { position: static; width: 100%; }
+            .sidebar { position: static; width: 100%; max-height: none; }
             .group-buttons { flex-direction: row; flex-wrap: wrap; }
             .group-btn { flex: 1; text-align: center; }
             .tag-list { grid-template-columns: repeat(2, 1fr); }
@@ -1088,7 +1095,6 @@
         function escapeHtml(s) { if(!s) return ''; return s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
         function getFavicon(url) { return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(url)}`; }
 
-        // 获取当前时间字符串 (用于 updated 字段)
         function getCurrentTimeString() {
             const now = new Date();
             return `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
@@ -1348,7 +1354,7 @@
                 version: cardVersionInput ? cardVersionInput.value.trim() || undefined : undefined,
                 stats: {
                     downloads: cardDownloadsInput ? cardDownloadsInput.value.trim() || '—' : '—',
-                    updated: getCurrentTimeString()   // 自动记录编辑时间
+                    updated: getCurrentTimeString()
                 },
                 type: type,
                 url: "",
@@ -1438,7 +1444,6 @@
             const newContent = mindmapEditor ? mindmapEditor.value.trim() : '';
             const { groupIdx, cardIdx } = currentMindmapCard;
             groupsData[groupIdx].items[cardIdx].mindmap = newContent;
-            // 同时更新更新时间
             groupsData[groupIdx].items[cardIdx].stats.updated = getCurrentTimeString();
             saveDataToStorage();
             renderMindmap(newContent);
@@ -1458,7 +1463,6 @@
             else if (currentDataSource === 'cloud') sourceBadge = `<span class="data-source-badge">☁️ 云端</span>`;
             else sourceBadge = `<span class="data-source-badge">📄 默认</span>`;
 
-            // 不再显示类型图标，只保留卡片内容
             const adminActions = isAdminMode ? `
                 <div class="card-actions">
                     <button class="edit-btn" data-group="${groupIdx}" data-card="${cardIdx}">✏️</button>
@@ -1622,7 +1626,6 @@
 
         function renderAll() { renderGroupButtons(); renderCards(); renderTagList(); }
 
-        // 视图切换并存储
         function toggleView() {
             isListView = !isListView;
             if (viewToggleBtn) viewToggleBtn.innerText = isListView ? '🗂️ 卡片视图' : '📋 列表视图';
@@ -1836,7 +1839,7 @@
             mindmapContentArea.style.display = type === 'mindmap' ? 'block' : 'none';
         }
 
-        // 事件绑定
+        // 事件绑定（移除模态框背景点击关闭）
         if (layoutSettingsBtn && layoutPanel) layoutSettingsBtn.addEventListener('click', () => layoutPanel.classList.toggle('show'));
         if (clearTagFilterBtn) clearTagFilterBtn.addEventListener('click', clearTagFilter);
         if (addGroupBtn) addGroupBtn.addEventListener('click', addNewGroup);
@@ -1845,10 +1848,7 @@
         if (mindmapModal) mindmapModal.addEventListener('click', (e) => { if (e.target === mindmapModal) closeMindmap(); });
         if (textModalCancel) textModalCancel.addEventListener('click', closeTextModal);
         if (textModal) textModal.addEventListener('click', (e) => { if (e.target === textModal) closeTextModal(); });
-        // 模态框背景点击不再关闭，避免误操作
-        if (modal) modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); }); // 保留但实际不关闭？为了安全，改为不关闭：直接移除这个监听？我们移除背景关闭。
-        // 重新绑定：移除之前的背景关闭，仅按钮关闭
-        // 注意：原有代码中有 modal 的背景点击关闭，我们注释掉即可。在下方初始化中不再添加该监听。
+        // 注意：移除了 modal 的背景点击关闭监听，只有按钮可关闭
         if (adminBtn) adminBtn.addEventListener('click', checkAdminPassword);
         if (addCardBtn) addCardBtn.addEventListener('click', addNewCard);
         if (resetDataBtn) resetDataBtn.addEventListener('click', resetToDefault);
