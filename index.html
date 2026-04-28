@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes"><title>镜玄·资源搜索 | 智能对比度与排序记忆</title>
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes"><title>镜玄·资源搜索 | 智能对比度与重复修复</title>
 <script src="https://cdn.jsdelivr.net/npm/d3@6.7.0"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.3"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.3"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.3/style.css"><style>
 *{margin:0;padding:0;box-sizing:border-box}html{overflow-y:auto;scrollbar-gutter:stable;scrollbar-width:thin;scrollbar-color:var(--scrollbar-thumb) transparent}
 html::-webkit-scrollbar{width:6px}html::-webkit-scrollbar-track{background:transparent}html::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:10px}
@@ -46,7 +46,6 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 .main{flex:1;min-width:0}
 .header-area{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px;padding-bottom:12px;position:relative}
 .title-section h1{font-size:1.8rem;font-weight:700;color:var(--text-primary)}
-.title-section p{color:var(--text-secondary);font-size:0.8rem}
 .action-buttons{display:flex;gap:8px;align-items:center}
 .admin-btn,.palette-btn{background:rgba(255,255,240,0.8);border:none;padding:8px 16px;border-radius:30px;font-weight:500;cursor:pointer;backdrop-filter:blur(8px);transition:0.1s;box-shadow:0 2px 6px rgba(0,0,0,0.1);color:var(--text-primary)}
 .data-source-indicator{display:inline-flex;align-items:center;gap:6px;font-size:0.7rem;background:rgba(0,0,0,0.5);padding:4px 10px;border-radius:30px;color:#eee}
@@ -320,7 +319,8 @@ function deleteGroup(i){if(groupsData.length<=1)return alert('至少保留一个
 function isVersionInCard(cardVer, filterVer) { if (!cardVer || !filterVer) return false; const cv = cardVer.trim(); if (cv.includes(',')) return cv.split(',').some(v => isVersionInCard(v.trim(), filterVer)); if (cv.includes('-')) { const [start, end] = cv.split('-').map(v => v.trim()); return start <= filterVer && filterVer <= end; } return cv === filterVer; }
 function getDisplayItems(){let items=[];if(currentTagFilter){for(const g of groupsData)for(const i of g.items)if(normalizeTags(i.tags).includes(currentTagFilter))items.push(i)}else{items=groupsData[currentGroupIndex]?.items||[]}if(currentVersionFilter)items=items.filter(it=>isVersionInCard(it.version, currentVersionFilter));return items}
 function sortItems(items){if(currentSort==='duplicates')return []; const s=[...items]; if(currentSort==='title-asc')s.sort((a,b)=>(a.title||'').localeCompare(b.title||'','zh'));else if(currentSort==='date-desc')s.sort((a,b)=>(b.stats?.updated||'').localeCompare(a.stats?.updated||''));return s}
-function getDuplicateItems(gi){const items=groupsData[gi].items,m=new Map();items.forEach((it,i)=>{const k=it.title.trim().toLowerCase();if(!m.has(k))m.set(k,[]);m.get(k).push({...it,cardIdx:i})});const d=[];for(const[,e] of m)if(e.length>1){e.forEach((x,j)=>{d.push({...x,isFirstDuplicate:j===0,isDuplicate:true})})}return d}
+/* 修复：重复检测严格比较标题的小写、去空格形式 */
+function getDuplicateItems(gi){const items=groupsData[gi].items,m=new Map();items.forEach((it,i)=>{const k=it.title.trim().toLowerCase().replace(/\s+/g,' ');if(!m.has(k))m.set(k,[]);m.get(k).push({...it,cardIdx:i})});const d=[];for(const[,e] of m)if(e.length>1){e.forEach((x,j)=>{d.push({...x,isFirstDuplicate:j===0,isDuplicate:true})})}return d}
 function getFilteredAndSortedItems(){if(currentSort==='duplicates')return []; let items=getDisplayItems(); const kw=currentKeyword.trim().toLowerCase(); if(kw)items=items.filter(it=>it.title.toLowerCase().includes(kw)||it.description.toLowerCase().includes(kw)||it.author.toLowerCase().includes(kw)||normalizeTags(it.tags).some(t=>t.toLowerCase().includes(kw))||(it.version&&it.version.toLowerCase().includes(kw))); return sortItems(items); }
 
 function renderCard(item,gi,ci,extra={}){const tagsHtml=normalizeTags(item.tags).map(t=>`<span class="badge">${escapeHtml(t)}</span>`).join('');const vHtml=item.version?`<div class="version-info">📌${escapeHtml(item.version)}</div>`:'';let sb='';if(hasLocalChanges)sb='<span class="data-source-badge">💾本地</span>';else if(currentDataSource==='cloud')sb='<span class="data-source-badge">☁️云端</span>';else sb='<span class="data-source-badge">📄默认</span>';const aa=isAdminMode?`<div class="card-actions"><button class="edit-btn" data-g="${gi}" data-c="${ci}">✏️</button><button class="delete-btn" data-g="${gi}" data-c="${ci}">🗑️</button></div>`:'';let dupBadge='';if(extra.isDuplicate){dupBadge=`<div class="card-duplicate-badge">${extra.isFirstDuplicate?'重复(保留)':'重复(可删除)'}</div>`}return`<div class="card${extra.isDuplicate?' duplicate':''}" data-g="${gi}" data-c="${ci}" data-type="${item.type}" data-url="${escapeHtml(item.url||'')}" data-title="${escapeHtml(item.title)}" data-content="${escapeHtml(item.textContent||'')}">${dupBadge}${aa}<div class="card-title"><img src="${getFavicon(item.type==='link'?item.url:'#')}" style="width:20px;height:20px;border-radius:4px"><span>${escapeHtml(item.title)}</span></div><div class="card-description">${escapeHtml(item.description||'')}</div><div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px">${tagsHtml}${vHtml}${sb}</div><div class="card-footer"><span>👤${escapeHtml(item.author)}</span><span>${item.stats?.downloads?'📥'+item.stats.downloads:''} ${item.stats?.updated?'🕒'+item.stats.updated:''}</span></div></div>`}
@@ -328,7 +328,7 @@ function renderCards(){if(!cardsContainer)return;if(currentSort==='duplicates'){
 function getCardLocation(target){for(let g=0;g<groupsData.length;g++)for(let i=0;i<groupsData[g].items.length;i++)if(groupsData[g].items[i]===target)return{groupIdx:g,cardIdx:i};return{groupIdx:-1,cardIdx:-1}}
 function bindAdminCardBtns(){if(!isAdminMode)return;document.querySelectorAll('.edit-btn').forEach(b=>{b.addEventListener('click',e=>{e.stopPropagation();const g=parseInt(b.dataset.g),c=parseInt(b.dataset.c);openEditModal(g,c,groupsData[g].items[c])})});document.querySelectorAll('.delete-btn').forEach(b=>{b.addEventListener('click',e=>{e.stopPropagation();const g=parseInt(b.dataset.g),c=parseInt(b.dataset.c);deleteCard(g,c)})})}
 function bindCardClicks(){document.querySelectorAll('.card').forEach(card=>{card.addEventListener('click',e=>{if(e.target.closest('.card-actions'))return;const type=card.dataset.type,url=card.dataset.url,title=card.dataset.title,content=card.dataset.content,g=parseInt(card.dataset.g),c=parseInt(card.dataset.c);if(type==='link'&&url)window.open(url,'_blank');else if(type==='text')openTextView(title,content);else if(type==='mindmap'&&!isNaN(g)&&!isNaN(c))openMindmap(g,c)})})}
-function batchDeleteDuplicates(){const gi=currentGroupIndex,items=groupsData[gi].items,m=new Map();items.forEach((it,i)=>{const k=it.title.trim().toLowerCase();if(!m.has(k))m.set(k,[]);m.get(k).push(i)});const td=[];for(const[,a] of m)if(a.length>1)a.slice(1).forEach(i=>td.push(i));if(!td.length)return alert('没有多余重复卡片');if(!confirm(`删除${td.length}张多余重复卡片？`))return;td.sort((a,b)=>b-a);td.forEach(i=>items.splice(i,1));saveDataToStorage();renderAll();alert('已删除')}
+function batchDeleteDuplicates(){const gi=currentGroupIndex,items=groupsData[gi].items,m=new Map();items.forEach((it,i)=>{const k=it.title.trim().toLowerCase().replace(/\s+/g,' ');if(!m.has(k))m.set(k,[]);m.get(k).push(i)});const td=[];for(const[,a] of m)if(a.length>1)a.slice(1).forEach(i=>td.push(i));if(!td.length)return alert('没有多余重复卡片');if(!confirm(`删除${td.length}张多余重复卡片？`))return;td.sort((a,b)=>b-a);td.forEach(i=>items.splice(i,1));saveDataToStorage();renderAll();alert('已删除')}
 
 function openEditModal(gi,ci,card){editingCardInfo={gi,ci,card:{...card}};document.getElementById('modalTitle').innerText=ci===undefined?'新增卡片':'编辑卡片';cardTitleInput.value=card.title||'';cardDescInput.value=card.description||'';const type=card.type||'link';setActiveTypeBtn(type);linkContentArea.style.display=type==='link'?'block':'none';textContentArea.style.display=type==='text'?'block':'none';mindmapContentArea.style.display=type==='mindmap'?'block':'none';cardUrlInput.value=card.url||'';cardTextContent.value=card.textContent||'';cardMindmapContent.value=card.mindmap||'';cardAuthorInput.value=card.author||'';cardTagsInput.value=Array.isArray(card.tags)?card.tags.join(','):(card.tags||'');cardVersionInput.value=card.version||'';cardDownloadsInput.value=card.stats?.downloads||'';modal.classList.add('active');renderDynamicTags();if(versionDatalist) versionDatalist.innerHTML = ALL_KNOWN_VERSIONS.map(v=>`<option value="${escapeHtml(v)}">`).join('');}
 function setActiveTypeBtn(type){typeBtns.forEach(b=>{b.classList.toggle('active',b.dataset.type===type)});currentCardType=type}
@@ -351,12 +351,10 @@ function closeMindmap(){mindmapModal.classList.remove('active');currentMindmapCa
 
 function updateSortOptions(){const opt=sortSelect.querySelector('option[value="duplicates"]');if(isAdminMode){if(!opt){const o=document.createElement('option');o.value='duplicates';o.textContent='🔁 重复卡片';sortSelect.appendChild(o)}}else{if(opt){opt.remove();if(currentSort==='duplicates'){currentSort='title-asc';sortSelect.value='title-asc';renderCards()}}}}
 
-/* 排序记忆：保存和加载 */
 function saveSortPreference(){localStorage.setItem('sortPreference',currentSort);}
 function loadSortPreference(){
     const saved=localStorage.getItem('sortPreference');
     if(saved&&['title-asc','date-desc','duplicates'].includes(saved)){
-        // 如果保存的是 duplicates，但当前不是管理员模式，则忽略
         if(saved==='duplicates'&&!isAdminMode) return;
         currentSort=saved;
         if(sortSelect) sortSelect.value=currentSort;
@@ -398,7 +396,6 @@ textModalCancel?.addEventListener('click',closeTextModal);
 mindmapCancel?.addEventListener('click',closeMindmap);
 mindmapSave?.addEventListener('click',saveMindmap);
 viewToggleBtn?.addEventListener('click',()=>{isListView=!isListView;viewToggleBtn.innerText=isListView?'🗂️ 卡片视图':'📋 列表视图';localStorage.setItem('listViewPreference',isListView?'true':'false');renderCards()});
-/* 排序变更时保存 */
 sortSelect?.addEventListener('change',()=>{currentSort=sortSelect.value;saveSortPreference();renderCards();});
 searchInput?.addEventListener('input',e=>{currentKeyword=e.target.value;renderCards()});
 clearTagFilterBtn?.addEventListener('click',clearTagFilter);
@@ -421,7 +418,6 @@ function renderAll(){loadVersions();renderGroupButtons();renderVersionList();ren
 async function start(){
     loadVersions();
     await loadInitialData();
-    /* 恢复排序偏好 */
     loadSortPreference();
     initBackground();
     buildPalette();
