@@ -34,7 +34,6 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 .group-btn:hover{background:rgba(255,255,250,0.7)}.group-btn.active{background:var(--theme-accent);color:white;box-shadow:0 4px 12px rgba(0,0,0,0.15)}body[data-theme="black"] .group-btn.active{color:#12151c}
 .group-btn-row{display:flex;align-items:center;gap:4px;margin-bottom:6px}
 
-/* 纯净版本标签网格 */
 .version-list{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:2px 0}
 .version-tag{display:flex;align-items:center;gap:2px;background:rgba(255,255,240,0.25);border:1px solid transparent;padding:4px 6px;border-radius:14px;font-size:0.65rem;font-weight:500;cursor:pointer;transition:0.1s;color:#1f2937;justify-content:center;white-space:nowrap}body[data-theme="black"] .version-tag{background:rgba(60,68,84,0.5);color:#f0e6d2}
 .version-tag:hover{background:rgba(255,255,240,0.55)}.version-tag.active{background:var(--theme-accent);color:white;border-color:var(--theme-accent)}
@@ -127,7 +126,6 @@ let versions=[...DEFAULT_VERSIONS];
 function saveVersions(){localStorage.setItem('mc_versions',JSON.stringify(versions))}
 function loadVersions(){const s=localStorage.getItem('mc_versions');if(s)try{versions=JSON.parse(s);if(!Array.isArray(versions)) versions=[];versions=versions.filter(v=>/^\d+(\.\d+)*$/.test(v));if(!versions.length) versions=[...DEFAULT_VERSIONS];}catch(e){versions=[...DEFAULT_VERSIONS]}}
 
-/* 只提取独立数字版本，永不混入范围标签 */
 function extractAndSyncVersionsFromData(){
     if(!groupsData) return;
     const versionSet = new Set(versions.filter(v=>/^\d+(\.\d+)*$/.test(v)));
@@ -166,8 +164,62 @@ function getFavicon(url){return`https://www.google.com/s2/favicons?domain=${enco
 function getCurrentTimeString(){const n=new Date();return`${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')} ${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}:${String(n.getSeconds()).padStart(2,'0')}`}
 
 function saveDataToStorage(){localStorage.setItem('editable_groups_data',JSON.stringify(groupsData));hasLocalChanges=true;if(currentDataSource!=='cloud')currentDataSource='local';updateDataSourceIndicator();renderTagList()}
-async function loadInitialData(){const autoAdmin=sessionStorage.getItem('adminModeAuto')==='true';if(autoAdmin){const s=localStorage.getItem('editable_groups_data');if(s)try{const p=JSON.parse(s);if(p&&Array.isArray(p)){groupsData=p;currentDataSource='local';hasLocalChanges=true;updateDataSourceIndicator();extractAndSyncVersionsFromData();renderAll();return}}catch(e){}groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));currentDataSource='default';hasLocalChanges=false;updateDataSourceIndicator();extractAndSyncVersionsFromData();renderAll();return}let cloud=false;try{const r=await fetch('data.json?v='+Date.now());if(r.ok){const remote=await r.json();if(remote&&Array.isArray(remote)){groupsData=remote;currentDataSource='cloud';hasLocalChanges=false;localStorage.setItem('editable_groups_data',JSON.stringify(groupsData));cloud=true}}}catch(e){}if(!cloud){const s=localStorage.getItem('editable_groups_data');if(s)try{groupsData=JSON.parse(s);currentDataSource='local';}catch(e){groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA))}else{groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));currentDataSource='default';}}extractAndSyncVersionsFromData();updateDataSourceIndicator();renderAll()}
-function updateDataSourceIndicator(){const c=document.getElementById('dataSourceIndicator'),d=c?.querySelector('.indicator-dot'),t=document.getElementById('sourceText');if(!c)return;c.style.display='flex';if(hasLocalChanges && currentDataSource!=='cloud'){d.className='indicator-dot local';t.innerText='本地缓存'}else if(currentDataSource==='cloud'){d.className='indicator-dot cloud';t.innerText='云端'}else{d.className='indicator-dot default';t.innerText='默认数据'}}
+/* 关键修复：从远程json中同步versions字段 */
+async function loadInitialData(){
+    const autoAdmin=sessionStorage.getItem('adminModeAuto')==='true';
+    if(autoAdmin){
+        const s=localStorage.getItem('editable_groups_data');
+        if(s)try{
+            const p=JSON.parse(s);
+            if(p&&Array.isArray(p)){groupsData=p; currentDataSource='local'; hasLocalChanges=true; updateDataSourceIndicator(); extractAndSyncVersionsFromData(); renderAll(); return;}
+        }catch(e){}
+        groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA)); currentDataSource='default'; hasLocalChanges=false; updateDataSourceIndicator(); extractAndSyncVersionsFromData(); renderAll(); return;
+    }
+    let cloud=false;
+    try{
+        const r=await fetch('data.json?v='+Date.now());
+        if(r.ok){
+            const remote=await r.json();
+            if(remote&&Array.isArray(remote)){
+                groupsData=remote; currentDataSource='cloud'; hasLocalChanges=false;
+                localStorage.setItem('editable_groups_data',JSON.stringify(groupsData));
+                cloud=true;
+            }
+        }
+    }catch(e){}
+    if(!cloud){
+        const s=localStorage.getItem('editable_groups_data');
+        if(s)try{
+            groupsData=JSON.parse(s); currentDataSource='local';
+        }catch(e){
+            groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
+        }else{
+            groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
+            currentDataSource='default';
+        }
+    }
+    /* 处理远程json中的versions字段 */
+    if(cloud && remote && remote.versions && Array.isArray(remote.versions)){
+        const remoteVersions = remote.versions.filter(v=>/^\d+(\.\d+)*$/.test(v));
+        if(remoteVersions.length){
+            versions = remoteVersions.sort((a,b)=>b.localeCompare(a,undefined,{numeric:true}));
+            saveVersions();
+        } else {
+            extractAndSyncVersionsFromData();
+        }
+    } else {
+        extractAndSyncVersionsFromData();
+    }
+    updateDataSourceIndicator();
+    renderAll();
+}
+function updateDataSourceIndicator(){
+    const c=document.getElementById('dataSourceIndicator'),d=c?.querySelector('.indicator-dot'),t=document.getElementById('sourceText');
+    if(!c)return; c.style.display='flex';
+    if(hasLocalChanges && currentDataSource!=='cloud'){d.className='indicator-dot local'; t.innerText='本地缓存';}
+    else if(currentDataSource==='cloud'){d.className='indicator-dot cloud'; t.innerText='云端';}
+    else{d.className='indicator-dot default'; t.innerText='默认数据';}
+}
 
 function parseVersionRange(input) { const range = input.trim(); if (!range.includes('-')) return [range]; const [start, end] = range.split('-').map(v => v.trim()); if (!start || !end) return [range]; const filtered = ALL_KNOWN_VERSIONS.filter(v => v >= start && v <= end); return filtered.length ? filtered : [range]; }
 function addVersionFromInput(input) { const parts = input.split(',').map(v => v.trim()).filter(v => v); let added = 0; parts.forEach(part => { const candidates = parseVersionRange(part); candidates.forEach(v => { if (!versions.includes(v)) { versions.push(v); added++; } }); }); if (added) { versions.sort((a, b) => b.localeCompare(a, undefined, { numeric: true })); saveVersions(); renderVersionList(); } }
@@ -222,7 +274,7 @@ const scrollAreas=[document.getElementById('groupsScrollArea'),document.getEleme
 scrollAreas.forEach(el=>{if(el){el.addEventListener('scroll',()=>updateScrollGradients(el));updateScrollGradients(el);}});
 
 function enableAdminMode(){isAdminMode=true;document.getElementById('adminToolbar').style.display='flex';document.getElementById('addGroupBtn').style.display='inline-flex';updateSortOptions();renderCards();renderGroupButtons();renderVersionList();sessionStorage.setItem('adminModeAuto','true')}
-function disableAdminMode(){isAdminMode=false;document.getElementById('adminToolbar').style.display='none';document.getElementById('addGroupBtn').style.display='none';updateSortOptions();extractAndSyncVersionsFromData(); /* 退出时自动同步版本 */ renderCards();renderGroupButtons();renderTagList();sessionStorage.removeItem('adminModeAuto');if(confirm('退出编辑模式，是否重新从云端加载最新数据？'))location.reload()}
+function disableAdminMode(){isAdminMode=false;document.getElementById('adminToolbar').style.display='none';document.getElementById('addGroupBtn').style.display='none';updateSortOptions();extractAndSyncVersionsFromData(); renderCards();renderGroupButtons();renderTagList();sessionStorage.removeItem('adminModeAuto');if(confirm('退出编辑模式，是否重新从云端加载最新数据？'))location.reload()}
 function checkAdminPassword(){const p=prompt('管理员密码：');if(p==='admin123')enableAdminMode();else alert('密码错误')}
 function clearAllCache(){if(confirm('清除所有本地缓存并刷新？')){['editable_groups_data','mc_versions','layout_settings','glass_custom_theme','glass_opacity','gradient_angle','custom_bg_image','custom_bg_color','listViewPreference'].forEach(k=>localStorage.removeItem(k));sessionStorage.removeItem('adminModeAuto');location.reload()}}
 function exportData(){const d={groups:groupsData,versions};const b=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='card_data_backup.json';a.click();URL.revokeObjectURL(u)}
