@@ -15,34 +15,27 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 .sidebar-mini-btn:hover{background:rgba(255,255,240,0.5)}
 .sidebar-mini-delete-btn{background:rgba(255,70,70,0.25);border:none;width:22px;height:22px;border-radius:22px;font-size:0.8rem;cursor:pointer;color:#c0392b;display:none;align-items:center;justify-content:center;transition:0.1s;flex-shrink:0}.admin-mode .sidebar-mini-delete-btn{display:inline-flex}
 .sidebar-mini-delete-btn:hover{background:rgba(255,40,40,0.6);color:#fff}
-
 .groups-scroll-area,.version-scroll-area,.tag-scroll-area{overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--scrollbar-thumb) transparent; padding-right:4px}
 .groups-scroll-area::-webkit-scrollbar,.version-scroll-area::-webkit-scrollbar,.tag-scroll-area::-webkit-scrollbar{width:5px}
 .groups-scroll-area::-webkit-scrollbar-track,.version-scroll-area::-webkit-scrollbar-track,.tag-scroll-area::-webkit-scrollbar-track{background:transparent!important}
 .groups-scroll-area::-webkit-scrollbar-thumb,.version-scroll-area::-webkit-scrollbar-thumb,.tag-scroll-area::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:10px}
-
 .mask-bottom{-webkit-mask-image:linear-gradient(to bottom,black 80%,transparent 100%);mask-image:linear-gradient(to bottom,black 80%,transparent 100%)}
 .mask-both{-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 85%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 85%,transparent 100%)}
-
 .groups-scroll-area{flex:1 1 0;min-height:0}
 .version-section{flex:1 1 0;min-height:0;display:flex;flex-direction:column;overflow:hidden;border-top:1px solid rgba(0,0,0,0.08);border-bottom:1px solid rgba(0,0,0,0.08);margin:4px 0;padding:6px 0}body[data-theme="black"] .version-section{border-color:rgba(255,255,255,0.15)}
 .version-scroll-area{flex:1}
 .tag-section{flex:1 1 0;min-height:0;display:flex;flex-direction:column;overflow:hidden;border-top:1px solid rgba(0,0,0,0.08);padding-top:8px}body[data-theme="black"] .tag-section{border-top-color:rgba(255,255,255,0.15)}
 .tag-scroll-area{flex:1}
-
 .group-btn{background:rgba(255,255,235,0.4);backdrop-filter:blur(6px);border:none;padding:10px 18px;font-size:0.95rem;font-weight:500;text-align:left;color:#1f2937;cursor:pointer;transition:0.08s;border-radius:var(--card-radius);width:100%}body[data-theme="black"] .group-btn{background:rgba(60,68,84,0.5);color:#f5f0e0}
 .group-btn:hover{background:rgba(255,255,250,0.7)}.group-btn.active{background:var(--theme-accent);color:white;box-shadow:0 4px 12px rgba(0,0,0,0.15)}body[data-theme="black"] .group-btn.active{color:#12151c}
 .group-btn-row{display:flex;align-items:center;gap:4px;margin-bottom:6px}
-
 .version-list{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:2px 0}
 .version-tag{display:flex;align-items:center;gap:2px;background:rgba(255,255,240,0.25);border:1px solid transparent;padding:4px 6px;border-radius:14px;font-size:0.65rem;font-weight:500;cursor:pointer;transition:0.1s;color:#1f2937;justify-content:center;white-space:nowrap}body[data-theme="black"] .version-tag{background:rgba(60,68,84,0.5);color:#f0e6d2}
 .version-tag:hover{background:rgba(255,255,240,0.55)}.version-tag.active{background:var(--theme-accent);color:white;border-color:var(--theme-accent)}
 .version-tag .v-del-btn{width:12px;height:12px;border-radius:12px;font-size:0.5rem;cursor:pointer;background:rgba(255,80,80,0.2);border:none;color:inherit;display:none;align-items:center;justify-content:center;margin-left:1px}.admin-mode .version-tag .v-del-btn{display:inline-flex}.v-del-btn:hover{background:rgba(255,40,40,0.6);color:#fff}
-
 .tag-list{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .tag-btn{background:rgba(255,255,240,0.25);border:none;padding:5px 4px;font-size:0.66rem;font-weight:500;cursor:pointer;transition:0.1s;color:#1f2937;text-align:center;line-height:1.2;word-break:break-word;border-radius:var(--card-radius)}body[data-theme="black"] .tag-btn{background:rgba(60,68,84,0.5);color:#f0e6d2!important}
 .tag-btn:hover{background:rgba(255,255,240,0.6);transform:scale(0.96)}.tag-btn.active{background:var(--theme-accent);color:white}
-
 .main{flex:1;min-width:0}
 .header-area{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px;padding-bottom:12px;position:relative}
 .title-section h1{font-size:1.8rem;font-weight:700;color:#1e293b}body[data-theme="black"] .title-section h1{color:#f0e6d2}
@@ -54,7 +47,6 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 .search-box{flex:1;min-width:160px;padding:12px 18px;background:rgba(255,255,255,calc(var(--glass-opacity)+0.05));backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.5);font-size:0.95rem;color:#1f2937;border-radius:var(--card-radius)}body[data-theme="black"] .search-box{background:rgba(35,42,56,0.6);color:#f5f0e0}
 .view-toggle-btn,.sort-select{background:rgba(255,255,240,0.7);border:none;padding:8px 16px;font-size:0.85rem;font-weight:500;cursor:pointer;backdrop-filter:blur(8px);transition:0.1s;color:#1f2d3d;border-radius:var(--card-radius)}body[data-theme="black"] .view-toggle-btn,body[data-theme="black"] .sort-select{background:rgba(30,30,35,0.8);color:#f5f0e0}
 .sort-select{appearance:none;padding-right:28px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'><polyline points='6 9 12 15 18 9' fill='none' stroke='currentColor' stroke-width='2'/></svg>");background-repeat:no-repeat;background-position:right 8px center}
-
 .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:var(--card-gap)}
 .cards-grid.list-view{display:flex;flex-direction:column;gap:12px}
 .card{background:rgba(255,255,255,calc(var(--glass-opacity)-0.05));backdrop-filter:blur(var(--blur-strength));border:1px solid rgba(255,255,255,0.5);padding:var(--card-padding);border-radius:var(--card-radius);transition:0.2s;box-shadow:0 8px 18px rgba(0,0,0,0.08);display:flex;flex-direction:column;position:relative;cursor:pointer}body[data-theme="black"] .card{background:rgba(10,14,23,calc(var(--glass-opacity)+0.2));border-color:rgba(255,255,255,0.3)}
@@ -73,7 +65,6 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 .admin-toolbar button{background:var(--theme-accent);border:none;padding:6px 14px;border-radius:25px;color:white;cursor:pointer;font-size:0.78rem}
 .duplicate-toolbar{margin-bottom:12px;display:flex;gap:10px;align-items:center}
 .duplicate-toolbar button{background:#ef4444;border:none;padding:8px 20px;border-radius:25px;color:white;font-weight:600;cursor:pointer}
-
 .type-btn-group{display:flex;gap:6px;margin-bottom:12px}
 .type-btn{padding:6px 14px;border-radius:20px;font-size:0.8rem;font-weight:500;cursor:pointer;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);color:#ccc;transition:0.1s}
 .type-btn:hover{background:rgba(255,255,255,0.2)}.type-btn.active{background:var(--theme-accent);color:white;border-color:var(--theme-accent)}
@@ -121,48 +112,16 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 const DEFAULT_GROUPS_DATA=[{groupName:"🎮 Minecraft 模组",items:[{title:"Fabric API",url:"https://modrinth.com/mod/fabric-api",description:"轻量级API",author:"Modmuss50",tags:["Fabric","库"],stats:{downloads:"162M",updated:"4天前"},version:"0.16.5",type:"link"},{title:"Sodium",url:"https://modrinth.com/mod/sodium",description:"渲染优化",author:"CaffeineMC",tags:["Fabric","NeoForge","优化"],stats:{downloads:"147M",updated:"1小时前"},version:"0.5.8",type:"link"},{title:"Iris Shaders",url:"https://modrinth.com/mod/iris",description:"光影加载器",author:"coderbot",tags:["Fabric","NeoForge","视觉"],stats:{downloads:"115M",updated:"3周前"},version:"1.7.0",type:"link"}]},{groupName:"🌐 常用开发网站",items:[{title:"GitHub",url:"https://github.com",description:"开发者平台",author:"GitHub",tags:["开发"],type:"link"}]},{groupName:"📺 视频&学习",items:[{title:"哔哩哔哩",url:"https://www.bilibili.com",description:"弹幕视频网",author:"Bilibili",tags:["视频"],type:"link"}]}];
 const ALL_KNOWN_VERSIONS=["1.14","1.14.1","1.14.2","1.14.3","1.14.4","1.15","1.15.1","1.15.2","1.16","1.16.1","1.16.2","1.16.3","1.16.4","1.16.5","1.17","1.17.1","1.18","1.18.1","1.18.2","1.19","1.19.1","1.19.2","1.19.3","1.19.4","1.20","1.20.1","1.20.2","1.20.3","1.20.4","1.20.5","1.20.6","1.21","1.21.1","1.21.2","1.21.3","1.21.4","1.21.5","1.21.11"];
 const DEFAULT_VERSIONS=["1.21.11","1.21.1","1.20.6","1.20.1","1.19.4","1.19.2","1.18.2","1.16.5"];
-let groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA)),currentGroupIndex=0,currentKeyword='',isAdminMode=!1,editingCardInfo=null,currentDataSource='default',isListView=!1,hasLocalChanges=!1,currentSort='title-asc',currentTagFilter=null,currentVersionFilter=null,currentCardType='link';
+let groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA)),currentGroupIndex=0,currentKeyword='',isAdminMode=!1,editingCardInfo=null,currentDataSource='default',isListView=!1,hasLocalChanges=!1,currentSort='title-asc',currentTagFilter=null,currentVersionFilter=null,currentCardType='link',cloudSynced=sessionStorage.getItem('cloudSynced')==='true';
 let versions=[...DEFAULT_VERSIONS];
 function saveVersions(){localStorage.setItem('mc_versions',JSON.stringify(versions))}
-function loadVersions(){
-    const s=localStorage.getItem('mc_versions');
-    if(s)try{
-        versions=JSON.parse(s);
-        if(!Array.isArray(versions)) versions=[];
-        versions = versions.filter(v => /^\d+(\.\d+)*$/.test(v));
-        if(!versions.length) versions=[...DEFAULT_VERSIONS];
-    }catch(e){versions=[...DEFAULT_VERSIONS]}
-    else versions=[...DEFAULT_VERSIONS];
-}
+function loadVersions(){const s=localStorage.getItem('mc_versions');if(s)try{versions=JSON.parse(s);if(!Array.isArray(versions))versions=[];versions=versions.filter(v=>/^\d+(\.\d+)*$/.test(v));if(!versions.length)versions=[...DEFAULT_VERSIONS]}catch(e){versions=[...DEFAULT_VERSIONS]}else versions=[...DEFAULT_VERSIONS]}
 
-/* 只提取纯数字独立版本号 */
-function extractAndSyncVersionsFromData() {
-    if (!groupsData) return;
-    const versionSet = new Set(versions.filter(v => /^\d+(\.\d+)*$/.test(v)));
-    const versionRegex = /^\d+(\.\d+)*$/;
-    for (const group of groupsData) {
-        for (const item of group.items) {
-            if (!item.version) continue;
-            const parts = item.version.split(/[\s,]+/).filter(v => v);
-            for (const part of parts) {
-                const trimmed = part.trim();
-                if (trimmed && versionRegex.test(trimmed)) versionSet.add(trimmed);
-            }
-        }
-    }
-    const newVersions = Array.from(versionSet).sort((a, b) => b.localeCompare(a, undefined, { numeric: true }));
-    if (JSON.stringify(newVersions) !== JSON.stringify(versions)) {
-        versions = newVersions;
-        saveVersions();
-        renderVersionList();
-    }
-}
+function extractAndSyncVersionsFromData(){if(!groupsData)return;const versionSet=new Set(versions.filter(v=>/^\d+(\.\d+)*$/.test(v))),versionRegex=/^\d+(\.\d+)*$/;for(const g of groupsData)for(const i of g.items){if(!i.version)continue;const parts=i.version.split(/[\s,]+/).filter(v=>v);for(const p of parts){const t=p.trim();if(t&&versionRegex.test(t))versionSet.add(t)}}const newVersions=Array.from(versionSet).sort((a,b)=>b.localeCompare(a,undefined,{numeric:true}));if(JSON.stringify(newVersions)!==JSON.stringify(versions)){versions=newVersions;saveVersions();renderVersionList()}}
 
 const groupContainer=document.getElementById('groupButtonsContainer'),cardsContainer=document.getElementById('cardsContainer'),searchInput=document.getElementById('searchInput'),dynamicTitle=document.getElementById('dynamicTitle'),versionListContainer=document.getElementById('versionListContainer'),addVersionBtn=document.getElementById('addVersionBtn'),tagListContainer=document.getElementById('tagListContainer'),clearTagFilterBtn=document.getElementById('clearTagFilterBtn'),sortSelect=document.getElementById('sortSelect'),viewToggleBtn=document.getElementById('viewToggleBtn'),duplicateToolbarContainer=document.getElementById('duplicateToolbarContainer');
 const modal=document.getElementById('cardModal'),cardTitleInput=document.getElementById('cardTitle'),cardDescInput=document.getElementById('cardDesc'),cardUrlInput=document.getElementById('cardUrl'),cardTextContent=document.getElementById('cardTextContent'),cardMindmapContent=document.getElementById('cardMindmapContent'),cardAuthorInput=document.getElementById('cardAuthor'),cardTagsInput=document.getElementById('cardTags'),cardVersionInput=document.getElementById('cardVersion'),cardDownloadsInput=document.getElementById('cardDownloads'),modalCancel=document.getElementById('modalCancel'),modalSave=document.getElementById('modalSave');
-const typeBtns=document.querySelectorAll('#typeBtnGroup .type-btn');
-const linkContentArea=document.getElementById('linkContentArea'),textContentArea=document.getElementById('textContentArea'),mindmapContentArea=document.getElementById('mindmapContentArea'),dynamicTagList=document.getElementById('dynamicTagList');
-const versionDatalist=document.getElementById('versionDatalist');
+const typeBtns=document.querySelectorAll('#typeBtnGroup .type-btn'),linkContentArea=document.getElementById('linkContentArea'),textContentArea=document.getElementById('textContentArea'),mindmapContentArea=document.getElementById('mindmapContentArea'),dynamicTagList=document.getElementById('dynamicTagList'),versionDatalist=document.getElementById('versionDatalist');
 const batchModal=document.getElementById('batchModal'),batchTextarea=document.getElementById('batchTextarea'),batchCancelBtn=document.getElementById('batchCancelBtn'),batchParseBtn=document.getElementById('batchParseBtn');
 const textModal=document.getElementById('textModal'),textModalTitle=document.getElementById('textModalTitle'),textContentDisplay=document.getElementById('textContentDisplay'),textModalCancel=document.getElementById('textModalCancel');
 const mindmapModal=document.getElementById('mindmapModal'),mindmapTitle=document.getElementById('mindmapTitle'),mindmapEditor=document.getElementById('mindmapEditor'),mindmapContainer=document.getElementById('mindmapContainer'),mindmapCancel=document.getElementById('mindmapCancel'),mindmapSave=document.getElementById('mindmapSave');
@@ -173,86 +132,48 @@ function normalizeTags(t){if(!t)return[];if(Array.isArray(t))return t;return t.r
 function getFavicon(url){return`https://www.google.com/s2/favicons?domain=${encodeURIComponent(url)}`}
 function getCurrentTimeString(){const n=new Date();return`${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')} ${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}:${String(n.getSeconds()).padStart(2,'0')}`}
 
-function saveDataToStorage(){
-    localStorage.setItem('editable_groups_data',JSON.stringify(groupsData));
-    hasLocalChanges = true;
-    if(currentDataSource !== 'cloud') currentDataSource = 'local';
-    updateDataSourceIndicator();
-    renderTagList();
-}
+function saveDataToStorage(){localStorage.setItem('editable_groups_data',JSON.stringify(groupsData));hasLocalChanges=true;if(currentDataSource!=='cloud')currentDataSource='local';updateDataSourceIndicator();renderTagList()}
 async function loadInitialData(){
-    const autoAdmin = sessionStorage.getItem('adminModeAuto') === 'true';
+    const autoAdmin=sessionStorage.getItem('adminModeAuto')==='true';
     if(autoAdmin){
-        const s = localStorage.getItem('editable_groups_data');
-        if(s) try {
-            const p = JSON.parse(s);
-            if(p && Array.isArray(p)){
-                groupsData = p;
-                currentDataSource = 'local';
-                hasLocalChanges = true;
-                updateDataSourceIndicator();
-                extractAndSyncVersionsFromData();
-                renderAll();
-                return;
-            }
-        } catch(e){}
-        groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
-        currentDataSource = 'default';
-        hasLocalChanges = false;
-        updateDataSourceIndicator();
-        extractAndSyncVersionsFromData();
-        renderAll();
-        return;
+        const s=localStorage.getItem('editable_groups_data');
+        if(s)try{const p=JSON.parse(s);if(p&&Array.isArray(p)){groupsData=p;currentDataSource='local';hasLocalChanges=true;updateDataSourceIndicator();extractAndSyncVersionsFromData();renderAll();return}}catch(e){}
+        groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));currentDataSource='default';hasLocalChanges=false;updateDataSourceIndicator();extractAndSyncVersionsFromData();renderAll();return;
     }
-    let cloud = false;
-    try {
-        const r = await fetch('data.json?v=' + Date.now());
+    let cloud=false;
+    try{
+        const r=await fetch('data.json?v='+Date.now());
         if(r.ok){
-            const remote = await r.json();
-            if(remote && Array.isArray(remote)){
-                groupsData = remote;
-                currentDataSource = 'cloud';
-                hasLocalChanges = false;
-                localStorage.setItem('editable_groups_data', JSON.stringify(groupsData));
-                cloud = true;
+            const remote=await r.json();
+            if(remote&&Array.isArray(remote)){
+                groupsData=remote;currentDataSource='cloud';hasLocalChanges=false;
+                localStorage.setItem('editable_groups_data',JSON.stringify(groupsData));
+                cloud=true;cloudSynced=true;sessionStorage.setItem('cloudSynced','true');
             }
         }
-    } catch(e){}
+    }catch(e){}
     if(!cloud){
-        const s = localStorage.getItem('editable_groups_data');
-        if(s) try { groupsData = JSON.parse(s); currentDataSource = 'local'; } catch(e){ groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA)); }
-        else { groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA)); currentDataSource = 'default'; }
+        const s=localStorage.getItem('editable_groups_data');
+        if(s)try{groupsData=JSON.parse(s);currentDataSource='local'}catch(e){groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA))}
+        else{groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));currentDataSource='default'}
+        cloudSynced=false;sessionStorage.removeItem('cloudSynced');
     }
-    extractAndSyncVersionsFromData();
-    updateDataSourceIndicator();
-    renderAll();
+    extractAndSyncVersionsFromData();updateDataSourceIndicator();renderAll();
 }
 function updateDataSourceIndicator(){
-    const c = document.getElementById('dataSourceIndicator'),
-          d = c?.querySelector('.indicator-dot'),
-          t = document.getElementById('sourceText');
-    if(!c) return;
-    c.style.display = 'flex';
-    if(hasLocalChanges){
-        d.className = 'indicator-dot local';
-        t.innerText = '💾 本地草稿';
-    } else if(currentDataSource === 'cloud'){
-        d.className = 'indicator-dot cloud';
-        t.innerText = '☁️ 云端同步';
-    } else if(currentDataSource === 'local'){
-        d.className = 'indicator-dot local';
-        t.innerText = '📦 本地缓存';
-    } else {
-        d.className = 'indicator-dot default';
-        t.innerText = '📄 默认数据';
-    }
+    const c=document.getElementById('dataSourceIndicator'),d=c?.querySelector('.indicator-dot'),t=document.getElementById('sourceText');
+    if(!c)return;c.style.display='flex';
+    if(hasLocalChanges){d.className='indicator-dot local';t.innerText='💾 本地草稿';}
+    else if(cloudSynced){d.className='indicator-dot cloud';t.innerText='☁️ 云端同步';}
+    else if(currentDataSource==='local'){d.className='indicator-dot local';t.innerText='📦 本地缓存';}
+    else{d.className='indicator-dot default';t.innerText='📄 默认数据';}
 }
 
-function parseVersionRange(input) { const range=input.trim(); if(!range.includes('-')) return [range]; const[start,end]=range.split('-').map(v=>v.trim()); if(!start||!end) return [range]; const filtered=ALL_KNOWN_VERSIONS.filter(v=>v>=start&&v<=end); return filtered.length?filtered:[range]; }
-function addVersionFromInput(input) { const parts=input.split(',').map(v=>v.trim()).filter(v=>v); let added=0; parts.forEach(part=>{ const candidates=parseVersionRange(part); candidates.forEach(v=>{ if(!versions.includes(v)){versions.push(v);added++;} }); }); if(added){versions.sort((a,b)=>b.localeCompare(a,undefined,{numeric:true}));saveVersions();renderVersionList();} }
+function parseVersionRange(input){const range=input.trim();if(!range.includes('-'))return [range];const[start,end]=range.split('-').map(v=>v.trim());if(!start||!end)return [range];const filtered=ALL_KNOWN_VERSIONS.filter(v=>v>=start&&v<=end);return filtered.length?filtered:[range]}
+function addVersionFromInput(input){const parts=input.split(',').map(v=>v.trim()).filter(v=>v);let added=0;parts.forEach(part=>{const candidates=parseVersionRange(part);candidates.forEach(v=>{if(!versions.includes(v)){versions.push(v);added++;}})});if(added){versions.sort((a,b)=>b.localeCompare(a,undefined,{numeric:true}));saveVersions();renderVersionList()}}
 if(addVersionBtn)addVersionBtn.addEventListener('click',()=>{const inp=prompt('输入版本或范围（如 1.20-1.21 或 1.16.5）：');if(inp&&inp.trim())addVersionFromInput(inp);});
 
-function renderVersionList(){ if(!versionListContainer)return; let h=''; versions.forEach((v,i)=>{ const ac=currentVersionFilter===v?'active':''; h+=`<span class="version-tag ${ac}" data-ver="${escapeHtml(v)}">${escapeHtml(v)}<button class="v-del-btn" data-idx="${i}">×</button></span>`; }); versionListContainer.innerHTML=h||'<span style="font-size:0.7rem;color:#aaa">暂无版本</span>'; document.querySelectorAll('.version-tag').forEach(el=>{el.addEventListener('click',e=>{if(e.target.classList.contains('v-del-btn'))return;const v=el.dataset.ver;currentVersionFilter=(currentVersionFilter===v)?null:v;renderVersionList();renderCards();renderGroupButtons()})}); document.querySelectorAll('.v-del-btn').forEach(b=>{b.addEventListener('click',e=>{e.stopPropagation();const i=parseInt(b.dataset.idx);if(confirm(`删除版本 ${versions[i]}?`)){versions.splice(i,1);saveVersions();if(currentVersionFilter===versions[i])currentVersionFilter=null;renderVersionList();renderCards();renderGroupButtons()}})}); if(versionDatalist)versionDatalist.innerHTML=ALL_KNOWN_VERSIONS.map(v=>`<option value="${escapeHtml(v)}">`).join(''); }
+function renderVersionList(){if(!versionListContainer)return;let h='';versions.forEach((v,i)=>{const ac=currentVersionFilter===v?'active':'';h+=`<span class="version-tag ${ac}" data-ver="${escapeHtml(v)}">${escapeHtml(v)}<button class="v-del-btn" data-idx="${i}">×</button></span>`});versionListContainer.innerHTML=h||'<span style="font-size:0.7rem;color:#aaa">暂无版本</span>';document.querySelectorAll('.version-tag').forEach(el=>{el.addEventListener('click',e=>{if(e.target.classList.contains('v-del-btn'))return;const v=el.dataset.ver;currentVersionFilter=(currentVersionFilter===v)?null:v;renderVersionList();renderCards();renderGroupButtons()})});document.querySelectorAll('.v-del-btn').forEach(b=>{b.addEventListener('click',e=>{e.stopPropagation();const i=parseInt(b.dataset.idx);if(confirm(`删除版本 ${versions[i]}?`)){versions.splice(i,1);saveVersions();if(currentVersionFilter===versions[i])currentVersionFilter=null;renderVersionList();renderCards();renderGroupButtons()}})});if(versionDatalist)versionDatalist.innerHTML=ALL_KNOWN_VERSIONS.map(v=>`<option value="${escapeHtml(v)}">`).join('');}
 
 function extractAllTags(){const m=new Map();for(const g of groupsData)for(const i of g.items)for(const t of normalizeTags(i.tags)){const k=t.trim();if(k)m.set(k,(m.get(k)||0)+1)}return Array.from(m.entries()).sort((a,b)=>b[1]-a[1])}
 function renderTagList(){if(!tagListContainer)return;const tags=extractAllTags();if(!tags.length){tagListContainer.innerHTML='<div style="font-size:0.7rem;color:#aaa">暂无标签</div>';return}const fx=['Fabric','Forge','NeoForge'];let ft=[],ot=[];for(const [t,c] of tags)(fx.includes(t)?ft:ot).push([t,c]);ft.sort((a,b)=>fx.indexOf(a[0])-fx.indexOf(b[0]));ot.sort((a,b)=>b[1]-a[1]);let h='';for(const [t,c] of [...ft,...ot]){const ac=currentTagFilter===t?'active':'';h+=`<button class="tag-btn ${ac}" data-tag="${escapeHtml(t)}">${escapeHtml(t)} (${c})</button>`}tagListContainer.innerHTML=h;clearTagFilterBtn.style.display=currentTagFilter?'inline-flex':'none';document.querySelectorAll('.tag-btn').forEach(b=>{b.addEventListener('click',()=>{const t=b.dataset.tag;currentTagFilter=(currentTagFilter===t)?null:t;renderTagList();renderVersionList();renderCards();renderGroupButtons()})})}
@@ -262,11 +183,11 @@ function renderGroupButtons(){if(!groupContainer)return;let h='';groupsData.forE
 function addNewGroup(){const n=prompt('分组名称：');if(n&&n.trim()&&!groupsData.some(g=>g.groupName===n.trim())){groupsData.push({groupName:n.trim(),items:[]});saveDataToStorage();currentGroupIndex=groupsData.length-1;renderAll()}}
 function deleteGroup(i){if(groupsData.length<=1)return alert('至少保留一个分组');if(confirm(`删除「${groupsData[i].groupName}」？`)){groupsData.splice(i,1);saveDataToStorage();currentGroupIndex=Math.min(currentGroupIndex,groupsData.length-1);renderAll()}}
 
-function isVersionInCard(cardVer, filterVer) { if (!cardVer || !filterVer) return false; const cv=cardVer.trim(); if(cv.includes(',')) return cv.split(',').some(v=>isVersionInCard(v.trim(), filterVer)); if(cv.includes('-')){ const [start,end]=cv.split('-').map(v=>v.trim()); return start<=filterVer&&filterVer<=end; } return cv===filterVer; }
-function getDisplayItems(){let items=[];if(currentTagFilter){for(const g of groupsData)for(const i of g.items)if(normalizeTags(i.tags).includes(currentTagFilter))items.push(i)}else{items=groupsData[currentGroupIndex]?.items||[]}if(currentVersionFilter)items=items.filter(it=>isVersionInCard(it.version, currentVersionFilter));return items}
-function sortItems(items){if(currentSort==='duplicates')return []; const s=[...items]; if(currentSort==='title-asc')s.sort((a,b)=>(a.title||'').localeCompare(b.title||'','zh'));else if(currentSort==='date-desc')s.sort((a,b)=>(b.stats?.updated||'').localeCompare(a.stats?.updated||''));return s}
+function isVersionInCard(cardVer,filterVer){if(!cardVer||!filterVer)return false;const cv=cardVer.trim();if(cv.includes(','))return cv.split(',').some(v=>isVersionInCard(v.trim(),filterVer));if(cv.includes('-')){const[start,end]=cv.split('-').map(v=>v.trim());return start<=filterVer&&filterVer<=end}return cv===filterVer}
+function getDisplayItems(){let items=[];if(currentTagFilter){for(const g of groupsData)for(const i of g.items)if(normalizeTags(i.tags).includes(currentTagFilter))items.push(i)}else{items=groupsData[currentGroupIndex]?.items||[]}if(currentVersionFilter)items=items.filter(it=>isVersionInCard(it.version,currentVersionFilter));return items}
+function sortItems(items){if(currentSort==='duplicates')return[];const s=[...items];if(currentSort==='title-asc')s.sort((a,b)=>(a.title||'').localeCompare(b.title||'','zh'));else if(currentSort==='date-desc')s.sort((a,b)=>(b.stats?.updated||'').localeCompare(a.stats?.updated||''));return s}
 function getDuplicateItems(gi){const items=groupsData[gi].items,m=new Map();items.forEach((it,i)=>{const k=it.title.trim().toLowerCase();if(!m.has(k))m.set(k,[]);m.get(k).push({...it,cardIdx:i})});const d=[];for(const[,e] of m)if(e.length>1){e.forEach((x,j)=>{d.push({...x,isFirstDuplicate:j===0,isDuplicate:true})})}return d}
-function getFilteredAndSortedItems(){if(currentSort==='duplicates')return []; let items=getDisplayItems(); const kw=currentKeyword.trim().toLowerCase(); if(kw)items=items.filter(it=>it.title.toLowerCase().includes(kw)||it.description.toLowerCase().includes(kw)||it.author.toLowerCase().includes(kw)||normalizeTags(it.tags).some(t=>t.toLowerCase().includes(kw))||(it.version&&it.version.toLowerCase().includes(kw))); return sortItems(items); }
+function getFilteredAndSortedItems(){if(currentSort==='duplicates')return[];let items=getDisplayItems();const kw=currentKeyword.trim().toLowerCase();if(kw)items=items.filter(it=>it.title.toLowerCase().includes(kw)||it.description.toLowerCase().includes(kw)||it.author.toLowerCase().includes(kw)||normalizeTags(it.tags).some(t=>t.toLowerCase().includes(kw))||(it.version&&it.version.toLowerCase().includes(kw)));return sortItems(items)}
 
 function renderCard(item,gi,ci,extra={}){const tagsHtml=normalizeTags(item.tags).map(t=>`<span class="badge">${escapeHtml(t)}</span>`).join('');const vHtml=item.version?`<div class="version-info">📌${escapeHtml(item.version)}</div>`:'';let sb='';if(hasLocalChanges)sb='<span class="data-source-badge">💾本地</span>';else if(currentDataSource==='cloud')sb='<span class="data-source-badge">☁️云端</span>';else sb='<span class="data-source-badge">📄默认</span>';const aa=isAdminMode?`<div class="card-actions"><button class="edit-btn" data-g="${gi}" data-c="${ci}">✏️</button><button class="delete-btn" data-g="${gi}" data-c="${ci}">🗑️</button></div>`:'';let dupBadge='';if(extra.isDuplicate){dupBadge=`<div class="card-duplicate-badge">${extra.isFirstDuplicate?'重复(保留)':'重复(可删除)'}</div>`}return`<div class="card${extra.isDuplicate?' duplicate':''}" data-g="${gi}" data-c="${ci}" data-type="${item.type}" data-url="${escapeHtml(item.url||'')}" data-title="${escapeHtml(item.title)}" data-content="${escapeHtml(item.textContent||'')}">${dupBadge}${aa}<div class="card-title"><img src="${getFavicon(item.type==='link'?item.url:'#')}" style="width:20px;height:20px;border-radius:4px"><span>${escapeHtml(item.title)}</span></div><div class="card-description">${escapeHtml(item.description||'')}</div><div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px">${tagsHtml}${vHtml}${sb}</div><div class="card-footer"><span>👤${escapeHtml(item.author)}</span><span>${item.stats?.downloads?'📥'+item.stats.downloads:''} ${item.stats?.updated?'🕒'+item.stats.updated:''}</span></div></div>`}
 function renderCards(){if(!cardsContainer)return;if(currentSort==='duplicates'){const duplicates=getDuplicateItems(currentGroupIndex);if(!duplicates.length){cardsContainer.innerHTML='<div class="no-results">✨ 当前分组没有重复卡片</div>';duplicateToolbarContainer.innerHTML='';return}let h='';duplicates.forEach(d=>{h+=renderCard(d,currentGroupIndex,d.cardIdx,{isDuplicate:true,isFirstDuplicate:d.isFirstDuplicate??false})});cardsContainer.innerHTML=h;duplicateToolbarContainer.innerHTML='<div class="duplicate-toolbar"><button id="batchDeleteDuplicatesBtn">🗑️ 批量删除多余重复卡片</button></div>';setTimeout(()=>document.getElementById('batchDeleteDuplicatesBtn')?.addEventListener('click',batchDeleteDuplicates),0);bindAdminCardBtns();bindCardClicks();if(isListView)cardsContainer.classList.add('list-view');else cardsContainer.classList.remove('list-view');return}const items=getFilteredAndSortedItems();if(!items.length){cardsContainer.innerHTML='<div class="no-results">✨ 没有找到相关内容</div>';duplicateToolbarContainer.innerHTML='';return}let h='';items.forEach(item=>{const loc=getCardLocation(item);if(loc.groupIdx!==-1&&loc.cardIdx!==-1){h+=renderCard(item,loc.groupIdx,loc.cardIdx,{})}});cardsContainer.innerHTML=h;duplicateToolbarContainer.innerHTML='';bindAdminCardBtns();bindCardClicks();if(isListView)cardsContainer.classList.add('list-view');else cardsContainer.classList.remove('list-view')}
@@ -302,22 +223,13 @@ scrollAreas.forEach(el=>{if(el){el.addEventListener('scroll',()=>updateScrollGra
 
 function enableAdminMode(){isAdminMode=true;document.getElementById('adminToolbar').style.display='flex';document.getElementById('addGroupBtn').style.display='inline-flex';updateSortOptions();renderCards();renderGroupButtons();renderVersionList();sessionStorage.setItem('adminModeAuto','true')}
 function disableAdminMode(){
-    isAdminMode = false;
-    document.getElementById('adminToolbar').style.display = 'none';
-    document.getElementById('addGroupBtn').style.display = 'none';
-    updateSortOptions();
-    // 退出时同步版本并更新数据源指示器
-    extractAndSyncVersionsFromData();
-    updateDataSourceIndicator();
-    renderCards();
-    renderGroupButtons();
-    renderVersionList();
-    renderTagList();
+    isAdminMode=false;document.getElementById('adminToolbar').style.display='none';document.getElementById('addGroupBtn').style.display='none';
+    updateSortOptions();extractAndSyncVersionsFromData();updateDataSourceIndicator();
+    renderCards();renderGroupButtons();renderVersionList();renderTagList();
     sessionStorage.removeItem('adminModeAuto');
-    // 不再自动询问是否重新加载，直接保持当前数据源状态
 }
 function checkAdminPassword(){const p=prompt('管理员密码：');if(p==='admin123')enableAdminMode();else alert('密码错误')}
-function clearAllCache(){if(confirm('清除所有本地缓存并刷新？')){['editable_groups_data','mc_versions','layout_settings','glass_custom_theme','glass_opacity','gradient_angle','custom_bg_image','custom_bg_color','listViewPreference'].forEach(k=>localStorage.removeItem(k));sessionStorage.removeItem('adminModeAuto');location.reload()}}
+function clearAllCache(){if(confirm('清除所有本地缓存并刷新？')){['editable_groups_data','mc_versions','layout_settings','glass_custom_theme','glass_opacity','gradient_angle','custom_bg_image','custom_bg_color','listViewPreference'].forEach(k=>localStorage.removeItem(k));sessionStorage.removeItem('adminModeAuto');sessionStorage.removeItem('cloudSynced');location.reload()}}
 function exportData(){const d={groups:groupsData,versions};const b=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='card_data_backup.json';a.click();URL.revokeObjectURL(u)}
 function resetToDefault(){if(confirm('重置所有数据？')){groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));versions=[...DEFAULT_VERSIONS];saveVersions();saveDataToStorage();currentGroupIndex=0;currentKeyword='';currentTagFilter=null;currentVersionFilter=null;if(searchInput)searchInput.value='';renderAll()}}
 
