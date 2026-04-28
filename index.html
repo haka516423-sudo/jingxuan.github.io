@@ -1,9 +1,9 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes"><title>镜玄·资源搜索 | 自动对比度</title>
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes"><title>镜玄·资源搜索 | 智能对比度</title>
 <script src="https://cdn.jsdelivr.net/npm/d3@6.7.0"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.3"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.3"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.3/style.css"><style>
 *{margin:0;padding:0;box-sizing:border-box}html{overflow-y:auto;scrollbar-gutter:stable;scrollbar-width:thin;scrollbar-color:var(--scrollbar-thumb) transparent}
 html::-webkit-scrollbar{width:6px}html::-webkit-scrollbar-track{background:transparent}html::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:10px}
 :root{--card-radius:20px;--card-padding:20px;--card-gap:28px;--font-size-base:0.95rem;--font-size-title:1.2rem;--blur-strength:16px;--meta-gap:8px;--scrollbar-thumb:rgba(0,0,0,0.18);
-    /* 预设浅色文字（将在深色主题下自动切换） */
+    /* 初始浅色文字变量，将由 applyAutoColors() 动态覆盖 */
     --text-primary:#1e293b;--text-secondary:#374151;--text-muted:#4b5563;--text-badge:#1f2937;--text-version:#1f2937;--text-footer:#4b5563;
     --bg-badge:rgba(0,0,0,0.08);--bg-version:rgba(0,0,0,0.06);--border-light:rgba(0,0,0,0.08);
 }
@@ -131,57 +131,62 @@ let versions=[...DEFAULT_VERSIONS];
 function saveVersions(){localStorage.setItem('mc_versions',JSON.stringify(versions))}
 function loadVersions(){const s=localStorage.getItem('mc_versions');if(s)try{versions=JSON.parse(s);if(!Array.isArray(versions)) versions=[];versions=versions.filter(v=>/^\d+(\.\d+)*$/.test(v));if(!versions.length) versions=[...DEFAULT_VERSIONS];}catch(e){versions=[...DEFAULT_VERSIONS]}}
 
-/* ========== 自动对比度文字颜色 ========== */
-function isDarkColor(hex) {
-    hex = hex.replace('#','');
-    const r = parseInt(hex.substring(0,2),16);
-    const g = parseInt(hex.substring(2,4),16);
-    const b = parseInt(hex.substring(4,6),16);
-    return (r*0.299 + g*0.587 + b*0.114) < 128;
+/* ========== 增强的自动对比度函数 ========== */
+function getLuminance(r,g,b){return 0.299*r+0.587*g+0.114*b}
+function isColorDark(hex){
+    hex=hex.replace('#','');
+    const r=parseInt(hex.substring(0,2),16),g=parseInt(hex.substring(2,4),16),b=parseInt(hex.substring(4,6),16);
+    return getLuminance(r,g,b)<128;
 }
-function applyAutoColors() {
-    const body = document.body;
-    const style = getComputedStyle(body);
-    let bg = style.backgroundColor;
-    let isDark = false;
-    if (body.classList.contains('custom-bg')) {
-        // 有自定义壁纸时，默认当成深色背景，使用浅色文字
-        isDark = true;
-    } else {
-        // 纯色背景
-        if (bg.startsWith('#')) isDark = isDarkColor(bg);
-        else if (bg.startsWith('rgb')) {
-            const vals = bg.match(/\d+/g);
-            if (vals && vals.length >= 3) {
-                const lum = 0.299*vals[0] + 0.587*vals[1] + 0.114*vals[2];
-                isDark = lum < 128;
+function applyAutoColors(){
+    const body=document.body,style=getComputedStyle(body);
+    let isDark=false;
+    if(body.classList.contains('custom-bg')){
+        isDark=true; // 壁纸默认深色处理，使用浅色文字
+    }else{
+        const bg=style.backgroundImage;
+        if(bg&&bg!=='none'){
+            // 处理渐变背景
+            const colors=bg.match(/#[0-9a-fA-F]{6}/g);
+            if(colors&&colors.length){
+                const avgLum=colors.reduce((sum,c)=>sum+(isColorDark(c)?0:1),0)/colors.length;
+                isDark=avgLum<0.5;
+            }else{
+                isDark=false;
+            }
+        }else{
+            const bgColor=style.backgroundColor;
+            if(bgColor.startsWith('#')) isDark=isColorDark(bgColor);
+            else if(bgColor.startsWith('rgb')){
+                const vals=bgColor.match(/\d+/g);
+                if(vals&&vals.length>=3) isDark=getLuminance(parseInt(vals[0]),parseInt(vals[1]),parseInt(vals[2]))<128;
             }
         }
     }
-    const root = document.documentElement;
-    if (isDark) {
-        root.style.setProperty('--text-primary', '#f0e6d2');
-        root.style.setProperty('--text-secondary', '#d1d5db');
-        root.style.setProperty('--text-muted', '#cbd5e1');
-        root.style.setProperty('--text-badge', '#f0e6d2');
-        root.style.setProperty('--text-version', '#f0e6d2');
-        root.style.setProperty('--text-footer', '#cbd5e1');
-        root.style.setProperty('--bg-badge', 'rgba(255,255,240,0.2)');
-        root.style.setProperty('--bg-version', 'rgba(255,255,240,0.2)');
-        root.style.setProperty('--border-light', 'rgba(255,255,255,0.1)');
-    } else {
-        root.style.setProperty('--text-primary', '#1e293b');
-        root.style.setProperty('--text-secondary', '#374151');
-        root.style.setProperty('--text-muted', '#4b5563');
-        root.style.setProperty('--text-badge', '#1f2937');
-        root.style.setProperty('--text-version', '#1f2937');
-        root.style.setProperty('--text-footer', '#4b5563');
-        root.style.setProperty('--bg-badge', 'rgba(0,0,0,0.08)');
-        root.style.setProperty('--bg-version', 'rgba(0,0,0,0.06)');
-        root.style.setProperty('--border-light', 'rgba(0,0,0,0.08)');
+    const root=document.documentElement;
+    if(isDark){
+        root.style.setProperty('--text-primary','#f0e6d2');
+        root.style.setProperty('--text-secondary','#d1d5db');
+        root.style.setProperty('--text-muted','#cbd5e1');
+        root.style.setProperty('--text-badge','#f0e6d2');
+        root.style.setProperty('--text-version','#f0e6d2');
+        root.style.setProperty('--text-footer','#cbd5e1');
+        root.style.setProperty('--bg-badge','rgba(255,255,240,0.2)');
+        root.style.setProperty('--bg-version','rgba(255,255,240,0.2)');
+        root.style.setProperty('--border-light','rgba(255,255,255,0.1)');
+    }else{
+        root.style.setProperty('--text-primary','#1e293b');
+        root.style.setProperty('--text-secondary','#374151');
+        root.style.setProperty('--text-muted','#4b5563');
+        root.style.setProperty('--text-badge','#1f2937');
+        root.style.setProperty('--text-version','#1f2937');
+        root.style.setProperty('--text-footer','#4b5563');
+        root.style.setProperty('--bg-badge','rgba(0,0,0,0.08)');
+        root.style.setProperty('--bg-version','rgba(0,0,0,0.06)');
+        root.style.setProperty('--border-light','rgba(0,0,0,0.08)');
     }
 }
-/* ================================= */
+/* ========================================== */
 
 async function loadInitialData(){
     const autoAdmin=sessionStorage.getItem('adminModeAuto')==='true';
@@ -295,8 +300,8 @@ function resetToDefault(){if(confirm('重置所有数据？')){groupsData=JSON.p
 
 const GRADIENT_THEMES=["sunset","aurora","ocean","sakura","forest","midnight","peach","mint"];
 function setTheme(tn){document.body.setAttribute('data-theme',tn);const am={white:'#5b6e8c',black:'#c0b7a6',red:'#c2675e',orange:'#d98c2b',yellow:'#c9a12b',green:'#4f7a5e',cyan:'#3f7a85',blue:'#4a6fa5',purple:'#8b6cb0',sunset:'#d96c6e',aurora:'#3b82f6',ocean:'#7c83b9',sakura:'#c45692',forest:'#5c8a4a',midnight:'#9c88ff',peach:'#d97846',mint:'#4a9e7c'};document.body.style.setProperty('--theme-accent',am[tn]||'#5b6e8c');document.documentElement.style.setProperty('--scrollbar-thumb',['black','ocean','midnight'].includes(tn)?'rgba(255,255,255,0.3)':'rgba(0,0,0,0.18)');localStorage.setItem('glass_custom_theme',tn);if(GRADIENT_THEMES.includes(tn)){document.getElementById('wallpaper-layer').style.backgroundImage='';document.body.classList.remove('custom-bg');['custom_bg_image','custom_bg_color'].forEach(k=>localStorage.removeItem(k))}applyAutoColors();}
-function buildPalette(){const sg=document.getElementById('solidColorGrid'),gg=document.getElementById('gradientColorGrid');if(sg){const colors=["#eef2f8","#12151c","#fce9e6","#fef0e0","#fef9e0","#eaf4ea","#e0f2f5","#e3edfa","#f0e9fc","#ffe0f0","#d9e6f2","#f5e6d3"];sg.innerHTML='';colors.forEach(c=>{const d=document.createElement('div');d.className='color-swatch';d.style.backgroundColor=c;d.addEventListener('click',()=>{document.getElementById('wallpaper-layer').style.backgroundImage='';document.body.classList.remove('custom-bg');document.body.style.background=c;setTheme(isDarkColor(c)?'black':'white');localStorage.setItem('custom_bg_color',c);localStorage.removeItem('custom_bg_image');applyAutoColors();});sg.appendChild(d)})}if(gg){const grads=["linear-gradient(135deg,#ff9a9e,#fecfef)","linear-gradient(135deg,#a1c4fd,#c2e9fb)","linear-gradient(135deg,#2b5876,#4e4376)","linear-gradient(135deg,#fbc2eb,#a6c1ee)","linear-gradient(135deg,#b5d6a7,#9bbd8c)","linear-gradient(135deg,#1f1c2c,#2a2a4a)","linear-gradient(135deg,#ffe29a,#ffb7b2)","linear-gradient(135deg,#c7e9fb,#b6e0fe)"];gg.innerHTML='';grads.forEach((g,i)=>{const d=document.createElement('div');d.className='color-swatch';d.style.background=g;d.addEventListener('click',()=>{document.getElementById('wallpaper-layer').style.backgroundImage='';document.body.classList.remove('custom-bg');document.body.style.background='';setTheme(GRADIENT_THEMES[i]);localStorage.removeItem('custom_bg_image');localStorage.removeItem('custom_bg_color');applyAutoColors();});gg.appendChild(d)})}}
-function initBackground(){const wl=document.getElementById('wallpaper-layer'),si=localStorage.getItem('custom_bg_image');if(si&&si.startsWith('data:image')){wl.style.backgroundImage=`url(${si})`;document.body.classList.add('custom-bg');applyAutoColors();return}const sc=localStorage.getItem('custom_bg_color');if(sc){document.body.style.background=sc;const theme = isDarkColor(sc)?'black':'white';setTheme(theme);applyAutoColors();return}const st=localStorage.getItem('glass_custom_theme');setTheme(st&&GRADIENT_THEMES.includes(st)?st:'white');applyAutoColors();}
+function buildPalette(){const sg=document.getElementById('solidColorGrid'),gg=document.getElementById('gradientColorGrid');if(sg){const colors=["#eef2f8","#12151c","#fce9e6","#fef0e0","#fef9e0","#eaf4ea","#e0f2f5","#e3edfa","#f0e9fc","#ffe0f0","#d9e6f2","#f5e6d3"];sg.innerHTML='';colors.forEach(c=>{const d=document.createElement('div');d.className='color-swatch';d.style.backgroundColor=c;d.addEventListener('click',()=>{document.getElementById('wallpaper-layer').style.backgroundImage='';document.body.classList.remove('custom-bg');document.body.style.background=c;setTheme(isColorDark(c)?'black':'white');localStorage.setItem('custom_bg_color',c);localStorage.removeItem('custom_bg_image');applyAutoColors();});sg.appendChild(d)})}if(gg){const grads=["linear-gradient(135deg,#ff9a9e,#fecfef)","linear-gradient(135deg,#a1c4fd,#c2e9fb)","linear-gradient(135deg,#2b5876,#4e4376)","linear-gradient(135deg,#fbc2eb,#a6c1ee)","linear-gradient(135deg,#b5d6a7,#9bbd8c)","linear-gradient(135deg,#1f1c2c,#2a2a4a)","linear-gradient(135deg,#ffe29a,#ffb7b2)","linear-gradient(135deg,#c7e9fb,#b6e0fe)"];gg.innerHTML='';grads.forEach((g,i)=>{const d=document.createElement('div');d.className='color-swatch';d.style.background=g;d.addEventListener('click',()=>{document.getElementById('wallpaper-layer').style.backgroundImage='';document.body.classList.remove('custom-bg');document.body.style.background='';setTheme(GRADIENT_THEMES[i]);localStorage.removeItem('custom_bg_image');localStorage.removeItem('custom_bg_color');applyAutoColors();});gg.appendChild(d)})}}
+function initBackground(){const wl=document.getElementById('wallpaper-layer'),si=localStorage.getItem('custom_bg_image');if(si&&si.startsWith('data:image')){wl.style.backgroundImage=`url(${si})`;document.body.classList.add('custom-bg');applyAutoColors();return}const sc=localStorage.getItem('custom_bg_color');if(sc){document.body.style.background=sc;const theme = isColorDark(sc)?'black':'white';setTheme(theme);applyAutoColors();return}const st=localStorage.getItem('glass_custom_theme');setTheme(st&&GRADIENT_THEMES.includes(st)?st:'white');applyAutoColors();}
 function compressImage(file,mw=1920,q=0.8){return new Promise((rs,rj)=>{const r=new FileReader();r.readAsDataURL(file);r.onload=e=>{const img=new Image();img.src=e.target.result;img.onload=()=>{let w=img.width,h=img.height;if(w>mw){h=h*mw/w;w=mw}const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);rs(c.toDataURL('image/jpeg',q))};img.onerror=rj};r.onerror=rj})}
 async function saveWallpaper(file){try{const c=await compressImage(file);document.getElementById('wallpaper-layer').style.backgroundImage=`url(${c})`;document.body.classList.add('custom-bg');localStorage.setItem('custom_bg_image',c);['custom_bg_color','glass_custom_theme'].forEach(k=>localStorage.removeItem(k));applyAutoColors();}catch(e){alert('失败')}}
 
@@ -327,7 +332,7 @@ document.getElementById('resetLayoutBtn')?.addEventListener('click',()=>{['radiu
 document.getElementById('layoutSettingsBtn')?.addEventListener('click',()=>document.getElementById('layoutPanel').classList.toggle('show'));
 document.getElementById('uploadBgBtn')?.addEventListener('click',()=>document.getElementById('bgUpload').click());
 document.getElementById('bgUpload')?.addEventListener('change',async e=>{const f=e.target.files[0];if(f&&f.type.startsWith('image/')){await saveWallpaper(f);e.target.value=''}});
-document.getElementById('resetBgBtn')?.addEventListener('click',()=>{document.getElementById('wallpaper-layer').style.backgroundImage='';document.body.classList.remove('custom-bg');localStorage.removeItem('custom_bg_image');const sc=localStorage.getItem('custom_bg_color');if(sc){document.body.style.background=sc;setTheme(isDarkColor(sc)?'black':'white');}else{setTheme(localStorage.getItem('glass_custom_theme')||'white');}applyAutoColors();});
+document.getElementById('resetBgBtn')?.addEventListener('click',()=>{document.getElementById('wallpaper-layer').style.backgroundImage='';document.body.classList.remove('custom-bg');localStorage.removeItem('custom_bg_image');const sc=localStorage.getItem('custom_bg_color');if(sc){document.body.style.background=sc;setTheme(isColorDark(sc)?'black':'white');}else{setTheme(localStorage.getItem('glass_custom_theme')||'white');}applyAutoColors();});
 document.getElementById('opacitySlider')?.addEventListener('input',e=>{document.body.style.setProperty('--glass-opacity',e.target.value);document.getElementById('opacityValue').innerText=e.target.value;localStorage.setItem('glass_opacity',e.target.value)});
 document.getElementById('angleSlider')?.addEventListener('input',e=>{document.body.style.setProperty('--gradient-angle',e.target.value+'deg');document.getElementById('angleValue').innerText=e.target.value+'°';localStorage.setItem('gradient_angle',e.target.value)});
 const sOp=localStorage.getItem('glass_opacity'),sAng=localStorage.getItem('gradient_angle');
