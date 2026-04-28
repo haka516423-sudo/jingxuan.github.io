@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes"><title>镜玄·资源搜索 | 版本智能同步</title>
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes"><title>镜玄·资源搜索 | 纯净版本筛选</title>
 <script src="https://cdn.jsdelivr.net/npm/d3@6.7.0"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.3"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.3"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.3/style.css"><style>
 *{margin:0;padding:0;box-sizing:border-box}html{overflow-y:auto;scrollbar-gutter:stable;scrollbar-width:thin;scrollbar-color:var(--scrollbar-thumb) transparent}
 html::-webkit-scrollbar{width:6px}html::-webkit-scrollbar-track{background:transparent}html::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:10px}
@@ -34,10 +34,11 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 .group-btn:hover{background:rgba(255,255,250,0.7)}.group-btn.active{background:var(--theme-accent);color:white;box-shadow:0 4px 12px rgba(0,0,0,0.15)}body[data-theme="black"] .group-btn.active{color:#12151c}
 .group-btn-row{display:flex;align-items:center;gap:4px;margin-bottom:6px}
 
+/* 版本标签网格，仅显示独立版本号 */
 .version-list{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:2px 0}
-.version-tag{display:flex;align-items:center;gap:4px;background:rgba(255,255,240,0.25);border:1px solid transparent;padding:5px 6px;border-radius:14px;font-size:0.66rem;font-weight:500;cursor:pointer;transition:0.1s;color:#1f2937;justify-content:center;white-space:nowrap}body[data-theme="black"] .version-tag{background:rgba(60,68,84,0.5);color:#f0e6d2}
+.version-tag{display:flex;align-items:center;gap:2px;background:rgba(255,255,240,0.25);border:1px solid transparent;padding:4px 6px;border-radius:14px;font-size:0.65rem;font-weight:500;cursor:pointer;transition:0.1s;color:#1f2937;justify-content:center;white-space:nowrap}body[data-theme="black"] .version-tag{background:rgba(60,68,84,0.5);color:#f0e6d2}
 .version-tag:hover{background:rgba(255,255,240,0.55)}.version-tag.active{background:var(--theme-accent);color:white;border-color:var(--theme-accent)}
-.version-tag .v-del-btn{width:14px;height:14px;border-radius:14px;font-size:0.55rem;cursor:pointer;background:rgba(255,80,80,0.2);border:none;color:inherit;display:none;align-items:center;justify-content:center;margin-left:2px}.admin-mode .version-tag .v-del-btn{display:inline-flex}.v-del-btn:hover{background:rgba(255,40,40,0.6);color:#fff}
+.version-tag .v-del-btn{width:12px;height:12px;border-radius:12px;font-size:0.5rem;cursor:pointer;background:rgba(255,80,80,0.2);border:none;color:inherit;display:none;align-items:center;justify-content:center;margin-left:1px}.admin-mode .version-tag .v-del-btn{display:inline-flex}.v-del-btn:hover{background:rgba(255,40,40,0.6);color:#fff}
 
 .tag-list{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .tag-btn{background:rgba(255,255,240,0.25);border:none;padding:5px 4px;font-size:0.66rem;font-weight:500;cursor:pointer;transition:0.1s;color:#1f2937;text-align:center;line-height:1.2;word-break:break-word;border-radius:var(--card-radius)}body[data-theme="black"] .tag-btn{background:rgba(60,68,84,0.5);color:#f0e6d2!important}
@@ -102,7 +103,7 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 <div class="tag-scroll-area mask-bottom" id="tagScrollArea"><div class="tag-list" id="tagListContainer"></div></div>
 </div>
 </aside><div class="main">
-<div class="header-area"><div class="title-section"><h1 id="dynamicTitle">🎮 Minecraft 模组</h1><p>自定义壁纸 | 版本范围 | 标签 | 重复管理</p></div><div class="action-buttons"><div id="dataSourceIndicator" class="data-source-indicator" style="display:none"><span class="indicator-dot"></span><span id="sourceText">云端</span></div><button class="palette-btn" id="paletteBtn">🎨 调色板</button><button class="admin-btn" id="adminBtn">🔐 管理员</button></div>
+<div class="header-area"><div class="title-section"><h1 id="dynamicTitle">🎮 Minecraft 模组</h1><p>自定义壁纸 | 版本筛选 | 标签 | 重复管理</p></div><div class="action-buttons"><div id="dataSourceIndicator" class="data-source-indicator" style="display:none"><span class="indicator-dot"></span><span id="sourceText">云端</span></div><button class="palette-btn" id="paletteBtn">🎨 调色板</button><button class="admin-btn" id="adminBtn">🔐 管理员</button></div>
 <div class="palette-panel" id="palettePanel"><div style="font-weight:600;color:#eef2ff;margin-bottom:8px">🎨 纯色预设</div><div class="color-grid" id="solidColorGrid"></div><div style="font-weight:600;color:#eef2ff;margin:8px 0">🌈 渐变预设</div><div class="color-grid" id="gradientColorGrid"></div><div style="display:flex;flex-direction:column;gap:4px"><label style="font-size:0.7rem;color:#ddd">🔮 玻璃透明度 <span id="opacityValue">0.35</span></label><input type="range" id="opacitySlider" min="0.1" max="0.5" step="0.01" value="0.35"></div><div style="display:flex;flex-direction:column;gap:4px"><label style="font-size:0.7rem;color:#ddd">🔄 渐变角度 <span id="angleValue">135°</span></label><input type="range" id="angleSlider" min="0" max="360" step="1" value="135"></div><div><div style="font-weight:600;color:#eef2ff;margin-bottom:8px">🖼️ 自定义壁纸</div><input type="file" id="bgUpload" accept="image/*" style="display:none"><button class="cancel-btn" id="uploadBgBtn" style="padding:6px 12px;font-size:0.7rem">📁 选择图片</button><button class="cancel-btn" id="resetBgBtn" style="padding:6px 12px;font-size:0.7rem;background:rgba(255,80,80,0.3);margin-left:8px">🗑️ 重置</button></div></div></div>
 <div id="adminToolbar" class="admin-toolbar" style="display:none"><button id="addCardBtn">➕ 新增卡片</button><button id="resetDataBtn">🔄 重置默认</button><button id="clearCacheBtn">🗑️ 清除缓存</button><button id="exportDataBtn">📤 导出JSON</button><button id="layoutSettingsBtn">🎛️ 布局</button><button id="exitAdminBtn">🔒 退出</button></div>
 <div class="search-bar"><input type="text" class="search-box" id="searchInput" placeholder="🔍 实时过滤 · 标题/描述/作者/标签/版本"><button class="view-toggle-btn" id="viewToggleBtn">📋 列表视图</button><select class="sort-select" id="sortSelect"><option value="title-asc">🔤 标题 A-Z</option><option value="date-desc">📅 最新优先</option></select></div>
@@ -124,17 +125,26 @@ const DEFAULT_VERSIONS=["1.21.11","1.21.1","1.20.6","1.20.1","1.19.4","1.19.2","
 let groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA)),currentGroupIndex=0,currentKeyword='',isAdminMode=!1,editingCardInfo=null,currentDataSource='default',isListView=!1,hasLocalChanges=!1,currentSort='title-asc',currentTagFilter=null,currentVersionFilter=null,currentCardType='link';
 let versions=[...DEFAULT_VERSIONS];
 function saveVersions(){localStorage.setItem('mc_versions',JSON.stringify(versions))}
-function loadVersions(){const s=localStorage.getItem('mc_versions');if(s)try{versions=JSON.parse(s);if(!Array.isArray(versions)||!versions.length)versions=[...DEFAULT_VERSIONS]}catch(e){versions=[...DEFAULT_VERSIONS]}}
+function loadVersions(){
+    const s=localStorage.getItem('mc_versions');
+    if(s)try{
+        versions=JSON.parse(s);
+        if(!Array.isArray(versions)) versions=[];
+        // 加载后立即过滤掉任何非数字版本号（如范围标签），确保纯净
+        versions = versions.filter(v => /^\d+(\.\d+)*$/.test(v));
+        if(!versions.length) versions=[...DEFAULT_VERSIONS];
+    }catch(e){versions=[...DEFAULT_VERSIONS]}
+    else versions=[...DEFAULT_VERSIONS];
+}
 
-/* 改进的版本提取：只保留数字版本号，忽略范围标签 */
+/* 仅提取独立数字版本号，不同步范围标签 */
 function extractAndSyncVersionsFromData() {
     if (!groupsData) return;
-    const versionSet = new Set(versions);
-    const versionRegex = /^\d+(\.\d+)*$/; // 匹配纯数字版本如 1.21.1
+    const versionSet = new Set(versions.filter(v => /^\d+(\.\d+)*$/.test(v))); // 从现有集合开始，已过滤
+    const versionRegex = /^\d+(\.\d+)*$/;
     for (const group of groupsData) {
         for (const item of group.items) {
             if (!item.version) continue;
-            // 分割空格或逗号
             const parts = item.version.split(/[\s,]+/).filter(v => v);
             for (const part of parts) {
                 const trimmed = part.trim();
