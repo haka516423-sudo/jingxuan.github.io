@@ -1457,19 +1457,6 @@
           "url": "https://modrinth.com/mod/fabric-api"
         },
         {
-          "title": "Sodium（钠）",
-          "description": "最快和最兼容的渲染优化mod的Minecraft。现在可用于NeoForge和Fabric!",
-          "author": "jellysquid3",
-          "tags": [],
-          "version": "1.16.3~26.1.2",
-          "stats": {
-            "downloads": "—",
-            "updated": "2026-04-28 18:49:52"
-          },
-          "type": "link",
-          "url": "https://modrinth.com/mod/sodium"
-        },
-        {
           "title": "Cloth Config API（布料配置API）",
           "description": "Minecraft Mods的配置库",
           "author": "shedaniel",
@@ -1481,19 +1468,6 @@
           },
           "type": "link",
           "url": "https://modrinth.com/mod/cloth-config"
-        },
-        {
-          "title": "Iris Shaders（虹膜着色剂）",
-          "description": "适用于Minecraft的现代着色器包加载器，旨在与现有的OptiFine着色器包兼容",
-          "author": "coderbot",
-          "tags": [],
-          "version": "1.16.5~26.1.2",
-          "stats": {
-            "downloads": "—",
-            "updated": "2026-04-28 18:49:52"
-          },
-          "type": "link",
-          "url": "https://modrinth.com/mod/iris"
         },
         {
           "title": "Entity Culling（实体剔除）",
@@ -1520,19 +1494,6 @@
           },
           "type": "link",
           "url": "https://modrinth.com/mod/ferrite-core"
-        },
-        {
-          "title": "Mod Menu（模组菜单）",
-          "description": "添加mod菜单以查看已安装的mod列表。",
-          "author": "Prospector",
-          "tags": [],
-          "version": "1.14.4~26.1.2",
-          "stats": {
-            "downloads": "—",
-            "updated": "2026-04-28 18:49:52"
-          },
-          "type": "link",
-          "url": "https://modrinth.com/mod/modmenu"
         },
         {
           "title": "Lithium（锂）",
@@ -2547,19 +2508,6 @@
           },
           "type": "link",
           "url": "https://modrinth.com/mod/visuality"
-        },
-        {
-          "title": "Biomes O' Plenty（丰富的生物群落）",
-          "description": "增加50个独特的生物群落，以提高你的世界，新的树木，花卉，和更多!",
-          "author": "Forstride",
-          "tags": [],
-          "version": "1.7.10~26.1.2",
-          "stats": {
-            "downloads": "—",
-            "updated": "2026-04-28 18:49:52"
-          },
-          "type": "link",
-          "url": "https://modrinth.com/mod/biomes-o-plenty"
         },
         {
           "title": "Falling Leaves（落叶）",
