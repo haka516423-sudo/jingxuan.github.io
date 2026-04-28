@@ -42,6 +42,26 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 .tag-list{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .tag-btn{background:rgba(255,255,240,0.25);border:none;padding:5px 4px;font-size:0.66rem;font-weight:500;cursor:pointer;transition:0.1s;color:var(--badge-text);text-align:center;line-height:1.2;word-break:break-word;border-radius:var(--card-radius)}
 .tag-btn:hover{background:rgba(255,255,240,0.6);transform:scale(0.96)}.tag-btn.active{background:var(--theme-accent);color:var(--text-on-accent)}
+/* 编辑卡片中的标签按钮与侧边栏标签风格一致，暗色模式适配 */
+.modal .tag-btn, .modal .preset-tag-btn {
+    background: rgba(255,255,240,0.2);
+    color: #eee;
+    border: none;
+    padding: 5px 8px;
+    font-size: 0.66rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.1s;
+    text-align: center;
+    line-height: 1.2;
+    word-break: break-word;
+    border-radius: var(--card-radius);
+    margin: 2px;
+}
+.modal .tag-btn:hover, .modal .preset-tag-btn:hover {
+    background: rgba(255,255,240,0.5);
+    transform: scale(0.96);
+}
 
 .main{flex:1;min-width:0}
 .header-area{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px;padding-bottom:12px;position:relative}
@@ -89,10 +109,6 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 .modal-content h3{margin-bottom:14px}.modal-content input,.modal-content textarea{width:100%;padding:10px;margin-bottom:10px;background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.4);border-radius:14px;color:#fff;font-size:0.9rem}
 .modal-buttons{display:flex;justify-content:flex-end;gap:10px;margin-top:14px}
 .save-btn{background:#10b981;color:white;padding:8px 18px;border-radius:30px;border:none;cursor:pointer}.cancel-btn{background:#6b7280;color:white;padding:8px 18px;border-radius:30px;border:none;cursor:pointer}
-.quick-tags{display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap}
-.quick-tag-btn{background:rgba(255,255,240,0.3);border:1px solid rgba(255,255,255,0.4);padding:4px 10px;border-radius:20px;font-size:0.7rem;cursor:pointer;color:#eee}
-.dynamic-tag-area{margin-bottom:10px}.dynamic-tag-area .title{font-size:0.7rem;color:#aaa;margin-bottom:4px}
-.dynamic-tag-list-wrap{max-height:150px;overflow-y:auto;border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:6px;display:flex;flex-wrap:wrap;gap:6px}
 .layout-panel{position:fixed;bottom:20px;right:20px;width:300px;background:rgba(20,22,27,0.95);border-radius:18px;padding:14px;z-index:1000;display:none;flex-direction:column;gap:10px;border:1px solid rgba(255,255,255,0.2)}.layout-panel.show{display:flex}
 @media(max-width:780px){body{padding:12px}.app{flex-direction:column}.sidebar{position:static;width:100%;height:auto}.groups-scroll-area,.version-section,.tag-section{max-height:200px}}
 </style></head><body data-theme="white"><div id="wallpaper-layer"></div><div class="app"><aside class="sidebar" id="sidebarContainer">
@@ -119,7 +135,14 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 <div id="layoutPanel" class="layout-panel"><div style="font-weight:600;color:#eee">🎨 布局定制</div><div style="display:flex;justify-content:space-between;color:#ddd;font-size:0.7rem">卡片圆角<span id="radiusVal">20px</span></div><input type="range" id="radiusSlider" min="8" max="40" step="1" value="20"><div style="display:flex;justify-content:space-between;color:#ddd;font-size:0.7rem">内边距<span id="paddingVal">20px</span></div><input type="range" id="paddingSlider" min="12" max="32" step="1" value="20"><div style="display:flex;justify-content:space-between;color:#ddd;font-size:0.7rem">间距<span id="gapVal">28px</span></div><input type="range" id="gapSlider" min="16" max="48" step="2" value="28"><button id="resetLayoutBtn" style="background:var(--theme-accent);border:none;padding:6px;border-radius:20px;color:var(--text-on-accent);cursor:pointer">重置默认</button></div>
 <div id="cardModal" class="modal"><div class="modal-content"><h3 id="modalTitle">编辑卡片</h3><input type="text" id="cardTitle" placeholder="标题">
 <div class="type-btn-group" id="typeBtnGroup"><button class="type-btn active" data-type="link">🔗 链接</button><button class="type-btn" data-type="text">📄 文本</button><button class="type-btn" data-type="mindmap">🧠 导图</button></div>
-<textarea id="cardDesc" placeholder="描述" rows="2"></textarea><div id="linkContentArea"><input type="url" id="cardUrl" placeholder="网址"></div><div id="textContentArea" style="display:none"><textarea id="cardTextContent" placeholder="文本内容" rows="4"></textarea></div><div id="mindmapContentArea" style="display:none"><textarea id="cardMindmapContent" placeholder="Markdown大纲" rows="4"></textarea></div><input type="text" id="cardAuthor" placeholder="作者"><input type="text" id="cardTags" placeholder="标签(逗号分隔)"><div class="quick-tags"><button type="button" class="quick-tag-btn" data-tag="Fabric">Fabric</button><button type="button" class="quick-tag-btn" data-tag="Forge">Forge</button><button type="button" class="quick-tag-btn" data-tag="NeoForge">NeoForge</button></div><div class="dynamic-tag-area"><div class="title">📌 常用标签</div><div class="dynamic-tag-list-wrap" id="dynamicTagList"></div></div><div style="margin-bottom:10px"><label style="font-size:0.8rem;margin-bottom:4px;display:block">版本 (支持范围，如 1.20-1.21)</label><input list="versionDatalist" id="cardVersion" placeholder="例如 1.21.1 或 1.16-1.20"><datalist id="versionDatalist"></datalist></div><input type="text" id="cardDownloads" placeholder="下载量"><div class="modal-buttons"><button class="cancel-btn" id="modalCancel">取消</button><button class="cancel-btn" id="openBatchImportBtn" style="background:#8b5cf6">📋 批量导入</button><button class="save-btn" id="modalSave">保存</button></div></div></div>
+<textarea id="cardDesc" placeholder="描述" rows="2"></textarea><div id="linkContentArea"><input type="url" id="cardUrl" placeholder="网址"></div><div id="textContentArea" style="display:none"><textarea id="cardTextContent" placeholder="文本内容" rows="4"></textarea></div><div id="mindmapContentArea" style="display:none"><textarea id="cardMindmapContent" placeholder="Markdown大纲" rows="4"></textarea></div><input type="text" id="cardAuthor" placeholder="作者"><input type="text" id="cardTags" placeholder="标签(逗号分隔)">
+<div class="quick-tags" id="presetTags">
+  <button type="button" class="preset-tag-btn" data-tag="Fabric">Fabric</button>
+  <button type="button" class="preset-tag-btn" data-tag="Forge">Forge</button>
+  <button type="button" class="preset-tag-btn" data-tag="NeoForge">NeoForge</button>
+</div>
+<div class="dynamic-tag-area"><div class="title">📌 常用标签</div><div class="dynamic-tag-list-wrap" id="dynamicTagList"></div></div>
+<div style="margin-bottom:10px"><label style="font-size:0.8rem;margin-bottom:4px;display:block">版本 (支持范围，如 1.20-1.21)</label><input list="versionDatalist" id="cardVersion" placeholder="例如 1.21.1 或 1.16-1.20"><datalist id="versionDatalist"></datalist></div><input type="text" id="cardDownloads" placeholder="下载量"><div class="modal-buttons"><button class="cancel-btn" id="modalCancel">取消</button><button class="cancel-btn" id="openBatchImportBtn" style="background:#8b5cf6">📋 批量导入</button><button class="save-btn" id="modalSave">保存</button></div></div></div>
 <div id="batchModal" class="modal"><div class="modal-content"><h3>📋 批量导入卡片</h3><p style="font-size:0.7rem;color:#aaa;margin-bottom:10px">格式：标题 || 描述 || URL || 作者 || 版本 || 标签1,标签2<br>版本支持范围 (如 1.20-1.21)；标签可选<br>每个卡片以句号(。)结尾</p><textarea id="batchTextarea" style="width:100%;height:180px;font-family:monospace;background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.3);border-radius:12px;padding:10px;font-size:0.8rem;resize:vertical" placeholder="粘贴文本..."></textarea><div class="modal-buttons"><button class="cancel-btn" id="batchCancelBtn">取消</button><button class="save-btn" id="batchParseBtn">🚀 解析并添加</button></div></div></div>
 <div id="textModal" class="modal"><div class="modal-content" style="width:90%;max-width:700px;height:70vh;display:flex;flex-direction:column"><h3 id="textModalTitle">文本内容</h3><div id="textContentDisplay" style="flex:1;overflow-y:auto;padding:14px;background:rgba(0,0,0,0.2);border-radius:14px;font-family:monospace;white-space:pre-wrap"></div><div class="modal-buttons"><button class="cancel-btn" id="textModalCancel">关闭</button></div></div></div>
 <div id="mindmapModal" class="modal"><div class="modal-content" style="width:90%;max-width:800px;height:75vh;display:flex;flex-direction:column"><h3 id="mindmapTitle">思维导图</h3><textarea id="mindmapEditor" style="width:100%;height:160px;font-family:monospace;display:none"></textarea><div id="mindmapContainer" style="flex:1;min-height:250px;overflow:auto"></div><div class="modal-buttons"><button class="cancel-btn" id="mindmapCancel">关闭</button><button class="save-btn" id="mindmapSave" style="display:none">保存</button></div></div></div>
@@ -209,7 +232,7 @@ async function saveWallpaper(file){
         localStorage.setItem('custom_bg_image',compressed);
         ['custom_bg_color','glass_custom_theme'].forEach(k=>localStorage.removeItem(k));
         analyzeImageBrightness(compressed);
-    }catch(e){alert('失败')}
+    }catch(e){alert('壁纸设置失败，请重试')}
 }
 function analyzeImageBrightness(dataUrl){
     const img=new Image();
@@ -399,7 +422,7 @@ function closeModal(){modal.classList.remove('active');editingCardInfo=null}
 
 typeBtns.forEach(b=>{b.addEventListener('click',()=>{setActiveTypeBtn(b.dataset.type);linkContentArea.style.display=currentCardType==='link'?'block':'none';textContentArea.style.display=currentCardType==='text'?'block':'none';mindmapContentArea.style.display=currentCardType==='mindmap'?'block':'none'})});
 
-function renderDynamicTags(){if(!dynamicTagList)return;const allTags=extractAllTags().map(([tag])=>tag);const fixed=['Fabric','Forge','NeoForge'];const other=allTags.filter(t=>!fixed.includes(t));dynamicTagList.innerHTML=other.length?other.map(t=>`<button type="button" class="quick-tag-btn dynamic-tag" data-tag="${escapeHtml(t)}">${escapeHtml(t)}</button>`).join(''):'<span style="font-size:0.7rem;color:#aaa">暂无其他标签</span>';document.querySelectorAll('.dynamic-tag').forEach(b=>b.addEventListener('click',function(){const t=this.dataset.tag,cv=cardTagsInput.value.trim();cardTagsInput.value=cv?cv.split(',').map(s=>s.trim()).includes(t)?cv:cv+', '+t:t}))}
+function renderDynamicTags(){if(!dynamicTagList)return;const allTags=extractAllTags().map(([tag])=>tag);const fixed=['Fabric','Forge','NeoForge'];const other=allTags.filter(t=>!fixed.includes(t));dynamicTagList.innerHTML=other.length?other.map(t=>`<button type="button" class="tag-btn" data-tag="${escapeHtml(t)}">${escapeHtml(t)}</button>`).join(''):'<span style="font-size:0.7rem;color:#aaa">暂无其他标签</span>';document.querySelectorAll('.dynamic-tag-list-wrap .tag-btn').forEach(b=>b.addEventListener('click',function(){const t=this.dataset.tag,cv=cardTagsInput.value.trim();cardTagsInput.value=cv?cv.split(',').map(s=>s.trim()).includes(t)?cv:cv+', '+t:t}))}
 
 /* 批量导入解析：支持6个字段（标题 || 描述 || URL || 作者 || 版本 || 标签） */
 function parseBatchText(){
@@ -460,7 +483,25 @@ function resetToDefault(){if(confirm('重置所有数据？')){groupsData=JSON.p
 function updateLayout(){const rs=document.getElementById('radiusSlider'),ps=document.getElementById('paddingSlider'),gs=document.getElementById('gapSlider');if(!rs)return;['--card-radius',rs.value+'px','--card-padding',ps.value+'px','--card-gap',gs.value+'px'].forEach((v,i,a)=>{if(i%2===0)document.documentElement.style.setProperty(a[i],a[i+1])});['radiusVal',rs.value+'px','paddingVal',ps.value+'px','gapVal',gs.value+'px'].forEach((v,i,a)=>{if(i%2===0){const e=document.getElementById(a[i]);if(e)e.innerText=a[i+1]}});localStorage.setItem('layout_settings',JSON.stringify({radius:rs.value,padding:ps.value,gap:gs.value}))}
 function buildPalette(){const sg=document.getElementById('solidColorGrid'),gg=document.getElementById('gradientColorGrid');if(sg){const colors=["#eef2f8","#12151c","#fce9e6","#fef0e0","#fef9e0","#eaf4ea","#e0f2f5","#e3edfa","#f0e9fc","#ffe0f0","#d9e6f2","#f5e6d3"];sg.innerHTML='';colors.forEach(c=>{const d=document.createElement('div');d.className='color-swatch';d.style.backgroundColor=c;d.addEventListener('click',()=>{document.getElementById('wallpaper-layer').style.backgroundImage='';document.body.classList.remove('custom-bg');document.body.style.background=c;const tn=(parseInt(c.slice(1,3),16)*0.299+parseInt(c.slice(3,5),16)*0.587+parseInt(c.slice(5,7),16)*0.114)<128?'black':'white';setTheme(tn);localStorage.setItem('custom_bg_color',c);localStorage.removeItem('custom_bg_image')});sg.appendChild(d)})}if(gg){const grads=["linear-gradient(135deg,#ff9a9e,#fecfef)","linear-gradient(135deg,#a1c4fd,#c2e9fb)","linear-gradient(135deg,#2b5876,#4e4376)","linear-gradient(135deg,#fbc2eb,#a6c1ee)","linear-gradient(135deg,#b5d6a7,#9bbd8c)","linear-gradient(135deg,#1f1c2c,#2a2a4a)","linear-gradient(135deg,#ffe29a,#ffb7b2)","linear-gradient(135deg,#c7e9fb,#b6e0fe)"];gg.innerHTML='';grads.forEach((g,i)=>{const d=document.createElement('div');d.className='color-swatch';d.style.background=g;d.addEventListener('click',()=>{document.getElementById('wallpaper-layer').style.backgroundImage='';document.body.classList.remove('custom-bg');document.body.style.background='';setTheme(GRADIENT_THEMES[i]);['custom_bg_image','custom_bg_color'].forEach(k=>localStorage.removeItem(k))});gg.appendChild(d)})}}
 function initBackground(){const wl=document.getElementById('wallpaper-layer'),si=localStorage.getItem('custom_bg_image');if(si&&si.startsWith('data:image')){wl.style.backgroundImage=`url(${si})`;document.body.classList.add('custom-bg');analyzeImageBrightness(si);return}const sc=localStorage.getItem('custom_bg_color');if(sc){document.body.style.background=sc;updateContrastColors(sc);return}const st=localStorage.getItem('glass_custom_theme');if(st&&GRADIENT_THEMES.includes(st)){setTheme(st);}else{setTheme('white');}}
-function compressImage(file,mw=1920,q=0.8){return new Promise((resolve,reject)=>{const r=new FileReader();r.readAsDataURL(file);r.onload=e=>{const img=new Image();img.onload=()=>{let w=img.width,h=img.height;if(w>mw){h=h*mw/w;w=mw}const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);resolve(c.toDataURL('image/jpeg',q));};img.onerror=reject;};r.onerror=rj})}
+function compressImage(file, mw = 1920, q = 0.8) {
+    return new Promise((resolve, reject) => {
+        const r = new FileReader();
+        r.readAsDataURL(file);
+        r.onload = e => {
+            const img = new Image();
+            img.onload = () => {
+                let w = img.width, h = img.height;
+                if (w > mw) { h = h * mw / w; w = mw; }
+                const c = document.createElement('canvas');
+                c.width = w; c.height = h;
+                c.getContext('2d').drawImage(img, 0, 0, w, h);
+                resolve(c.toDataURL('image/jpeg', q));
+            };
+            img.onerror = reject;
+        };
+        r.onerror = reject;
+    });
+}
 
 /* ---------- 全选与批量删除相关 ---------- */
 if(selectAllCheckbox) {
@@ -481,7 +522,6 @@ if(deleteSelectedBtn) {
             if (!deletions[g]) deletions[g] = [];
             deletions[g].push(c);
         });
-        // 按索引降序删除，避免错位
         Object.keys(deletions).forEach(g => {
             const indices = deletions[g].sort((a,b) => b - a);
             indices.forEach(i => groupsData[g].items.splice(i, 1));
@@ -515,7 +555,7 @@ sortSelect?.addEventListener('change',()=>{currentSort=sortSelect.value;saveSort
 pageSizeSelect?.addEventListener('change',()=>{pageSize=parseInt(pageSizeSelect.value);currentPage=1;renderCards();});
 searchInput?.addEventListener('input',e=>{currentKeyword=e.target.value;currentPage=1;renderCards();});
 clearTagFilterBtn?.addEventListener('click',clearTagFilter);
-document.querySelectorAll('.quick-tag-btn:not(.dynamic-tag)').forEach(b=>b.addEventListener('click',function(){const t=this.dataset.tag,cv=cardTagsInput.value.trim();cardTagsInput.value=cv?cv.split(',').map(s=>s.trim()).includes(t)?cv:cv+', '+t:t}));
+document.querySelectorAll('.preset-tag-btn').forEach(b=>b.addEventListener('click',function(){const t=this.dataset.tag,cv=cardTagsInput.value.trim();cardTagsInput.value=cv?cv.split(',').map(s=>s.trim()).includes(t)?cv:cv+', '+t:t}));
 ['radiusSlider','paddingSlider','gapSlider'].forEach(id=>document.getElementById(id)?.addEventListener('input',updateLayout));
 document.getElementById('resetLayoutBtn')?.addEventListener('click',()=>{['radiusSlider','paddingSlider','gapSlider'].forEach((id,v)=>{const e=document.getElementById(id);if(e)e.value=[20,20,28][v]});updateLayout()});
 document.getElementById('layoutSettingsBtn')?.addEventListener('click',()=>document.getElementById('layoutPanel').classList.toggle('show'));
