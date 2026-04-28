@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes"><title>镜玄·资源搜索 | 版本智能提取</title>
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes"><title>镜玄·资源搜索 | 版本智能同步</title>
 <script src="https://cdn.jsdelivr.net/npm/d3@6.7.0"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.3"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.3"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.3/style.css"><style>
 *{margin:0;padding:0;box-sizing:border-box}html{overflow-y:auto;scrollbar-gutter:stable;scrollbar-width:thin;scrollbar-color:var(--scrollbar-thumb) transparent}
 html::-webkit-scrollbar{width:6px}html::-webkit-scrollbar-track{background:transparent}html::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:10px}
@@ -35,7 +35,7 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 .group-btn-row{display:flex;align-items:center;gap:4px;margin-bottom:6px}
 
 .version-list{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:2px 0}
-.version-tag{display:flex;align-items:center;gap:4px;background:rgba(255,255,240,0.25);border:1px solid transparent;padding:6px 8px;border-radius:16px;font-size:0.68rem;font-weight:500;cursor:pointer;transition:0.1s;color:#1f2937;justify-content:center;white-space:nowrap}body[data-theme="black"] .version-tag{background:rgba(60,68,84,0.5);color:#f0e6d2}
+.version-tag{display:flex;align-items:center;gap:4px;background:rgba(255,255,240,0.25);border:1px solid transparent;padding:5px 6px;border-radius:14px;font-size:0.66rem;font-weight:500;cursor:pointer;transition:0.1s;color:#1f2937;justify-content:center;white-space:nowrap}body[data-theme="black"] .version-tag{background:rgba(60,68,84,0.5);color:#f0e6d2}
 .version-tag:hover{background:rgba(255,255,240,0.55)}.version-tag.active{background:var(--theme-accent);color:white;border-color:var(--theme-accent)}
 .version-tag .v-del-btn{width:14px;height:14px;border-radius:14px;font-size:0.55rem;cursor:pointer;background:rgba(255,80,80,0.2);border:none;color:inherit;display:none;align-items:center;justify-content:center;margin-left:2px}.admin-mode .version-tag .v-del-btn{display:inline-flex}.v-del-btn:hover{background:rgba(255,40,40,0.6);color:#fff}
 
@@ -102,7 +102,7 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 <div class="tag-scroll-area mask-bottom" id="tagScrollArea"><div class="tag-list" id="tagListContainer"></div></div>
 </div>
 </aside><div class="main">
-<div class="header-area"><div class="title-section"><h1 id="dynamicTitle">🎮 Minecraft 模组</h1><p>自定义壁纸 | 版本筛选 | 标签 | 重复管理</p></div><div class="action-buttons"><div id="dataSourceIndicator" class="data-source-indicator" style="display:none"><span class="indicator-dot"></span><span id="sourceText">云端</span></div><button class="palette-btn" id="paletteBtn">🎨 调色板</button><button class="admin-btn" id="adminBtn">🔐 管理员</button></div>
+<div class="header-area"><div class="title-section"><h1 id="dynamicTitle">🎮 Minecraft 模组</h1><p>自定义壁纸 | 版本范围 | 标签 | 重复管理</p></div><div class="action-buttons"><div id="dataSourceIndicator" class="data-source-indicator" style="display:none"><span class="indicator-dot"></span><span id="sourceText">云端</span></div><button class="palette-btn" id="paletteBtn">🎨 调色板</button><button class="admin-btn" id="adminBtn">🔐 管理员</button></div>
 <div class="palette-panel" id="palettePanel"><div style="font-weight:600;color:#eef2ff;margin-bottom:8px">🎨 纯色预设</div><div class="color-grid" id="solidColorGrid"></div><div style="font-weight:600;color:#eef2ff;margin:8px 0">🌈 渐变预设</div><div class="color-grid" id="gradientColorGrid"></div><div style="display:flex;flex-direction:column;gap:4px"><label style="font-size:0.7rem;color:#ddd">🔮 玻璃透明度 <span id="opacityValue">0.35</span></label><input type="range" id="opacitySlider" min="0.1" max="0.5" step="0.01" value="0.35"></div><div style="display:flex;flex-direction:column;gap:4px"><label style="font-size:0.7rem;color:#ddd">🔄 渐变角度 <span id="angleValue">135°</span></label><input type="range" id="angleSlider" min="0" max="360" step="1" value="135"></div><div><div style="font-weight:600;color:#eef2ff;margin-bottom:8px">🖼️ 自定义壁纸</div><input type="file" id="bgUpload" accept="image/*" style="display:none"><button class="cancel-btn" id="uploadBgBtn" style="padding:6px 12px;font-size:0.7rem">📁 选择图片</button><button class="cancel-btn" id="resetBgBtn" style="padding:6px 12px;font-size:0.7rem;background:rgba(255,80,80,0.3);margin-left:8px">🗑️ 重置</button></div></div></div>
 <div id="adminToolbar" class="admin-toolbar" style="display:none"><button id="addCardBtn">➕ 新增卡片</button><button id="resetDataBtn">🔄 重置默认</button><button id="clearCacheBtn">🗑️ 清除缓存</button><button id="exportDataBtn">📤 导出JSON</button><button id="layoutSettingsBtn">🎛️ 布局</button><button id="exitAdminBtn">🔒 退出</button></div>
 <div class="search-bar"><input type="text" class="search-box" id="searchInput" placeholder="🔍 实时过滤 · 标题/描述/作者/标签/版本"><button class="view-toggle-btn" id="viewToggleBtn">📋 列表视图</button><select class="sort-select" id="sortSelect"><option value="title-asc">🔤 标题 A-Z</option><option value="date-desc">📅 最新优先</option></select></div>
@@ -119,52 +119,37 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 <script>
 (function(){
 const DEFAULT_GROUPS_DATA=[{groupName:"🎮 Minecraft 模组",items:[{title:"Fabric API",url:"https://modrinth.com/mod/fabric-api",description:"轻量级API",author:"Modmuss50",tags:["Fabric","库"],stats:{downloads:"162M",updated:"4天前"},version:"0.16.5",type:"link"},{title:"Sodium",url:"https://modrinth.com/mod/sodium",description:"渲染优化",author:"CaffeineMC",tags:["Fabric","NeoForge","优化"],stats:{downloads:"147M",updated:"1小时前"},version:"0.5.8",type:"link"},{title:"Iris Shaders",url:"https://modrinth.com/mod/iris",description:"光影加载器",author:"coderbot",tags:["Fabric","NeoForge","视觉"],stats:{downloads:"115M",updated:"3周前"},version:"1.7.0",type:"link"}]},{groupName:"🌐 常用开发网站",items:[{title:"GitHub",url:"https://github.com",description:"开发者平台",author:"GitHub",tags:["开发"],type:"link"}]},{groupName:"📺 视频&学习",items:[{title:"哔哩哔哩",url:"https://www.bilibili.com",description:"弹幕视频网",author:"Bilibili",tags:["视频"],type:"link"}]}];
-const ALL_KNOWN_VERSIONS=["1.14","1.14.1","1.14.2","1.14.3","1.14.4","1.15","1.15.1","1.15.2","1.16","1.16.1","1.16.2","1.16.3","1.16.4","1.16.5","1.17","1.17.1","1.18","1.18.1","1.18.2","1.19","1.19.1","1.19.2","1.19.3","1.19.4","1.20","1.20.1","1.20.2","1.20.3","1.20.4","1.20.5","1.20.6","1.21","1.21.1","1.21.2","1.21.3","1.21.4","1.21.5","1.21.11","26.0","26.1","26.1.2"];
+const ALL_KNOWN_VERSIONS=["1.14","1.14.1","1.14.2","1.14.3","1.14.4","1.15","1.15.1","1.15.2","1.16","1.16.1","1.16.2","1.16.3","1.16.4","1.16.5","1.17","1.17.1","1.18","1.18.1","1.18.2","1.19","1.19.1","1.19.2","1.19.3","1.19.4","1.20","1.20.1","1.20.2","1.20.3","1.20.4","1.20.5","1.20.6","1.21","1.21.1","1.21.2","1.21.3","1.21.4","1.21.5","1.21.11"];
 const DEFAULT_VERSIONS=["1.21.11","1.21.1","1.20.6","1.20.1","1.19.4","1.19.2","1.18.2","1.16.5"];
 let groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA)),currentGroupIndex=0,currentKeyword='',isAdminMode=!1,editingCardInfo=null,currentDataSource='default',isListView=!1,hasLocalChanges=!1,currentSort='title-asc',currentTagFilter=null,currentVersionFilter=null,currentCardType='link';
 let versions=[...DEFAULT_VERSIONS];
 function saveVersions(){localStorage.setItem('mc_versions',JSON.stringify(versions))}
 function loadVersions(){const s=localStorage.getItem('mc_versions');if(s)try{versions=JSON.parse(s);if(!Array.isArray(versions)||!versions.length)versions=[...DEFAULT_VERSIONS]}catch(e){versions=[...DEFAULT_VERSIONS]}}
 
-/* 管理功能：从卡片数据提取并同步版本标签（只保留单个版本，范围将展开） */
+/* 改进的版本提取：只保留数字版本号，忽略范围标签 */
 function extractAndSyncVersionsFromData() {
     if (!groupsData) return;
-    // 1. 收集所有卡片中出现的单个版本字符串
-    const singleVersions = new Set();
+    const versionSet = new Set(versions);
+    const versionRegex = /^\d+(\.\d+)*$/; // 匹配纯数字版本如 1.21.1
     for (const group of groupsData) {
         for (const item of group.items) {
             if (!item.version) continue;
+            // 分割空格或逗号
             const parts = item.version.split(/[\s,]+/).filter(v => v);
             for (const part of parts) {
-                if (!part.includes('-')) {
-                    singleVersions.add(part.trim());
+                const trimmed = part.trim();
+                if (trimmed && versionRegex.test(trimmed)) {
+                    versionSet.add(trimmed);
                 }
             }
         }
     }
-    // 2. 合并已知大版本列表作为展开范围的版本池
-    const knownPool = new Set([...ALL_KNOWN_VERSIONS, ...singleVersions]);
-    // 3. 处理范围字符串，展开并加入集合
-    for (const group of groupsData) {
-        for (const item of group.items) {
-            if (!item.version) continue;
-            const parts = item.version.split(/[\s,]+/).filter(v => v);
-            for (const part of parts) {
-                if (part.includes('-')) {
-                    const [start, end] = part.split('-').map(v => v.trim());
-                    if (!start || !end) continue;
-                    const candidates = [...knownPool].filter(v => v >= start && v <= end);
-                    candidates.forEach(v => singleVersions.add(v));
-                }
-            }
-        }
+    const newVersions = Array.from(versionSet).sort((a, b) => b.localeCompare(a, undefined, { numeric: true }));
+    if (JSON.stringify(newVersions) !== JSON.stringify(versions)) {
+        versions = newVersions;
+        saveVersions();
+        renderVersionList();
     }
-    // 4. 保留现有版本中用户手动添加且不在卡片中出现过的版本
-    const currentManual = versions.filter(v => !singleVersions.has(v));
-    const finalSet = new Set([...singleVersions, ...currentManual]);
-    versions = Array.from(finalSet);
-    versions.sort((a, b) => b.localeCompare(a, undefined, { numeric: true }));
-    saveVersions();
 }
 
 const groupContainer=document.getElementById('groupButtonsContainer'),cardsContainer=document.getElementById('cardsContainer'),searchInput=document.getElementById('searchInput'),dynamicTitle=document.getElementById('dynamicTitle'),versionListContainer=document.getElementById('versionListContainer'),addVersionBtn=document.getElementById('addVersionBtn'),tagListContainer=document.getElementById('tagListContainer'),clearTagFilterBtn=document.getElementById('clearTagFilterBtn'),sortSelect=document.getElementById('sortSelect'),viewToggleBtn=document.getElementById('viewToggleBtn'),duplicateToolbarContainer=document.getElementById('duplicateToolbarContainer');
@@ -190,7 +175,7 @@ function parseVersionRange(input) { const range = input.trim(); if (!range.inclu
 function addVersionFromInput(input) { const parts = input.split(',').map(v => v.trim()).filter(v => v); let added = 0; parts.forEach(part => { const candidates = parseVersionRange(part); candidates.forEach(v => { if (!versions.includes(v)) { versions.push(v); added++; } }); }); if (added) { versions.sort((a, b) => b.localeCompare(a, undefined, { numeric: true })); saveVersions(); renderVersionList(); } }
 if (addVersionBtn) addVersionBtn.addEventListener('click', () => { const inp = prompt('输入版本或范围（如 1.20-1.21 或 1.16.5）：'); if (inp && inp.trim()) addVersionFromInput(inp); });
 
-function renderVersionList(){ if(!versionListContainer)return; let h=''; versions.forEach((v,i)=>{ const ac=currentVersionFilter===v?'active':''; h+=`<span class="version-tag ${ac}" data-ver="${escapeHtml(v)}">${escapeHtml(v)}<button class="v-del-btn" data-idx="${i}">×</button></span>`; }); versionListContainer.innerHTML=h||'<span style="font-size:0.7rem;color:#aaa">暂无版本</span>'; document.querySelectorAll('.version-tag').forEach(el=>{el.addEventListener('click',e=>{if(e.target.classList.contains('v-del-btn'))return;const v=el.dataset.ver;currentVersionFilter=(currentVersionFilter===v)?null:v;renderVersionList();renderCards();renderGroupButtons()})}); document.querySelectorAll('.v-del-btn').forEach(b=>{b.addEventListener('click',e=>{e.stopPropagation();const i=parseInt(b.dataset.idx);if(confirm(`删除版本 ${versions[i]}?`)){versions.splice(i,1);saveVersions();if(currentVersionFilter===versions[i])currentVersionFilter=null;renderVersionList();renderCards();renderGroupButtons()}})}); if(versionDatalist) versionDatalist.innerHTML = versions.map(v=>`<option value="${escapeHtml(v)}">`).join(''); }
+function renderVersionList(){ if(!versionListContainer)return; let h=''; versions.forEach((v,i)=>{ const ac=currentVersionFilter===v?'active':''; h+=`<span class="version-tag ${ac}" data-ver="${escapeHtml(v)}">${escapeHtml(v)}<button class="v-del-btn" data-idx="${i}">×</button></span>`; }); versionListContainer.innerHTML=h||'<span style="font-size:0.7rem;color:#aaa">暂无版本</span>'; document.querySelectorAll('.version-tag').forEach(el=>{el.addEventListener('click',e=>{if(e.target.classList.contains('v-del-btn'))return;const v=el.dataset.ver;currentVersionFilter=(currentVersionFilter===v)?null:v;renderVersionList();renderCards();renderGroupButtons()})}); document.querySelectorAll('.v-del-btn').forEach(b=>{b.addEventListener('click',e=>{e.stopPropagation();const i=parseInt(b.dataset.idx);if(confirm(`删除版本 ${versions[i]}?`)){versions.splice(i,1);saveVersions();if(currentVersionFilter===versions[i])currentVersionFilter=null;renderVersionList();renderCards();renderGroupButtons()}})}); if(versionDatalist) versionDatalist.innerHTML = ALL_KNOWN_VERSIONS.map(v=>`<option value="${escapeHtml(v)}">`).join(''); }
 
 function extractAllTags(){const m=new Map();for(const g of groupsData)for(const i of g.items)for(const t of normalizeTags(i.tags)){const k=t.trim();if(k)m.set(k,(m.get(k)||0)+1)}return Array.from(m.entries()).sort((a,b)=>b[1]-a[1])}
 function renderTagList(){if(!tagListContainer)return;const tags=extractAllTags();if(!tags.length){tagListContainer.innerHTML='<div style="font-size:0.7rem;color:#aaa">暂无标签</div>';return}const fx=['Fabric','Forge','NeoForge'];let ft=[],ot=[];for(const [t,c] of tags)(fx.includes(t)?ft:ot).push([t,c]);ft.sort((a,b)=>fx.indexOf(a[0])-fx.indexOf(b[0]));ot.sort((a,b)=>b[1]-a[1]);let h='';for(const [t,c] of [...ft,...ot]){const ac=currentTagFilter===t?'active':'';h+=`<button class="tag-btn ${ac}" data-tag="${escapeHtml(t)}">${escapeHtml(t)} (${c})</button>`}tagListContainer.innerHTML=h;clearTagFilterBtn.style.display=currentTagFilter?'inline-flex':'none';document.querySelectorAll('.tag-btn').forEach(b=>{b.addEventListener('click',()=>{const t=b.dataset.tag;currentTagFilter=(currentTagFilter===t)?null:t;renderTagList();renderVersionList();renderCards();renderGroupButtons()})})}
@@ -213,7 +198,7 @@ function bindAdminCardBtns(){if(!isAdminMode)return;document.querySelectorAll('.
 function bindCardClicks(){document.querySelectorAll('.card').forEach(card=>{card.addEventListener('click',e=>{if(e.target.closest('.card-actions'))return;const type=card.dataset.type,url=card.dataset.url,title=card.dataset.title,content=card.dataset.content,g=parseInt(card.dataset.g),c=parseInt(card.dataset.c);if(type==='link'&&url)window.open(url,'_blank');else if(type==='text')openTextView(title,content);else if(type==='mindmap'&&!isNaN(g)&&!isNaN(c))openMindmap(g,c)})})}
 function batchDeleteDuplicates(){const gi=currentGroupIndex,items=groupsData[gi].items,m=new Map();items.forEach((it,i)=>{const k=it.title.trim().toLowerCase();if(!m.has(k))m.set(k,[]);m.get(k).push(i)});const td=[];for(const[,a] of m)if(a.length>1)a.slice(1).forEach(i=>td.push(i));if(!td.length)return alert('没有多余重复卡片');if(!confirm(`删除${td.length}张多余重复卡片？`))return;td.sort((a,b)=>b-a);td.forEach(i=>items.splice(i,1));saveDataToStorage();renderAll();alert('已删除')}
 
-function openEditModal(gi,ci,card){editingCardInfo={gi,ci,card:{...card}};document.getElementById('modalTitle').innerText=ci===undefined?'新增卡片':'编辑卡片';cardTitleInput.value=card.title||'';cardDescInput.value=card.description||'';const type=card.type||'link';setActiveTypeBtn(type);linkContentArea.style.display=type==='link'?'block':'none';textContentArea.style.display=type==='text'?'block':'none';mindmapContentArea.style.display=type==='mindmap'?'block':'none';cardUrlInput.value=card.url||'';cardTextContent.value=card.textContent||'';cardMindmapContent.value=card.mindmap||'';cardAuthorInput.value=card.author||'';cardTagsInput.value=Array.isArray(card.tags)?card.tags.join(','):(card.tags||'');cardVersionInput.value=card.version||'';cardDownloadsInput.value=card.stats?.downloads||'';modal.classList.add('active');renderDynamicTags();if(versionDatalist) versionDatalist.innerHTML = versions.map(v=>`<option value="${escapeHtml(v)}">`).join('');}
+function openEditModal(gi,ci,card){editingCardInfo={gi,ci,card:{...card}};document.getElementById('modalTitle').innerText=ci===undefined?'新增卡片':'编辑卡片';cardTitleInput.value=card.title||'';cardDescInput.value=card.description||'';const type=card.type||'link';setActiveTypeBtn(type);linkContentArea.style.display=type==='link'?'block':'none';textContentArea.style.display=type==='text'?'block':'none';mindmapContentArea.style.display=type==='mindmap'?'block':'none';cardUrlInput.value=card.url||'';cardTextContent.value=card.textContent||'';cardMindmapContent.value=card.mindmap||'';cardAuthorInput.value=card.author||'';cardTagsInput.value=Array.isArray(card.tags)?card.tags.join(','):(card.tags||'');cardVersionInput.value=card.version||'';cardDownloadsInput.value=card.stats?.downloads||'';modal.classList.add('active');renderDynamicTags();if(versionDatalist) versionDatalist.innerHTML = ALL_KNOWN_VERSIONS.map(v=>`<option value="${escapeHtml(v)}">`).join('');}
 function setActiveTypeBtn(type){typeBtns.forEach(b=>{b.classList.toggle('active',b.dataset.type===type)});currentCardType=type}
 function saveCardFromModal(){if(!editingCardInfo)return;const{gi,ci}=editingCardInfo;let type=currentCardType;const tags=cardTagsInput.value?cardTagsInput.value.split(',').map(s=>s.trim()).filter(s=>s):[];const nc={title:cardTitleInput.value.trim(),description:cardDescInput.value.trim(),author:cardAuthorInput.value.trim(),tags,version:cardVersionInput.value.trim()||undefined,stats:{downloads:cardDownloadsInput.value.trim()||'—',updated:getCurrentTimeString()},type,url:"",textContent:"",mindmap:""};if(type==='link'){nc.url=cardUrlInput.value.trim();if(!nc.url)return alert('需要网址');}else if(type==='text'){nc.textContent=cardTextContent.value.trim();if(!nc.textContent)return alert('需要文本');if(!nc.description)nc.description=nc.textContent.substring(0,80)}else{nc.mindmap=cardMindmapContent.value.trim();if(!nc.mindmap)return alert('需要导图');if(!nc.description)nc.description='思维导图'}if(!nc.title)return alert('需要标题');if(ci===undefined)groupsData[gi].items.push(nc);else groupsData[gi].items[ci]=nc;saveDataToStorage();closeModal();renderAll()}
 function deleteCard(gi,ci){if(confirm('确定删除？')){groupsData[gi].items.splice(ci,1);saveDataToStorage();renderAll()}}
@@ -239,7 +224,7 @@ const scrollAreas=[document.getElementById('groupsScrollArea'),document.getEleme
 scrollAreas.forEach(el=>{if(el){el.addEventListener('scroll',()=>updateScrollGradients(el));updateScrollGradients(el);}});
 
 function enableAdminMode(){isAdminMode=true;document.getElementById('adminToolbar').style.display='flex';document.getElementById('addGroupBtn').style.display='inline-flex';updateSortOptions();renderCards();renderGroupButtons();renderVersionList();sessionStorage.setItem('adminModeAuto','true')}
-function disableAdminMode(){isAdminMode=false;document.getElementById('adminToolbar').style.display='none';document.getElementById('addGroupBtn').style.display='none';updateSortOptions();renderCards();renderGroupButtons();renderVersionList();renderTagList();sessionStorage.removeItem('adminModeAuto');if(confirm('退出编辑模式，是否重新从云端加载最新数据？'))location.reload()}
+function disableAdminMode(){isAdminMode=false;document.getElementById('adminToolbar').style.display='none';document.getElementById('addGroupBtn').style.display='none';updateSortOptions();renderCards();renderGroupButtons();extractAndSyncVersionsFromData();renderVersionList();renderTagList();sessionStorage.removeItem('adminModeAuto');if(confirm('退出编辑模式，是否重新从云端加载最新数据？'))location.reload()}
 function checkAdminPassword(){const p=prompt('管理员密码：');if(p==='admin123')enableAdminMode();else alert('密码错误')}
 function clearAllCache(){if(confirm('清除所有本地缓存并刷新？')){['editable_groups_data','mc_versions','layout_settings','glass_custom_theme','glass_opacity','gradient_angle','custom_bg_image','custom_bg_color','listViewPreference'].forEach(k=>localStorage.removeItem(k));sessionStorage.removeItem('adminModeAuto');location.reload()}}
 function exportData(){const d={groups:groupsData,versions};const b=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='card_data_backup.json';a.click();URL.revokeObjectURL(u)}
