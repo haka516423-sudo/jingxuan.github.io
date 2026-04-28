@@ -129,14 +129,13 @@ function loadVersions(){
     if(s)try{
         versions=JSON.parse(s);
         if(!Array.isArray(versions)) versions=[];
-        // 过滤掉非纯数字版本号
         versions = versions.filter(v => /^\d+(\.\d+)*$/.test(v));
         if(!versions.length) versions=[...DEFAULT_VERSIONS];
     }catch(e){versions=[...DEFAULT_VERSIONS]}
     else versions=[...DEFAULT_VERSIONS];
 }
 
-/* 从卡片中提取纯数字独立版本号，不同步范围标签 */
+/* 只提取纯数字独立版本号 */
 function extractAndSyncVersionsFromData() {
     if (!groupsData) return;
     const versionSet = new Set(versions.filter(v => /^\d+(\.\d+)*$/.test(v)));
@@ -174,48 +173,81 @@ function normalizeTags(t){if(!t)return[];if(Array.isArray(t))return t;return t.r
 function getFavicon(url){return`https://www.google.com/s2/favicons?domain=${encodeURIComponent(url)}`}
 function getCurrentTimeString(){const n=new Date();return`${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')} ${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}:${String(n.getSeconds()).padStart(2,'0')}`}
 
-function saveDataToStorage(){localStorage.setItem('editable_groups_data',JSON.stringify(groupsData));hasLocalChanges=true;if(currentDataSource!=='cloud')currentDataSource='local';updateDataSourceIndicator();renderTagList()}
+function saveDataToStorage(){
+    localStorage.setItem('editable_groups_data',JSON.stringify(groupsData));
+    hasLocalChanges = true;
+    if(currentDataSource !== 'cloud') currentDataSource = 'local';
+    updateDataSourceIndicator();
+    renderTagList();
+}
 async function loadInitialData(){
-    const autoAdmin=sessionStorage.getItem('adminModeAuto')==='true';
+    const autoAdmin = sessionStorage.getItem('adminModeAuto') === 'true';
     if(autoAdmin){
-        const s=localStorage.getItem('editable_groups_data');
-        if(s)try{const p=JSON.parse(s);if(p&&Array.isArray(p)){groupsData=p;currentDataSource='local';hasLocalChanges=true;updateDataSourceIndicator();extractAndSyncVersionsFromData();renderAll();return}}catch(e){}
-        groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
-        currentDataSource='default';hasLocalChanges=false;updateDataSourceIndicator();extractAndSyncVersionsFromData();renderAll();return;
+        const s = localStorage.getItem('editable_groups_data');
+        if(s) try {
+            const p = JSON.parse(s);
+            if(p && Array.isArray(p)){
+                groupsData = p;
+                currentDataSource = 'local';
+                hasLocalChanges = true;
+                updateDataSourceIndicator();
+                extractAndSyncVersionsFromData();
+                renderAll();
+                return;
+            }
+        } catch(e){}
+        groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
+        currentDataSource = 'default';
+        hasLocalChanges = false;
+        updateDataSourceIndicator();
+        extractAndSyncVersionsFromData();
+        renderAll();
+        return;
     }
-    let cloud=false;
-    try{
-        const r=await fetch('data.json?v='+Date.now());
+    let cloud = false;
+    try {
+        const r = await fetch('data.json?v=' + Date.now());
         if(r.ok){
-            const remote=await r.json();
-            if(remote&&Array.isArray(remote)){
-                groupsData=remote;
-                currentDataSource='cloud';
-                hasLocalChanges=false;
-                localStorage.setItem('editable_groups_data',JSON.stringify(groupsData));
-                cloud=true;
+            const remote = await r.json();
+            if(remote && Array.isArray(remote)){
+                groupsData = remote;
+                currentDataSource = 'cloud';
+                hasLocalChanges = false;
+                localStorage.setItem('editable_groups_data', JSON.stringify(groupsData));
+                cloud = true;
             }
         }
-    }catch(e){}
+    } catch(e){}
     if(!cloud){
-        const s=localStorage.getItem('editable_groups_data');
-        if(s)try{groupsData=JSON.parse(s);currentDataSource='local'}catch(e){groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA))}
-        else{groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));currentDataSource='default'}
+        const s = localStorage.getItem('editable_groups_data');
+        if(s) try { groupsData = JSON.parse(s); currentDataSource = 'local'; } catch(e){ groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA)); }
+        else { groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA)); currentDataSource = 'default'; }
     }
     extractAndSyncVersionsFromData();
     updateDataSourceIndicator();
     renderAll();
 }
 function updateDataSourceIndicator(){
-    const c=document.getElementById('dataSourceIndicator'),d=c?.querySelector('.indicator-dot'),t=document.getElementById('sourceText');
-    if(!c)return;c.style.display='flex';
-    if(hasLocalChanges){d.className='indicator-dot local';t.innerText='本地草稿 (需导出)';}
-    else if(currentDataSource==='cloud'){d.className='indicator-dot cloud';t.innerText='云端同步';}
-    else if(currentDataSource==='local'){d.className='indicator-dot local';t.innerText='本地缓存';}
-    else{d.className='indicator-dot default';t.innerText='默认数据';}
+    const c = document.getElementById('dataSourceIndicator'),
+          d = c?.querySelector('.indicator-dot'),
+          t = document.getElementById('sourceText');
+    if(!c) return;
+    c.style.display = 'flex';
+    if(hasLocalChanges){
+        d.className = 'indicator-dot local';
+        t.innerText = '💾 本地草稿';
+    } else if(currentDataSource === 'cloud'){
+        d.className = 'indicator-dot cloud';
+        t.innerText = '☁️ 云端同步';
+    } else if(currentDataSource === 'local'){
+        d.className = 'indicator-dot local';
+        t.innerText = '📦 本地缓存';
+    } else {
+        d.className = 'indicator-dot default';
+        t.innerText = '📄 默认数据';
+    }
 }
 
-// 版本管理：支持输入范围解析并添加
 function parseVersionRange(input) { const range=input.trim(); if(!range.includes('-')) return [range]; const[start,end]=range.split('-').map(v=>v.trim()); if(!start||!end) return [range]; const filtered=ALL_KNOWN_VERSIONS.filter(v=>v>=start&&v<=end); return filtered.length?filtered:[range]; }
 function addVersionFromInput(input) { const parts=input.split(',').map(v=>v.trim()).filter(v=>v); let added=0; parts.forEach(part=>{ const candidates=parseVersionRange(part); candidates.forEach(v=>{ if(!versions.includes(v)){versions.push(v);added++;} }); }); if(added){versions.sort((a,b)=>b.localeCompare(a,undefined,{numeric:true}));saveVersions();renderVersionList();} }
 if(addVersionBtn)addVersionBtn.addEventListener('click',()=>{const inp=prompt('输入版本或范围（如 1.20-1.21 或 1.16.5）：');if(inp&&inp.trim())addVersionFromInput(inp);});
@@ -269,7 +301,21 @@ const scrollAreas=[document.getElementById('groupsScrollArea'),document.getEleme
 scrollAreas.forEach(el=>{if(el){el.addEventListener('scroll',()=>updateScrollGradients(el));updateScrollGradients(el);}});
 
 function enableAdminMode(){isAdminMode=true;document.getElementById('adminToolbar').style.display='flex';document.getElementById('addGroupBtn').style.display='inline-flex';updateSortOptions();renderCards();renderGroupButtons();renderVersionList();sessionStorage.setItem('adminModeAuto','true')}
-function disableAdminMode(){isAdminMode=false;document.getElementById('adminToolbar').style.display='none';document.getElementById('addGroupBtn').style.display='none';updateSortOptions();renderCards();renderGroupButtons();extractAndSyncVersionsFromData();renderVersionList();renderTagList();sessionStorage.removeItem('adminModeAuto');if(confirm('退出编辑模式，是否重新从云端加载最新数据？'))location.reload()}
+function disableAdminMode(){
+    isAdminMode = false;
+    document.getElementById('adminToolbar').style.display = 'none';
+    document.getElementById('addGroupBtn').style.display = 'none';
+    updateSortOptions();
+    // 退出时同步版本并更新数据源指示器
+    extractAndSyncVersionsFromData();
+    updateDataSourceIndicator();
+    renderCards();
+    renderGroupButtons();
+    renderVersionList();
+    renderTagList();
+    sessionStorage.removeItem('adminModeAuto');
+    // 不再自动询问是否重新加载，直接保持当前数据源状态
+}
 function checkAdminPassword(){const p=prompt('管理员密码：');if(p==='admin123')enableAdminMode();else alert('密码错误')}
 function clearAllCache(){if(confirm('清除所有本地缓存并刷新？')){['editable_groups_data','mc_versions','layout_settings','glass_custom_theme','glass_opacity','gradient_angle','custom_bg_image','custom_bg_color','listViewPreference'].forEach(k=>localStorage.removeItem(k));sessionStorage.removeItem('adminModeAuto');location.reload()}}
 function exportData(){const d={groups:groupsData,versions};const b=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='card_data_backup.json';a.click();URL.revokeObjectURL(u)}
