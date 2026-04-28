@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes"><title>镜玄·资源搜索 | 纯净版本筛选</title>
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes"><title>镜玄·资源搜索 | 纯净版本与云端同步</title>
 <script src="https://cdn.jsdelivr.net/npm/d3@6.7.0"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.3"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.3"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.3/style.css"><style>
 *{margin:0;padding:0;box-sizing:border-box}html{overflow-y:auto;scrollbar-gutter:stable;scrollbar-width:thin;scrollbar-color:var(--scrollbar-thumb) transparent}
 html::-webkit-scrollbar{width:6px}html::-webkit-scrollbar-track{background:transparent}html::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:10px}
@@ -34,7 +34,6 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 .group-btn:hover{background:rgba(255,255,250,0.7)}.group-btn.active{background:var(--theme-accent);color:white;box-shadow:0 4px 12px rgba(0,0,0,0.15)}body[data-theme="black"] .group-btn.active{color:#12151c}
 .group-btn-row{display:flex;align-items:center;gap:4px;margin-bottom:6px}
 
-/* 版本标签网格，仅显示独立版本号 */
 .version-list{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:2px 0}
 .version-tag{display:flex;align-items:center;gap:2px;background:rgba(255,255,240,0.25);border:1px solid transparent;padding:4px 6px;border-radius:14px;font-size:0.65rem;font-weight:500;cursor:pointer;transition:0.1s;color:#1f2937;justify-content:center;white-space:nowrap}body[data-theme="black"] .version-tag{background:rgba(60,68,84,0.5);color:#f0e6d2}
 .version-tag:hover{background:rgba(255,255,240,0.55)}.version-tag.active{background:var(--theme-accent);color:white;border-color:var(--theme-accent)}
@@ -130,17 +129,17 @@ function loadVersions(){
     if(s)try{
         versions=JSON.parse(s);
         if(!Array.isArray(versions)) versions=[];
-        // 加载后立即过滤掉任何非数字版本号（如范围标签），确保纯净
+        // 过滤掉非纯数字版本号
         versions = versions.filter(v => /^\d+(\.\d+)*$/.test(v));
         if(!versions.length) versions=[...DEFAULT_VERSIONS];
     }catch(e){versions=[...DEFAULT_VERSIONS]}
     else versions=[...DEFAULT_VERSIONS];
 }
 
-/* 仅提取独立数字版本号，不同步范围标签 */
+/* 从卡片中提取纯数字独立版本号，不同步范围标签 */
 function extractAndSyncVersionsFromData() {
     if (!groupsData) return;
-    const versionSet = new Set(versions.filter(v => /^\d+(\.\d+)*$/.test(v))); // 从现有集合开始，已过滤
+    const versionSet = new Set(versions.filter(v => /^\d+(\.\d+)*$/.test(v)));
     const versionRegex = /^\d+(\.\d+)*$/;
     for (const group of groupsData) {
         for (const item of group.items) {
@@ -148,9 +147,7 @@ function extractAndSyncVersionsFromData() {
             const parts = item.version.split(/[\s,]+/).filter(v => v);
             for (const part of parts) {
                 const trimmed = part.trim();
-                if (trimmed && versionRegex.test(trimmed)) {
-                    versionSet.add(trimmed);
-                }
+                if (trimmed && versionRegex.test(trimmed)) versionSet.add(trimmed);
             }
         }
     }
@@ -178,14 +175,52 @@ function getFavicon(url){return`https://www.google.com/s2/favicons?domain=${enco
 function getCurrentTimeString(){const n=new Date();return`${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')} ${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}:${String(n.getSeconds()).padStart(2,'0')}`}
 
 function saveDataToStorage(){localStorage.setItem('editable_groups_data',JSON.stringify(groupsData));hasLocalChanges=true;if(currentDataSource!=='cloud')currentDataSource='local';updateDataSourceIndicator();renderTagList()}
-async function loadInitialData(){const autoAdmin=sessionStorage.getItem('adminModeAuto')==='true';if(autoAdmin){const s=localStorage.getItem('editable_groups_data');if(s)try{const p=JSON.parse(s);if(p&&Array.isArray(p)){groupsData=p;currentDataSource='local';hasLocalChanges=true;updateDataSourceIndicator();extractAndSyncVersionsFromData();renderAll();return}}catch(e){}groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));currentDataSource='default';hasLocalChanges=false;updateDataSourceIndicator();extractAndSyncVersionsFromData();renderAll();return}let cloud=false;try{const r=await fetch('data.json?v='+Date.now());if(r.ok){const remote=await r.json();if(remote&&Array.isArray(remote)){groupsData=remote;currentDataSource='cloud';hasLocalChanges=false;localStorage.setItem('editable_groups_data',JSON.stringify(groupsData));cloud=true}}}catch(e){}if(!cloud){const s=localStorage.getItem('editable_groups_data');if(s)try{groupsData=JSON.parse(s);currentDataSource='local'}catch(e){groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA))}else{groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));currentDataSource='default'}}extractAndSyncVersionsFromData();updateDataSourceIndicator();renderAll()}
-function updateDataSourceIndicator(){const c=document.getElementById('dataSourceIndicator'),d=c?.querySelector('.indicator-dot'),t=document.getElementById('sourceText');if(!c)return;c.style.display='flex';if(hasLocalChanges){d.className='indicator-dot local';t.innerText='本地草稿'}else if(currentDataSource==='cloud'){d.className='indicator-dot cloud';t.innerText='云端'}else if(currentDataSource==='local'){d.className='indicator-dot local';t.innerText='本地'}else{d.className='indicator-dot default';t.innerText='默认'}}
+async function loadInitialData(){
+    const autoAdmin=sessionStorage.getItem('adminModeAuto')==='true';
+    if(autoAdmin){
+        const s=localStorage.getItem('editable_groups_data');
+        if(s)try{const p=JSON.parse(s);if(p&&Array.isArray(p)){groupsData=p;currentDataSource='local';hasLocalChanges=true;updateDataSourceIndicator();extractAndSyncVersionsFromData();renderAll();return}}catch(e){}
+        groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
+        currentDataSource='default';hasLocalChanges=false;updateDataSourceIndicator();extractAndSyncVersionsFromData();renderAll();return;
+    }
+    let cloud=false;
+    try{
+        const r=await fetch('data.json?v='+Date.now());
+        if(r.ok){
+            const remote=await r.json();
+            if(remote&&Array.isArray(remote)){
+                groupsData=remote;
+                currentDataSource='cloud';
+                hasLocalChanges=false;
+                localStorage.setItem('editable_groups_data',JSON.stringify(groupsData));
+                cloud=true;
+            }
+        }
+    }catch(e){}
+    if(!cloud){
+        const s=localStorage.getItem('editable_groups_data');
+        if(s)try{groupsData=JSON.parse(s);currentDataSource='local'}catch(e){groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA))}
+        else{groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));currentDataSource='default'}
+    }
+    extractAndSyncVersionsFromData();
+    updateDataSourceIndicator();
+    renderAll();
+}
+function updateDataSourceIndicator(){
+    const c=document.getElementById('dataSourceIndicator'),d=c?.querySelector('.indicator-dot'),t=document.getElementById('sourceText');
+    if(!c)return;c.style.display='flex';
+    if(hasLocalChanges){d.className='indicator-dot local';t.innerText='本地草稿 (需导出)';}
+    else if(currentDataSource==='cloud'){d.className='indicator-dot cloud';t.innerText='云端同步';}
+    else if(currentDataSource==='local'){d.className='indicator-dot local';t.innerText='本地缓存';}
+    else{d.className='indicator-dot default';t.innerText='默认数据';}
+}
 
-function parseVersionRange(input) { const range = input.trim(); if (!range.includes('-')) return [range]; const [start, end] = range.split('-').map(v => v.trim()); if (!start || !end) return [range]; const filtered = ALL_KNOWN_VERSIONS.filter(v => v >= start && v <= end); return filtered.length ? filtered : [range]; }
-function addVersionFromInput(input) { const parts = input.split(',').map(v => v.trim()).filter(v => v); let added = 0; parts.forEach(part => { const candidates = parseVersionRange(part); candidates.forEach(v => { if (!versions.includes(v)) { versions.push(v); added++; } }); }); if (added) { versions.sort((a, b) => b.localeCompare(a, undefined, { numeric: true })); saveVersions(); renderVersionList(); } }
-if (addVersionBtn) addVersionBtn.addEventListener('click', () => { const inp = prompt('输入版本或范围（如 1.20-1.21 或 1.16.5）：'); if (inp && inp.trim()) addVersionFromInput(inp); });
+// 版本管理：支持输入范围解析并添加
+function parseVersionRange(input) { const range=input.trim(); if(!range.includes('-')) return [range]; const[start,end]=range.split('-').map(v=>v.trim()); if(!start||!end) return [range]; const filtered=ALL_KNOWN_VERSIONS.filter(v=>v>=start&&v<=end); return filtered.length?filtered:[range]; }
+function addVersionFromInput(input) { const parts=input.split(',').map(v=>v.trim()).filter(v=>v); let added=0; parts.forEach(part=>{ const candidates=parseVersionRange(part); candidates.forEach(v=>{ if(!versions.includes(v)){versions.push(v);added++;} }); }); if(added){versions.sort((a,b)=>b.localeCompare(a,undefined,{numeric:true}));saveVersions();renderVersionList();} }
+if(addVersionBtn)addVersionBtn.addEventListener('click',()=>{const inp=prompt('输入版本或范围（如 1.20-1.21 或 1.16.5）：');if(inp&&inp.trim())addVersionFromInput(inp);});
 
-function renderVersionList(){ if(!versionListContainer)return; let h=''; versions.forEach((v,i)=>{ const ac=currentVersionFilter===v?'active':''; h+=`<span class="version-tag ${ac}" data-ver="${escapeHtml(v)}">${escapeHtml(v)}<button class="v-del-btn" data-idx="${i}">×</button></span>`; }); versionListContainer.innerHTML=h||'<span style="font-size:0.7rem;color:#aaa">暂无版本</span>'; document.querySelectorAll('.version-tag').forEach(el=>{el.addEventListener('click',e=>{if(e.target.classList.contains('v-del-btn'))return;const v=el.dataset.ver;currentVersionFilter=(currentVersionFilter===v)?null:v;renderVersionList();renderCards();renderGroupButtons()})}); document.querySelectorAll('.v-del-btn').forEach(b=>{b.addEventListener('click',e=>{e.stopPropagation();const i=parseInt(b.dataset.idx);if(confirm(`删除版本 ${versions[i]}?`)){versions.splice(i,1);saveVersions();if(currentVersionFilter===versions[i])currentVersionFilter=null;renderVersionList();renderCards();renderGroupButtons()}})}); if(versionDatalist) versionDatalist.innerHTML = ALL_KNOWN_VERSIONS.map(v=>`<option value="${escapeHtml(v)}">`).join(''); }
+function renderVersionList(){ if(!versionListContainer)return; let h=''; versions.forEach((v,i)=>{ const ac=currentVersionFilter===v?'active':''; h+=`<span class="version-tag ${ac}" data-ver="${escapeHtml(v)}">${escapeHtml(v)}<button class="v-del-btn" data-idx="${i}">×</button></span>`; }); versionListContainer.innerHTML=h||'<span style="font-size:0.7rem;color:#aaa">暂无版本</span>'; document.querySelectorAll('.version-tag').forEach(el=>{el.addEventListener('click',e=>{if(e.target.classList.contains('v-del-btn'))return;const v=el.dataset.ver;currentVersionFilter=(currentVersionFilter===v)?null:v;renderVersionList();renderCards();renderGroupButtons()})}); document.querySelectorAll('.v-del-btn').forEach(b=>{b.addEventListener('click',e=>{e.stopPropagation();const i=parseInt(b.dataset.idx);if(confirm(`删除版本 ${versions[i]}?`)){versions.splice(i,1);saveVersions();if(currentVersionFilter===versions[i])currentVersionFilter=null;renderVersionList();renderCards();renderGroupButtons()}})}); if(versionDatalist)versionDatalist.innerHTML=ALL_KNOWN_VERSIONS.map(v=>`<option value="${escapeHtml(v)}">`).join(''); }
 
 function extractAllTags(){const m=new Map();for(const g of groupsData)for(const i of g.items)for(const t of normalizeTags(i.tags)){const k=t.trim();if(k)m.set(k,(m.get(k)||0)+1)}return Array.from(m.entries()).sort((a,b)=>b[1]-a[1])}
 function renderTagList(){if(!tagListContainer)return;const tags=extractAllTags();if(!tags.length){tagListContainer.innerHTML='<div style="font-size:0.7rem;color:#aaa">暂无标签</div>';return}const fx=['Fabric','Forge','NeoForge'];let ft=[],ot=[];for(const [t,c] of tags)(fx.includes(t)?ft:ot).push([t,c]);ft.sort((a,b)=>fx.indexOf(a[0])-fx.indexOf(b[0]));ot.sort((a,b)=>b[1]-a[1]);let h='';for(const [t,c] of [...ft,...ot]){const ac=currentTagFilter===t?'active':'';h+=`<button class="tag-btn ${ac}" data-tag="${escapeHtml(t)}">${escapeHtml(t)} (${c})</button>`}tagListContainer.innerHTML=h;clearTagFilterBtn.style.display=currentTagFilter?'inline-flex':'none';document.querySelectorAll('.tag-btn').forEach(b=>{b.addEventListener('click',()=>{const t=b.dataset.tag;currentTagFilter=(currentTagFilter===t)?null:t;renderTagList();renderVersionList();renderCards();renderGroupButtons()})})}
@@ -195,7 +230,7 @@ function renderGroupButtons(){if(!groupContainer)return;let h='';groupsData.forE
 function addNewGroup(){const n=prompt('分组名称：');if(n&&n.trim()&&!groupsData.some(g=>g.groupName===n.trim())){groupsData.push({groupName:n.trim(),items:[]});saveDataToStorage();currentGroupIndex=groupsData.length-1;renderAll()}}
 function deleteGroup(i){if(groupsData.length<=1)return alert('至少保留一个分组');if(confirm(`删除「${groupsData[i].groupName}」？`)){groupsData.splice(i,1);saveDataToStorage();currentGroupIndex=Math.min(currentGroupIndex,groupsData.length-1);renderAll()}}
 
-function isVersionInCard(cardVer, filterVer) { if (!cardVer || !filterVer) return false; const cv = cardVer.trim(); if (cv.includes(',')) return cv.split(',').some(v => isVersionInCard(v.trim(), filterVer)); if (cv.includes('-')) { const [start, end] = cv.split('-').map(v => v.trim()); return start <= filterVer && filterVer <= end; } return cv === filterVer; }
+function isVersionInCard(cardVer, filterVer) { if (!cardVer || !filterVer) return false; const cv=cardVer.trim(); if(cv.includes(',')) return cv.split(',').some(v=>isVersionInCard(v.trim(), filterVer)); if(cv.includes('-')){ const [start,end]=cv.split('-').map(v=>v.trim()); return start<=filterVer&&filterVer<=end; } return cv===filterVer; }
 function getDisplayItems(){let items=[];if(currentTagFilter){for(const g of groupsData)for(const i of g.items)if(normalizeTags(i.tags).includes(currentTagFilter))items.push(i)}else{items=groupsData[currentGroupIndex]?.items||[]}if(currentVersionFilter)items=items.filter(it=>isVersionInCard(it.version, currentVersionFilter));return items}
 function sortItems(items){if(currentSort==='duplicates')return []; const s=[...items]; if(currentSort==='title-asc')s.sort((a,b)=>(a.title||'').localeCompare(b.title||'','zh'));else if(currentSort==='date-desc')s.sort((a,b)=>(b.stats?.updated||'').localeCompare(a.stats?.updated||''));return s}
 function getDuplicateItems(gi){const items=groupsData[gi].items,m=new Map();items.forEach((it,i)=>{const k=it.title.trim().toLowerCase();if(!m.has(k))m.set(k,[]);m.get(k).push({...it,cardIdx:i})});const d=[];for(const[,e] of m)if(e.length>1){e.forEach((x,j)=>{d.push({...x,isFirstDuplicate:j===0,isDuplicate:true})})}return d}
@@ -208,7 +243,7 @@ function bindAdminCardBtns(){if(!isAdminMode)return;document.querySelectorAll('.
 function bindCardClicks(){document.querySelectorAll('.card').forEach(card=>{card.addEventListener('click',e=>{if(e.target.closest('.card-actions'))return;const type=card.dataset.type,url=card.dataset.url,title=card.dataset.title,content=card.dataset.content,g=parseInt(card.dataset.g),c=parseInt(card.dataset.c);if(type==='link'&&url)window.open(url,'_blank');else if(type==='text')openTextView(title,content);else if(type==='mindmap'&&!isNaN(g)&&!isNaN(c))openMindmap(g,c)})})}
 function batchDeleteDuplicates(){const gi=currentGroupIndex,items=groupsData[gi].items,m=new Map();items.forEach((it,i)=>{const k=it.title.trim().toLowerCase();if(!m.has(k))m.set(k,[]);m.get(k).push(i)});const td=[];for(const[,a] of m)if(a.length>1)a.slice(1).forEach(i=>td.push(i));if(!td.length)return alert('没有多余重复卡片');if(!confirm(`删除${td.length}张多余重复卡片？`))return;td.sort((a,b)=>b-a);td.forEach(i=>items.splice(i,1));saveDataToStorage();renderAll();alert('已删除')}
 
-function openEditModal(gi,ci,card){editingCardInfo={gi,ci,card:{...card}};document.getElementById('modalTitle').innerText=ci===undefined?'新增卡片':'编辑卡片';cardTitleInput.value=card.title||'';cardDescInput.value=card.description||'';const type=card.type||'link';setActiveTypeBtn(type);linkContentArea.style.display=type==='link'?'block':'none';textContentArea.style.display=type==='text'?'block':'none';mindmapContentArea.style.display=type==='mindmap'?'block':'none';cardUrlInput.value=card.url||'';cardTextContent.value=card.textContent||'';cardMindmapContent.value=card.mindmap||'';cardAuthorInput.value=card.author||'';cardTagsInput.value=Array.isArray(card.tags)?card.tags.join(','):(card.tags||'');cardVersionInput.value=card.version||'';cardDownloadsInput.value=card.stats?.downloads||'';modal.classList.add('active');renderDynamicTags();if(versionDatalist) versionDatalist.innerHTML = ALL_KNOWN_VERSIONS.map(v=>`<option value="${escapeHtml(v)}">`).join('');}
+function openEditModal(gi,ci,card){editingCardInfo={gi,ci,card:{...card}};document.getElementById('modalTitle').innerText=ci===undefined?'新增卡片':'编辑卡片';cardTitleInput.value=card.title||'';cardDescInput.value=card.description||'';const type=card.type||'link';setActiveTypeBtn(type);linkContentArea.style.display=type==='link'?'block':'none';textContentArea.style.display=type==='text'?'block':'none';mindmapContentArea.style.display=type==='mindmap'?'block':'none';cardUrlInput.value=card.url||'';cardTextContent.value=card.textContent||'';cardMindmapContent.value=card.mindmap||'';cardAuthorInput.value=card.author||'';cardTagsInput.value=Array.isArray(card.tags)?card.tags.join(','):(card.tags||'');cardVersionInput.value=card.version||'';cardDownloadsInput.value=card.stats?.downloads||'';modal.classList.add('active');renderDynamicTags();if(versionDatalist)versionDatalist.innerHTML=ALL_KNOWN_VERSIONS.map(v=>`<option value="${escapeHtml(v)}">`).join('');}
 function setActiveTypeBtn(type){typeBtns.forEach(b=>{b.classList.toggle('active',b.dataset.type===type)});currentCardType=type}
 function saveCardFromModal(){if(!editingCardInfo)return;const{gi,ci}=editingCardInfo;let type=currentCardType;const tags=cardTagsInput.value?cardTagsInput.value.split(',').map(s=>s.trim()).filter(s=>s):[];const nc={title:cardTitleInput.value.trim(),description:cardDescInput.value.trim(),author:cardAuthorInput.value.trim(),tags,version:cardVersionInput.value.trim()||undefined,stats:{downloads:cardDownloadsInput.value.trim()||'—',updated:getCurrentTimeString()},type,url:"",textContent:"",mindmap:""};if(type==='link'){nc.url=cardUrlInput.value.trim();if(!nc.url)return alert('需要网址');}else if(type==='text'){nc.textContent=cardTextContent.value.trim();if(!nc.textContent)return alert('需要文本');if(!nc.description)nc.description=nc.textContent.substring(0,80)}else{nc.mindmap=cardMindmapContent.value.trim();if(!nc.mindmap)return alert('需要导图');if(!nc.description)nc.description='思维导图'}if(!nc.title)return alert('需要标题');if(ci===undefined)groupsData[gi].items.push(nc);else groupsData[gi].items[ci]=nc;saveDataToStorage();closeModal();renderAll()}
 function deleteCard(gi,ci){if(confirm('确定删除？')){groupsData[gi].items.splice(ci,1);saveDataToStorage();renderAll()}}
