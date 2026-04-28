@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes"><title>镜玄·资源搜索 | 侧栏均分与重复优化</title>
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes"><title>镜玄·资源搜索 | 均分侧栏与版本同步</title>
 <script src="https://cdn.jsdelivr.net/npm/d3@6.7.0"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.3"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.3"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.3/style.css"><style>
 *{margin:0;padding:0;box-sizing:border-box}html{overflow-y:auto;scrollbar-gutter:stable;scrollbar-width:thin;scrollbar-color:var(--scrollbar-thumb) transparent}
 html::-webkit-scrollbar{width:6px}html::-webkit-scrollbar-track{background:transparent}html::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:10px}
@@ -16,16 +16,19 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 .sidebar-mini-delete-btn{background:rgba(255,70,70,0.25);border:none;width:22px;height:22px;border-radius:22px;font-size:0.8rem;cursor:pointer;color:#c0392b;display:none;align-items:center;justify-content:center;transition:0.1s;flex-shrink:0}.admin-mode .sidebar-mini-delete-btn{display:inline-flex}
 .sidebar-mini-delete-btn:hover{background:rgba(255,40,40,0.6);color:#fff}
 
-/* 三个区域均分高度 */
-.groups-scroll-area{flex:1 1 0;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--scrollbar-thumb) transparent; padding-right:4px}
-.version-section{flex:1 1 0;min-height:0;display:flex;flex-direction:column;overflow:hidden;border-top:1px solid rgba(0,0,0,0.08);border-bottom:1px solid rgba(0,0,0,0.08);margin:4px 0;padding:6px 0}body[data-theme="black"] .version-section{border-color:rgba(255,255,255,0.15)}
-.version-scroll-area{flex:1;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--scrollbar-thumb) transparent; padding-right:4px}
-.tag-section{flex:1 1 0;min-height:0;display:flex;flex-direction:column;overflow:hidden;border-top:1px solid rgba(0,0,0,0.08);padding-top:8px}body[data-theme="black"] .tag-section{border-top-color:rgba(255,255,255,0.15)}
-.tag-scroll-area{flex:1;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--scrollbar-thumb) transparent; padding-right:4px}
+.groups-scroll-area,.version-scroll-area,.tag-scroll-area{overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--scrollbar-thumb) transparent; padding-right:4px}
+.groups-scroll-area::-webkit-scrollbar,.version-scroll-area::-webkit-scrollbar,.tag-scroll-area::-webkit-scrollbar{width:5px}
+.groups-scroll-area::-webkit-scrollbar-track,.version-scroll-area::-webkit-scrollbar-track,.tag-scroll-area::-webkit-scrollbar-track{background:transparent!important}
+.groups-scroll-area::-webkit-scrollbar-thumb,.version-scroll-area::-webkit-scrollbar-thumb,.tag-scroll-area::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:10px}
 
-/* 动态渐变 */
 .mask-bottom{-webkit-mask-image:linear-gradient(to bottom,black 80%,transparent 100%);mask-image:linear-gradient(to bottom,black 80%,transparent 100%)}
 .mask-both{-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 85%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 85%,transparent 100%)}
+
+.groups-scroll-area{flex:1 1 0;min-height:0}
+.version-section{flex:1 1 0;min-height:0;display:flex;flex-direction:column;overflow:hidden;border-top:1px solid rgba(0,0,0,0.08);border-bottom:1px solid rgba(0,0,0,0.08);margin:4px 0;padding:6px 0}body[data-theme="black"] .version-section{border-color:rgba(255,255,255,0.15)}
+.version-scroll-area{flex:1}
+.tag-section{flex:1 1 0;min-height:0;display:flex;flex-direction:column;overflow:hidden;border-top:1px solid rgba(0,0,0,0.08);padding-top:8px}body[data-theme="black"] .tag-section{border-top-color:rgba(255,255,255,0.15)}
+.tag-scroll-area{flex:1}
 
 .group-btn{background:rgba(255,255,235,0.4);backdrop-filter:blur(6px);border:none;padding:10px 18px;font-size:0.95rem;font-weight:500;text-align:left;color:#1f2937;cursor:pointer;transition:0.08s;border-radius:var(--card-radius);width:100%}body[data-theme="black"] .group-btn{background:rgba(60,68,84,0.5);color:#f5f0e0}
 .group-btn:hover{background:rgba(255,255,250,0.7)}.group-btn.active{background:var(--theme-accent);color:white;box-shadow:0 4px 12px rgba(0,0,0,0.15)}body[data-theme="black"] .group-btn.active{color:#12151c}
@@ -195,7 +198,7 @@ const scrollAreas=[document.getElementById('groupsScrollArea'),document.getEleme
 scrollAreas.forEach(el=>{if(el){el.addEventListener('scroll',()=>updateScrollGradients(el));updateScrollGradients(el);}});
 
 function enableAdminMode(){isAdminMode=true;document.getElementById('adminToolbar').style.display='flex';document.getElementById('addGroupBtn').style.display='inline-flex';updateSortOptions();renderCards();renderGroupButtons();renderVersionList();sessionStorage.setItem('adminModeAuto','true')}
-function disableAdminMode(){isAdminMode=false;document.getElementById('adminToolbar').style.display='none';document.getElementById('addGroupBtn').style.display='none';updateSortOptions();renderCards();renderGroupButtons();renderVersionList();sessionStorage.removeItem('adminModeAuto');if(confirm('重新从云端加载？'))location.reload()}
+function disableAdminMode(){isAdminMode=false;document.getElementById('adminToolbar').style.display='none';document.getElementById('addGroupBtn').style.display='none';updateSortOptions();renderCards();renderGroupButtons();renderVersionList();renderTagList();sessionStorage.removeItem('adminModeAuto');if(confirm('退出编辑模式，是否重新从云端加载最新数据？'))location.reload()}
 function checkAdminPassword(){const p=prompt('管理员密码：');if(p==='admin123')enableAdminMode();else alert('密码错误')}
 function clearAllCache(){if(confirm('清除所有本地缓存并刷新？')){['editable_groups_data','mc_versions','layout_settings','glass_custom_theme','glass_opacity','gradient_angle','custom_bg_image','custom_bg_color','listViewPreference'].forEach(k=>localStorage.removeItem(k));sessionStorage.removeItem('adminModeAuto');location.reload()}}
 function exportData(){const d={groups:groupsData,versions};const b=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='card_data_backup.json';a.click();URL.revokeObjectURL(u)}
