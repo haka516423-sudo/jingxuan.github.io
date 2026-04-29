@@ -82,31 +82,53 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
     overflow-y: auto;      /* 超出滚动 */
 }
 
-.search-bar {
+/* 搜索框容器，用于相对定位 */
+.search-wrapper {
     position: relative;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
+    flex: 1;
+    min-width: 160px;
 }
 
+/* 搜索框本身留出右侧内边距 */
+.search-box {
+    width: 100%;
+    padding: 12px 18px;
+    padding-right: 36px;   /* 为清除按钮留出空间 */
+    background: rgba(255, 255, 255, calc(var(--glass-opacity) + 0.05));
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    border-radius: var(--card-radius);
+    box-sizing: border-box;
+}
+
+/* 清除按钮：绝对定位在搜索框内部右侧 */
 .clear-search-btn {
-    background: rgba(255,255,240,0.6);
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;   /* 无背景 */
     border: none;
-    border-radius: 30px;
-    width: 30px;
-    height: 30px;
-    font-size: 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-secondary);
     cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: 0.1s;
-    color: var(--text-primary);
+    border-radius: 50%;
+    transition: background 0.1s, color 0.1s;
 }
+
+/* 悬停效果：轻微半透明圆底，无突兀背景 */
 .clear-search-btn:hover {
-    background: rgba(255,255,240,0.9);
-    transform: scale(0.95);
+    background: rgba(0, 0, 0, 0.1);
+    color: var(--text-primary);
 }
 .main{flex:1;min-width:0}
 .header-area{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px;padding-bottom:12px;position:relative}
