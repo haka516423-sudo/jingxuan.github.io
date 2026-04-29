@@ -775,7 +775,9 @@ if (modrinthModalClose) {
     });
 }
 // 点击模态框背景关闭（可选，利用现有modal关闭机制，但为避免冲突，增加一个）
-
+//modrinthModal?.addEventListener('click', (e) => {
+//    if (e.target === modrinthModal) modrinthModal.classList.remove('active');
+//});
 // 使用 MyMemory 免费翻译 API (无需 key)
 async function translateToEnglish(text) {
     if (!text.trim()) return text;
@@ -942,11 +944,12 @@ async function translateToChinese(text) {
 }
 
 // 批量翻译结果项
+// 批量翻译结果项
 async function translateResultItem(item) {
     const translatedTitle = await translateToChinese(item.title);
     const translatedDesc = await translateToChinese(item.description);
-    // 标签翻译（除了 Fabric/Forge/NeoForge）
-    const translatedTags = await Promise.all(item.tags.map(async (tag) => {
+    // 关键修复：使用 item.categories，不是 item.tags
+    const translatedTags = await Promise.all((item.categories || []).map(async (tag) => {
         if (['Fabric', 'Forge', 'NeoForge'].includes(tag)) return tag;
         const translated = await translateToChinese(tag);
         return translated;
@@ -959,7 +962,6 @@ async function translateResultItem(item) {
         originalTitle: item.title
     };
 }
-
 // 将 Modrinth 模组添加为卡片
 function addModrinthCardToCurrentGroup(modData) {
     const newCard = {
