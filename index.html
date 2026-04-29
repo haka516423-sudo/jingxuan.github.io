@@ -362,7 +362,13 @@ function isVersionInCard(cardVer, filterVer) { if (!cardVer || !filterVer) retur
 function getDisplayItems(){let items=[];if(currentTagFilter){for(const g of groupsData)for(const i of g.items)if(normalizeTags(i.tags).includes(currentTagFilter))items.push(i)}else{items=groupsData[currentGroupIndex]?.items||[]}if(currentVersionFilter)items=items.filter(it=>isVersionInCard(it.version, currentVersionFilter));return items}
 function sortItems(items){if(currentSort==='duplicates')return []; const s=[...items]; if(currentSort==='title-asc')s.sort((a,b)=>(a.title||'').localeCompare(b.title||'','zh'));else if(currentSort==='date-desc')s.sort((a,b)=>(b.stats?.updated||'').localeCompare(a.stats?.updated||''));return s}
 
-function getTitleDedupKey(title) { if (!title) return ''; return title.replace(/[^a-zA-Z]/g, '').toLowerCase(); }
+function getTitleDedupKey(title) {
+    if (!title) return '';
+    // 删除英文括号及内容、中文括号及内容
+    let withoutParens = title.replace(/\([^)]*\)|（[^）]*）/g, '');
+    // 只保留字母，转为小写
+    return withoutParens.replace(/[^a-zA-Z]/g, '').toLowerCase();
+}
 function getDuplicateItems(gi){const items=groupsData[gi].items,m=new Map();items.forEach((it,i)=>{const k=getTitleDedupKey(it.title);if(!k) return;if(!m.has(k))m.set(k,[]);m.get(k).push({...it,cardIdx:i})});const d=[];for(const[,e] of m)if(e.length>1){e.forEach((x,j)=>{d.push({...x,isFirstDuplicate:j===0,isDuplicate:true})})}return d}
 function getFilteredAndSortedItems(){if(currentSort==='duplicates')return []; let items=getDisplayItems(); const kw=currentKeyword.trim().toLowerCase(); if(kw)items=items.filter(it=>it.title.toLowerCase().includes(kw)||it.description.toLowerCase().includes(kw)||it.author.toLowerCase().includes(kw)||normalizeTags(it.tags).some(t=>t.toLowerCase().includes(kw))||(it.version&&it.version.toLowerCase().includes(kw))); return sortItems(items); }
 
