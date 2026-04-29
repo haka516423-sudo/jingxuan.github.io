@@ -327,24 +327,31 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
         <option value="100">100 个/页</option>
     </select>
 </div>
-<!-- Modrinth 搜索模态框 -->
+<!-- Modrinth 搜索模态框 (正确版本) -->
 <div id="modrinthModal" class="modal">
     <div class="modal-content modrinth-modal">
         <h3>🔍 搜索 Modrinth 模组</h3>
+        
+        <!-- 搜索框区域 -->
         <div class="modrinth-search-input">
             <input type="text" id="modrinthQuery" placeholder="输入中文或英文关键词...">
             <button id="modrinthSearchExec">搜索</button>
         </div>
+        
+        <!-- 自动翻译选项 (放在搜索框下面，结果区域上面) -->
+        <div style="margin: 8px 0 12px 0; display: flex; align-items: center; gap: 8px;">
+            <input type="checkbox" id="autoTranslateCheckbox" checked>
+            <label for="autoTranslateCheckbox" style="font-size: 0.75rem; cursor: pointer;">🌐 自动翻译中文 → 英文 (提升搜索效果)</label>
+        </div>
+        
+        <!-- 搜索结果展示区 -->
         <div id="modrinthResults" class="modrinth-results">
             <!-- 搜索结果将显示在这里 -->
         </div>
+        
+        <!-- 底部按钮 -->
         <div class="modal-buttons">
             <button class="cancel-btn" id="modrinthModalClose">关闭</button>
-        </div>
-        <!-- 新增翻译选项 -->
-        <div style="margin: 8px 0; display: flex; align-items: center; gap: 8px;">
-            <input type="checkbox" id="autoTranslateCheckbox" checked>
-            <label for="autoTranslateCheckbox" style="font-size: 0.75rem;">🌐 自动翻译中文 → 英文 (提升搜索效果)</label>
         </div>
     </div>
 </div>
