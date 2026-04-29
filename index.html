@@ -156,6 +156,92 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
     }
 }
 
+/* Modrinth 搜索模态框样式 */
+.modrinth-modal .modal-content {
+    max-width: 700px;
+    width: 90%;
+}
+.modrinth-search-input {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+.modrinth-search-input input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+}
+.modrinth-search-input button {
+    padding: 8px 16px;
+    background: var(--theme-accent);
+    border: none;
+    border-radius: 30px;
+    color: white;
+    cursor: pointer;
+}
+.modrinth-results {
+    max-height: 500px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.modrinth-result-item {
+    background: rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+.modrinth-result-info {
+    flex: 1;
+}
+.modrinth-result-title {
+    font-weight: bold;
+    font-size: 1rem;
+}
+.modrinth-result-author {
+    font-size: 0.7rem;
+    opacity: 0.7;
+}
+.modrinth-result-desc {
+    font-size: 0.75rem;
+    margin-top: 4px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.modrinth-result-stats {
+    font-size: 0.65rem;
+    margin-top: 4px;
+    display: flex;
+    gap: 12px;
+}
+.modrinth-add-btn {
+    background: #10b981;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    white-space: nowrap;
+}
+.modrinth-add-btn:hover {
+    background: #059669;
+}
+.loading-spinner {
+    text-align: center;
+    padding: 20px;
+    color: #aaa;
+}
+
 .main{flex:1;min-width:0}
 .header-area{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px;padding-bottom:12px;position:relative}
 .title-section h1{font-size:1.8rem;font-weight:700;color:var(--text-primary)}
@@ -231,6 +317,7 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
         <button class="clear-search-btn" id="clearSearchBtn" style="display: none;">✖</button>
     </div>
     <button class="view-toggle-btn" id="viewToggleBtn">📋 列表视图</button>
+    <button class="view-toggle-btn" id="modrinthSearchBtn">🔍 Modrinth 搜索</button>
     <select class="sort-select" id="sortSelect">
         <option value="title-asc">🔤 标题 A-Z</option>
         <option value="date-desc">📅 最新优先</option>
@@ -239,6 +326,22 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
         <option value="50">50 个/页</option>
         <option value="100">100 个/页</option>
     </select>
+</div>
+<!-- Modrinth 搜索模态框 -->
+<div id="modrinthModal" class="modal">
+    <div class="modal-content modrinth-modal">
+        <h3>🔍 搜索 Modrinth 模组</h3>
+        <div class="modrinth-search-input">
+            <input type="text" id="modrinthQuery" placeholder="输入中文或英文关键词...">
+            <button id="modrinthSearchExec">搜索</button>
+        </div>
+        <div id="modrinthResults" class="modrinth-results">
+            <!-- 搜索结果将显示在这里 -->
+        </div>
+        <div class="modal-buttons">
+            <button class="cancel-btn" id="modrinthModalClose">关闭</button>
+        </div>
+    </div>
 </div>
 <div class="pagination" id="paginationContainerTop"></div>
 <div id="duplicateToolbarContainer"></div><div id="cardsContainer" class="cards-grid"></div>
@@ -626,6 +729,158 @@ if(deleteSelectedBtn) deleteSelectedBtn.addEventListener('click', function() {
     if(selectAllCheckbox) selectAllCheckbox.checked = false;
     currentPage = 1; renderAll();
 });
+
+// ---------- Modrinth 搜索与自动添加卡片 ----------
+const modrinthModal = document.getElementById('modrinthModal');
+const modrinthSearchBtn = document.getElementById('modrinthSearchBtn');
+const modrinthSearchExec = document.getElementById('modrinthSearchExec');
+const modrinthQuery = document.getElementById('modrinthQuery');
+const modrinthResults = document.getElementById('modrinthResults');
+const modrinthModalClose = document.getElementById('modrinthModalClose');
+
+// 打开模态框
+if (modrinthSearchBtn) {
+    modrinthSearchBtn.addEventListener('click', () => {
+        modrinthModal.classList.add('active');
+        modrinthQuery.value = '';
+        modrinthResults.innerHTML = ''; // 清空上一次结果
+    });
+}
+// 关闭模态框
+if (modrinthModalClose) {
+    modrinthModalClose.addEventListener('click', () => {
+        modrinthModal.classList.remove('active');
+    });
+}
+// 点击模态框背景关闭（可选，利用现有modal关闭机制，但为避免冲突，增加一个）
+modrinthModal?.addEventListener('click', (e) => {
+    if (e.target === modrinthModal) modrinthModal.classList.remove('active');
+});
+
+// 执行搜索
+async function searchModrinth(query) {
+    if (!query.trim()) return;
+    modrinthResults.innerHTML = '<div class="loading-spinner">⏳ 搜索中...</div>';
+    try {
+        const url = `https://api.modrinth.com/v2/search?query=${encodeURIComponent(query)}&limit=20`;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        const hits = data.hits || [];
+        if (hits.length === 0) {
+            modrinthResults.innerHTML = '<div style="text-align:center;padding:20px">没有找到模组，试试其他关键词。</div>';
+            return;
+        }
+        // 渲染结果
+        let html = '';
+        for (const hit of hits) {
+            const slug = hit.slug;
+            const title = hit.title || slug;
+            const description = hit.description || '暂无描述';
+            const author = hit.author || '未知作者';
+            const downloads = hit.downloads ? `${(hit.downloads / 1e6).toFixed(1)}M` : '?';
+            // 获取第一个版本号（取最新版本，可能需要额外请求，简化使用 versions[0]）
+            let version = hit.versions?.[0] || 'latest';
+            // 标签（categories）
+            const categories = hit.categories || [];
+            // 项目页面 URL
+            const projectUrl = `https://modrinth.com/mod/${slug}`;
+
+            html += `
+                <div class="modrinth-result-item" data-slug="${escapeHtml(slug)}" data-title="${escapeHtml(title)}" data-desc="${escapeHtml(description)}" data-author="${escapeHtml(author)}" data-version="${escapeHtml(version)}" data-categories="${escapeHtml(categories.join(','))}" data-url="${escapeHtml(projectUrl)}" data-downloads="${downloads}">
+                    <div class="modrinth-result-info">
+                        <div class="modrinth-result-title">${escapeHtml(title)}</div>
+                        <div class="modrinth-result-author">👤 ${escapeHtml(author)}</div>
+                        <div class="modrinth-result-desc">${escapeHtml(description)}</div>
+                        <div class="modrinth-result-stats">
+                            <span>📥 ${downloads}</span>
+                            <span>📌 ${escapeHtml(version)}</span>
+                            <span>🏷️ ${categories.slice(0, 3).join(', ') || '无标签'}</span>
+                        </div>
+                    </div>
+                    <button class="modrinth-add-btn">+ 添加</button>
+                </div>
+            `;
+        }
+        modrinthResults.innerHTML = html;
+
+        // 绑定每个“添加”按钮事件
+        document.querySelectorAll('.modrinth-add-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const item = btn.closest('.modrinth-result-item');
+                if (!item) return;
+                const slug = item.dataset.slug;
+                const title = item.dataset.title;
+                const desc = item.dataset.desc;
+                const author = item.dataset.author;
+                const version = item.dataset.version;
+                const categories = item.dataset.categories ? item.dataset.categories.split(',') : [];
+                const url = item.dataset.url;
+                const downloads = item.dataset.downloads;
+                // 调用添加卡片函数
+                addModrinthCardToCurrentGroup({
+                    title,
+                    description: desc,
+                    author,
+                    tags: categories,
+                    version,
+                    url,
+                    downloads
+                });
+                // 可选：添加成功后关闭模态框
+                modrinthModal.classList.remove('active');
+                alert(`✅ 已添加模组：${title}`);
+            });
+        });
+    } catch (err) {
+        console.error(err);
+        modrinthResults.innerHTML = '<div style="text-align:center;padding:20px;color:red">搜索失败，请检查网络或稍后重试。</div>';
+    }
+}
+
+// 将 Modrinth 模组添加为卡片
+function addModrinthCardToCurrentGroup(modData) {
+    const newCard = {
+        title: modData.title,
+        description: modData.description,
+        author: modData.author,
+        tags: modData.tags,
+        version: modData.version,
+        stats: {
+            downloads: modData.downloads,
+            updated: getCurrentTimeString()  // 使用现有函数
+        },
+        type: 'link',
+        url: modData.url,
+        textContent: '',
+        mindmap: ''
+    };
+    // 添加到当前分组
+    groupsData[currentGroupIndex].items.push(newCard);
+    saveDataToStorage();
+    // 刷新视图
+    currentPage = 1;
+    renderAll();
+    // 可选：显示短暂提示
+}
+
+// 绑定搜索按钮点击事件
+if (modrinthSearchExec) {
+    modrinthSearchExec.addEventListener('click', () => {
+        const q = modrinthQuery.value.trim();
+        if (q) searchModrinth(q);
+        else alert('请输入要搜索的模组名称');
+    });
+}
+// 支持回车搜索
+if (modrinthQuery) {
+    modrinthQuery.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            modrinthSearchExec.click();
+        }
+    });
+}
 
 /* 所有事件绑定 */
 document.getElementById('paletteBtn')?.addEventListener('click',e=>{e.stopPropagation();document.getElementById('palettePanel').classList.toggle('show')});
