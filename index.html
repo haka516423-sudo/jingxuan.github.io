@@ -797,10 +797,9 @@ async function searchModrinth(originalQuery) {
     let query = originalQuery.trim();
     if (!query) return;
 
-    // 获取自动翻译开关状态
     const autoTranslate = document.getElementById('autoTranslateCheckbox')?.checked ?? true;
     let finalQuery = query;
-    if (autoTranslate && /[\u4e00-\u9fa5]/.test(query)) {  // 检测是否包含中文字符
+    if (autoTranslate && /[\u4e00-\u9fa5]/.test(query)) {
         modrinthResults.innerHTML = '<div class="loading-spinner">🌐 正在翻译关键词并搜索...</div>';
         finalQuery = await translateToEnglish(query);
         console.log(`翻译结果: "${query}" -> "${finalQuery}"`);
@@ -818,58 +817,151 @@ async function searchModrinth(originalQuery) {
             modrinthResults.innerHTML = `<div style="text-align:center;padding:20px">没有找到模组，试试其他关键词。${autoTranslate && finalQuery !== query ? `<br>翻译后的关键词: "${finalQuery}"` : ''}</div>`;
             return;
         }
-        // 渲染结果（与之前完全相同，此处略，你可以复制之前的渲染代码）
-        // 为了避免重复，我下面给出完整渲染代码（基于之前版本）
-        let html = '';
-        for (const hit of hits) {
-            const slug = hit.slug;
-            const title = hit.title || slug;
-            const description = hit.description || '暂无描述';
-            const author = hit.author || '未知作者';
-            const downloads = hit.downloads ? `${(hit.downloads / 1e6).toFixed(1)}M` : '?';
-            let version = hit.versions?.[0] || 'latest';
-            const categories = hit.categories || [];
-            const projectUrl = `https://modrinth.com/mod/${slug}`;
+
+        // 1. 先构造基础数据
+        let rawItems = hits.map(hit => ({
+            slug: hit.slug,
+            title: hit.title || hit.slug,
+            description: hit.description || '暂无描述',
+            author: hit.author || '未知作者',
+            downloads: hit.downloads ? `${(hit.downloads / 1e6).toFixed(1)}M` : '?',
+            version: hit.versions?.[0] || 'latest',
+            categories: hit.categories || [],
+            url: `https://modrinth.com/mod/${hit.slug}`
+        }));
+
+        // 2. 翻译（如果需要）
+        if (autoTranslate) {
+            modrinthResults.innerHTML = '<div class="loading-spinner">🌐 正在翻译模组信息，请稍候...</div>';
+            // 并行翻译所有项
+            const translatedItems = await Promise.all(rawItems.map(item => translateResultItem(item)));
+            rawItems = translatedItems;
+        } else {
+            // 未开启翻译时，保持原样，但为了统一数据结构，给 translated 字段赋原值
+            rawItems = rawItems.map(item => ({
+                ...item,
+                translatedTitle: item.title,
+                translatedDesc: item.description,
+                translatedTags: item.categories,
+                originalTitle: item.title
+            }));
+        }
+
+        // 3. 渲染带复选框的列表
+        let html = `
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <label style="display: flex; align-items: center; gap: 6px; font-size: 0.8rem;">
+                    <input type="checkbox" id="modrinthSelectAll"> 全选
+                </label>
+                <button id="modrinthBatchAdd" class="modrinth-add-btn" style="background: #f59e0b;">📦 批量添加所选</button>
+            </div>
+            <div id="modrinthResultsList" class="modrinth-results">
+        `;
+        for (const item of rawItems) {
+            const displayTitle = autoTranslate && item.translatedTitle !== item.originalTitle 
+                ? `${item.originalTitle} (${item.translatedTitle})` 
+                : item.title;
+            const displayDesc = autoTranslate ? item.translatedDesc : item.description;
+            const displayTags = autoTranslate ? item.translatedTags : item.categories;
             html += `
-                <div class="modrinth-result-item" data-slug="${escapeHtml(slug)}" data-title="${escapeHtml(title)}" data-desc="${escapeHtml(description)}" data-author="${escapeHtml(author)}" data-version="${escapeHtml(version)}" data-categories="${escapeHtml(categories.join(','))}" data-url="${escapeHtml(projectUrl)}" data-downloads="${downloads}">
-                    <div class="modrinth-result-info">
-                        <div class="modrinth-result-title">${escapeHtml(title)}</div>
-                        <div class="modrinth-result-author">👤 ${escapeHtml(author)}</div>
-                        <div class="modrinth-result-desc">${escapeHtml(description)}</div>
-                        <div class="modrinth-result-stats">
-                            <span>📥 ${downloads}</span>
-                            <span>📌 ${escapeHtml(version)}</span>
-                            <span>🏷️ ${categories.slice(0, 3).join(', ') || '无标签'}</span>
+                <div class="modrinth-result-item" data-slug="${escapeHtml(item.slug)}" data-title="${escapeHtml(item.title)}" data-desc="${escapeHtml(item.description)}" data-author="${escapeHtml(item.author)}" data-version="${escapeHtml(item.version)}" data-categories="${escapeHtml(item.categories.join(','))}" data-url="${escapeHtml(item.url)}" data-downloads="${item.downloads}">
+                    <div style="display: flex; align-items: center; gap: 12px; width: 100%;">
+                        <input type="checkbox" class="modrinth-select-cb" style="width: 18px; height: 18px; flex-shrink: 0;">
+                        <div class="modrinth-result-info">
+                            <div class="modrinth-result-title">${escapeHtml(displayTitle)}</div>
+                            <div class="modrinth-result-author">👤 ${escapeHtml(item.author)}</div>
+                            <div class="modrinth-result-desc">${escapeHtml(displayDesc)}</div>
+                            <div class="modrinth-result-stats">
+                                <span>📥 ${item.downloads}</span>
+                                <span>📌 ${escapeHtml(item.version)}</span>
+                                <span>🏷️ ${escapeHtml(displayTags.slice(0, 3).join(', ') || '无标签')}</span>
+                            </div>
                         </div>
                     </div>
-                    <button class="modrinth-add-btn">+ 添加</button>
                 </div>
             `;
         }
+        html += `</div>`;
         modrinthResults.innerHTML = html;
-        // 绑定添加按钮事件（与之前相同）
-        document.querySelectorAll('.modrinth-add-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const item = btn.closest('.modrinth-result-item');
-                if (!item) return;
-                addModrinthCardToCurrentGroup({
-                    title: item.dataset.title,
-                    description: item.dataset.desc,
-                    author: item.dataset.author,
-                    tags: item.dataset.categories ? item.dataset.categories.split(',') : [],
-                    version: item.dataset.version,
-                    url: item.dataset.url,
-                    downloads: item.dataset.downloads
-                });
-                modrinthModal.classList.remove('active');
-                alert(`✅ 已添加模组：${item.dataset.title}`);
+
+        // 4. 绑定全选逻辑
+        const selectAllCb = document.getElementById('modrinthSelectAll');
+        const resultItems = document.querySelectorAll('.modrinth-result-item');
+        const itemCheckboxes = () => document.querySelectorAll('.modrinth-select-cb');
+        if (selectAllCb) {
+            selectAllCb.addEventListener('change', (e) => {
+                itemCheckboxes().forEach(cb => cb.checked = e.target.checked);
             });
-        });
+        }
+        // 5. 批量添加按钮
+        const batchAddBtn = document.getElementById('modrinthBatchAdd');
+        if (batchAddBtn) {
+            batchAddBtn.addEventListener('click', async () => {
+                const selected = Array.from(itemCheckboxes()).filter(cb => cb.checked);
+                if (selected.length === 0) return alert('请至少选择一个模组');
+                if (!confirm(`确定添加 ${selected.length} 个模组到当前分组吗？`)) return;
+                for (const cb of selected) {
+                    const container = cb.closest('.modrinth-result-item');
+                    if (!container) continue;
+                    const cardData = {
+                        title: container.dataset.title,
+                        description: container.dataset.desc,
+                        author: container.dataset.author,
+                        tags: container.dataset.categories ? container.dataset.categories.split(',') : [],
+                        version: container.dataset.version,
+                        url: container.dataset.url,
+                        downloads: container.dataset.downloads
+                    };
+                    addModrinthCardToCurrentGroup(cardData);
+                }
+                alert(`成功添加 ${selected.length} 个模组！`);
+                modrinthModal.classList.remove('active');
+                // 刷新卡片列表
+                currentPage = 1;
+                renderAll();
+            });
+        }
+        // 保持原有的单个添加按钮（现在没有了，因为移除了每个结果右侧的添加按钮，如果需要可以保留，但批量更实用）
+        // 如果你还希望保留单个添加按钮，可以在每个结果后面加一个按钮，这里为了简洁，使用批量方式。
     } catch (err) {
         console.error(err);
         modrinthResults.innerHTML = '<div style="text-align:center;padding:20px;color:red">搜索失败，请检查网络或稍后重试。</div>';
     }
 }
+// 翻译单个文本（复用已有的 translateToEnglish，但是中文→英文？不，我们需要英译中）
+// 修改：增加英译中函数
+async function translateToChinese(text) {
+    if (!text.trim() || !/[\u0041-\u007a]/.test(text)) return text; // 非英文不翻
+    try {
+        const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|zh`;
+        const res = await fetch(url);
+        const data = await res.json();
+        return data?.responseData?.translatedText || text;
+    } catch (err) {
+        console.warn('翻译失败', err);
+        return text;
+    }
+}
+
+// 批量翻译结果项
+async function translateResultItem(item) {
+    const translatedTitle = await translateToChinese(item.title);
+    const translatedDesc = await translateToChinese(item.description);
+    // 标签翻译（除了 Fabric/Forge/NeoForge）
+    const translatedTags = await Promise.all(item.tags.map(async (tag) => {
+        if (['Fabric', 'Forge', 'NeoForge'].includes(tag)) return tag;
+        const translated = await translateToChinese(tag);
+        return translated;
+    }));
+    return {
+        ...item,
+        translatedTitle,
+        translatedDesc,
+        translatedTags,
+        originalTitle: item.title
+    };
+}
+
 // 将 Modrinth 模组添加为卡片
 function addModrinthCardToCurrentGroup(modData) {
     const newCard = {
