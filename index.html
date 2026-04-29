@@ -797,6 +797,7 @@ async function searchModrinth(originalQuery) {
     let query = originalQuery.trim();
     if (!query) return;
 
+    // 获取自动翻译开关状态（仅用于关键词翻译）
     const autoTranslate = document.getElementById('autoTranslateCheckbox')?.checked ?? true;
     let finalQuery = query;
     if (autoTranslate && /[\u4e00-\u9fa5]/.test(query)) {
@@ -818,7 +819,7 @@ async function searchModrinth(originalQuery) {
             return;
         }
 
-        // 1. 先构造基础数据
+        // 构造基础数据（原始英文，不翻译）
         let rawItems = hits.map(hit => ({
             slug: hit.slug,
             title: hit.title || hit.slug,
@@ -830,24 +831,7 @@ async function searchModrinth(originalQuery) {
             url: `https://modrinth.com/mod/${hit.slug}`
         }));
 
-        // 2. 翻译（如果需要）
-        if (autoTranslate) {
-            modrinthResults.innerHTML = '<div class="loading-spinner">🌐 正在翻译模组信息，请稍候...</div>';
-            // 并行翻译所有项
-            const translatedItems = await Promise.all(rawItems.map(item => translateResultItem(item)));
-            rawItems = translatedItems;
-        } else {
-            // 未开启翻译时，保持原样，但为了统一数据结构，给 translated 字段赋原值
-            rawItems = rawItems.map(item => ({
-                ...item,
-                translatedTitle: item.title,
-                translatedDesc: item.description,
-                translatedTags: item.categories,
-                originalTitle: item.title
-            }));
-        }
-
-        // 3. 渲染带复选框的列表
+        // 渲染带复选框的列表（显示原始英文）
         let html = `
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                 <label style="display: flex; align-items: center; gap: 6px; font-size: 0.8rem;">
@@ -858,23 +842,26 @@ async function searchModrinth(originalQuery) {
             <div id="modrinthResultsList" class="modrinth-results">
         `;
         for (const item of rawItems) {
-            const displayTitle = autoTranslate && item.translatedTitle !== item.originalTitle 
-                ? `${item.originalTitle} (${item.translatedTitle})` 
-                : item.title;
-            const displayDesc = autoTranslate ? item.translatedDesc : item.description;
-            const displayTags = autoTranslate ? item.translatedTags : item.categories;
             html += `
-                <div class="modrinth-result-item" data-slug="${escapeHtml(item.slug)}" data-title="${escapeHtml(item.title)}" data-desc="${escapeHtml(item.description)}" data-author="${escapeHtml(item.author)}" data-version="${escapeHtml(item.version)}" data-categories="${escapeHtml(item.categories.join(','))}" data-url="${escapeHtml(item.url)}" data-downloads="${item.downloads}">
+                <div class="modrinth-result-item" 
+                     data-slug="${escapeHtml(item.slug)}" 
+                     data-title="${escapeHtml(item.title)}" 
+                     data-desc="${escapeHtml(item.description)}" 
+                     data-author="${escapeHtml(item.author)}" 
+                     data-version="${escapeHtml(item.version)}" 
+                     data-categories="${escapeHtml(item.categories.join(','))}" 
+                     data-url="${escapeHtml(item.url)}" 
+                     data-downloads="${item.downloads}">
                     <div style="display: flex; align-items: center; gap: 12px; width: 100%;">
                         <input type="checkbox" class="modrinth-select-cb" style="width: 18px; height: 18px; flex-shrink: 0;">
                         <div class="modrinth-result-info">
-                            <div class="modrinth-result-title">${escapeHtml(displayTitle)}</div>
+                            <div class="modrinth-result-title">${escapeHtml(item.title)}</div>
                             <div class="modrinth-result-author">👤 ${escapeHtml(item.author)}</div>
-                            <div class="modrinth-result-desc">${escapeHtml(displayDesc)}</div>
+                            <div class="modrinth-result-desc">${escapeHtml(item.description)}</div>
                             <div class="modrinth-result-stats">
                                 <span>📥 ${item.downloads}</span>
                                 <span>📌 ${escapeHtml(item.version)}</span>
-                                <span>🏷️ ${escapeHtml(displayTags.slice(0, 3).join(', ') || '无标签')}</span>
+                                <span>🏷️ ${escapeHtml(item.categories.slice(0, 3).join(', ') || '无标签')}</span>
                             </div>
                         </div>
                     </div>
@@ -884,26 +871,32 @@ async function searchModrinth(originalQuery) {
         html += `</div>`;
         modrinthResults.innerHTML = html;
 
-        // 4. 绑定全选逻辑
+        // 绑定全选逻辑
         const selectAllCb = document.getElementById('modrinthSelectAll');
-        const resultItems = document.querySelectorAll('.modrinth-result-item');
         const itemCheckboxes = () => document.querySelectorAll('.modrinth-select-cb');
         if (selectAllCb) {
             selectAllCb.addEventListener('change', (e) => {
                 itemCheckboxes().forEach(cb => cb.checked = e.target.checked);
             });
         }
-        // 5. 批量添加按钮
+
+        // 批量添加按钮（点击后才翻译）
         const batchAddBtn = document.getElementById('modrinthBatchAdd');
         if (batchAddBtn) {
             batchAddBtn.addEventListener('click', async () => {
                 const selected = Array.from(itemCheckboxes()).filter(cb => cb.checked);
                 if (selected.length === 0) return alert('请至少选择一个模组');
                 if (!confirm(`确定添加 ${selected.length} 个模组到当前分组吗？`)) return;
-                for (const cb of selected) {
+
+                // 提示用户正在翻译
+                modrinthResults.innerHTML = `<div class="loading-spinner">🌐 正在翻译 ${selected.length} 个模组，请稍候...</div>`;
+                let addedCount = 0;
+                // 逐个翻译并添加，避免429
+                for (let i = 0; i < selected.length; i++) {
+                    const cb = selected[i];
                     const container = cb.closest('.modrinth-result-item');
                     if (!container) continue;
-                    const cardData = {
+                    const originalData = {
                         title: container.dataset.title,
                         description: container.dataset.desc,
                         author: container.dataset.author,
@@ -912,22 +905,37 @@ async function searchModrinth(originalQuery) {
                         url: container.dataset.url,
                         downloads: container.dataset.downloads
                     };
+                    // 翻译这一项
+                    const translated = await translateResultItem(originalData);
+                    const cardData = {
+                        title: translated.translatedTitle !== originalData.title 
+                            ? `${originalData.title} (${translated.translatedTitle})` 
+                            : originalData.title,
+                        description: translated.translatedDesc,
+                        author: originalData.author,
+                        tags: translated.translatedTags,
+                        version: originalData.version,
+                        url: originalData.url,
+                        downloads: originalData.downloads
+                    };
                     addModrinthCardToCurrentGroup(cardData);
+                    addedCount++;
+                    // 可选：每添加一个稍微延迟，避免翻译API过载
+                    await new Promise(r => setTimeout(r, 200));
                 }
-                alert(`成功添加 ${selected.length} 个模组！`);
+                alert(`成功添加 ${addedCount} 个模组！`);
                 modrinthModal.classList.remove('active');
-                // 刷新卡片列表
                 currentPage = 1;
                 renderAll();
             });
         }
-        // 保持原有的单个添加按钮（现在没有了，因为移除了每个结果右侧的添加按钮，如果需要可以保留，但批量更实用）
-        // 如果你还希望保留单个添加按钮，可以在每个结果后面加一个按钮，这里为了简洁，使用批量方式。
     } catch (err) {
         console.error(err);
         modrinthResults.innerHTML = '<div style="text-align:center;padding:20px;color:red">搜索失败，请检查网络或稍后重试。</div>';
     }
 }
+
+
 // 翻译单个文本（复用已有的 translateToEnglish，但是中文→英文？不，我们需要英译中）
 // 修改：增加英译中函数
 async function translateToChinese(text) {
@@ -948,8 +956,7 @@ async function translateToChinese(text) {
 async function translateResultItem(item) {
     const translatedTitle = await translateToChinese(item.title);
     const translatedDesc = await translateToChinese(item.description);
-    // 关键修复：使用 item.categories，不是 item.tags
-    const translatedTags = await Promise.all((item.categories || []).map(async (tag) => {
+    const translatedTags = await Promise.all((item.tags || []).map(async (tag) => {
         if (['Fabric', 'Forge', 'NeoForge'].includes(tag)) return tag;
         const translated = await translateToChinese(tag);
         return translated;
@@ -962,6 +969,7 @@ async function translateResultItem(item) {
         originalTitle: item.title
     };
 }
+
 // 将 Modrinth 模组添加为卡片
 function addModrinthCardToCurrentGroup(modData) {
     const newCard = {
