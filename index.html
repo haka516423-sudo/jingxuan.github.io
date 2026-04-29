@@ -194,8 +194,10 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 <div class="palette-panel" id="palettePanel"><div style="font-weight:600;color:#eef2ff;margin-bottom:8px">🎨 纯色预设</div><div class="color-grid" id="solidColorGrid"></div><div style="font-weight:600;color:#eef2ff;margin:8px 0">🌈 渐变预设</div><div class="color-grid" id="gradientColorGrid"></div><div style="display:flex;flex-direction:column;gap:4px"><label style="font-size:0.7rem;color:#ddd">🔮 玻璃透明度 <span id="opacityValue">0.35</span></label><input type="range" id="opacitySlider" min="0.1" max="0.5" step="0.01" value="0.35"></div><div style="display:flex;flex-direction:column;gap:4px"><label style="font-size:0.7rem;color:#ddd">🔄 渐变角度 <span id="angleValue">135°</span></label><input type="range" id="angleSlider" min="0" max="360" step="1" value="135"></div><div><div style="font-weight:600;color:#eef2ff;margin-bottom:8px">🖼️ 自定义壁纸</div><input type="file" id="bgUpload" accept="image/*" style="display:none"><button class="cancel-btn" id="uploadBgBtn" style="padding:6px 12px;font-size:0.7rem">📁 选择图片</button><button class="cancel-btn" id="resetBgBtn" style="padding:6px 12px;font-size:0.7rem;background:rgba(255,80,80,0.3);margin-left:8px">🗑️ 重置</button></div></div></div>
 <div id="adminToolbar" class="admin-toolbar" style="display:none"><label style="margin-left:8px;display:flex;align-items:center;gap:4px"><input type="checkbox" id="selectAllCheckbox"> 全选</label><button id="deleteSelectedBtn">🗑️ 删除所选</button><button id="addCardBtn">➕ 新增卡片</button><button id="resetDataBtn">🔄 重置默认</button><button id="clearCacheBtn">🗑️ 清除缓存</button><button id="exportDataBtn">📤 导出JSON</button><button id="layoutSettingsBtn">🎛️ 布局</button><button id="exitAdminBtn">🔒 退出</button></div>
 <div class="search-bar">
-    <input type="text" class="search-box" id="searchInput" placeholder="🔍 实时过滤 · 标题/描述/作者/标签/版本">
-    <button class="clear-search-btn" id="clearSearchBtn" style="display: none;">✖️</button>
+    <div class="search-wrapper">
+        <input type="text" class="search-box" id="searchInput" placeholder="🔍 实时过滤 · 标题/描述/作者/标签/版本">
+        <button class="clear-search-btn" id="clearSearchBtn" style="display: none;">✖</button>
+    </div>
     <button class="view-toggle-btn" id="viewToggleBtn">📋 列表视图</button>
     <select class="sort-select" id="sortSelect">...</select>
     <select class="page-size-select" id="pageSizeSelect">...</select>
@@ -610,21 +612,28 @@ sortSelect?.addEventListener('change',()=>{currentSort=sortSelect.value;saveSort
 pageSizeSelect?.addEventListener('change',()=>{pageSize=parseInt(pageSizeSelect.value);currentPage=1;renderCards();});
 searchInput?.addEventListener('input',e=>{currentKeyword=e.target.value;currentPage=1;renderCards();});
 const clearSearchBtn = document.getElementById('clearSearchBtn');
-if (clearSearchBtn) {
-    // 监听搜索框内容变化，控制清除按钮的显隐
+
+if (searchInput && clearSearchBtn) {
+    // 监听输入，控制清除按钮显隐
     searchInput.addEventListener('input', function() {
-        clearSearchBtn.style.display = this.value.trim() !== '' ? 'inline-flex' : 'none';
+        const hasText = this.value.trim() !== '';
+        clearSearchBtn.style.display = hasText ? 'flex' : 'none';
     });
+
     // 点击清除按钮
-    clearSearchBtn.addEventListener('click', function() {
+    clearSearchBtn.addEventListener('click', function(e) {
+        e.stopPropagation();   // 防止冒泡触发其他事件
         searchInput.value = '';
-        searchInput.dispatchEvent(new Event('input'));  // 触发过滤重新渲染
+        // 手动触发 input 事件，让已有的过滤逻辑重新渲染
+        searchInput.dispatchEvent(new Event('input'));
         clearSearchBtn.style.display = 'none';
-        // 可选：同时将焦点还给搜索框
         searchInput.focus();
     });
-    // 页面初始化时检查一次
-    if (searchInput.value.trim() !== '') clearSearchBtn.style.display = 'inline-flex';
+
+    // 初始化：如果页面加载时已有默认搜索词，显示清除按钮
+    if (searchInput.value.trim() !== '') {
+        clearSearchBtn.style.display = 'flex';
+    }
 }
 clearTagFilterBtn?.addEventListener('click',clearTagFilter);
 document.querySelectorAll('.preset-tag-btn').forEach(b=>b.addEventListener('click',function(){const t=this.dataset.tag,cv=cardTagsInput.value.trim();cardTagsInput.value=cv?cv.split(',').map(s=>s.trim()).includes(t)?cv:cv+', '+t:t}));
