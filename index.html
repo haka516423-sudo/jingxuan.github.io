@@ -775,9 +775,7 @@ if (modrinthModalClose) {
     });
 }
 // 点击模态框背景关闭（可选，利用现有modal关闭机制，但为避免冲突，增加一个）
-modrinthModal?.addEventListener('click', (e) => {
-    if (e.target === modrinthModal) modrinthModal.classList.remove('active');
-});
+
 // 使用 MyMemory 免费翻译 API (无需 key)
 async function translateToEnglish(text) {
     if (!text.trim()) return text;
