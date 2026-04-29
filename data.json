@@ -1912,6 +1912,1922 @@
           },
           "type": "link",
           "url": "https://modrinth.com/mod/polymorph"
+        },
+        {
+          "title": "OptiGUI（光图形用户界面）",
+          "description": "通过内置 OptiFine 自定义 GUI 资源包支持，在 Fabric 和 Quilt 上实现极快的自定义 GUI 纹理",
+          "author": "opekope2",
+          "tags": [
+            "Fabric",
+            "装饰",
+            "实用工具",
+            "Quilt"
+          ],
+          "version": "1.18-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/optigui"
+        },
+        {
+          "title": "MidnightLib（午夜图书馆）",
+          "description": "提供轻量级配置系统的通用库",
+          "author": "Motschen",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "实用工具",
+            "Forge",
+            "库"
+          ],
+          "version": "1.17-pre1-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/midnightlib"
+        },
+        {
+          "title": "Trinkets（小饰品）",
+          "description": "数据驱动的配件模组",
+          "author": "Emi",
+          "tags": [
+            "Quilt",
+            "Fabric",
+            "实用工具",
+            "库",
+            "装备"
+          ],
+          "version": "1.17-rc2-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/trinkets"
+        },
+        {
+          "title": "Carry On（继续）",
+          "description": "随身携带可以让您捡起图块实体和生物并随身携带！",
+          "author": "Tschipp",
+          "tags": [
+            "交通",
+            "Neoforge",
+            "Fabric",
+            "存储",
+            "游戏机制",
+            "实用工具",
+            "Forge"
+          ],
+          "version": "1.12.2-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/carry-on"
+        },
+        {
+          "title": "Handcrafted（手工制作）",
+          "description": "让你的房子成为一个家！",
+          "author": "Terrarium",
+          "tags": [
+            "Neoforge",
+            "Fabric",
+            "装饰",
+            "实用工具",
+            "Forge"
+          ],
+          "version": "1.19.2-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/handcrafted"
+        },
+        {
+          "title": "Cubes Without Borders（无国界立方体）",
+          "description": "允许您在无边框全屏窗口中玩 Minecraft。",
+          "author": "Kira-NT",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "实用工具",
+            "Forge",
+            "优化"
+          ],
+          "version": "1.16.5-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/cubes-without-borders"
+        },
+        {
+          "title": "Supplementaries（补充品）",
+          "description": "Vanilla+ 添加：罐子、路标、水龙头、风向标弹簧发射器、壁灯、花盆、灯光、装饰和自动化",
+          "author": "MehVahdJukaar",
+          "tags": [
+            "Neoforge",
+            "Fabric",
+            "装饰",
+            "游戏机制",
+            "存储",
+            "实用工具",
+            "Forge"
+          ],
+          "version": "1.15.2-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/supplementaries"
+        },
+        {
+          "title": "Remove Reloading Screen（删除重新加载屏幕）",
+          "description": "使资源包在后台加载，让您在等待时可以做其他事情！",
+          "author": "dima_dencep",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "实用工具",
+            "Forge",
+            "优化",
+            "整活"
+          ],
+          "version": "1.16.5-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/rrls"
+        },
+        {
+          "title": "Puzzle（谜）",
+          "description": "添加资源包功能和 GUI，以更方便地配置 OptiFine 替代方案。",
+          "author": "Motschen",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "实用工具",
+            "库"
+          ],
+          "version": "1.18-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/puzzle"
+        },
+        {
+          "title": "Euphoria Patches（欣快症贴片）",
+          "description": "Euphoria Patches 是互补着色器的附加组件，通过更多可选功能和设置对其进行扩展。",
+          "author": "SpacEagle17",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "科技",
+            "Fabric",
+            "实用工具",
+            "Forge"
+          ],
+          "version": "1.7.10-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/euphoria-patches"
+        },
+        {
+          "title": "Waystones（路石）",
+          "description": "传送回激活的路石。适用于生存、冒险或服务器。",
+          "author": "BlayTheNinth",
+          "tags": [
+            "交通",
+            "Neoforge",
+            "冒险",
+            "Fabric",
+            "Forge",
+            "世界生成",
+            "魔法"
+          ],
+          "version": "1.16.5-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/waystones"
+        },
+        {
+          "title": "CustomSkinLoader（自定义皮肤加载器）",
+          "description": "Minecraft 的自定义皮肤加载器模组。",
+          "author": "xfl03",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "装饰",
+            "Forge"
+          ],
+          "version": "1.8-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/customskinloader"
+        },
+        {
+          "title": "Resourceful Config（资源丰富的配置）",
+          "description": "Resourceful Config 是一个允许开发者进行跨平台配置的模组",
+          "author": "ThatGravyBoat",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "Forge",
+            "库"
+          ],
+          "version": "1.19.2-26.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/resourceful-config"
+        },
+        {
+          "title": "[TaCZ] Timeless and Classics Zero（[TaCZ] 永恒与经典零）",
+          "description": "Minecraft 中最身临其境且可定制的现代 FPS 体验 - 由原始团队对 TaC 枪模组进行完整重制。",
+          "author": "craneblock6666",
+          "tags": [
+            "冒险",
+            "装备",
+            "Forge"
+          ],
+          "version": "1.18.2-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/timeless-and-classics-zero"
+        },
+        {
+          "title": "AttributeFix（属性修复）",
+          "description": "消除了 Minecraft 属性系统的任意限制。修复了许多模组！",
+          "author": "Darkhax",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "实用工具",
+            "Forge"
+          ],
+          "version": "1.12.2-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/attributefix"
+        },
+        {
+          "title": "YUNG's Better Nether Fortresses（YUNG 的更好的地狱堡垒）",
+          "description": "Minecraft 的下界堡垒的完全重新设计！",
+          "author": "YUNGNICKYOUNG",
+          "tags": [
+            "Neoforge",
+            "冒险",
+            "Fabric",
+            "装饰",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.18.2-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yungs-better-nether-fortresses"
+        },
+        {
+          "title": "NetherPortalFix（下界传送门修复）",
+          "description": "确保在多人游戏中通过下界传送门来回旅行时到达正确的目的地。",
+          "author": "BlayTheNinth",
+          "tags": [
+            "Neoforge",
+            "Fabric",
+            "实用工具",
+            "游戏机制",
+            "Forge"
+          ],
+          "version": "1.12.2-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/netherportalfix"
+        },
+        {
+          "title": "Animatica（动画）",
+          "description": "实现 OptiFine/MCPatcher 动画纹理格式的 mod",
+          "author": "FoundationGames",
+          "tags": [
+            "Fabric",
+            "装饰",
+            "实用工具",
+            "Quilt"
+          ],
+          "version": "1.17-1.21.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/animatica"
+        },
+        {
+          "title": "Forgified Fabric API（强化织物 API）",
+          "description": "Fabric API 在 NeoForge 之上实现",
+          "author": "Su5eD",
+          "tags": [
+            "Forge",
+            "库",
+            "Neoforge"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/forgified-fabric-api"
+        },
+        {
+          "title": "Let Me Despawn（让我消失）",
+          "description": "通过调整生物消失规则来提高性能。告别讨厌的无意识的顽固暴民。",
+          "author": "frikinjay",
+          "tags": [
+            "purpur",
+            "Quilt",
+            "Neoforge",
+            "paper",
+            "Fabric",
+            "bukkit",
+            "Forge",
+            "优化"
+          ],
+          "version": "1.12.2-26.2-snapshot-4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/lmd"
+        },
+        {
+          "title": "Drippy Loading Screen（滴水加载屏幕）",
+          "description": "FancyMenu 的插件可自定义加载屏幕。",
+          "author": "Keksuccino",
+          "tags": [
+            "Forge",
+            "Fabric",
+            "实用工具",
+            "Neoforge"
+          ],
+          "version": "1.16.2-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/drippy-loading-screen"
+        },
+        {
+          "title": "Athena（雅典娜）",
+          "description": "1.19.4+ 连接块纹理的跨平台（Forge/Fabric）解决方案",
+          "author": "Terrarium",
+          "tags": [
+            "Neoforge",
+            "Fabric",
+            "装饰",
+            "Forge",
+            "库"
+          ],
+          "version": "1.19.4-26.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/athena-ctm"
+        },
+        {
+          "title": "MixinTrace（混合跟踪）",
+          "description": "将堆栈跟踪中的 mixins 列表添加到崩溃报告中",
+          "author": "comp500",
+          "tags": [
+            "Quilt",
+            "Fabric"
+          ],
+          "version": "1.16.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/mixintrace"
+        },
+        {
+          "title": "Terralith（泰拉石）",
+          "description": "仅使用香草方块探索近 100 个由现实主义和轻奇幻元素组成的新生物群落。配有多个沉浸式结构，以补充经过彻底改造的地形。",
+          "author": "Starmute",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "数据包",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.18.2-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/terralith"
+        },
+        {
+          "title": "YUNG's Better Ocean Monuments（YUNG 更好的海洋纪念碑）",
+          "description": "Minecraft 海洋纪念碑的彻底重新设计！",
+          "author": "YUNGNICKYOUNG",
+          "tags": [
+            "Neoforge",
+            "冒险",
+            "Fabric",
+            "装饰",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.19.2-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yungs-better-ocean-monuments"
+        },
+        {
+          "title": "Dynamic Crosshair（动态十字线）",
+          "description": "根据上下文隐藏或更改十字准线的模组",
+          "author": "Crendgrim",
+          "tags": [
+            "Forge",
+            "Fabric",
+            "实用工具",
+            "Neoforge"
+          ],
+          "version": "1.18-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/dynamiccrosshair"
+        },
+        {
+          "title": "FastQuit（快速退出）",
+          "description": "让您在您的世界仍在后台保存时提前返回标题屏幕！",
+          "author": "contaria",
+          "tags": [
+            "优化",
+            "Quilt",
+            "Fabric",
+            "实用工具"
+          ],
+          "version": "1.17-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/fastquit"
+        },
+        {
+          "title": "Lootr（洛特）",
+          "description": "一个让任何人都不会错过 Loot 的模组！所有战利品箱均按玩家实例化，并且视觉上独一无二。",
+          "author": "noobanidus",
+          "tags": [
+            "Forge",
+            "Fabric",
+            "实用工具",
+            "Neoforge"
+          ],
+          "version": "1.12.2-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/lootr"
+        },
+        {
+          "title": "YUNG's Better Dungeons（YUNG 的更好地下城）",
+          "description": "Minecraft 地下城的彻底重新设计！",
+          "author": "YUNGNICKYOUNG",
+          "tags": [
+            "Neoforge",
+            "冒险",
+            "Fabric",
+            "装饰",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.19.2-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yungs-better-dungeons"
+        },
+        {
+          "title": "Better Mount HUD（更好地安装HUD）",
+          "description": "改进了骑乘时的游戏内 HUD",
+          "author": "Lortseam",
+          "tags": [
+            "Fabric",
+            "实用工具"
+          ],
+          "version": "1.17-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/better-mount-hud"
+        },
+        {
+          "title": "Comforts（舒适度）",
+          "description": "添加睡袋和吊床，分别用于便携性和昼夜转换，而无需设置新的生成点。有 16 种不同颜色！",
+          "author": "TheIllusiveC4",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "冒险",
+            "Fabric",
+            "装饰",
+            "Forge"
+          ],
+          "version": "1.12.2-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/comforts"
+        },
+        {
+          "title": "Create（创造）",
+          "description": "赋予玩家力量的美学技术",
+          "author": "simibubi",
+          "tags": [
+            "Neoforge",
+            "科技",
+            "装饰",
+            "实用工具",
+            "Forge"
+          ],
+          "version": "1.18.2-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/create"
+        },
+        {
+          "title": "Dungeons and Taverns（地下城和酒馆）",
+          "description": "结构数据包添加了地下城、酒馆和其他结构，供您在探索世界时找到。",
+          "author": "NovaWostra",
+          "tags": [
+            "Neoforge",
+            "生物",
+            "冒险",
+            "Fabric",
+            "游戏机制",
+            "数据包",
+            "Forge",
+            "装备",
+            "世界生成"
+          ],
+          "version": "1.19-26.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/dungeons-and-taverns"
+        },
+        {
+          "title": "Bobby（鲍比）",
+          "description": "允许渲染距离大于服务器的观看距离",
+          "author": "Johni0702",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.16.2-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/bobby"
+        },
+        {
+          "title": "Quark（夸克）",
+          "description": "夸克是一个非常小的东西。这个模组是一些小东西的集合......",
+          "author": "Vazkii",
+          "tags": [
+            "Neoforge",
+            "科技",
+            "实用工具",
+            "游戏机制",
+            "Forge"
+          ],
+          "version": "1.9.4-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quark"
+        },
+        {
+          "title": "Chipped（缺口）",
+          "description": "每个街区都值得一个朋友。",
+          "author": "Terrarium",
+          "tags": [
+            "Fabric",
+            "装饰",
+            "Neoforge",
+            "Forge"
+          ],
+          "version": "1.18.2-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/chipped"
+        },
+        {
+          "title": "Better Third Person（更好的第三人称）",
+          "description": "改进了第三人称视角。",
+          "author": "Socolio",
+          "tags": [
+            "Neoforge",
+            "冒险",
+            "Fabric",
+            "游戏机制",
+            "Forge"
+          ],
+          "version": "1.16.4-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/better-third-person"
+        },
+        {
+          "title": "Fast IP Ping（快速 IP Ping）",
+          "description": "Yeet 延迟反向 DNS 查找文字 IP 服务器地址",
+          "author": "fallen-breath",
+          "tags": [
+            "优化",
+            "Forge",
+            "Fabric",
+            "Neoforge"
+          ],
+          "version": "1.14.4-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/fast-ip-ping"
+        },
+        {
+          "title": "Rhino（犀牛）",
+          "description": "Mozilla 的 Rhino 库的一个分支，经过修改以用于 mods",
+          "author": "Lat",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "实用工具",
+            "Forge",
+            "库"
+          ],
+          "version": "1.18.2-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/rhino"
+        },
+        {
+          "title": "Open Parties and Claims（公开当事人和索赔）",
+          "description": "增加了领取区块和组建玩家队伍的能力，与 Xaero 的小地图和世界地图集成",
+          "author": "thexaero",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "实用工具",
+            "Forge",
+            "库"
+          ],
+          "version": "1.18.2-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/open-parties-and-claims"
+        },
+        {
+          "title": "Traveler's Backpack（旅行者背包）",
+          "description": "独特且可升级的背包，可定制、Curios API/饰品集成等等！",
+          "author": "Tiviacz1337",
+          "tags": [
+            "Neoforge",
+            "冒险",
+            "Fabric",
+            "装饰",
+            "存储",
+            "Forge",
+            "装备",
+            "管理"
+          ],
+          "version": "1.12.2-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/travelersbackpack"
+        },
+        {
+          "title": "e4mc（电子4MC）",
+          "description": "随时随地向任何人开放 LAN 服务器。",
+          "author": "vgskye",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "实用工具",
+            "Forge",
+            "社交"
+          ],
+          "version": "1.17-26.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/e4mc"
+        },
+        {
+          "title": "Farmer's Delight（农民的喜悦）",
+          "description": "农耕和烹饪的舒适扩展！",
+          "author": "vectorwing",
+          "tags": [
+            "Neoforge",
+            "食物",
+            "装饰",
+            "Forge",
+            "装备"
+          ],
+          "version": "1.18.2-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/farmers-delight"
+        },
+        {
+          "title": "YUNG's Better Jungle Temples（YUNG 的更好的丛林寺庙）",
+          "description": "Minecraft 丛林神庙的彻底重新设计！",
+          "author": "YUNGNICKYOUNG",
+          "tags": [
+            "Neoforge",
+            "冒险",
+            "Fabric",
+            "装饰",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.19.2-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yungs-better-jungle-temples"
+        },
+        {
+          "title": "Litematica（莱特马蒂卡）",
+          "description": "客户端原理图模型，具有用于创意模式工作的额外功能",
+          "author": "masa",
+          "tags": [
+            "ornithe",
+            "Fabric",
+            "liteloader",
+            "实用工具",
+            "Forge",
+            "rift"
+          ],
+          "version": "1.12-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/litematica"
+        },
+        {
+          "title": "YUNG's Better Mineshafts（YUNG 的更好的矿井）",
+          "description": "期待已久且急需的废弃矿井大修！",
+          "author": "YUNGNICKYOUNG",
+          "tags": [
+            "Neoforge",
+            "冒险",
+            "Fabric",
+            "装饰",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.19.2-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yungs-better-mineshafts"
+        },
+        {
+          "title": "Controlify (Controller support)（Controlify（控制器支持））",
+          "description": "为 Minecraft Java 版添加最佳控制器支持！",
+          "author": "isxander",
+          "tags": [
+            "Fabric",
+            "实用工具",
+            "Neoforge"
+          ],
+          "version": "23w05a-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/controlify"
+        },
+        {
+          "title": "spark（火花）",
+          "description": "Spark 是适用于 Minecraft 客户端、服务器和代理的性能分析器。",
+          "author": "lucko",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "实用工具",
+            "Forge"
+          ],
+          "version": "1.16.5-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/spark"
+        },
+        {
+          "title": "Lithostitched（石缝）",
+          "description": "库 mod 具有针对 worldgen 的新可配置性和兼容性增强功能",
+          "author": "Apollo",
+          "tags": [
+            "Neoforge",
+            "Fabric",
+            "实用工具",
+            "Forge",
+            "库",
+            "世界生成"
+          ],
+          "version": "1.20-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/lithostitched"
+        },
+        {
+          "title": "Kiwi 🥝（猕猴桃🥝）",
+          "description": "Minecraft 模组库",
+          "author": "Snownee",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "Forge",
+            "库"
+          ],
+          "version": "1.18.2-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/kiwi"
+        },
+        {
+          "title": "Better Statistics Screen（更好的统计屏幕）",
+          "description": "一个 Minecraft 模组，改进了统计屏幕并使其更加有用。",
+          "author": "TheCSDev",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "实用工具",
+            "Forge"
+          ],
+          "version": "1.18.1-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/better-stats"
+        },
+        {
+          "title": "Fabrishot（法布里肖特）",
+          "description": "拍摄非常大的屏幕截图，因为为什么不呢",
+          "author": "ramidzkh",
+          "tags": [
+            "Fabric",
+            "实用工具"
+          ],
+          "version": "1.16-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/fabrishot"
+        },
+        {
+          "title": "YUNG's Better End Island（YUNG的Better End Island）",
+          "description": "对发生巨龙战斗的主末日岛进行大修！",
+          "author": "YUNGNICKYOUNG",
+          "tags": [
+            "Neoforge",
+            "冒险",
+            "Fabric",
+            "装饰",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.18.2-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yungs-better-end-island"
+        },
+        {
+          "title": "Sodium Shadowy Path Blocks（钠阴影路径块）",
+          "description": "使用 Sodium 时，为非完整方块重新引入类似香草的平滑照明（例如泥土路径以及它们在直接靠近完整方块时如何具有深色阴影）。",
+          "author": "Rynnavinx",
+          "tags": [
+            "Fabric",
+            "装饰",
+            "Neoforge",
+            "Quilt"
+          ],
+          "version": "1.16.1-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/sodium-shadowy-path-blocks"
+        },
+        {
+          "title": "Physics Mod（物理模组）",
+          "description": "欢迎来到比您以前见过的更具破坏性的 Minecraft！",
+          "author": "haubna",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "装饰",
+            "实用工具",
+            "Forge"
+          ],
+          "version": "1.16.5-26.2-snapshot-4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/physicsmod"
+        },
+        {
+          "title": "GlitchCore（故障核心）",
+          "description": "一个旨在抽象 mod 加载器并为我们的 mod 提供各种实用程序的库 mod。",
+          "author": "Adubbz",
+          "tags": [
+            "Forge",
+            "Fabric",
+            "Neoforge",
+            "库"
+          ],
+          "version": "1.10.2-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/glitchcore"
+        },
+        {
+          "title": "KubeJS（KubeJS）",
+          "description": "编辑食谱、添加新的自定义项目、编写世界事件脚本，全部用 JavaScript 完成！",
+          "author": "Lat",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "实用工具",
+            "Forge",
+            "库"
+          ],
+          "version": "1.18.2-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/kubejs"
+        },
+        {
+          "title": "Sodium Options API（钠期权API）",
+          "description": "配置 API，用于添加钠选项和更好的类别菜单",
+          "author": "Txni",
+          "tags": [
+            "Neoforge",
+            "Fabric",
+            "实用工具",
+            "Forge",
+            "优化"
+          ],
+          "version": "1.20-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/sodium-options-api"
+        },
+        {
+          "title": "Prism（棱镜）",
+          "description": "一个关于颜色的图书馆！为相关模组提供大量与颜色相关的功能。",
+          "author": "Grend",
+          "tags": [
+            "Neoforge",
+            "Fabric",
+            "装饰",
+            "实用工具",
+            "Forge",
+            "库"
+          ],
+          "version": "1.16.5-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/prism-lib"
+        },
+        {
+          "title": "Tom's Simple Storage Mod（汤姆的简单存储模块）",
+          "description": "简单的香草风格存储模块",
+          "author": "tom5454",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "存储",
+            "Forge"
+          ],
+          "version": "1.15.2-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/toms-storage"
+        },
+        {
+          "title": "I18nUpdateMod（I18n更新模组）",
+          "description": "“Minecraft Mod 语言包”的全新更新模组。 全新的「简体中文资源包」自动更新模组。",
+          "author": "xfl03",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "实用工具",
+            "Forge"
+          ],
+          "version": "1.6.1-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/i18nupdatemod"
+        },
+        {
+          "title": "ReplayMod（重播模组）",
+          "description": "用于记录、重温和分享您的体验的 Minecraft Mod。",
+          "author": "Johni0702",
+          "tags": [
+            "Forge",
+            "Fabric",
+            "实用工具"
+          ],
+          "version": "1.8-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/replaymod"
+        },
+        {
+          "title": "Modern UI（现代用户界面）",
+          "description": "现代桌面图形应用框架和低级3D图形引擎",
+          "author": "BloCamLimb",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "实用工具",
+            "Forge",
+            "优化",
+            "库",
+            "社交"
+          ],
+          "version": "1.18.1-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/modern-ui"
+        },
+        {
+          "title": "Sinytra Connector（辛尼特拉连接器）",
+          "description": "在 NeoForge 上运行您最喜欢的 Fabric 模组",
+          "author": "Su5eD",
+          "tags": [
+            "Neoforge",
+            "实用工具",
+            "Forge",
+            "库",
+            "魔法",
+            "整活"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/connector"
+        },
+        {
+          "title": "Starlight (Fabric)（星光（布））",
+          "description": "重写光引擎以修复照明性能和照明错误",
+          "author": "spottedleaf",
+          "tags": [
+            "优化",
+            "Fabric"
+          ],
+          "version": "1.17-1.20.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/starlight"
+        },
+        {
+          "title": "Particle Rain（粒子雨）",
+          "description": "用更漂亮的粒子效果取代天气",
+          "author": "PigCart",
+          "tags": [
+            "Fabric",
+            "装饰",
+            "Neoforge",
+            "Forge"
+          ],
+          "version": "1.19-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/particle-rain"
+        },
+        {
+          "title": "YUNG's Better Strongholds（YUNG更好的据点）",
+          "description": "Minecraft 的要塞完全重新设计！",
+          "author": "YUNGNICKYOUNG",
+          "tags": [
+            "Neoforge",
+            "冒险",
+            "Fabric",
+            "装饰",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.19.2-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yungs-better-strongholds"
+        },
+        {
+          "title": "Veinminer Enchantment（矿毒附魔）",
+          "description": "Veinminer Addon - 为附魔台添加 vineminer 附魔。只有带有附魔的工具才能进行矿脉挖掘",
+          "author": "Miraculixx",
+          "tags": [
+            "purpur",
+            "Quilt",
+            "paper",
+            "叶叶",
+            "Fabric",
+            "实用工具",
+            "游戏机制",
+            "数据包",
+            "装备"
+          ],
+          "version": "1.21-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/veinminer-enchantment"
+        },
+        {
+          "title": "Sodium Dynamic Lights（钠动态灯）",
+          "description": "LambDynLights 的 Multiloader 端口添加了 Sodium 选项集成",
+          "author": "Txni",
+          "tags": [
+            "Neoforge",
+            "Fabric",
+            "装饰",
+            "实用工具",
+            "Forge",
+            "优化"
+          ],
+          "version": "1.20-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/sodium-dynamic-lights"
+        },
+        {
+          "title": "YUNG's Better Witch Huts（YUNG 更好的女巫小屋）",
+          "description": "在沼泽中添加经过彻底改造的女巫小屋！",
+          "author": "YUNGNICKYOUNG",
+          "tags": [
+            "Neoforge",
+            "冒险",
+            "Fabric",
+            "装饰",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.19.2-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yungs-better-witch-huts"
+        },
+        {
+          "title": "Chat Animation [Smooth Chat]（聊天动画【聊天流畅】）",
+          "description": "使聊天消息以流畅的动画显示。",
+          "author": "Ezzenix",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "装饰",
+            "实用工具",
+            "Forge",
+            "社交"
+          ],
+          "version": "1.20-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/chatanimation"
+        },
+        {
+          "title": "Yeetus Experimentus（实验叶霉）",
+          "description": "禁用实验设置弹出窗口，该弹出窗口会在您创建或加载世界时出现。",
+          "author": "Sunekaer",
+          "tags": [
+            "Neoforge",
+            "Fabric",
+            "实用工具",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.18.2-26.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yeetus-experimentus"
+        },
+        {
+          "title": "Amendments（修正案）",
+          "description": "香草方块的许多变化",
+          "author": "MehVahdJukaar",
+          "tags": [
+            "Forge",
+            "Fabric",
+            "Neoforge"
+          ],
+          "version": "1.20-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/amendments"
+        },
+        {
+          "title": "Item Highlighter（物品荧光笔）",
+          "description": "突出显示新拾取的物品。简便。",
+          "author": "Grend",
+          "tags": [
+            "Neoforge",
+            "冒险",
+            "Fabric",
+            "实用工具",
+            "游戏机制",
+            "Forge",
+            "装备"
+          ],
+          "version": "1.12.2-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/item-highlighter"
+        },
+        {
+          "title": "Freecam（自由摄像头）",
+          "description": "高度可定制的自由摄像头模组。",
+          "author": "hashalite",
+          "tags": [
+            "Forge",
+            "Fabric",
+            "实用工具",
+            "Neoforge"
+          ],
+          "version": "1.16.2-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/freecam"
+        },
+        {
+          "title": "M.R.U（MRU）",
+          "description": "IMB11 的 mods 使用的库 mod 来运行。",
+          "author": "IMB11",
+          "tags": [
+            "Neoforge",
+            "Fabric",
+            "实用工具",
+            "Forge",
+            "库"
+          ],
+          "version": "1.19-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/mru"
+        },
+        {
+          "title": "Better Combat（更好的战斗）",
+          "description": "⚔️ 来自 Minecraft Dungeons 的简单、壮观且有趣的近战战斗系统。",
+          "author": "ZsoltMolnarrr",
+          "tags": [
+            "Neoforge",
+            "冒险",
+            "Fabric",
+            "游戏机制",
+            "Forge",
+            "库",
+            "装备"
+          ],
+          "version": "1.18.2-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/better-combat"
+        },
+        {
+          "title": "Almanac（年历）",
+          "description": "Almanac 是我的 mod 使用的一个库，在多个 mod 之间主要具有独立于加载程序的共享代码，以避免代码重复。",
+          "author": "frikinjay",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "实用工具",
+            "Forge",
+            "库"
+          ],
+          "version": "1.20.1-26.2-snapshot-4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/almanac"
+        },
+        {
+          "title": "Cristel Lib（克里斯特尔图书馆）",
+          "description": "用于轻松结构配置和运行时数据包的库模块。",
+          "author": "Cristelknight",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "Forge",
+            "库",
+            "世界生成",
+            "整活"
+          ],
+          "version": "1.18.2-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/cristel-lib"
+        },
+        {
+          "title": "Default Options（默认选项）",
+          "description": "模组包提供默认（关键）配置而无需包含 options.txt 文件的一种方法。还允许来自任何 mod .cfg 文件的本地选项。",
+          "author": "BlayTheNinth",
+          "tags": [
+            "Neoforge",
+            "Fabric",
+            "实用工具",
+            "Forge",
+            "管理"
+          ],
+          "version": "1.18-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/default-options"
+        },
+        {
+          "title": "LazyDFU（惰性DFU）",
+          "description": "通过推迟非必要的初始化来加快游戏启动速度",
+          "author": "astei",
+          "tags": [
+            "优化",
+            "Fabric"
+          ],
+          "version": "1.14-1.20.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/lazydfu"
+        },
+        {
+          "title": "Towns and Towers（城镇和塔楼）",
+          "description": "用新的村庄、掠夺者前哨站，甚至新的船只让你的世界变得更加有趣！",
+          "author": "Biban_Auriu",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "冒险",
+            "Fabric",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.18.2-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/towns-and-towers"
+        },
+        {
+          "title": "Advancement Plaques（进步牌匾）",
+          "description": "用更华丽的东西取代那些无聊的进度弹出窗口。",
+          "author": "Grend",
+          "tags": [
+            "Neoforge",
+            "冒险",
+            "Fabric",
+            "实用工具",
+            "游戏机制",
+            "Forge"
+          ],
+          "version": "1.12.2-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/advancement-plaques"
+        },
+        {
+          "title": "Chloride (Embeddium++/Sodium++)（氯化物（Embeddium++/钠++））",
+          "description": "为 Embeddium/Sodium 提供额外的性能和质量功能，带来高雅的体验",
+          "author": "SrRapero720",
+          "tags": [
+            "Forge",
+            "优化",
+            "实用工具",
+            "Neoforge"
+          ],
+          "version": "1.18.2-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/chloride"
+        },
+        {
+          "title": "Eating Animation（吃动画）",
+          "description": "为可食用和可饮用的物品添加精灵动画的模组。",
+          "author": "theoness1",
+          "tags": [
+            "食物",
+            "Fabric"
+          ],
+          "version": "1.16-1.21.3",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/eating-animation"
+        },
+        {
+          "title": "YUNG's Better Desert Temples（YUNG 的更好的沙漠寺庙）",
+          "description": "Minecraft 沙漠神庙的彻底重新设计！",
+          "author": "YUNGNICKYOUNG",
+          "tags": [
+            "Neoforge",
+            "冒险",
+            "Fabric",
+            "装饰",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.19.2-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yungs-better-desert-temples"
+        },
+        {
+          "title": "Wavey Capes（波浪斗篷）",
+          "description": "斗篷不应该是静态板",
+          "author": "tr7zw",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "装饰",
+            "Forge"
+          ],
+          "version": "1.8.8-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/wavey-capes"
+        },
+        {
+          "title": "Tectonic（构造）",
+          "description": "地形塑造达到了新的高度，比以往任何时候都更加宏伟和多样化！",
+          "author": "Apollo",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "冒险",
+            "Fabric",
+            "数据包",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.18.2-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/tectonic"
+        },
+        {
+          "title": "InvMove（反转移动）",
+          "description": "锻造/织物/被子模组，增加了在库存中四处走动的能力",
+          "author": "PieKing1215",
+          "tags": [
+            "交通",
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "实用工具",
+            "Forge"
+          ],
+          "version": "1.16-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/invmove"
+        },
+        {
+          "title": "Cut Through（切入）",
+          "description": "干净利落地穿过高草等透明方块来击中小怪，而不会破坏该方块。",
+          "author": "Fuzs",
+          "tags": [
+            "Neoforge",
+            "冒险",
+            "Fabric",
+            "游戏机制",
+            "Forge",
+            "装备"
+          ],
+          "version": "1.18.2-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/cut-through"
+        },
+        {
+          "title": "YUNG's Bridges（YUNG的桥梁）",
+          "description": "在世界各地添加美丽的自然生成的桥梁！",
+          "author": "YUNGNICKYOUNG",
+          "tags": [
+            "Neoforge",
+            "冒险",
+            "Fabric",
+            "装饰",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.19.2-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yungs-bridges"
+        },
+        {
+          "title": "SuperMartijn642's Core Lib（SuperMartijn642 的核心库）",
+          "description": "SuperMartijn642 的核心库添加了许多基本实现，允许不同 Minecraft 版本之间使用类似的代码！",
+          "author": "SuperMartijn642",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "Forge",
+            "库"
+          ],
+          "version": "1.12-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/supermartijn642s-core-lib"
+        },
+        {
+          "title": "Very Many Players (Fabric)（很多玩家（结构））",
+          "description": "一个 Fabric 模组，旨在提高高玩家数量下的服务器性能。",
+          "author": "ishland",
+          "tags": [
+            "优化",
+            "Fabric"
+          ],
+          "version": "1.18-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/vmp-fabric"
+        },
+        {
+          "title": "Cardinal Components API（主要组件API）",
+          "description": "简单、模块化且速度极快的数据附件 API。",
+          "author": "Ladysnake",
+          "tags": [
+            "Quilt",
+            "Fabric",
+            "库"
+          ],
+          "version": "1.18-26.1.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/cardinal-components-api"
+        },
+        {
+          "title": "Chunky（矮胖的）",
+          "description": "快速高效地预生成块",
+          "author": "pop4959",
+          "tags": [
+            "Neoforge",
+            "paper",
+            "叶叶",
+            "Fabric",
+            "实用工具",
+            "bukkit",
+            "spigot",
+            "Forge",
+            "优化",
+            "世界生成",
+            "sponge"
+          ],
+          "version": "1.13.2-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/chunky"
+        },
+        {
+          "title": "Easy Anvils（简易砧座）",
+          "description": "准备好检修砧座！物品保留，更好的名称标签，许多调整！",
+          "author": "Fuzs",
+          "tags": [
+            "Neoforge",
+            "Fabric",
+            "游戏机制",
+            "Forge",
+            "装备"
+          ],
+          "version": "1.18.2-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/easy-anvils"
+        },
+        {
+          "title": "ToolTipFix（工具提示修复）",
+          "description": "修复了工具提示从屏幕上消失的问题。",
+          "author": "kyrptonaught",
+          "tags": [
+            "优化",
+            "Fabric",
+            "实用工具"
+          ],
+          "version": "1.17.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/tooltipfix"
+        },
+        {
+          "title": "CICADA（蝉）",
+          "description": "令人困惑、有趣且相当不可知的发展援助",
+          "author": "enjarai",
+          "tags": [
+            "Fabric",
+            "库"
+          ],
+          "version": "1.16-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/cicada"
+        },
+        {
+          "title": "EnhancedVisuals（增强视觉效果）",
+          "description": "感受痛苦吧！",
+          "author": "creativemd",
+          "tags": [
+            "Neoforge",
+            "冒险",
+            "Fabric",
+            "装饰",
+            "Forge"
+          ],
+          "version": "1.18.2-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/enhancedvisuals"
+        },
+        {
+          "title": "TCDCommons API（TCDCommons API）",
+          "description": "TheCSDev 的 Minecraft 模组环境的个人库模组。",
+          "author": "TheCSDev",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "实用工具",
+            "Forge"
+          ],
+          "version": "1.18.2-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-29 17:51:53"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/tcdcommons"
         }
       ]
     },
