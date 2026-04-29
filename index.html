@@ -225,8 +225,14 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
         <button class="clear-search-btn" id="clearSearchBtn" style="display: none;">✖</button>
     </div>
     <button class="view-toggle-btn" id="viewToggleBtn">📋 列表视图</button>
-    <select class="sort-select" id="sortSelect">...</select>
-    <select class="page-size-select" id="pageSizeSelect">...</select>
+    <select class="sort-select" id="sortSelect">
+        <option value="title-asc">🔤 标题 A-Z</option>
+        <option value="date-desc">📅 最新优先</option>
+    </select>
+    <select class="page-size-select" id="pageSizeSelect">
+        <option value="50">50 个/页</option>
+        <option value="100">100 个/页</option>
+    </select>
 </div>
 <div class="pagination" id="paginationContainerTop"></div>
 <div id="duplicateToolbarContainer"></div><div id="cardsContainer" class="cards-grid"></div>
