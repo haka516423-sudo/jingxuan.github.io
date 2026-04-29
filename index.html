@@ -881,6 +881,7 @@ async function searchModrinth(originalQuery) {
         }
 
         // 批量添加按钮（点击后才翻译）
+        // 批量添加按钮（直接添加原始英文，不翻译内容）
         const batchAddBtn = document.getElementById('modrinthBatchAdd');
         if (batchAddBtn) {
             batchAddBtn.addEventListener('click', async () => {
@@ -888,40 +889,22 @@ async function searchModrinth(originalQuery) {
                 if (selected.length === 0) return alert('请至少选择一个模组');
                 if (!confirm(`确定添加 ${selected.length} 个模组到当前分组吗？`)) return;
 
-                // 提示用户正在翻译
-                modrinthResults.innerHTML = `<div class="loading-spinner">🌐 正在翻译 ${selected.length} 个模组，请稍候...</div>`;
                 let addedCount = 0;
-                // 逐个翻译并添加，避免429
                 for (let i = 0; i < selected.length; i++) {
                     const cb = selected[i];
                     const container = cb.closest('.modrinth-result-item');
                     if (!container) continue;
-                    const originalData = {
-                        title: container.dataset.title,
-                        description: container.dataset.desc,
+                    const cardData = {
+                        title: container.dataset.title,           // 原始英文标题
+                        description: container.dataset.desc,      // 原始英文描述
                         author: container.dataset.author,
-                        tags: container.dataset.categories ? container.dataset.categories.split(',') : [],
+                        tags: container.dataset.categories ? container.dataset.categories.split(',') : [], // 原始英文标签
                         version: container.dataset.version,
                         url: container.dataset.url,
                         downloads: container.dataset.downloads
                     };
-                    // 翻译这一项
-                    const translated = await translateResultItem(originalData);
-                    const cardData = {
-                        title: translated.translatedTitle !== originalData.title 
-                            ? `${originalData.title} (${translated.translatedTitle})` 
-                            : originalData.title,
-                        description: translated.translatedDesc,
-                        author: originalData.author,
-                        tags: translated.translatedTags,
-                        version: originalData.version,
-                        url: originalData.url,
-                        downloads: originalData.downloads
-                    };
-                    addModrinthCardToCurrentGroup(cardData);
+                   addModrinthCardToCurrentGroup(cardData);
                     addedCount++;
-                    // 可选：每添加一个稍微延迟，避免翻译API过载
-                    await new Promise(r => setTimeout(r, 200));
                 }
                 alert(`成功添加 ${addedCount} 个模组！`);
                 modrinthModal.classList.remove('active');
