@@ -988,12 +988,32 @@ function addModrinthCardToCurrentGroup(modData) {
     // 可选：显示短暂提示
 }
 
-// 绑定搜索按钮点击事件
+let isSearching = false; // 全局标志，防止重复提交
+
 if (modrinthSearchExec) {
-    modrinthSearchExec.addEventListener('click', () => {
+    modrinthSearchExec.addEventListener('click', async () => {
         const q = modrinthQuery.value.trim();
-        if (q) searchModrinth(q);
-        else alert('请输入要搜索的模组名称');
+        if (!q) {
+            alert('请输入要搜索的模组名称');
+            return;
+        }
+        if (isSearching) {
+            alert('搜索中，请稍候...');
+            return;
+        }
+        isSearching = true;
+        modrinthSearchExec.disabled = true;
+        modrinthSearchExec.textContent = '搜索中...';
+        
+        try {
+            await searchModrinth(q);
+        } catch (err) {
+            console.error(err);
+        } finally {
+            isSearching = false;
+            modrinthSearchExec.disabled = false;
+            modrinthSearchExec.textContent = '搜索';
+        }
     });
 }
 // 支持回车搜索
