@@ -1182,9 +1182,11 @@ async function addModrinthCardToCurrentGroup(modData) {
     // 2. 翻译标签：只保留 Fabric / Forge / NeoForge 不翻，其它都翻
     const translatedTags = await Promise.all((modData.tags || []).map(async (tag) => {
         if (!tag) return '';
-        // 这三个加载器不翻译，保留原样
-        if (['Fabric', 'Forge', 'NeoForge'].includes(tag)) return tag;
-        // 其它标签翻译成中文
+        // 转为小写后，只保留这三个加载器的原始英文
+        if (['fabric', 'forge', 'neoforge'].includes(tag.toLowerCase())) {
+        return tag;   // 直接返回原始标签（保持原大小写）
+        }
+        // 其他标签才翻译
         return await translateToChinese(tag);
     }));
 
