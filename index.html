@@ -1296,10 +1296,46 @@ function renderAll(){loadVersions();renderGroupButtons();renderVersionList();ren
 
 let modrinthSelectedVersion = null;  // 当前选中的版本，null表示所有版本
 
-
+// ========== 插入以下函数 ==========
+function populateModrinthVersionFilter() {
+    const container = document.getElementById('modrinthVersionTags');
+    if (!container) return;
+    container.innerHTML = '';
+    
+    // 添加一个"所有版本"按钮
+    const allBtn = document.createElement('button');
+    allBtn.className = `version-tag ${modrinthSelectedVersion === null ? 'active' : ''}`;
+    allBtn.textContent = '全部';
+    allBtn.addEventListener('click', () => {
+        modrinthSelectedVersion = null;
+        populateModrinthVersionFilter();
+    });
+    container.appendChild(allBtn);
+    
+    // 按侧边栏版本数组生成按钮
+    const sorted = [...versions].sort((a, b) => {
+        const aParts = a.split('.').map(Number);
+        const bParts = b.split('.').map(Number);
+        for (let i = 0; i < Math.min(aParts.length, bParts.length); i++) {
+            if (aParts[i] !== bParts[i]) return bParts[i] - aParts[i];
+        }
+        return bParts.length - aParts.length;
+    });
+    
+    sorted.forEach(v => {
+        const btn = document.createElement('button');
+        btn.className = `version-tag ${modrinthSelectedVersion === v ? 'active' : ''}`;
+        btn.textContent = v;
+        btn.addEventListener('click', () => {
+            modrinthSelectedVersion = (modrinthSelectedVersion === v) ? null : v;
+            populateModrinthVersionFilter();
+        });
+        container.appendChild(btn);
+    });
+}
+// ==========================================
 
 async function start(){loadVersions();await loadInitialData();loadSortPreference();initBackground();buildPalette();updateSortOptions();renderAll();}start();
-})();
 
 
 // ========== 翻译字符配额管理 ==========
