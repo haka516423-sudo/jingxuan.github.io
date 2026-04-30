@@ -597,7 +597,42 @@ function parseVersionRange(input) { const range = input.trim(); if (!range.inclu
 function addVersionFromInput(input) { const parts = input.split(',').map(v => v.trim()).filter(v => v); let added = 0; parts.forEach(part => { const candidates = parseVersionRange(part); candidates.forEach(v => { if (!versions.includes(v)) { versions.push(v); added++; } }); }); if (added) { versions.sort((a, b) => b.localeCompare(a, undefined, { numeric: true })); saveVersions(); renderVersionList(); } }
 if (addVersionBtn) addVersionBtn.addEventListener('click', () => { const inp = prompt('输入版本或范围（如 1.20-1.21 或 1.16.5）：'); if (inp && inp.trim()) addVersionFromInput(inp); });
 
-function renderVersionList(){ if(!versionListContainer)return; let h=''; versions.forEach((v,i)=>{ const ac=currentVersionFilter===v?'active':''; h+=`<span class="version-tag ${ac}" data-ver="${escapeHtml(v)}">${escapeHtml(v)}<button class="v-del-btn" data-idx="${i}">×</button></span>`; }); versionListContainer.innerHTML=h||'<span style="font-size:0.7rem;color:#aaa">暂无版本</span>'; document.querySelectorAll('.version-tag').forEach(el=>{el.addEventListener('click',e=>{if(e.target.classList.contains('v-del-btn'))return;const v=el.dataset.ver;currentVersionFilter=(currentVersionFilter===v)?null:v;renderVersionList();currentPage=1;renderCards();renderGroupButtons()})}); document.querySelectorAll('.v-del-btn').forEach(b=>{b.addEventListener('click',e=>{e.stopPropagation();const i=parseInt(b.dataset.idx);if(confirm(`删除版本 ${versions[i]}?`)){versions.splice(i,1);saveVersions();if(currentVersionFilter===versions[i])currentVersionFilter=null;renderVersionList();currentPage=1;renderCards();renderGroupButtons()}})}); if(versionDatalist) versionDatalist.innerHTML = ALL_KNOWN_VERSIONS.map(v=>`<option value="${escapeHtml(v)}">`).join(''); }
+function renderVersionList(){ 
+    if(!versionListContainer)return; 
+    let h=''; 
+    versions.forEach((v,i)=>{ 
+        const ac=currentVersionFilter===v?'active':''; 
+        h+=`<span class="version-tag ${ac}" data-ver="${escapeHtml(v)}">${escapeHtml(v)}<button class="v-del-btn" data-idx="${i}">×</button></span>`; 
+    }); 
+    versionListContainer.innerHTML=h||'<span style="font-size:0.7rem;color:#aaa">暂无版本</span>'; 
+    
+    document.querySelectorAll('.version-tag').forEach(el=>{
+        el.addEventListener('click',e=>{
+            if(e.target.classList.contains('v-del-btn'))return;
+            const v=el.dataset.ver;
+            currentVersionFilter=(currentVersionFilter===v)?null:v;
+            renderVersionList();
+            currentPage=1;renderCards();renderGroupButtons();
+        });
+    }); 
+    
+    document.querySelectorAll('.v-del-btn').forEach(b=>{
+        b.addEventListener('click',e=>{
+            e.stopPropagation();
+            const i=parseInt(b.dataset.idx);
+            if(confirm(`删除版本 ${versions[i]}?`)){
+                versions.splice(i,1);
+                saveVersions();
+                if(currentVersionFilter===versions[i])currentVersionFilter=null;
+                renderVersionList();
+                currentPage=1;renderCards();renderGroupButtons();
+            }
+        });
+    }); 
+    
+    if(versionDatalist) versionDatalist.innerHTML = ALL_KNOWN_VERSIONS.map(v=>`<option value="${escapeHtml(v)}">`).join('');
+    populateModrinthVersionFilter();   // 这行保留，确保下拉框同步更新
+}
 
 function extractAllTags(){const m=new Map();for(const g of groupsData)for(const i of g.items)for(const t of normalizeTags(i.tags)){const k=t.trim();if(k)m.set(k,(m.get(k)||0)+1)}return Array.from(m.entries()).sort((a,b)=>b[1]-a[1])}
 function renderTagList(){if(!tagListContainer)return;const tags=extractAllTags();if(!tags.length){tagListContainer.innerHTML='<div style="font-size:0.7rem;color:#aaa">暂无标签</div>';return}const fx=['Fabric','Forge','NeoForge'];let ft=[],ot=[];for(const [t,c] of tags)(fx.includes(t)?ft:ot).push([t,c]);ft.sort((a,b)=>fx.indexOf(a[0])-fx.indexOf(b[0]));ot.sort((a,b)=>b[1]-a[1]);let h='';for(const [t,c] of [...ft,...ot]){const ac=currentTagFilter===t?'active':'';h+=`<button class="tag-btn ${ac}" data-tag="${escapeHtml(t)}">${escapeHtml(t)} (${c})</button>`}tagListContainer.innerHTML=h;clearTagFilterBtn.style.display=currentTagFilter?'inline-flex':'none';document.querySelectorAll('.tag-btn').forEach(b=>{b.addEventListener('click',()=>{const t=b.dataset.tag;currentTagFilter=(currentTagFilter===t)?null:t;renderTagList();currentPage=1;renderCards();renderGroupButtons()})})}
@@ -1243,16 +1278,14 @@ const sv=localStorage.getItem('listViewPreference');if(sv==='true'){isListView=t
 const ls=localStorage.getItem('layout_settings');if(ls)try{const s=JSON.parse(ls);['radiusSlider','paddingSlider','gapSlider'].forEach((id,i)=>{const e=document.getElementById(id);if(e)e.value=[s.radius,s.padding,s.gap][i]});updateLayout()}catch(e){updateLayout()}else updateLayout();
 
 function renderAll(){loadVersions();renderGroupButtons();renderVersionList();renderCards();renderTagList()}
-async function start(){loadVersions();await loadInitialData();loadSortPreference();initBackground();buildPalette();updateSortOptions();renderAll();}start();
-})();
 
 function populateModrinthVersionFilter() {
     const select = document.getElementById('modrinthVersionFilter');
     if (!select) return;
-    // 只保留第一个“所有版本”选项
+    // 保留“所有版本”选项
     select.innerHTML = '<option value="">所有版本</option>';
-    // 按数字降序排列
-    const sortedVersions = [...ALL_KNOWN_VERSIONS].sort((a, b) => {
+    // 使用侧边栏的 versions 数组，按数字降序排列
+    const sorted = [...versions].sort((a, b) => {
         const aParts = a.split('.').map(Number);
         const bParts = b.split('.').map(Number);
         for (let i = 0; i < Math.min(aParts.length, bParts.length); i++) {
@@ -1260,13 +1293,18 @@ function populateModrinthVersionFilter() {
         }
         return bParts.length - aParts.length;
     });
-    sortedVersions.forEach(v => {
+    sorted.forEach(v => {
         const option = document.createElement('option');
         option.value = v;
         option.textContent = v;
         select.appendChild(option);
     });
 }
+
+async function start(){loadVersions();await loadInitialData();loadSortPreference();initBackground();buildPalette();updateSortOptions();renderAll();}start();
+})();
+
+
 // 页面初始化时调用
 populateModrinthVersionFilter();
 
