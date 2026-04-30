@@ -373,7 +373,15 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 <!-- Modrinth 搜索模态框 (正确版本) -->
 <div id="modrinthModal" class="modal">
     <div class="modal-content modrinth-modal">
-        <h3>🔍 搜索 Modrinth 模组</h3>
+        <h3 style="position: relative; display: flex; justify-content: space-between; align-items: center;">
+            🔍 搜索 Modrinth 模组
+            <button id="modrinthCloseTop" 
+                style="background: rgba(255,255,255,0.2); border: none; color: #eee;
+                       font-size: 1.2rem; width: 30px; height: 30px; border-radius: 50%;
+                       cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                ✖
+            </button>
+        </h3>
         <!-- 底部按钮 -->
         <div class="modal-buttons">
             <button class="cancel-btn" id="modrinthModalClose">关闭</button>
