@@ -358,6 +358,13 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
             <input type="text" id="modrinthQuery" placeholder="输入中文或英文关键词...">
             <button id="modrinthSearchExec">搜索</button>
         </div>
+        <!-- 新增版本选择 -->
+        <div style="display: flex; align-items: center; gap: 8px; margin: 8px 0;">
+            <label for="modrinthVersionFilter" style="font-size: 0.8rem; white-space: nowrap;">🎮 版本：</label>
+            <select id="modrinthVersionFilter" style="flex: 1; padding: 6px 10px; border-radius: 12px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: #fff; font-size: 0.85rem;">
+                <option value="">所有版本</option>
+            </select>
+        </div>
         <!-- 新增剩余字符数显示 -->
         <div id="translateQuotaInfo" style="font-size:0.7rem; color:#aaa; margin-top:4px;"></div>
         <!-- 自动翻译选项 (放在搜索框下面，结果区域上面) -->
@@ -886,7 +893,13 @@ async function searchModrinth(originalQuery) {
     }
 
     try {
-        const url = `https://api.modrinth.com/v2/search?query=${encodeURIComponent(finalQuery)}&limit=20`;
+        const versionSelect = document.getElementById('modrinthVersionFilter');
+        let facets = [];
+        if (versionSelect && versionSelect.value) {
+            facets = [[`versions:${versionSelect.value}`]];
+        }
+        const facetsParam = facets.length ? `&facets=${encodeURIComponent(JSON.stringify(facets))}` : '';
+        const url = `https://api.modrinth.com/v2/search?query=${encodeURIComponent(finalQuery)}&limit=20${facetsParam}`;
         const res = await fetch(url);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
@@ -1232,6 +1245,30 @@ const ls=localStorage.getItem('layout_settings');if(ls)try{const s=JSON.parse(ls
 function renderAll(){loadVersions();renderGroupButtons();renderVersionList();renderCards();renderTagList()}
 async function start(){loadVersions();await loadInitialData();loadSortPreference();initBackground();buildPalette();updateSortOptions();renderAll();}start();
 })();
+
+function populateModrinthVersionFilter() {
+    const select = document.getElementById('modrinthVersionFilter');
+    if (!select) return;
+    // 只保留第一个“所有版本”选项
+    select.innerHTML = '<option value="">所有版本</option>';
+    // 按数字降序排列
+    const sortedVersions = [...ALL_KNOWN_VERSIONS].sort((a, b) => {
+        const aParts = a.split('.').map(Number);
+        const bParts = b.split('.').map(Number);
+        for (let i = 0; i < Math.min(aParts.length, bParts.length); i++) {
+            if (aParts[i] !== bParts[i]) return bParts[i] - aParts[i];
+        }
+        return bParts.length - aParts.length;
+    });
+    sortedVersions.forEach(v => {
+        const option = document.createElement('option');
+        option.value = v;
+        option.textContent = v;
+        select.appendChild(option);
+    });
+}
+// 页面初始化时调用
+populateModrinthVersionFilter();
 
 // ========== 翻译字符配额管理 ==========
 const TRANSLATION_DAILY_LIMIT = 5000;
