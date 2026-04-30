@@ -38,7 +38,7 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 .tag-section{flex:1 1 0;min-height:0;display:flex;flex-direction:column;overflow:hidden;padding-top:8px}
 .tag-scroll-area{flex:1}
 
-.group-btn{background:rgba(255,255,235,0.4);backdrop-filter:blur(6px);border:none;padding:10px 18px;font-size:0.95rem;font-weight:500;text-align:left;color:var(--text-primary);cursor:pointer;transition:0.08s;border-radius:var(--card-radius);width:100%;text-align: center;}
+.group-btn{background:rgba(255,255,235,0.4);backdrop-filter:blur(6px);border:none;padding:10px 18px;font-size:0.95rem;font-weight:500;color:var(--text-primary);cursor:pointer;transition:0.08s;border-radius:var(--card-radius);width:100%;text-align:center;}
 .group-btn:hover{background:rgba(255,255,250,0.7)}.group-btn.active{background:var(--theme-accent);color:var(--text-on-accent);box-shadow:0 4px 12px rgba(0,0,0,0.15)}
 .group-btn-row{display:flex;align-items:center;gap:4px;margin-bottom:6px}
 
@@ -252,7 +252,17 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
     margin: 0;
     cursor: pointer;
 }
+/* 强制所有滚动条轨道完全透明（覆盖 Safari 默认） */
+*::-webkit-scrollbar-track {
+    background: transparent !important;
+    -webkit-appearance: none !important;
+    box-shadow: none !important;
+}
 
+/* 同时支持 Firefox 的 thin 滚动条透明轨道 */
+* {
+    scrollbar-color: var(--scrollbar-thumb) transparent;
+}
 .main{flex:1;min-width:0}
 .header-area{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px;padding-bottom:12px;position:relative}
 .title-section h1{font-size:1.8rem;font-weight:700;color:var(--text-primary)}
@@ -1028,7 +1038,10 @@ async function translateToChinese(text) {
         // 可选择弹窗提示，这里仅日志警告
     }
     // ============================================
-
+    if (charCount > remaining) {
+        console.warn(`翻译配额不足！${charCount} 字符超过剩余 ${remaining} 字符`);
+        return text;   // 直接返回原文，不调用 API
+    }
     // 3. 调用 MyMemory API
     try {
         const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|zh`;
@@ -1160,6 +1173,7 @@ document.getElementById('adminBtn')?.addEventListener('click',checkAdminPassword
 document.getElementById('addCardBtn')?.addEventListener('click',()=>openEditModal(currentGroupIndex,undefined,{title:'',description:'',url:'',author:'',tags:[],version:'',stats:{downloads:'—',updated:''},type:'link'}));
 document.getElementById('resetDataBtn')?.addEventListener('click',resetToDefault);
 document.getElementById('clearCacheBtn')?.addEventListener('click',clearAllCache);
+document.getElementById('clearTransCacheBtn')?.addEventListener('click', clearTranslationCache);
 document.getElementById('exportDataBtn')?.addEventListener('click',exportData);
 document.getElementById('exitAdminBtn')?.addEventListener('click',disableAdminMode);
 document.getElementById('addGroupBtn')?.addEventListener('click',addNewGroup);
