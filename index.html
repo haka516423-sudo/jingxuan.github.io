@@ -344,13 +344,13 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 .title-section h1{font-size:1.8rem;font-weight:700;color:var(--text-primary)}
 .title-section p{color:var(--text-secondary);font-size:0.8rem}
 .action-buttons{display:flex;gap:8px;align-items:center}
-.admin-btn,.palette-btn{background:rgba(255,255,240,0.5);border:none;padding:8px 16px;border-radius:30px;font-weight:500;cursor:pointer;backdrop-filter:blur(8px);transition:0.1s;box-shadow:0 2px 6px rgba(0,0,0,0.1);color:var(--text-primary)}
+.admin-btn,.palette-btn{background: var(--badge-bg);border: 1px solid transparent;padding:8px 16px;border-radius:30px;font-weight:500;cursor:pointer;backdrop-filter:blur(8px);transition:0.1s;box-shadow:0 2px 6px rgba(0,0,0,0.1);color: var(--badge-text)}
 .data-source-indicator{display:inline-flex;align-items:center;gap:6px;font-size:0.7rem;background:rgba(0,0,0,0.5);padding:4px 10px;border-radius:30px;color:#eee}
 .indicator-dot{width:8px;height:8px;border-radius:8px}.indicator-dot.cloud{background:#10b981}.indicator-dot.local{background:#f59e0b}.indicator-dot.default{background:#9ca3af}
 .search-bar{display:flex;gap:10px;margin-bottom:24px;align-items:center}
 .search-box{flex:1;min-width:160px;padding:12px 18px;background:rgba(255,255,255,calc(var(--glass-opacity)+0.05));backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.5);font-size:0.95rem;color:var(--text-primary);border-radius:var(--card-radius)}
 .search-box::placeholder{color:var(--text-secondary);opacity:0.7}
-.view-toggle-btn,.sort-select,.page-size-select{background:rgba(255,255,240,0.4);border:none;padding:8px 16px;font-size:0.85rem;font-weight:500;cursor:pointer;backdrop-filter:blur(8px);transition:0.1s;color:var(--text-primary);border-radius:var(--card-radius)}
+.view-toggle-btn,.sort-select,.page-size-select{background: var(--badge-bg);border: 1px solid transparent;padding:8px 16px;font-size:0.85rem;font-weight:500;cursor:pointer;backdrop-filter:blur(8px);transition:0.1s;color: var(--badge-text);border-radius:var(--card-radius);box-shadow: none;}
 .sort-select{appearance:none;padding-right:28px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'><polyline points='6 9 12 15 18 9' fill='none' stroke='currentColor' stroke-width='2'/></svg>");background-repeat:no-repeat;background-position:right 8px center}
 .page-size-select {
     appearance: none;                /* 去掉默认箭头 */
