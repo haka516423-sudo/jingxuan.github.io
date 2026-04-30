@@ -472,7 +472,11 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 <div id="layoutPanel" class="layout-panel"><div style="font-weight:600;color:#eee">🎨 布局定制</div><div style="display:flex;justify-content:space-between;color:#ddd;font-size:0.7rem">卡片圆角<span id="radiusVal">20px</span></div><input type="range" id="radiusSlider" min="8" max="40" step="1" value="20"><div style="display:flex;justify-content:space-between;color:#ddd;font-size:0.7rem">内边距<span id="paddingVal">20px</span></div><input type="range" id="paddingSlider" min="12" max="32" step="1" value="20"><div style="display:flex;justify-content:space-between;color:#ddd;font-size:0.7rem">间距<span id="gapVal">28px</span></div><input type="range" id="gapSlider" min="16" max="48" step="2" value="28"><button id="resetLayoutBtn" style="background:var(--theme-accent);border:none;padding:6px;border-radius:20px;color:var(--text-on-accent);cursor:pointer">重置默认</button></div>
 <div id="cardModal" class="modal"><div class="modal-content"><h3 id="modalTitle">编辑卡片</h3><input type="text" id="cardTitle" placeholder="标题">
 <div class="type-btn-group" id="typeBtnGroup"><button class="type-btn active" data-type="link">🔗 链接</button><button class="type-btn" data-type="text">📄 文本</button><button class="type-btn" data-type="mindmap">🧠 导图</button></div>
-<textarea id="cardDesc" placeholder="描述" rows="2"></textarea><div id="linkContentArea"><input type="url" id="cardUrl" placeholder="网址"></div><div id="textContentArea" style="display:none"><textarea id="cardTextContent" placeholder="文本内容" rows="4"></textarea></div><div id="mindmapContentArea" style="display:none"><textarea id="cardMindmapContent" placeholder="Markdown大纲" rows="4"></textarea></div><input type="text" id="cardAuthor" placeholder="作者"><input type="text" id="cardTags" placeholder="标签(逗号分隔)">
+<textarea id="cardDesc" placeholder="描述" rows="2"></textarea><div id="linkContentArea"><input type="url" id="cardUrl" placeholder="网址"></div><div id="textContentArea" style="display:none"><textarea id="cardTextContent" placeholder="文本内容" rows="4"></textarea></div><div id="mindmapContentArea" style="display:none">
+    <textarea id="cardMindmapContent" placeholder="Markdown大纲" rows="4"></textarea>
+    <button id="uploadMindmapFileBtn" style="margin-top:8px; background:rgba(255,255,240,0.2); border:1px solid rgba(255,255,255,0.3); color:#eee; padding:6px 14px; border-radius:14px; cursor:pointer; font-size:0.8rem;">📂 从本地文件导入</button>
+    <input type="file" id="mindmapFileInput" accept=".md,.txt" style="display:none;">
+</div><input type="text" id="cardAuthor" placeholder="作者"><input type="text" id="cardTags" placeholder="标签(逗号分隔)">
 <div id="presetTags">
   <button type="button" class="preset-tag-btn" data-tag="Fabric">Fabric</button>
   <button type="button" class="preset-tag-btn" data-tag="Forge">Forge</button>
@@ -916,7 +920,31 @@ function parseBatchText(){
 function openTextView(title,content){textModalTitle.innerText=title;textContentDisplay.innerHTML=escapeHtml(content).replace(/\n/g,'<br>');textModal.classList.add('active')}
 function closeTextModal(){textModal.classList.remove('active')}
 function openMindmap(gi,ci){const card=groupsData[gi].items[ci];mindmapTitle.innerText=`思维导图 - ${card.title}`;const cont=card.mindmap||'';if(isAdminMode){mindmapEditor.style.display='block';mindmapSave.style.display='inline-block';mindmapEditor.value=cont}else{mindmapEditor.style.display='none';mindmapSave.style.display='none'}renderMindmap(cont||'# 思维导图\n请编辑内容');mindmapModal.classList.add('active');currentMindmapCard={gi,ci}}
-function renderMindmap(md){if(!mindmapContainer)return;mindmapContainer.innerHTML='';try{let c=md.trim();if(!c)c='# 思维导图\n请编辑内容';if(!c.startsWith('#'))c='# 根节点\n'+c;const{Transformer}=window.markmap,transformer=new Transformer(),{root}=transformer.transform(c);const mm=markmap.Markmap.create(mindmapContainer,null,root);if(window.markmap.Toolbar){const tb=new window.markmap.Toolbar();tb.attach(mm);if(mindmapContainer.parentNode&&!mindmapContainer.parentNode.querySelector('.markmap-toolbar'))mindmapContainer.parentNode.appendChild(tb.render())}}catch(e){mindmapContainer.innerHTML='<div style="color:red">渲染失败</div>'}}
+function renderMindmap(md) {
+    if (!mindmapContainer) return;
+    mindmapContainer.innerHTML = '';
+    try {
+        let content = (md || '').trim();
+        if (!content) {
+            // 空白时给一个默认提示
+            content = '# 思维导图\n请编辑内容';
+        }
+        const { Transformer } = window.markmap;
+        const transformer = new Transformer();
+        const { root } = transformer.transform(content);
+        const mm = markmap.Markmap.create(mindmapContainer, null, root);
+        if (window.markmap.Toolbar) {
+            const tb = new window.markmap.Toolbar();
+            tb.attach(mm);
+            if (mindmapContainer.parentNode && !mindmapContainer.parentNode.querySelector('.markmap-toolbar')) {
+                mindmapContainer.parentNode.appendChild(tb.render());
+            }
+        }
+    } catch (e) {
+        mindmapContainer.innerHTML = '<div style="color:red">渲染失败，请检查 Markdown 内容格式。</div>';
+        console.error('思维导图渲染错误：', e);
+    }
+}
 function saveMindmap(){if(!currentMindmapCard||!isAdminMode)return;const nc=mindmapEditor.value.trim(),{gi,ci}=currentMindmapCard;groupsData[gi].items[ci].mindmap=nc;groupsData[gi].items[ci].stats.updated=getCurrentTimeString();saveDataToStorage();renderMindmap(nc);alert('已保存')}
 function closeMindmap(){mindmapModal.classList.remove('active');currentMindmapCard=null}
 
@@ -1484,6 +1512,25 @@ function updateQuotaDisplay() {
     if (remaining < 500) el.style.color = 'orange';
     else el.style.color = '#aaa';
 }
+// 思维导图文件上传
+document.getElementById('uploadMindmapFileBtn')?.addEventListener('click', () => {
+    document.getElementById('mindmapFileInput').click();
+});
+document.getElementById('mindmapFileInput')?.addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const filename = file.name.toLowerCase();
+    if (filename.endsWith('.md') || filename.endsWith('.txt')) {
+        const reader = new FileReader();
+        reader.onload = ev => {
+            document.getElementById('cardMindmapContent').value = ev.target.result;
+        };
+        reader.readAsText(file);
+    } else {
+        alert('暂不支持该文件格式，请使用 .md 或 .txt 文件。');
+    }
+    e.target.value = '';
+});
 // 在页面初始化时运行一次
 updateQuotaDisplay();
 // ==========================================
