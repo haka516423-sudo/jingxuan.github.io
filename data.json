@@ -13329,6 +13329,20 @@
           },
           "type": "link",
           "url": "https://modrinth.com/mod/prefab"
+        },
+        {
+          "title": "f",
+          "description": "思维导图",
+          "author": "",
+          "tags": [],
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-04-30 14:40:24"
+          },
+          "type": "mindmap",
+          "url": "",
+          "textContent": "",
+          "mindmap": "- 中心主题\n  - 仿佛呢\n    - 风格很过分\n    - 女版"
         }
       ]
     },
