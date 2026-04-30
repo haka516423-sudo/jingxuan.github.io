@@ -374,7 +374,10 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 <div id="modrinthModal" class="modal">
     <div class="modal-content modrinth-modal">
         <h3>🔍 搜索 Modrinth 模组</h3>
-        
+        <!-- 底部按钮 -->
+        <div class="modal-buttons">
+            <button class="cancel-btn" id="modrinthModalClose">关闭</button>
+        </div>
         <!-- 搜索框区域 -->
         <div class="modrinth-search-input">
             <input type="text" id="modrinthQuery" placeholder="输入中文或英文关键词...">
@@ -398,10 +401,6 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
             <!-- 搜索结果将显示在这里 -->
         </div>
         
-        <!-- 底部按钮 -->
-        <div class="modal-buttons">
-            <button class="cancel-btn" id="modrinthModalClose">关闭</button>
-        </div>
     </div>
 </div>
 <div class="pagination" id="paginationContainerTop"></div>
