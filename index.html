@@ -20,7 +20,8 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 .sidebar-section-title{font-weight:600;font-size:0.85rem;color:var(--sidebar-title)}
 .sidebar-mini-btn{background:rgba(255,255,240,0.2);border:none;width:22px;height:22px;border-radius:22px;font-size:0.9rem;cursor:pointer;display:none;align-items:center;justify-content:center;transition:0.1s;color:inherit;flex-shrink:0}.admin-mode .sidebar-mini-btn{display:inline-flex}
 .sidebar-mini-btn:hover{background:rgba(255,255,240,0.5)}
-.sidebar-mini-delete-btn{background:rgba(255,70,70,0.25);border:none;width:22px;height:22px;border-radius:22px;font-size:0.8rem;cursor:pointer;color:#c0392b;display:none;align-items:center;justify-content:center;transition:0.1s;flex-shrink:0}.admin-mode .sidebar-mini-delete-btn{display:inline-flex}
+.sidebar-mini-delete-btn{background:rgba(255,70,70,0.25);border:none;width:22px;height:22px;border-radius:22px;font-size:0.8rem;cursor:pointer;color:#c0392b;display:none;align-items:center;justify-content:center;transition:0.1s;flex-shrink:0}.admin-mode .sidebar-mini-delete-btn{display:inline-flex}.sidebar-mini-delete-btn:hover{background:rgba(255,40,40,0.6);color:#fff}
+.sidebar-mini-edit-btn{background:rgba(255,255,240,0.2);border:none;width:22px;height:22px;border-radius:22px;font-size:0.8rem;cursor:pointer;color:#3b82f6;display:none;align-items:center;justify-content:center;transition:0.1s;flex-shrink:0}.admin-mode .sidebar-mini-edit-btn{display:inline-flex}.sidebar-mini-edit-btn:hover{background:rgba(59,130,246,0.3);color:#fff}
 .sidebar-mini-delete-btn:hover{background:rgba(255,40,40,0.6);color:#fff}
 
 .groups-scroll-area,.version-scroll-area,.tag-scroll-area{overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--scrollbar-thumb) transparent;padding-right:4px}
@@ -585,7 +586,72 @@ function extractAllTags(){const m=new Map();for(const g of groupsData)for(const 
 function renderTagList(){if(!tagListContainer)return;const tags=extractAllTags();if(!tags.length){tagListContainer.innerHTML='<div style="font-size:0.7rem;color:#aaa">暂无标签</div>';return}const fx=['Fabric','Forge','NeoForge'];let ft=[],ot=[];for(const [t,c] of tags)(fx.includes(t)?ft:ot).push([t,c]);ft.sort((a,b)=>fx.indexOf(a[0])-fx.indexOf(b[0]));ot.sort((a,b)=>b[1]-a[1]);let h='';for(const [t,c] of [...ft,...ot]){const ac=currentTagFilter===t?'active':'';h+=`<button class="tag-btn ${ac}" data-tag="${escapeHtml(t)}">${escapeHtml(t)} (${c})</button>`}tagListContainer.innerHTML=h;clearTagFilterBtn.style.display=currentTagFilter?'inline-flex':'none';document.querySelectorAll('.tag-btn').forEach(b=>{b.addEventListener('click',()=>{const t=b.dataset.tag;currentTagFilter=(currentTagFilter===t)?null:t;renderTagList();currentPage=1;renderCards();renderGroupButtons()})})}
 function clearTagFilter(){currentTagFilter=null;renderTagList();currentPage=1;renderCards();renderGroupButtons()}
 
-function renderGroupButtons(){if(!groupContainer)return;let h='';groupsData.forEach((g,i)=>{const ac=(i===currentGroupIndex&&!currentTagFilter)?'active':'';h+=`<div class="group-btn-row"><button class="group-btn ${ac}" data-idx="${i}">${escapeHtml(g.groupName)}</button><button class="sidebar-mini-delete-btn" data-idx="${i}">×</button></div>`});groupContainer.innerHTML=h;dynamicTitle.textContent=currentTagFilter?`标签:${currentTagFilter}`:(currentVersionFilter?`版本:${currentVersionFilter}`:groupsData[currentGroupIndex].groupName);document.querySelectorAll('.group-btn').forEach(b=>{b.addEventListener('click',()=>{const i=parseInt(b.dataset.idx);if(!isNaN(i)&&i!==currentGroupIndex){currentGroupIndex=i;currentKeyword='';if(searchInput)searchInput.value='';currentPage=1;renderGroupButtons();renderCards();renderTagList()}})});document.querySelectorAll('.group-btn-row .sidebar-mini-delete-btn').forEach(b=>{b.addEventListener('click',e=>{e.stopPropagation();const i=parseInt(b.dataset.idx);if(isAdminMode)deleteGroup(i)})});document.getElementById('sidebarContainer').classList.toggle('admin-mode',isAdminMode)}
+function renderGroupButtons() {
+    if (!groupContainer) return;
+    let h = '';
+    groupsData.forEach((g, i) => {
+        const ac = (i === currentGroupIndex && !currentTagFilter) ? 'active' : '';
+        h += `<div class="group-btn-row">
+            <button class="group-btn ${ac}" data-idx="${i}">${escapeHtml(g.groupName)}</button>
+            <button class="sidebar-mini-edit-btn" data-idx="${i}">✎</button>
+            <button class="sidebar-mini-delete-btn" data-idx="${i}">×</button>
+        </div>`;
+    });
+    groupContainer.innerHTML = h;
+
+    dynamicTitle.textContent = currentTagFilter
+        ? `标签:${currentTagFilter}`
+        : (currentVersionFilter ? `版本:${currentVersionFilter}` : groupsData[currentGroupIndex].groupName);
+
+    // 分组切换
+    document.querySelectorAll('.group-btn').forEach(b => {
+        b.addEventListener('click', () => {
+            const i = parseInt(b.dataset.idx);
+            if (!isNaN(i) && i !== currentGroupIndex) {
+                currentGroupIndex = i;
+                currentKeyword = '';
+                if (searchInput) searchInput.value = '';
+                currentPage = 1;
+                renderGroupButtons();
+                renderCards();
+                renderTagList();
+            }
+        });
+    });
+
+    // 删除分组
+    document.querySelectorAll('.group-btn-row .sidebar-mini-delete-btn').forEach(b => {
+        b.addEventListener('click', e => {
+            e.stopPropagation();
+            const i = parseInt(b.dataset.idx);
+            if (isAdminMode) deleteGroup(i);
+        });
+    });
+
+    // ========== 新增：编辑分组名称 ==========
+    document.querySelectorAll('.group-btn-row .sidebar-mini-edit-btn').forEach(b => {
+        b.addEventListener('click', e => {
+            e.stopPropagation(); // 防止触发分组切换
+            if (!isAdminMode) return;
+            const i = parseInt(b.dataset.idx);
+            const currentName = groupsData[i].groupName;
+            const newName = prompt('编辑分组名称：', currentName);
+            if (newName && newName.trim() && newName.trim() !== currentName) {
+                // 检查重名
+                if (groupsData.some((g, idx) => idx !== i && g.groupName === newName.trim())) {
+                    alert('分组名称已存在！');
+                    return;
+                }
+                groupsData[i].groupName = newName.trim();
+                saveDataToStorage();
+                renderAll(); // 刷新所有视图（包括分组列表、标题等）
+            }
+        });
+    });
+    // ========================================
+
+    document.getElementById('sidebarContainer').classList.toggle('admin-mode', isAdminMode);
+}
 function addNewGroup(){const n=prompt('分组名称：');if(n&&n.trim()&&!groupsData.some(g=>g.groupName===n.trim())){groupsData.push({groupName:n.trim(),items:[]});saveDataToStorage();currentGroupIndex=groupsData.length-1;currentPage=1;renderAll()}}
 function deleteGroup(i){if(groupsData.length<=1)return alert('至少保留一个分组');if(confirm(`删除「${groupsData[i].groupName}」？`)){groupsData.splice(i,1);saveDataToStorage();currentGroupIndex=Math.min(currentGroupIndex,groupsData.length-1);currentPage=1;renderAll()}}
 
