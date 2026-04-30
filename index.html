@@ -347,7 +347,8 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
             <input type="text" id="modrinthQuery" placeholder="输入中文或英文关键词...">
             <button id="modrinthSearchExec">搜索</button>
         </div>
-        
+        <!-- 新增剩余字符数显示 -->
+        <div id="translateQuotaInfo" style="font-size:0.7rem; color:#aaa; margin-top:4px;"></div>
         <!-- 自动翻译选项 (放在搜索框下面，结果区域上面) -->
         <div style="margin: 8px 0 12px 0; display: flex; align-items: center; gap: 8px;">
             <input type="checkbox" id="autoTranslateCheckbox" checked>
@@ -870,7 +871,16 @@ async function searchModrinth(originalQuery) {
         }
         html += `</div>`;
         modrinthResults.innerHTML = html;
-
+        document.querySelectorAll('.modrinth-result-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                // 如果点击的是复选框，不跳转
+                if (e.target.type === 'checkbox') return;
+                const url = item.dataset.url;
+                if (url) window.open(url, '_blank');
+            });
+            // 可选：添加手指光标样式
+            item.style.cursor = 'pointer';
+        });
         // 绑定全选逻辑
         const selectAllCb = document.getElementById('modrinthSelectAll');
         const itemCheckboxes = () => document.querySelectorAll('.modrinth-select-cb');
@@ -944,6 +954,15 @@ async function translateToChinese(text) {
         return cached;
     }
 
+    // ========== 新增：统计字符（翻译前） ==========
+    const charCount = text.length;
+    const remaining = getRemainingChars();
+    if (charCount > remaining) {
+        console.warn(`翻译配额不足！${charCount} 字符超过剩余 ${remaining} 字符`);
+        // 可选择弹窗提示，这里仅日志警告
+    }
+    // ============================================
+
     // 3. 调用 MyMemory API
     try {
         const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|zh`;
@@ -955,7 +974,11 @@ async function translateToChinese(text) {
         if (translated.includes('MYMEMORY WARNING')) {
             translated = text;
         }
-        
+        // ========== 在这里添加 ==========
+        if (translated !== text) {
+            addTranslationChars(charCount);   // 翻译成功，计入已用字符数
+        }
+        // ================================
         // 存入两级缓存
         translationMemoryCache.set(text, translated);
         localStorage.setItem(cacheKey, translated);
@@ -1129,4 +1152,38 @@ const ls=localStorage.getItem('layout_settings');if(ls)try{const s=JSON.parse(ls
 function renderAll(){loadVersions();renderGroupButtons();renderVersionList();renderCards();renderTagList()}
 async function start(){loadVersions();await loadInitialData();loadSortPreference();initBackground();buildPalette();updateSortOptions();renderAll();}start();
 })();
+
+// ========== 翻译字符配额管理 ==========
+const TRANSLATION_DAILY_LIMIT = 5000;
+function getTodayStr() { return new Date().toISOString().slice(0,10); }
+function getUsageData() {
+    const raw = localStorage.getItem('translate_usage');
+    if (!raw) return { date: getTodayStr(), used: 0 };
+    try { return JSON.parse(raw); } catch(e) { return { date: getTodayStr(), used: 0 }; }
+}
+function saveUsageData(data) { localStorage.setItem('translate_usage', JSON.stringify(data)); }
+function addTranslationChars(count) {
+    const data = getUsageData();
+    if (data.date !== getTodayStr()) { data.date = getTodayStr(); data.used = 0; }
+    data.used += count;
+    saveUsageData(data);
+    updateQuotaDisplay();
+}
+function getRemainingChars() {
+    const data = getUsageData();
+    if (data.date !== getTodayStr()) return TRANSLATION_DAILY_LIMIT;
+    return Math.max(0, TRANSLATION_DAILY_LIMIT - data.used);
+}
+function updateQuotaDisplay() {
+    const el = document.getElementById('translateQuotaInfo');
+    if (!el) return;
+    const remaining = getRemainingChars();
+    el.textContent = `🌐 今日剩余翻译字符：${remaining} / ${TRANSLATION_DAILY_LIMIT}`;
+    if (remaining < 500) el.style.color = 'orange';
+    else el.style.color = '#aaa';
+}
+// 在页面初始化时运行一次
+updateQuotaDisplay();
+// ==========================================
+
 </script></body></html>
