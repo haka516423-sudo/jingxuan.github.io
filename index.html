@@ -47,6 +47,22 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 .version-tag:hover{background:rgba(255,255,240,0.55)}.version-tag.active{background:var(--theme-accent);color:var(--text-on-accent);border-color:var(--theme-accent)}
 .version-tag .v-del-btn{width:12px;height:12px;border-radius:12px;font-size:0.5rem;cursor:pointer;background:rgba(255,80,80,0.2);border:none;color:inherit;display:none;align-items:center;justify-content:center;margin-left:1px}.admin-mode .version-tag .v-del-btn{display:inline-flex}.v-del-btn:hover{background:rgba(255,40,40,0.6);color:#fff}
 
+.modal .version-tag {
+    background: rgba(255,255,240,0.2);
+    border: 1px solid transparent;
+    padding: 4px 10px;
+    border-radius: 14px;
+    font-size: 0.7rem;
+    color: #eee;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.modal .version-tag.active {
+    background: var(--theme-accent);
+    color: white;
+    border-color: var(--theme-accent);
+}
+
 .tag-list{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .tag-btn{background:rgba(255,255,240,0.25);border:none;padding:5px 4px;font-size:0.66rem;font-weight:500;cursor:pointer;transition:0.1s;color:var(--badge-text);text-align:center;line-height:1.2;word-break:break-word;border-radius:var(--card-radius)}
 .tag-btn:hover{background:rgba(255,255,240,0.6);transform:scale(0.96)}.tag-btn.active{background:var(--theme-accent);color:var(--text-on-accent)}
@@ -358,13 +374,12 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
             <input type="text" id="modrinthQuery" placeholder="输入中文或英文关键词...">
             <button id="modrinthSearchExec">搜索</button>
         </div>
-        <!-- 新增版本选择 -->
-        <div style="display: flex; align-items: center; gap: 8px; margin: 8px 0;">
-            <select id="modrinthVersionFilter" style="flex: 1; padding: 6px 10px; border-radius: 12px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: #fff; font-size: 0.85rem;">
-               <option value="">所有版本</option>
-            </select>
-            <label for="modrinthVersionFilter" style="font-size: 0.8rem; white-space: nowrap;">🎮 版本</label>
+        <!-- 版本标签选择（复用侧边栏版本） -->
+        <div style="margin: 8px 0;">
+            <div style="font-size:0.8rem; color:#aaa; margin-bottom:6px;">🎮 版本筛选</div>
+            <div id="modrinthVersionTags" style="display:flex; flex-wrap:wrap; gap:6px;"></div>
         </div>
+
         <!-- 新增剩余字符数显示 -->
         <div id="translateQuotaInfo" style="font-size:0.7rem; color:#aaa; margin-top:4px;"></div>
         <!-- 自动翻译选项 (放在搜索框下面，结果区域上面) -->
@@ -928,10 +943,10 @@ async function searchModrinth(originalQuery) {
     }
 
     try {
-        const versionSelect = document.getElementById('modrinthVersionFilter');
+        
         let facets = [];
-        if (versionSelect && versionSelect.value) {
-            facets = [[`versions:${versionSelect.value}`]];
+        if (modrinthSelectedVersion) {
+            facets = [[`versions:${modrinthSelectedVersion}`]];
         }
         const facetsParam = facets.length ? `&facets=${encodeURIComponent(JSON.stringify(facets))}` : '';
         const url = `https://api.modrinth.com/v2/search?query=${encodeURIComponent(finalQuery)}&limit=20${facetsParam}`;
@@ -1279,34 +1294,13 @@ const ls=localStorage.getItem('layout_settings');if(ls)try{const s=JSON.parse(ls
 
 function renderAll(){loadVersions();renderGroupButtons();renderVersionList();renderCards();renderTagList()}
 
-function populateModrinthVersionFilter() {
-    const select = document.getElementById('modrinthVersionFilter');
-    if (!select) return;
-    // 保留“所有版本”选项
-    select.innerHTML = '<option value="">所有版本</option>';
-    // 使用侧边栏的 versions 数组，按数字降序排列
-    const sorted = [...versions].sort((a, b) => {
-        const aParts = a.split('.').map(Number);
-        const bParts = b.split('.').map(Number);
-        for (let i = 0; i < Math.min(aParts.length, bParts.length); i++) {
-            if (aParts[i] !== bParts[i]) return bParts[i] - aParts[i];
-        }
-        return bParts.length - aParts.length;
-    });
-    sorted.forEach(v => {
-        const option = document.createElement('option');
-        option.value = v;
-        option.textContent = v;
-        select.appendChild(option);
-    });
-}
+let modrinthSelectedVersion = null;  // 当前选中的版本，null表示所有版本
+
+
 
 async function start(){loadVersions();await loadInitialData();loadSortPreference();initBackground();buildPalette();updateSortOptions();renderAll();}start();
 })();
 
-
-// 页面初始化时调用
-populateModrinthVersionFilter();
 
 // ========== 翻译字符配额管理 ==========
 const TRANSLATION_DAILY_LIMIT = 5000;
