@@ -2,12 +2,12 @@
 <script src="https://cdn.jsdelivr.net/npm/d3@6.7.0"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.3"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.3"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.3/style.css"><style>
 *{margin:0;padding:0;box-sizing:border-box}html{overflow-y:auto;scrollbar-gutter:stable;scrollbar-width:thin;scrollbar-color:var(--scrollbar-thumb) transparent}
 html::-webkit-scrollbar{width:6px}html::-webkit-scrollbar-track{background:transparent}html::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:10px}
-:root{--card-radius:20px;--card-padding:20px;--card-gap:28px;--font-size-base:0.95rem;--font-size-title:1.2rem;--blur-strength:16px;--meta-gap:8px;--scrollbar-thumb:rgba(0,0,0,0.18);--text-primary:#1f2937;--text-secondary:#4b5563;--text-tertiary:#374151;--text-on-accent:#ffffff;--badge-bg:rgba(0,0,0,0.08);--badge-text:#1f2937;--card-footer-text:#4b5563;--sidebar-text:#1f2d3d;--sidebar-title:#1f2d3d}
+:root{--card-radius:20px;--card-padding:20px;--card-gap:28px;--font-size-base:0.95rem;--font-size-title:1.2rem;--blur-strength:16px;--meta-gap:8px;--scrollbar-thumb:rgba(0,0,0,0.18);--text-primary:#1f2937;--text-secondary:#4b5563;--text-tertiary:#374151;--text-on-accent:#ffffff;--badge-bg:rgba(0,0,0,0.08);--badge-text:#1f2937;--card-footer-text:#4b5563;--sidebar-text:#1f2d3d;--sidebar-title:#1f2d3d;--glass-bg: rgba(255, 255, 255, var(--glass-opacity));}
 body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,sans-serif;min-height:100vh;transition:background 0.25s ease;padding:28px;--glass-opacity:0.35;--gradient-angle:135deg;overscroll-behavior:none;color:var(--text-primary)}
 body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-theme="black"]{background:#12151c;--theme-accent:#c0b7a6;--scrollbar-thumb:rgba(255,255,255,0.25)}body[data-theme="red"]{background:#fce9e6;--theme-accent:#c2675e}body[data-theme="orange"]{background:#fef0e0;--theme-accent:#d98c2b}body[data-theme="yellow"]{background:#fef9e0;--theme-accent:#c9a12b}body[data-theme="green"]{background:#eaf4ea;--theme-accent:#4f7a5e}body[data-theme="cyan"]{background:#e0f2f5;--theme-accent:#3f7a85}body[data-theme="blue"]{background:#e3edfa;--theme-accent:#4a6fa5}body[data-theme="purple"]{background:#f0e9fc;--theme-accent:#8b6cb0}body[data-theme="sunset"]{background:linear-gradient(var(--gradient-angle),#ff9a9e,#fecfef);--theme-accent:#d96c6e}body[data-theme="aurora"]{background:linear-gradient(var(--gradient-angle),#a1c4fd,#c2e9fb);--theme-accent:#3b82f6}body[data-theme="ocean"]{background:linear-gradient(var(--gradient-angle),#2b5876,#4e4376);--theme-accent:#7c83b9;--scrollbar-thumb:rgba(255,255,255,0.3)}body[data-theme="sakura"]{background:linear-gradient(var(--gradient-angle),#fbc2eb,#a6c1ee);--theme-accent:#c45692}body[data-theme="forest"]{background:linear-gradient(var(--gradient-angle),#b5d6a7,#9bbd8c);--theme-accent:#5c8a4a}body[data-theme="midnight"]{background:linear-gradient(var(--gradient-angle),#1f1c2c,#2a2a4a);--theme-accent:#9c88ff;--scrollbar-thumb:rgba(255,255,255,0.3)}body[data-theme="peach"]{background:linear-gradient(var(--gradient-angle),#ffe29a,#ffb7b2);--theme-accent:#d97846}body[data-theme="mint"]{background:linear-gradient(var(--gradient-angle),#c7e9fb,#b6e0fe);--theme-accent:#4a9e7c}
 #wallpaper-layer{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;background-size:cover;background-position:center;background-repeat:no-repeat}body.custom-bg #wallpaper-layer{display:block}body:not(.custom-bg) #wallpaper-layer{display:none}
 .app{max-width:1400px;margin:0 auto;display:flex;gap:28px;align-items:flex-start}
-.sidebar{flex:0 0 280px;background:rgba(255,255,255,var(--glass-opacity));backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.5);box-shadow:0 8px 20px rgba(0,0,0,0.08);padding:20px 14px;position:sticky;top:28px;display:flex;flex-direction:column;height:calc(100vh - 56px);max-height:calc(100vh - 56px);overflow:hidden;border-radius:var(--card-radius)}
+.sidebar{flex:0 0 280px;backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.5);box-shadow:0 8px 20px rgba(0,0,0,0.08);padding:20px 14px;position:sticky;top:28px;display:flex;flex-direction:column;height:calc(100vh - 56px);max-height:calc(100vh - 56px);overflow:hidden;border-radius:var(--card-radius);background: var(--glass-bg);}
 .sidebar-header{font-size:1.1rem;font-weight:600;padding:0 8px 12px;border-bottom:1px solid rgba(0,0,0,0.08);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;color:var(--sidebar-text)}
 .sidebar-subheader {
     display: flex;
@@ -308,7 +308,7 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 
 .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:var(--card-gap);margin-top:8px}
 .cards-grid.list-view{display:flex;flex-direction:column;gap:12px}
-.card{background:rgba(255,255,255,calc(var(--glass-opacity)-0.05));backdrop-filter:blur(var(--blur-strength));border:1px solid rgba(255,255,255,0.5);padding:var(--card-padding);border-radius:var(--card-radius);transition:0.2s;box-shadow:0 8px 18px rgba(0,0,0,0.08);display:flex;flex-direction:column;position:relative;cursor:pointer}
+.card{backdrop-filter:blur(var(--blur-strength));border:1px solid rgba(255,255,255,0.5);padding:var(--card-padding);border-radius:var(--card-radius);transition:0.2s;box-shadow:0 8px 18px rgba(0,0,0,0.08);display:flex;flex-direction:column;position:relative;cursor:pointer;background: var(--glass-bg);}
 .card:hover{transform:translateY(-3px);border-color:var(--theme-accent)}
 .card.duplicate{border:2px dashed #ef4444!important}
 .card-duplicate-badge{position:absolute;top:8px;left:8px;background:#ef4444;color:white;padding:2px 8px;border-radius:10px;font-size:0.6rem;font-weight:600;z-index:5}
@@ -463,10 +463,13 @@ function updateContrastColors(backgroundColorHex){
         root.style.setProperty('--text-primary','#f0e6d2');root.style.setProperty('--text-secondary','#cbd5e1');root.style.setProperty('--text-tertiary','#d1d5db');
         root.style.setProperty('--text-on-accent','#12151c');root.style.setProperty('--badge-bg','rgba(255,255,240,0.2)');root.style.setProperty('--badge-text','#f0e6d2');
         root.style.setProperty('--card-footer-text','#cbd5e1');root.style.setProperty('--sidebar-text','#f5f0e0');root.style.setProperty('--sidebar-title','#f0e6d2');
+        // 新增：深色背景 → 使用浅色半透明玻璃（亮色质感）
+        root.style.setProperty('--glass-bg', 'rgba(255, 255, 255, var(--glass-opacity))');
     }else{
         root.style.setProperty('--text-primary','#1f2937');root.style.setProperty('--text-secondary','#4b5563');root.style.setProperty('--text-tertiary','#374151');
         root.style.setProperty('--text-on-accent','#ffffff');root.style.setProperty('--badge-bg','rgba(0,0,0,0.08)');root.style.setProperty('--badge-text','#1f2937');
         root.style.setProperty('--card-footer-text','#4b5563');root.style.setProperty('--sidebar-text','#1f2d3d');root.style.setProperty('--sidebar-title','#1f2d3d');
+        root.style.setProperty('--glass-bg', 'rgba(0, 0, 0, var(--glass-opacity))');
     }
 }
 const GRADIENT_THEMES=["sunset","aurora","ocean","sakura","forest","midnight","peach","mint"];
@@ -540,11 +543,13 @@ function updateContrastColorsLuminance(luminance){
         root.style.setProperty('--text-on-accent','#12151c');root.style.setProperty('--badge-bg','rgba(255,255,240,0.2)');
         root.style.setProperty('--badge-text','#f0e6d2');root.style.setProperty('--card-footer-text','#cbd5e1');
         root.style.setProperty('--sidebar-text','#f5f0e0');root.style.setProperty('--sidebar-title','#f0e6d2');
+        root.style.setProperty('--glass-bg', 'rgba(255, 255, 255, var(--glass-opacity))');
     }else{
         root.style.setProperty('--text-primary','#1f2937');root.style.setProperty('--text-secondary','#4b5563');root.style.setProperty('--text-tertiary','#374151');
         root.style.setProperty('--text-on-accent','#ffffff');root.style.setProperty('--badge-bg','rgba(0,0,0,0.08)');
         root.style.setProperty('--badge-text','#1f2937');root.style.setProperty('--card-footer-text','#4b5563');
         root.style.setProperty('--sidebar-text','#1f2d3d');root.style.setProperty('--sidebar-title','#1f2d3d');
+        root.style.setProperty('--glass-bg', 'rgba(0, 0, 0, var(--glass-opacity))');
     }
 }
 async function saveWallpaper(file){
@@ -1327,7 +1332,23 @@ document.getElementById('layoutSettingsBtn')?.addEventListener('click',()=>docum
 document.getElementById('uploadBgBtn')?.addEventListener('click',()=>document.getElementById('bgUpload').click());
 document.getElementById('bgUpload')?.addEventListener('change',async e=>{const f=e.target.files[0];if(f&&f.type.startsWith('image/')){await saveWallpaper(f);e.target.value=''}});
 document.getElementById('resetBgBtn')?.addEventListener('click',resetWallpaper);
-document.getElementById('opacitySlider')?.addEventListener('input',e=>{document.body.style.setProperty('--glass-opacity',e.target.value);document.getElementById('opacityValue').innerText=e.target.value;localStorage.setItem('glass_opacity',e.target.value)});
+document.getElementById('opacitySlider')?.addEventListener('input', e => {
+    // 1. 更新透明度基础变量
+    document.body.style.setProperty('--glass-opacity', e.target.value);
+    document.getElementById('opacityValue').innerText = e.target.value;
+    localStorage.setItem('glass_opacity', e.target.value);
+
+    // 2. 根据当前明暗主题，重新合成玻璃背景色
+    const root = document.documentElement;
+    const theme = document.body.getAttribute('data-theme');
+    const isDark = theme === 'black' || theme === 'ocean' || theme === 'midnight';
+    
+    if (isDark) {
+        root.style.setProperty('--glass-bg', `rgba(255, 255, 255, ${e.target.value})`);
+    } else {
+        root.style.setProperty('--glass-bg', `rgba(0, 0, 0, ${e.target.value})`);
+    }
+});
 document.getElementById('angleSlider')?.addEventListener('input',e=>{document.body.style.setProperty('--gradient-angle',e.target.value+'deg');document.getElementById('angleValue').innerText=e.target.value+'°';localStorage.setItem('gradient_angle',e.target.value)});
 const sOp=localStorage.getItem('glass_opacity'),sAng=localStorage.getItem('gradient_angle');
 if(sOp){document.body.style.setProperty('--glass-opacity',sOp);const o=document.getElementById('opacitySlider');if(o)o.value=sOp;document.getElementById('opacityValue').innerText=sOp}
