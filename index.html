@@ -279,6 +279,12 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 * {
     scrollbar-color: var(--scrollbar-thumb) transparent;
 }
+
+#modrinthVersionTags {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+
 .main{flex:1;min-width:0}
 .header-area{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px;padding-bottom:12px;position:relative}
 .title-section h1{font-size:1.8rem;font-weight:700;color:var(--text-primary)}
@@ -375,9 +381,8 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
             <button id="modrinthSearchExec">搜索</button>
         </div>
         <!-- 版本标签选择（复用侧边栏版本） -->
-        <div style="margin: 8px 0;">
-            <div style="font-size:0.8rem; color:#aaa; margin-bottom:6px;">🎮 版本筛选</div>
-            <div id="modrinthVersionTags" style="display:flex; flex-wrap:wrap; gap:6px;"></div>
+        <div style="max-height:200px; overflow-y:auto; padding-right:4px;">
+            <div id="modrinthVersionTags" style="display:grid; grid-template-columns:repeat(4,1fr); gap:6px;"></div>
         </div>
 
         <!-- 新增剩余字符数显示 -->
