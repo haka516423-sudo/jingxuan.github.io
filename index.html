@@ -155,7 +155,61 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
     flex-shrink: 1;        /* 允许收缩，但不小于 min-width */
     width: auto;           /* 不强制固定宽度 */
 }
+/* 搜索栏所有控件统一为标签风格 */
+.view-toggle-btn,
+.sort-select,
+.page-size-select {
+    background: var(--badge-bg);
+    color: var(--badge-text);
+    font-size: 0.75rem;
+    font-weight: 500;
+    border-radius: 20px;
+    padding: 6px 14px;
+    box-shadow: none;
+    border: 1px solid transparent;
+    transition: 0.1s;
+    cursor: pointer;
+}
 
+.view-toggle-btn:hover,
+.sort-select:hover,
+.page-size-select:hover {
+    background: var(--theme-accent);
+    color: var(--text-on-accent);
+}
+
+/* 下拉框箭头保持可见 */
+.sort-select,
+.page-size-select {
+    appearance: none;
+    padding-right: 26px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'><polyline points='6 9 12 15 18 9' fill='none' stroke='currentColor' stroke-width='2'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 12px;
+}
+
+/* 搜索框也微调为标签风格 */
+.search-box {
+    border-radius: 20px;
+    font-size: 0.85rem;
+}
+.admin-btn,
+.palette-btn {
+    background: var(--badge-bg);
+    color: var(--badge-text);
+    font-size: 0.75rem;
+    font-weight: 500;
+    border-radius: 20px;
+    padding: 6px 14px;
+    box-shadow: none;
+    border: 1px solid transparent;
+}
+.admin-btn:hover,
+.palette-btn:hover {
+    background: var(--theme-accent);
+    color: var(--text-on-accent);
+}
 /* 小屏幕时搜索框独占一行，其他控件自动换行且均匀分布 */
 @media (max-width: 700px) {
     .search-bar {
