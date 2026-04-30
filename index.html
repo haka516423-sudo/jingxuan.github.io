@@ -343,6 +343,13 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
     scrollbar-color: var(--scrollbar-thumb) transparent;
 }
 
+.markmap-node text {
+    fill: var(--text-primary) !important;
+}
+.markmap-node circle {
+    stroke: var(--text-primary) !important;
+}
+
 .main{flex:1;min-width:0}
 .header-area{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px;padding-bottom:12px;position:relative}
 .title-section h1{font-size:1.8rem;font-weight:700;color:var(--text-primary)}
@@ -929,6 +936,10 @@ function renderMindmap(md) {
     mindmapContainer.innerHTML = '';
     try {
         let content = (md || '').trim();
+        // 如果内容不是以 # 开头，添加一个根节点标题（使用卡片标题或默认“根节点”）
+        if (!content.startsWith('#')) {
+            content = '# 中心主题\n' + content;
+        }
         if (!content) {
             // 空白时给一个默认提示
             content = '# 思维导图\n请编辑内容';
@@ -937,6 +948,7 @@ function renderMindmap(md) {
         const transformer = new Transformer();
         const { root } = transformer.transform(content);
         const mm = markmap.Markmap.create(mindmapContainer, null, root);
+        mm.fit(); // 自适应缩放，展示所有节点
         if (window.markmap.Toolbar) {
             const tb = new window.markmap.Toolbar();
             tb.attach(mm);
