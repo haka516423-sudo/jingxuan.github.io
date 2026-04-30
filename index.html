@@ -1070,7 +1070,7 @@ async function searchModrinth(originalQuery) {
                         url: container.dataset.url,
                         downloads: container.dataset.downloads
                     };
-                   addModrinthCardToCurrentGroup(cardData);
+                   await addModrinthCardToCurrentGroup(cardData);
                     addedCount++;
                 }
                 alert(`成功添加 ${addedCount} 个模组！`);
@@ -1169,30 +1169,32 @@ async function translateResultItem(item) {
     };
 }
 
-// 将 Modrinth 模组添加为卡片
-function addModrinthCardToCurrentGroup(modData) {
+// 将 Modrinth 模组添加为卡片（自动翻译标题和描述）
+async function addModrinthCardToCurrentGroup(modData) {
+    // 翻译标题和描述（如果缓存已命中则直接返回，否则调用API）
+    const translatedTitle = await translateToChinese(modData.title);
+    const translatedDesc = await translateToChinese(modData.description);
+    
     const newCard = {
-        title: modData.title,
-        description: modData.description,
+        title: translatedTitle,
+        description: translatedDesc,
         author: modData.author,
         tags: modData.tags,
         version: modData.version,
         stats: {
             downloads: modData.downloads,
-            updated: getCurrentTimeString()  // 使用现有函数
+            updated: getCurrentTimeString()
         },
         type: 'link',
         url: modData.url,
         textContent: '',
         mindmap: ''
     };
-    // 添加到当前分组
+    
     groupsData[currentGroupIndex].items.push(newCard);
     saveDataToStorage();
-    // 刷新视图
     currentPage = 1;
     renderAll();
-    // 可选：显示短暂提示
 }
 
 
