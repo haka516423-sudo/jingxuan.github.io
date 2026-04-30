@@ -1010,7 +1010,38 @@ function enableAdminMode(){isAdminMode=true;document.getElementById('adminToolba
 function disableAdminMode(){isAdminMode=false;document.getElementById('adminToolbar').style.display='none';document.getElementById('addGroupBtn').style.display='none';updateSortOptions();renderCards();renderGroupButtons();renderTagList();sessionStorage.removeItem('adminModeAuto');if(confirm('退出编辑模式，是否重新从云端加载最新数据？'))location.reload()}
 function checkAdminPassword(){const p=prompt('管理员密码：');if(p==='admin123')enableAdminMode();else alert('密码错误')}
 function clearAllCache(){if(confirm('清除所有本地缓存并刷新？')){['editable_groups_data','mc_versions','layout_settings','glass_custom_theme','glass_opacity','gradient_angle','custom_bg_image','custom_bg_color','listViewPreference','sortPreference'].forEach(k=>localStorage.removeItem(k));sessionStorage.removeItem('adminModeAuto');location.reload()}}
-function exportData(){const d={groups:groupsData,versions:versions};const blob=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='card_data_backup.json';a.click();URL.revokeObjectURL(url)}
+function exportData() {
+    const d = { groups: groupsData, versions: versions };
+    
+    // 手动构建紧凑 JSON 字符串
+    let json = '{\n  "groups": [\n';
+    d.groups.forEach((group, gi) => {
+        json += '    {\n';
+        json += `      "groupName": ${JSON.stringify(group.groupName)},\n`;
+        json += '      "items": [\n';
+        group.items.forEach((item, ii) => {
+            const itemStr = JSON.stringify(item);  // 每个对象压缩成一行
+            json += `        ${itemStr}`;
+            if (ii < group.items.length - 1) json += ',';
+            json += '\n';
+        });
+        json += '      ]\n';
+        json += '    }';
+        if (gi < d.groups.length - 1) json += ',';
+        json += '\n';
+    });
+    json += '  ],\n';
+    json += `  "versions": ${JSON.stringify(d.versions)}\n`;
+    json += '}';
+    
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'card_data_backup.json';
+    a.click();
+    URL.revokeObjectURL(url);
+}
 function resetToDefault(){if(confirm('重置所有数据？')){groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));versions=[...DEFAULT_VERSIONS];saveVersions();saveDataToStorage();currentGroupIndex=0;currentKeyword='';currentTagFilter=null;currentVersionFilter=null;currentPage=1;if(searchInput)searchInput.value='';renderAll()}}
 
 function updateLayout(){const rs=document.getElementById('radiusSlider'),ps=document.getElementById('paddingSlider'),gs=document.getElementById('gapSlider');if(!rs)return;['--card-radius',rs.value+'px','--card-padding',ps.value+'px','--card-gap',gs.value+'px'].forEach((v,i,a)=>{if(i%2===0)document.documentElement.style.setProperty(a[i],a[i+1])});['radiusVal',rs.value+'px','paddingVal',ps.value+'px','gapVal',gs.value+'px'].forEach((v,i,a)=>{if(i%2===0){const e=document.getElementById(a[i]);if(e)e.innerText=a[i+1]}});localStorage.setItem('layout_settings',JSON.stringify({radius:rs.value,padding:ps.value,gap:gs.value}))}
