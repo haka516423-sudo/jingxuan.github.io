@@ -1175,19 +1175,32 @@ async function translateResultItem(item) {
 
 // 将 Modrinth 模组添加为卡片（自动翻译标题和描述）
 async function addModrinthCardToCurrentGroup(modData) {
-    // 翻译标题和描述
+    // 1. 翻译标题、描述
     const translatedTitle = await translateToChinese(modData.title);
     const translatedDesc = await translateToChinese(modData.description);
-    
-    // 彻底清除可能混入的 HTML 标签（修复乱码根源）
+
+    // 2. 翻译标签：只保留 Fabric / Forge / NeoForge 不翻，其它都翻
+    const translatedTags = await Promise.all((modData.tags || []).map(async (tag) => {
+        if (!tag) return '';
+        // 这三个加载器不翻译，保留原样
+        if (['Fabric', 'Forge', 'NeoForge'].includes(tag)) return tag;
+        // 其它标签翻译成中文
+        return await translateToChinese(tag);
+    }));
+
+    // 3. 清洗可能混入的 HTML，避免乱码
     const cleanTitle = stripHtml(translatedTitle);
     const cleanDesc = stripHtml(translatedDesc);
-    
+
+    // 4. 构造英中文双标题：中文在前，英文在后
+    const originalEnglishTitle = modData.title || '';
+    const dualTitle = originalEnglishTitle + '（' + cleanTitle + '）';
+
     const newCard = {
-        title: cleanTitle,
+        title: dualTitle,
         description: cleanDesc,
         author: modData.author,
-        tags: modData.tags,
+        tags: translatedTags,
         version: modData.version,
         stats: {
             downloads: modData.downloads,
@@ -1198,7 +1211,7 @@ async function addModrinthCardToCurrentGroup(modData) {
         textContent: '',
         mindmap: ''
     };
-    
+
     groupsData[currentGroupIndex].items.push(newCard);
     saveDataToStorage();
     currentPage = 1;
