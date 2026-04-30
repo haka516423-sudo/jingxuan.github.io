@@ -504,7 +504,32 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 </div>
 <div class="dynamic-tag-area"><div class="title">📌 常用标签</div><div class="dynamic-tag-list-wrap" id="dynamicTagList"></div></div>
 <div style="margin-bottom:10px"><label style="font-size:0.8rem;margin-bottom:4px;display:block">版本 (支持范围，如 1.20-1.21)</label><input list="versionDatalist" id="cardVersion" placeholder="例如 1.21.1 或 1.16-1.20"><datalist id="versionDatalist"></datalist></div><input type="text" id="cardDownloads" placeholder="下载量"><div class="modal-buttons"><button class="cancel-btn" id="modalCancel">取消</button><button class="cancel-btn" id="openBatchImportBtn" style="background:#8b5cf6">📋 批量导入</button><button class="save-btn" id="modalSave">保存</button></div></div></div>
-<div id="batchModal" class="modal"><div class="modal-content"><h3>📋 批量导入卡片</h3><p style="font-size:0.7rem;color:#aaa;margin-bottom:10px">格式：标题 || 描述 || URL || 作者 || 版本 || 标签1,标签2<br>版本支持范围 (如 1.20-1.21)；标签可选<br>每个卡片以句号(。)结尾</p><textarea id="batchTextarea" style="width:100%;height:180px;font-family:monospace;background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.3);border-radius:12px;padding:10px;font-size:0.8rem;resize:vertical" placeholder="粘贴文本..."></textarea><div class="modal-buttons"><button class="cancel-btn" id="batchCancelBtn">取消</button><button class="save-btn" id="batchParseBtn">🚀 解析并添加</button></div></div></div>
+<div id="batchModal" class="modal">
+    <div class="modal-content">
+        <h3>📋 批量导入卡片</h3>
+        <p style="font-size:0.7rem;color:#aaa;margin-bottom:10px">
+            格式：标题 || 描述 || URL || 作者 || 版本 || 标签1,标签2<br>
+            版本支持范围 (如 1.20-1.21)；标签可选<br>
+            每个卡片以句号(。)结尾
+        </p>
+
+        <!-- ✅ 新增文件选择区域 -->
+        <div style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+            <button id="batchFileBtn" style="background: rgba(255,255,240,0.2); border: 1px solid rgba(255,255,255,0.3); color: #eee; padding: 6px 14px; border-radius: 14px; cursor: pointer; font-size: 0.8rem;">
+                📂 选择本地文件
+            </button>
+            <input type="file" id="batchFileInput" multiple accept=".txt,.csv,.json,.md" style="display: none;">
+            <span id="batchFileInfo" style="font-size:0.7rem; color:#aaa;"></span>
+        </div>
+
+        <textarea id="batchTextarea" style="width:100%;height:180px;font-family:monospace;background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.3);border-radius:12px;padding:10px;font-size:0.8rem;resize:vertical" placeholder="粘贴文本..."></textarea>
+
+        <div class="modal-buttons">
+            <button class="cancel-btn" id="batchCancelBtn">取消</button>
+            <button class="save-btn" id="batchParseBtn">🚀 解析并添加</button>
+        </div>
+    </div>
+</div>
 <div id="textModal" class="modal"><div class="modal-content" style="width:90%;max-width:700px;height:70vh;display:flex;flex-direction:column"><h3 id="textModalTitle">文本内容</h3><div id="textContentDisplay" style="flex:1;overflow-y:auto;padding:14px;background:rgba(0,0,0,0.2);border-radius:14px;font-family:monospace;white-space:pre-wrap"></div><div class="modal-buttons"><button class="cancel-btn" id="textModalCancel">关闭</button></div></div></div>
 <div id="mindmapModal" class="modal"><div class="modal-content" style="width:90%;max-width:800px;height:75vh;display:flex;flex-direction:column"><h3 id="mindmapTitle">思维导图</h3><textarea id="mindmapEditor" style="width:100%;height:160px;font-family:monospace;display:none"></textarea><div id="mindmapContainer" style="flex:1;min-height:250px;overflow:auto"></div><div class="modal-buttons"><button class="cancel-btn" id="mindmapCancel">关闭</button><button class="save-btn" id="mindmapSave" style="display:none">保存</button></div></div></div>
 
@@ -1556,6 +1581,24 @@ document.getElementById('mindmapFileInput')?.addEventListener('change', async (e
     }
     e.target.value = '';
 });
+// 批量导入：本地文件选择
+const batchFileBtn = document.getElementById('batchFileBtn');
+const batchFileInput = document.getElementById('batchFileInput');
+const batchFileInfo = document.getElementById('batchFileInfo');
+if (batchFileBtn && batchFileInput) {
+    batchFileBtn.addEventListener('click', () => batchFileInput.click());
+    batchFileInput.addEventListener('change', async () => {
+        const files = Array.from(batchFileInput.files);
+        if (files.length === 0) return;
+        let allText = '';
+        for (const file of files) {
+            const text = await file.text();
+            allText += text + '\n';
+        }
+        document.getElementById('batchTextarea').value = allText.trim();
+        batchFileInfo.textContent = `✅ 已加载 ${files.length} 个文件：${files.map(f => f.name).join(', ')}`;
+    });
+}
 // 在页面初始化时运行一次
 updateQuotaDisplay();
 // ==========================================
