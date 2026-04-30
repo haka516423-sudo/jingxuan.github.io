@@ -610,6 +610,10 @@ const textModal=document.getElementById('textModal'),textModalTitle=document.get
 const mindmapModal=document.getElementById('mindmapModal'),mindmapTitle=document.getElementById('mindmapTitle'),mindmapEditor=document.getElementById('mindmapEditor'),mindmapContainer=document.getElementById('mindmapContainer'),mindmapCancel=document.getElementById('mindmapCancel'),mindmapSave=document.getElementById('mindmapSave');
 const selectAllCheckbox=document.getElementById('selectAllCheckbox'),deleteSelectedBtn=document.getElementById('deleteSelectedBtn');
 let currentMindmapCard=null;
+function stripHtml(html) {
+    if (!html) return '';
+    return html.replace(/<[^>]*>/g, '').trim();
+}
 
 function escapeHtml(s){if(!s)return'';return s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'})[c])}
 function normalizeTags(t){if(!t)return[];if(Array.isArray(t))return t;return t.replace(/，/g,',').split(',').map(s=>s.trim()).filter(s=>s)}
@@ -1171,13 +1175,17 @@ async function translateResultItem(item) {
 
 // 将 Modrinth 模组添加为卡片（自动翻译标题和描述）
 async function addModrinthCardToCurrentGroup(modData) {
-    // 翻译标题和描述（如果缓存已命中则直接返回，否则调用API）
+    // 翻译标题和描述
     const translatedTitle = await translateToChinese(modData.title);
     const translatedDesc = await translateToChinese(modData.description);
     
+    // 彻底清除可能混入的 HTML 标签（修复乱码根源）
+    const cleanTitle = stripHtml(translatedTitle);
+    const cleanDesc = stripHtml(translatedDesc);
+    
     const newCard = {
-        title: translatedTitle,
-        description: translatedDesc,
+        title: cleanTitle,
+        description: cleanDesc,
         author: modData.author,
         tags: modData.tags,
         version: modData.version,
