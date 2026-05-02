@@ -427,8 +427,7 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 </aside><div class="main">
 <div class="header-area"><div class="title-section"><h1 id="dynamicTitle">🎮 Minecraft 模组</h1><p>自定义壁纸 | 版本筛选 | 标签 | 重复管理</p></div><div class="action-buttons"><div id="dataSourceIndicator" class="data-source-indicator" style="display:none"><span class="indicator-dot"></span><span id="sourceText">云端</span></div><button class="palette-btn" id="paletteBtn">🎨 调色板</button><button class="admin-btn" id="adminBtn">🔐 管理员</button></div>
 <div class="palette-panel" id="palettePanel"><div style="font-weight:600;color:#eef2ff;margin-bottom:8px">🎨 纯色预设</div><div class="color-grid" id="solidColorGrid"></div><div style="font-weight:600;color:#eef2ff;margin:8px 0">🌈 渐变预设</div><div class="color-grid" id="gradientColorGrid"></div><div style="display:flex;flex-direction:column;gap:4px"><label style="font-size:0.7rem;color:#ddd">🔮 玻璃透明度 <span id="opacityValue">0.35</span></label><input type="range" id="opacitySlider" min="0.1" max="0.5" step="0.01" value="0.35"></div><div style="display:flex;flex-direction:column;gap:4px"><label style="font-size:0.7rem;color:#ddd">🔄 渐变角度 <span id="angleValue">135°</span></label><input type="range" id="angleSlider" min="0" max="360" step="1" value="135"></div><div><div style="font-weight:600;color:#eef2ff;margin-bottom:8px">🖼️ 自定义壁纸</div><input type="file" id="bgUpload" accept="image/*" style="display:none"><button class="cancel-btn" id="uploadBgBtn" style="padding:6px 12px;font-size:0.7rem">📁 选择图片</button><button class="cancel-btn" id="resetBgBtn" style="padding:6px 12px;font-size:0.7rem;background:rgba(255,80,80,0.3);margin-left:8px">🗑️ 重置</button></div></div></div>
-<div id="adminToolbar" class="admin-toolbar" style="display:none"><label style="margin-left:8px;display:flex;align-items:center;gap:4px"><input type="checkbox" id="selectAllCheckbox"> 全选</label><button id="deleteSelectedBtn">🗑️ 删除所选</button><button id="addCardBtn">➕ 新增卡片</button><button id="resetDataBtn">🔄 重置默认</button><button id="clearCacheBtn">🗑️ 清除缓存</button><button id="clearTransCacheBtn">🗑️ 清空翻译缓存</button> <button id="exportDataBtn">📤 导出JSON</button><button id="toggleIdbModeBtn">💾 IndexedDB模式 (关)</button>
-<button id="exportGroupBtn">📁 导出字母分组JSON</button><button id="layoutSettingsBtn">🎛️ 布局</button><button id="exitAdminBtn">🔒 退出</button></div>
+<div id="adminToolbar" class="admin-toolbar" style="display:none"><label style="margin-left:8px;display:flex;align-items:center;gap:4px"><input type="checkbox" id="selectAllCheckbox"> 全选</label><button id="deleteSelectedBtn">🗑️ 删除所选</button><button id="addCardBtn">➕ 新增卡片</button><button id="resetDataBtn">🔄 重置默认</button><button id="clearCacheBtn">🗑️ 清除缓存</button><button id="clearTransCacheBtn">🗑️ 清空翻译缓存</button> <button id="exportDataBtn">📤 导出JSON</button><button id="layoutSettingsBtn">🎛️ 布局</button><button id="exitAdminBtn">🔒 退出</button></div>
 <div class="search-bar">
     <div class="search-wrapper">
         <input type="text" class="search-box" id="searchInput" placeholder="🔍 实时过滤 · 标题/描述/作者/标签/版本">
@@ -547,138 +546,10 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
         </div>
     </div>
 </div>
-<details style="margin-top:30px; background:rgba(0,0,0,0.3); border-radius:16px; padding:12px; color:#eee;">
-    <summary style="font-weight:bold; cursor:pointer;">📘 完整使用教程（点击展开）</summary>
-    <div style="font-size:0.8rem; line-height:1.5; margin-top:8px;">
-        <p><strong>1. 普通模式</strong>：适合少量卡片（<500张）。直接粘贴文本批量导入，数据保存在浏览器本地存储。</p>
-        <p><strong>2. 大量数据模式 (IndexedDB)</strong>：当导入卡片超过500张时自动启用，或手动点击「IndexedDB模式(开)」。数据存入 IndexedDB，不会卡死页面。导入完成后点击「导出字母分组JSON」即可按 A-Z 等生成多个 JSON 文件。</p>
-        <p><strong>3. 按首字母分组导出</strong>：点击「导出字母分组JSON」会将当前所有卡片按标题首字母分类，导出为 <code>A.json, B.json, ... numbers.json, data.json</code> 以及一个 <code>diy.json</code>（含版本、布局、主题等）。</p>
-        <p><strong>4. 读取 Github 上的分组文件</strong>：你可以将导出的这些 JSON 文件上传到 GitHub，然后修改 <code>loadInitialData</code> 函数，改为从你的 GitHub 仓库拉取这些文件并合并。示例代码可在控制台查看。</p>
-        <p><strong>5. 批量导入格式</strong>：<br>
-        <code>标题 || 描述 || URL || 作者 || 版本 || 标签1,标签2</code><br>
-        每行一个卡片，字段数可以少于6个（缺失的自动留空）。不需要句号结尾。</p>
-        <p><strong>6. 清空 IndexedDB</strong>：如需清空数据库，在控制台执行 <code>clearIndexedDBCards()</code>。</p>
-    </div>
-</details>
 <div id="textModal" class="modal"><div class="modal-content" style="width:90%;max-width:700px;height:70vh;display:flex;flex-direction:column"><h3 id="textModalTitle">文本内容</h3><div id="textContentDisplay" style="flex:1;overflow-y:auto;padding:14px;background:rgba(0,0,0,0.2);border-radius:14px;font-family:monospace;white-space:pre-wrap"></div><div class="modal-buttons"><button class="cancel-btn" id="textModalCancel">关闭</button></div></div></div>
 <div id="mindmapModal" class="modal"><div class="modal-content" style="width:90%;max-width:800px;height:75vh;display:flex;flex-direction:column"><h3 id="mindmapTitle">思维导图</h3><textarea id="mindmapEditor" style="width:100%;height:160px;font-family:monospace;display:none"></textarea><div id="mindmapContainer" style="flex:1;min-height:250px;overflow:auto"></div><div class="modal-buttons"><button class="cancel-btn" id="mindmapCancel">关闭</button><button class="save-btn" id="mindmapSave" style="display:none">保存</button></div></div></div>
 
 <script>
-
-// ==================== IndexedDB 工具模块 ====================
-const DB_NAME = 'ModrinthCatalogDB';
-const DB_VERSION = 1;
-const STORE_CARDS = 'cards';
-const STORE_META = 'meta';
-
-let db = null;
-
-function openIndexedDB() {
-    return new Promise((resolve, reject) => {
-        if (db && db.name === DB_NAME) return resolve(db);
-        const request = indexedDB.open(DB_NAME, DB_VERSION);
-        request.onerror = () => reject(request.error);
-        request.onsuccess = () => {
-            db = request.result;
-            resolve(db);
-        };
-        request.onupgradeneeded = (e) => {
-            const db_ = e.target.result;
-            if (!db_.objectStoreNames.contains(STORE_CARDS)) {
-                const store = db_.createObjectStore(STORE_CARDS, { keyPath: 'id', autoIncrement: true });
-                store.createIndex('groupName', 'groupName', { unique: false });
-                store.createIndex('firstLetter', 'firstLetter', { unique: false });
-            }
-            if (!db_.objectStoreNames.contains(STORE_META)) {
-                db_.createObjectStore(STORE_META, { keyPath: 'key' });
-            }
-        };
-    });
-}
-
-async function batchAddToIndexedDB(cardsArray) {
-    const _db = await openIndexedDB();
-    const tx = _db.transaction(STORE_CARDS, 'readwrite');
-    const store = tx.objectStore(STORE_CARDS);
-    for (const card of cardsArray) {
-        // 计算首字母 (英文/数字/中文)
-        let firstChar = (card.title || '').charAt(0).toUpperCase();
-        if (/[A-Z]/.test(firstChar)) card.firstLetter = firstChar;
-        else if (/[0-9]/.test(firstChar)) card.firstLetter = '0-9';
-        else card.firstLetter = 'other';   // 中文或其他
-        store.put(card);
-    }
-    return new Promise((resolve, reject) => {
-        tx.oncomplete = resolve;
-        tx.onerror = reject;
-    });
-}
-
-async function getAllCardsFromIndexedDB() {
-    const _db = await openIndexedDB();
-    const tx = _db.transaction(STORE_CARDS, 'readonly');
-    const store = tx.objectStore(STORE_CARDS);
-    const all = await store.getAll();
-    return all;
-}
-
-async function clearIndexedDBCards() {
-    const _db = await openIndexedDB();
-    const tx = _db.transaction(STORE_CARDS, 'readwrite');
-    tx.objectStore(STORE_CARDS).clear();
-    return tx.complete;
-}
-
-async function saveMeta(key, value) {
-    const _db = await openIndexedDB();
-    const tx = _db.transaction(STORE_META, 'readwrite');
-    tx.objectStore(STORE_META).put({ key, value: JSON.stringify(value) });
-    return tx.complete;
-}
-
-async function loadMeta(key) {
-    const _db = await openIndexedDB();
-    const tx = _db.transaction(STORE_META, 'readonly');
-    const res = await tx.objectStore(STORE_META).get(key);
-    return res ? JSON.parse(res.value) : null;
-}
-
-// 切换 IndexedDB 模式
-const toggleIdbBtn = document.getElementById('toggleIdbModeBtn');
-if (toggleIdbBtn) {
-    toggleIdbBtn.addEventListener('click', () => {
-        isUsingIndexedDB = !isUsingIndexedDB;
-        toggleIdbBtn.innerText = isUsingIndexedDB ? '💾 IndexedDB模式 (开)' : '💾 IndexedDB模式 (关)';
-        let statusDiv = document.getElementById('idbStatus');
-        if (!statusDiv) {
-            statusDiv = document.createElement('div');
-            statusDiv.id = 'idbStatus';
-            statusDiv.style.cssText = 'position:fixed;bottom:10px;right:10px;background:#333;color:#0f0;padding:6px 12px;border-radius:20px;font-size:12px;z-index:9999';
-            document.body.appendChild(statusDiv);
-        }
-        statusDiv.innerText = isUsingIndexedDB ? '💾 IndexedDB 模式已启用' : '💾 IndexedDB 模式已关闭';
-        statusDiv.style.display = 'block';
-        setTimeout(() => { statusDiv.style.display = 'none'; }, 3000);
-    });
-}
-
-// 导出分组按钮
-const exportGroupBtn = document.getElementById('exportGroupBtn');
-if (exportGroupBtn) {
-    exportGroupBtn.addEventListener('click', async () => {
-        if (isUsingIndexedDB && confirm('当前为 IndexedDB 模式，是否从数据库中导出所有卡片？')) {
-            const allCards = await getAllCardsFromIndexedDB();
-            // 临时构建类似 groupsData 结构用于导出
-            const tempGroups = [{ groupName: 'IndexedDB全部', items: allCards }];
-            const originalGroups = groupsData;
-            groupsData = tempGroups;
-            await exportGroupedByLetter();
-            groupsData = originalGroups;
-        } else {
-            exportGroupedByLetter();
-        }
-    });
-}
 (function(){
 const DEFAULT_GROUPS_DATA=[{groupName:"🎮 Minecraft 模组",items:[{title:"Fabric API",url:"https://modrinth.com/mod/fabric-api",description:"轻量级API",author:"Modmuss50",tags:["Fabric","库"],stats:{downloads:"162M",updated:"4天前"},version:"0.16.5",type:"link"},{title:"Sodium",url:"https://modrinth.com/mod/sodium",description:"渲染优化",author:"CaffeineMC",tags:["Fabric","NeoForge","优化"],stats:{downloads:"147M",updated:"1小时前"},version:"0.5.8",type:"link"},{title:"Iris Shaders",url:"https://modrinth.com/mod/iris",description:"光影加载器",author:"coderbot",tags:["Fabric","NeoForge","视觉"],stats:{downloads:"115M",updated:"3周前"},version:"1.7.0",type:"link"}]},{groupName:"🌐 常用开发网站",items:[{title:"GitHub",url:"https://github.com",description:"开发者平台",author:"GitHub",tags:["开发"],type:"link"}]},{groupName:"📺 视频&学习",items:[{title:"哔哩哔哩",url:"https://www.bilibili.com",description:"弹幕视频网",author:"Bilibili",tags:["视频"],type:"link"}]}];
 const ALL_KNOWN_VERSIONS=["1.14","1.14.1","1.14.2","1.14.3","1.14.4","1.15","1.15.1","1.15.2","1.16","1.16.1","1.16.2","1.16.3","1.16.4","1.16.5","1.17","1.17.1","1.18","1.18.1","1.18.2","1.19","1.19.1","1.19.2","1.19.3","1.19.4","1.20","1.20.1","1.20.2","1.20.3","1.20.4","1.20.5","1.20.6","1.21","1.21.1","1.21.2","1.21.3","1.21.4","1.21.5","1.21.11"];
@@ -822,142 +693,34 @@ function resetWallpaper(){
     else{ const st=localStorage.getItem('glass_custom_theme'); if(st) setTheme(st); else setTheme('white'); }
 }
 
-// GitHub 仓库配置（请替换为你的实际仓库地址）
-const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/haka516423-sudo/jingxuan.github.io/main/';
-const GITHUB_LETTER_FILES = [
-    ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map(l => `${l}.json`),
-    'numbers.json',
-    'data.json'
-];
-
-async function loadCardsFromGitHub() {
-    const allCards = [];
-    for (const file of GITHUB_LETTER_FILES) {
-        try {
-            const url = GITHUB_RAW_BASE + file + '?v=' + Date.now();
-            const res = await fetch(url);
-            if (res.ok) {
-                const cards = await res.json();
-                if (Array.isArray(cards)) allCards.push(...cards);
-                else console.warn(`${file} 内容不是数组，跳过`);
-            } else {
-                console.log(`${file} 不存在，跳过`);
-            }
-        } catch (err) {
-            console.warn(`加载 ${file} 失败:`, err);
-        }
-    }
-    return allCards;
-}
-
-async function loadInitialData() {
-    const autoAdmin = sessionStorage.getItem('adminModeAuto') === 'true';
-    
-    // 自动管理员模式：优先使用本地可编辑数据
-    if (autoAdmin) {
-        const s = localStorage.getItem('editable_groups_data');
-        if (s) {
-            try {
-                const p = JSON.parse(s);
-                if (p && Array.isArray(p)) {
-                    groupsData = p;
-                    currentDataSource = 'local';
-                    hasLocalChanges = true;
-                    updateDataSourceIndicator();
-                    renderAll();
-                    return;
-                }
-            } catch (e) {}
-        }
-        groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
-        currentDataSource = 'default';
-        hasLocalChanges = false;
-        updateDataSourceIndicator();
-        renderAll();
+async function loadInitialData(){
+    const autoAdmin=sessionStorage.getItem('adminModeAuto')==='true';
+    if(autoAdmin){
+        const s=localStorage.getItem('editable_groups_data');
+        if(s)try{const p=JSON.parse(s);if(p&&Array.isArray(p)){groupsData=p;currentDataSource='local';hasLocalChanges=true;updateDataSourceIndicator();renderAll();return}}catch(e){}
+        groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));currentDataSource='default';hasLocalChanges=false;updateDataSourceIndicator();renderAll();
         return;
     }
-   // 0. 检查 IndexedDB 中是否有数据
-   const idbCards = await getAllCardsFromIndexedDB();
-   if (idbCards.length > 0) {
-       // 将卡片按 groupName 重新组装成 groupsData
-       const groupMap = new Map();
-       for (const card of idbCards) {
-           const groupName = card.groupName || '📦 IndexedDB 分组';
-           if (!groupMap.has(groupName)) groupMap.set(groupName, []);
-           groupMap.get(groupName).push(card);
-       }
-       groupsData = Array.from(groupMap.entries()).map(([name, items]) => ({ groupName: name, items }));
-       currentDataSource = 'local';
-       hasLocalChanges = true;
-       localStorage.setItem('editable_groups_data', JSON.stringify(groupsData));
-       updateDataSourceIndicator();
-       renderAll();
-       return;
-   }
-    // 1. 尝试从 GitHub 加载 26 个字母文件
-    let githubCards = [];
-    let githubSuccess = false;
-    try {
-        githubCards = await loadCardsFromGitHub();
-        if (githubCards.length > 0) {
-            githubSuccess = true;
-            console.log(`✅ 从 GitHub 加载了 ${githubCards.length} 个卡片`);
-        }
-    } catch (e) {
-        console.warn('GitHub 加载失败，使用后备数据源', e);
-    }
-
-    if (githubSuccess) {
-        // 构建新的分组：可以创建一个名为“📦 GitHub 模组库”的分组，或者将卡片合并到现有分组
-        // 这里选择创建一个新分组并替换 groupsData
-        const newGroup = {
-            groupName: '📦 GitHub 模组库',
-            items: githubCards
-        };
-        groupsData = [newGroup];
-        currentDataSource = 'cloud';
-        hasLocalChanges = false;
-        localStorage.setItem('editable_groups_data', JSON.stringify(groupsData));
-        updateDataSourceIndicator();
-        renderAll();
-        return;
-    }
-
-    // 2. GitHub 失败，尝试从云端 data.json 加载（原有逻辑）
-    let cloud = false;
-    try {
-        const r = await fetch('data.json?v=' + Date.now());
-        if (r.ok) {
-            const json = await r.json();
-            if (json.groups && Array.isArray(json.groups)) {
-                groupsData = json.groups;
-                if (json.versions && Array.isArray(json.versions)) versions = json.versions;
+    let cloud=false;
+    try{
+        const r=await fetch('data.json?v='+Date.now());
+        if(r.ok){
+            const json=await r.json();
+            if(json.groups&&Array.isArray(json.groups)){
+                groupsData=json.groups;
+                if(json.versions&&Array.isArray(json.versions)) versions=json.versions;
                 saveVersions();
-                currentDataSource = 'cloud';
-                hasLocalChanges = false;
-                localStorage.setItem('editable_groups_data', JSON.stringify(groupsData));
-                cloud = true;
+                currentDataSource='cloud';hasLocalChanges=false;
+                localStorage.setItem('editable_groups_data',JSON.stringify(groupsData));
+                cloud=true;
             }
         }
-    } catch (e) {}
-
-    if (!cloud) {
-        // 3. 回退到本地缓存或默认数据
-        const s = localStorage.getItem('editable_groups_data');
-        if (s) {
-            try {
-                groupsData = JSON.parse(s);
-                currentDataSource = 'local';
-            } catch (e) {
-                groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
-                currentDataSource = 'default';
-            }
-        } else {
-            groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
-            currentDataSource = 'default';
-        }
+    }catch(e){}
+    if(!cloud){
+        const s=localStorage.getItem('editable_groups_data');
+        if(s)try{groupsData=JSON.parse(s);currentDataSource='local';}catch(e){groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));currentDataSource='default';}
+        else{groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));currentDataSource='default';}
     }
-
     updateDataSourceIndicator();
     renderAll();
 }
@@ -981,26 +744,6 @@ function normalizeTags(t){if(!t)return[];if(Array.isArray(t))return t;return t.r
 function getFavicon(url){return`https://www.google.com/s2/favicons?domain=${encodeURIComponent(url)}`}
 function getCurrentTimeString(){const n=new Date();return`${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')} ${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}:${String(n.getSeconds()).padStart(2,'0')}`}
 
-async function saveToIndexedDB(data) {
-    const _db = await openIndexedDB();
-    const tx = _db.transaction([STORE_CARDS, STORE_META], 'readwrite');
-    const cardStore = tx.objectStore(STORE_CARDS);
-    const metaStore = tx.objectStore(STORE_META);
-    
-    // 清空旧数据
-    await cardStore.clear();
-    // 将所有 groupsData 中的卡片平铺存入（每个卡片带所属分组名）
-    let idCounter = 1;
-    for (const group of data.groupsData) {
-        for (const card of group.items) {
-            const cardCopy = { ...card, groupName: group.groupName, id: idCounter++ };
-            cardStore.put(cardCopy);
-        }
-    }
-    // 保存 versions 等元数据
-    metaStore.put({ key: 'versions', value: JSON.stringify(data.versions) });
-    return tx.complete;
-}
 async function saveDataToStorage() {
     const dataToSave = { groupsData, versions };
     const serialized = JSON.stringify(dataToSave);
@@ -1032,8 +775,6 @@ async function saveDataToStorage() {
         }
     }
 }
-
-
 function updateDataSourceIndicator(){const c=document.getElementById('dataSourceIndicator'),d=c?.querySelector('.indicator-dot'),t=document.getElementById('sourceText');if(!c)return;c.style.display='flex';if(hasLocalChanges){d.className='indicator-dot local';t.innerText='本地草稿'}else if(currentDataSource==='cloud'){d.className='indicator-dot cloud';t.innerText='云端'}else if(currentDataSource==='local'){d.className='indicator-dot local';t.innerText='本地缓存'}else{d.className='indicator-dot default';t.innerText='默认数据'}}
 
 function parseVersionRange(input) { const range = input.trim(); if (!range.includes('-')) return [range]; const [start, end] = range.split('-').map(v => v.trim()); if (!start || !end) return [range]; const filtered = ALL_KNOWN_VERSIONS.filter(v => v >= start && v <= end); return filtered.length ? filtered : [range]; }
@@ -1243,13 +984,11 @@ typeBtns.forEach(b=>{b.addEventListener('click',()=>{setActiveTypeBtn(b.dataset.
 
 function renderDynamicTags(){if(!dynamicTagList)return;const allTags=extractAllTags().map(([tag])=>tag);const fixed=['Fabric','Forge','NeoForge'];const other=allTags.filter(t=>!fixed.includes(t));dynamicTagList.innerHTML=other.length?other.map(t=>`<button type="button" class="tag-btn" data-tag="${escapeHtml(t)}">${escapeHtml(t)}</button>`).join(''):'<span style="font-size:0.7rem;color:#aaa">暂无其他标签</span>';document.querySelectorAll('.dynamic-tag-list-wrap .tag-btn').forEach(b=>b.addEventListener('click',function(){const t=this.dataset.tag,cv=cardTagsInput.value.trim();cardTagsInput.value=cv?cv.split(',').map(s=>s.trim()).includes(t)?cv:cv+', '+t:t}))}
 
-let isUsingIndexedDB = false;   // 是否启用索引数据库模式
-
 function parseBatchText() {
     let raw = batchTextarea.value.trim();
     if (!raw) return alert('请输入文本');
 
-    // UI元素
+    // 准备UI元素
     const progressArea = document.getElementById('batchProgressArea');
     const progressFill = document.getElementById('batchProgressFill');
     const progressText = document.getElementById('batchProgressText');
@@ -1258,7 +997,10 @@ function parseBatchText() {
     const parseBtn = document.getElementById('batchParseBtn');
     const cancelBtn = document.getElementById('batchCancelBtn');
 
+    // 重置完成区域（隐藏）
     completeArea.style.display = 'none';
+
+    // 禁用按钮，显示进度条
     parseBtn.disabled = true;
     cancelBtn.disabled = true;
     progressArea.style.display = 'block';
@@ -1266,10 +1008,11 @@ function parseBatchText() {
     progressText.innerText = '正在预处理数据...';
     progressPercent.innerText = '0%';
 
-    // 解析行
+    // 分割行
     raw = raw.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
-    const lines = raw.split('\n').filter(l => l.trim());
-    if (lines.length === 0) {
+    let lines = raw.split('\n').filter(l => l.trim());
+    const totalLines = lines.length;
+    if (totalLines === 0) {
         alert('没有有效数据');
         parseBtn.disabled = false;
         cancelBtn.disabled = false;
@@ -1277,6 +1020,7 @@ function parseBatchText() {
         return;
     }
 
+    // 预解析所有合法卡片
     let validCards = [];
     let skipped = 0;
     let skippedReasons = [];
@@ -1284,134 +1028,133 @@ function parseBatchText() {
     for (let idx = 0; idx < lines.length; idx++) {
         let cl = lines[idx].trim();
         if (cl.endsWith('。')) cl = cl.slice(0, -1).trim();
-        if (!cl) { skipped++; continue; }
+        if (!cl) {
+            skipped++;
+            continue;
+        }
+
         const parts = cl.split('||').map(s => s.trim());
-        let rawTitle = (parts[0] || '').replace(/^\d+\.\s*/, '');
+        let rawTitle = parts[0] || '';
+        rawTitle = rawTitle.replace(/^\d+\.\s*/, '');  // 去除序号
+
         if (!rawTitle) {
             skipped++;
-            if (skippedReasons.length < 5) skippedReasons.push(`第${idx+1}行:标题为空`);
+            if (skippedReasons.length < 5) skippedReasons.push(`第 ${idx+1} 行: 标题为空`);
             continue;
         }
-        const url = parts[2] || '';
+
+        const desc   = parts[1] || '';
+        const url    = parts[2] || '';
+        const author = parts[3] || '';
+        const ver    = parts[4] || '';
+        const tagsStr = parts[5] || '';
+
         if (!url) {
             skipped++;
-            if (skippedReasons.length < 5) skippedReasons.push(`第${idx+1}行:URL为空`);
+            if (skippedReasons.length < 5) skippedReasons.push(`第 ${idx+1} 行: URL 为空`);
             continue;
         }
-        const desc = parts[1] || url;
-        const author = parts[3] || '';
-        const ver = parts[4] || undefined;
-        const tagsStr = parts[5] || '';
-        const tags = tagsStr ? tagsStr.split(',').map(s=>s.trim()).filter(s=>s) : [];
+
+        const tags = tagsStr ? tagsStr.split(',').map(s => s.trim()).filter(s => s) : [];
+        const finalDesc = desc || url;
+
         validCards.push({
             title: rawTitle,
-            description: desc,
+            description: finalDesc,
             author: author,
             tags: tags,
-            version: ver,
-            stats: { downloads: '—', updated: getCurrentTimeString() },
+            version: ver || undefined,
+            stats: {
+                downloads: '—',
+                updated: getCurrentTimeString()
+            },
             type: 'link',
-            url: url,
-            groupName: groupsData[currentGroupIndex].groupName   // 记录所属分组
+            url: url
         });
     }
 
     const totalValid = validCards.length;
     if (totalValid === 0) {
-        alert(`无有效卡片，跳过 ${skipped} 行`);
+        let msg = `⚠️ 没有有效的卡片数据。\n跳过 ${skipped} 行。`;
+        if (skippedReasons.length) msg += `\n原因示例：${skippedReasons.slice(0,3).join('；')}`;
+        alert(msg);
         parseBtn.disabled = false;
         cancelBtn.disabled = false;
         progressArea.style.display = 'none';
         return;
     }
 
-    // 判断是否启用 IndexedDB 模式：默认 false，如果卡片数量 > 500 则自动启用并提示
-    const USE_IDB_THRESHOLD = 500;
-    let useIdb = isUsingIndexedDB || (totalValid > USE_IDB_THRESHOLD);
-    if (totalValid > USE_IDB_THRESHOLD && !isUsingIndexedDB) {
-        if (confirm(`检测到大量卡片 (${totalValid} 个)，建议启用 IndexedDB 模式以避免卡顿。\n是否启用？启用后卡片将存入数据库，不会立即显示在列表中，但可通过“导出分组JSON”导出。`)) {
-            useIdb = true;
-            isUsingIndexedDB = true;
-            // 显示一个状态标志
-            let statusDiv = document.getElementById('idbStatus');
-            if (!statusDiv) {
-                statusDiv = document.createElement('div');
-                statusDiv.id = 'idbStatus';
-                statusDiv.style.cssText = 'position:fixed;bottom:10px;right:10px;background:#333;color:#0f0;padding:6px 12px;border-radius:20px;font-size:12px;z-index:9999';
-                document.body.appendChild(statusDiv);
-            }
-            statusDiv.innerText = '💾 IndexedDB 模式已启用 (大量数据)';
-            statusDiv.style.display = 'block';
-        }
-    }
-
-    // 分批处理函数
-    const BATCH_SIZE = 200;
-    let currentIdx = 0;
+    // 分批添加卡片（每批15个，避免UI卡死）
+    const BATCH_SIZE = 15;
+    let currentIndex = 0;
     let addedCount = 0;
 
-    async function processBatch() {
-        const end = Math.min(currentIdx + BATCH_SIZE, totalValid);
-        const batch = validCards.slice(currentIdx, end);
-        
-        if (useIdb) {
-            await batchAddToIndexedDB(batch);
-        } else {
-            // 直接加入内存 groupsData
-            for (const card of batch) {
-                groupsData[currentGroupIndex].items.push(card);
-            }
-            addedCount += batch.length;
+    function addNextBatch() {
+        const end = Math.min(currentIndex + BATCH_SIZE, totalValid);
+        for (let i = currentIndex; i < end; i++) {
+            groupsData[currentGroupIndex].items.push(validCards[i]);
+            addedCount++;
         }
-        
-        currentIdx = end;
-        const percent = Math.floor((currentIdx / totalValid) * 100);
+        currentIndex = end;
+
+        const percent = Math.floor((currentIndex / totalValid) * 100);
         progressFill.style.width = percent + '%';
-        progressText.innerText = useIdb ? `写入数据库 ${currentIdx}/${totalValid}` : `添加卡片 ${currentIdx}/${totalValid}`;
+        progressText.innerText = `正在添加卡片 ${currentIndex} / ${totalValid}`;
         progressPercent.innerText = percent + '%';
-        
-        if (currentIdx < totalValid) {
-            setTimeout(processBatch, 10);
+
+        if (currentIndex < totalValid) {
+            setTimeout(addNextBatch, 10); // 让步，保持响应
         } else {
-            // 完成
-            if (!useIdb) {
-                saveDataToStorage();
-                renderAll();
-                currentPage = 1;
-            }
+            // 全部完成
+            saveDataToStorage();
+            renderAll();        // 刷新主界面
+            currentPage = 1;
+
+            // 显示完成按钮
             completeArea.style.display = 'block';
-            let msg = `✅ 成功处理 ${totalValid} 个卡片。`;
-            if (skipped) msg += `\n跳过 ${skipped} 行无效数据。`;
-            if (skippedReasons.length) msg += `\n示例：${skippedReasons.slice(0,3).join('；')}`;
-            if (useIdb) msg += `\n📀 数据已存入 IndexedDB，可使用“导出分组JSON”导出为文件。`;
+
+            // 构建完成提示消息
+            let msg = `✅ 成功添加 ${addedCount} 个卡片。`;
+            if (skipped > 0) {
+                msg += `\n⏭️ 跳过 ${skipped} 行无效数据。`;
+                if (skippedReasons.length) {
+                    msg += `\n\n原因示例（前${Math.min(5,skippedReasons.length)}条）：\n${skippedReasons.slice(0,5).join('\n')}`;
+                }
+            }
             alert(msg);
+
+            // 注意：不在这里恢复按钮，因为等待用户点“完成并关闭”
+            // 但取消按钮仍需禁用，直到关闭
         }
     }
-    
-    processBatch();
 
-    // 绑定完成按钮（清空文本框并关闭）
+    // 启动分批添加
+    addNextBatch();
+
+    // 绑定完成按钮（确保只绑定一次，避免重复）
     const completeBtn = document.getElementById('batchCompleteBtn');
     const oldHandler = completeBtn._handler;
     if (oldHandler) completeBtn.removeEventListener('click', oldHandler);
-    const newHandler = () => {
+    const newHandler = function() {
+        // 清空文本输入区，清除历史
         batchTextarea.value = '';
-        document.getElementById('batchFileInfo').innerText = '';
+        // 重置文件信息显示
+        const fileInfoSpan = document.getElementById('batchFileInfo');
+        if (fileInfoSpan) fileInfoSpan.innerText = '';
+        // 关闭模态框
         batchModal.classList.remove('active');
+        // 恢复按钮状态
         parseBtn.disabled = false;
         cancelBtn.disabled = false;
+        // 隐藏进度条和完成区域
         progressArea.style.display = 'none';
         completeArea.style.display = 'none';
+        // 清理绑定
         completeBtn.removeEventListener('click', newHandler);
-        if (useIdb && confirm('IndexedDB 模式已启用，是否现在导出分组文件？')) {
-            exportGroupedByLetter();
-        }
     };
     completeBtn.addEventListener('click', newHandler);
     completeBtn._handler = newHandler;
 }
-
-
 function openTextView(title,content){textModalTitle.innerText=title;textContentDisplay.innerHTML=escapeHtml(content).replace(/\n/g,'<br>');textModal.classList.add('active')}
 function closeTextModal(){textModal.classList.remove('active')}
 function openMindmap(gi,ci){const card=groupsData[gi].items[ci];mindmapTitle.innerText=`思维导图 - ${card.title}`;const cont=card.mindmap||'';if(isAdminMode){mindmapEditor.style.display='block';mindmapSave.style.display='inline-block';mindmapEditor.value=cont}else{mindmapEditor.style.display='none';mindmapSave.style.display='none'}renderMindmap(cont||'# 思维导图\n请编辑内容');mindmapModal.classList.add('active');currentMindmapCard={gi,ci}}
@@ -1491,78 +1234,6 @@ function exportData() {
     a.download = 'card_data_backup.json';
     a.click();
     URL.revokeObjectURL(url);
-}
-
-// 获取标题的首字母 (英文 A-Z, 数字归为 '0-9', 其他归为 'other')
-function getFirstLetter(title) {
-    if (!title) return 'other';
-    const ch = title.charAt(0).toUpperCase();
-    if (/[A-Z]/.test(ch)) return ch;
-    if (/[0-9]/.test(ch)) return '0-9';
-    return 'other';
-}
-
-// 导出当前 groupsData 中的所有卡片，按首字母分组打包为多个 JSON 文件
-async function exportGroupedByLetter() {
-    // 收集所有卡片 (平铺，携带所属分组名)
-    let allCards = [];
-    for (let gIdx = 0; gIdx < groupsData.length; gIdx++) {
-        const group = groupsData[gIdx];
-        for (const card of group.items) {
-            allCards.push({
-                ...card,
-                originalGroupName: group.groupName
-            });
-        }
-    }
-
-    // 按首字母分组
-    const map = new Map();  // key: letter, value: array
-    for (const card of allCards) {
-        const letter = getFirstLetter(card.title);
-        if (!map.has(letter)) map.set(letter, []);
-        map.get(letter).push(card);
-    }
-
-    // 生成独立 JSON 文件 (A-Z, 0-9, other)
-    for (const [letter, cards] of map.entries()) {
-        let filename = '';
-        if (letter === '0-9') filename = 'numbers.json';
-        else if (letter === 'other') filename = 'data.json';
-        else filename = `${letter}.json`;
-        const blob = new Blob([JSON.stringify(cards, null, 2)], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = filename;
-        a.click();
-        URL.revokeObjectURL(url);
-        await new Promise(r => setTimeout(r, 100)); // 避免浏览器阻止多个下载
-    }
-
-    // 导出 diy.json (包含版本列表、分组结构、布局设置、主题等)
-    const diyData = {
-        versions: versions,
-        groupsStructure: groupsData.map(g => ({ groupName: g.groupName, itemCount: g.items.length })),
-        layoutSettings: {
-            cardRadius: getComputedStyle(document.documentElement).getPropertyValue('--card-radius'),
-            cardPadding: getComputedStyle(document.documentElement).getPropertyValue('--card-padding'),
-            cardGap: getComputedStyle(document.documentElement).getPropertyValue('--card-gap')
-        },
-        theme: document.body.getAttribute('data-theme'),
-        glassOpacity: localStorage.getItem('glass_opacity') || '0.35',
-        gradientAngle: localStorage.getItem('gradient_angle') || '135',
-        exportTime: new Date().toISOString()
-    };
-    const diyBlob = new Blob([JSON.stringify(diyData, null, 2)], { type: 'application/json' });
-    const diyUrl = URL.createObjectURL(diyBlob);
-    const diyA = document.createElement('a');
-    diyA.href = diyUrl;
-    diyA.download = 'diy.json';
-    diyA.click();
-    URL.revokeObjectURL(diyUrl);
-
-    alert(`已导出 ${map.size} 个分组文件 + diy.json，请检查下载文件夹。`);
 }
 function resetToDefault(){if(confirm('重置所有数据？')){groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));versions=[...DEFAULT_VERSIONS];saveVersions();saveDataToStorage();currentGroupIndex=0;currentKeyword='';currentTagFilter=null;currentVersionFilter=null;currentPage=1;if(searchInput)searchInput.value='';renderAll()}}
 
