@@ -550,12 +550,70 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 <div id="mindmapModal" class="modal"><div class="modal-content" style="width:90%;max-width:800px;height:75vh;display:flex;flex-direction:column"><h3 id="mindmapTitle">思维导图</h3><textarea id="mindmapEditor" style="width:100%;height:160px;font-family:monospace;display:none"></textarea><div id="mindmapContainer" style="flex:1;min-height:250px;overflow:auto"></div><div class="modal-buttons"><button class="cancel-btn" id="mindmapCancel">关闭</button><button class="save-btn" id="mindmapSave" style="display:none">保存</button></div></div></div>
 
 <script>
+// ==================== IndexedDB 工具模块 ====================
+const DB_NAME = 'JingxuanDB';
+const DB_VERSION = 1;
+const STORE_NAME = 'appData';
+
+function openDB() {
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.open(DB_NAME, DB_VERSION);
+        request.onupgradeneeded = (event) => {
+            const db = event.target.result;
+            if (!db.objectStoreNames.contains(STORE_NAME)) {
+                db.createObjectStore(STORE_NAME);
+            }
+        };
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(request.error);
+    });
+}
+
+async function saveToIndexedDB(data) {
+    const db = await openDB();
+    return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE_NAME, 'readwrite');
+        const store = tx.objectStore(STORE_NAME);
+        const req = store.put(data, 'main');
+        req.onsuccess = () => resolve();
+        req.onerror = () => reject(req.error);
+        tx.oncomplete = () => db.close();
+    });
+}
+
+async function loadFromIndexedDB() {
+    const db = await openDB();
+    return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE_NAME, 'readonly');
+        const store = tx.objectStore(STORE_NAME);
+        const req = store.get('main');
+        req.onsuccess = () => resolve(req.result || null);
+        req.onerror = () => reject(req.error);
+        tx.oncomplete = () => db.close();
+    });
+}
+
+async function clearIndexedDB() {
+    const db = await openDB();
+    return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE_NAME, 'readwrite');
+        const store = tx.objectStore(STORE_NAME);
+        const req = store.clear();
+        req.onsuccess = () => resolve();
+        req.onerror = () => reject(req.error);
+        tx.oncomplete = () => db.close();
+    });
+}
+// ==================== IndexedDB 工具模块结束 ====================
+
 (function(){
 const DEFAULT_GROUPS_DATA=[{groupName:"🎮 Minecraft 模组",items:[{title:"Fabric API",url:"https://modrinth.com/mod/fabric-api",description:"轻量级API",author:"Modmuss50",tags:["Fabric","库"],stats:{downloads:"162M",updated:"4天前"},version:"0.16.5",type:"link"},{title:"Sodium",url:"https://modrinth.com/mod/sodium",description:"渲染优化",author:"CaffeineMC",tags:["Fabric","NeoForge","优化"],stats:{downloads:"147M",updated:"1小时前"},version:"0.5.8",type:"link"},{title:"Iris Shaders",url:"https://modrinth.com/mod/iris",description:"光影加载器",author:"coderbot",tags:["Fabric","NeoForge","视觉"],stats:{downloads:"115M",updated:"3周前"},version:"1.7.0",type:"link"}]},{groupName:"🌐 常用开发网站",items:[{title:"GitHub",url:"https://github.com",description:"开发者平台",author:"GitHub",tags:["开发"],type:"link"}]},{groupName:"📺 视频&学习",items:[{title:"哔哩哔哩",url:"https://www.bilibili.com",description:"弹幕视频网",author:"Bilibili",tags:["视频"],type:"link"}]}];
 const ALL_KNOWN_VERSIONS=["1.14","1.14.1","1.14.2","1.14.3","1.14.4","1.15","1.15.1","1.15.2","1.16","1.16.1","1.16.2","1.16.3","1.16.4","1.16.5","1.17","1.17.1","1.18","1.18.1","1.18.2","1.19","1.19.1","1.19.2","1.19.3","1.19.4","1.20","1.20.1","1.20.2","1.20.3","1.20.4","1.20.5","1.20.6","1.21","1.21.1","1.21.2","1.21.3","1.21.4","1.21.5","1.21.11"];
 const DEFAULT_VERSIONS=["1.21.11","1.21.1","1.20.6","1.20.1","1.19.4","1.19.2","1.18.2","1.16.5"];
 let groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA)),currentGroupIndex=0,currentKeyword='',isAdminMode=!1,editingCardInfo=null,currentDataSource='default',isListView=!1,hasLocalChanges=!1,currentSort='title-asc',currentTagFilter=null,currentVersionFilter=null,currentCardType='link',currentPage=1,pageSize=50;
 let versions=[...DEFAULT_VERSIONS];
+let useIndexedDB = false;          // 是否使用 IndexedDB（管理员模式下开启）
+let normalDataBackup = null;       // 退出管理员时，普通模式数据的备份（可选）
 function saveVersions(){localStorage.setItem('mc_versions',JSON.stringify(versions))}
 function loadVersions(){const s=localStorage.getItem('mc_versions');if(s)try{versions=JSON.parse(s);if(!Array.isArray(versions)) versions=[];versions=versions.filter(v=>/^\d+(\.\d+)*$/.test(v));if(!versions.length) versions=[...DEFAULT_VERSIONS];}catch(e){versions=[...DEFAULT_VERSIONS]}}
 
@@ -693,35 +751,82 @@ function resetWallpaper(){
     else{ const st=localStorage.getItem('glass_custom_theme'); if(st) setTheme(st); else setTheme('white'); }
 }
 
-async function loadInitialData(){
-    const autoAdmin=sessionStorage.getItem('adminModeAuto')==='true';
-    if(autoAdmin){
-        const s=localStorage.getItem('editable_groups_data');
-        if(s)try{const p=JSON.parse(s);if(p&&Array.isArray(p)){groupsData=p;currentDataSource='local';hasLocalChanges=true;updateDataSourceIndicator();renderAll();return}}catch(e){}
-        groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));currentDataSource='default';hasLocalChanges=false;updateDataSourceIndicator();renderAll();
+async function loadInitialData() {
+    if (useIndexedDB) {
+        // 管理员模式：从 IndexedDB 读取
+        try {
+            const stored = await loadFromIndexedDB();
+            if (stored && stored.groupsData) {
+                groupsData = stored.groupsData;
+                versions = stored.versions || versions;
+                currentDataSource = 'local';
+                hasLocalChanges = true;
+                updateDataSourceIndicator();
+                renderAll();
+                return;
+            }
+        } catch (e) { console.warn(e); }
+        // 没有 IndexedDB 数据，则从云端或默认加载并存入 IndexedDB
+        await loadFromCloudOrDefaultAndSaveToIndexedDB();
         return;
     }
-    let cloud=false;
-    try{
-        const r=await fetch('data.json?v='+Date.now());
-        if(r.ok){
-            const json=await r.json();
-            if(json.groups&&Array.isArray(json.groups)){
-                groupsData=json.groups;
-                if(json.versions&&Array.isArray(json.versions)) versions=json.versions;
+
+    // ---------- 普通模式：原 localStorage 逻辑 ----------
+    let cloud = false;
+    try {
+        const res = await fetch('data.json?v=' + Date.now());
+        if (res.ok) {
+            const json = await res.json();
+            if (json.groups && Array.isArray(json.groups)) {
+                groupsData = json.groups;
+                if (json.versions) versions = json.versions;
                 saveVersions();
-                currentDataSource='cloud';hasLocalChanges=false;
-                localStorage.setItem('editable_groups_data',JSON.stringify(groupsData));
-                cloud=true;
+                currentDataSource = 'cloud';
+                hasLocalChanges = false;
+                localStorage.setItem('editable_groups_data', JSON.stringify(groupsData));
+                updateDataSourceIndicator();
+                renderAll();
+                return;
             }
         }
-    }catch(e){}
-    if(!cloud){
-        const s=localStorage.getItem('editable_groups_data');
-        if(s)try{groupsData=JSON.parse(s);currentDataSource='local';}catch(e){groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));currentDataSource='default';}
-        else{groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));currentDataSource='default';}
+    } catch(e) { console.warn(e); }
+    
+    const local = localStorage.getItem('editable_groups_data');
+    if (local) {
+        try {
+            groupsData = JSON.parse(local);
+            currentDataSource = 'local';
+            hasLocalChanges = true;
+        } catch(e) { groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA)); }
+    } else {
+        groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
+        currentDataSource = 'default';
     }
     updateDataSourceIndicator();
+    renderAll();
+}
+
+async function loadFromCloudOrDefaultAndSaveToIndexedDB() {
+    try {
+        const res = await fetch('data.json?v=' + Date.now());
+        if (res.ok) {
+            const json = await res.json();
+            if (json.groups && Array.isArray(json.groups)) {
+                groupsData = json.groups;
+                versions = json.versions || DEFAULT_VERSIONS;
+                currentDataSource = 'cloud';
+                hasLocalChanges = false;
+                await saveToIndexedDB({ groupsData, versions });
+                updateDataSourceIndicator();
+                renderAll();
+                return;
+            }
+        }
+    } catch(e) {}
+    groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
+    versions = [...DEFAULT_VERSIONS];
+    currentDataSource = 'default';
+    await saveToIndexedDB({ groupsData, versions });
     renderAll();
 }
 
@@ -744,7 +849,36 @@ function normalizeTags(t){if(!t)return[];if(Array.isArray(t))return t;return t.r
 function getFavicon(url){return`https://www.google.com/s2/favicons?domain=${encodeURIComponent(url)}`}
 function getCurrentTimeString(){const n=new Date();return`${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')} ${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}:${String(n.getSeconds()).padStart(2,'0')}`}
 
-function saveDataToStorage(){localStorage.setItem('editable_groups_data',JSON.stringify(groupsData));hasLocalChanges=true;if(currentDataSource!=='cloud')currentDataSource='local';updateDataSourceIndicator();renderTagList()}
+async function saveDataToStorage() {
+    const dataToSave = { groupsData, versions };
+    try {
+        if (useIndexedDB) {
+            await saveToIndexedDB(dataToSave);
+            console.log('已保存到 IndexedDB');
+        } else {
+            // 普通模式：localStorage
+            const serialized = JSON.stringify(groupsData);
+            const sizeMB = new Blob([serialized]).size / (1024 * 1024);
+            if (sizeMB > 4.5) {
+                if (!confirm(`数据约 ${sizeMB.toFixed(1)} MB，接近 localStorage 上限。继续保存可能失败。\n是否仍要保存？`)) {
+                    return;
+                }
+            }
+            localStorage.setItem('editable_groups_data', serialized);
+        }
+        hasLocalChanges = true;
+        if (currentDataSource !== 'cloud') currentDataSource = 'local';
+        updateDataSourceIndicator();
+        renderTagList();
+    } catch (err) {
+        console.error('保存失败', err);
+        if (err.name === 'QuotaExceededError') {
+            alert('存储空间不足！请开启管理员模式（支持大容量）后再导入数据。');
+        } else {
+            alert('保存失败：' + err.message);
+        }
+    }
+}
 function updateDataSourceIndicator(){const c=document.getElementById('dataSourceIndicator'),d=c?.querySelector('.indicator-dot'),t=document.getElementById('sourceText');if(!c)return;c.style.display='flex';if(hasLocalChanges){d.className='indicator-dot local';t.innerText='本地草稿'}else if(currentDataSource==='cloud'){d.className='indicator-dot cloud';t.innerText='云端'}else if(currentDataSource==='local'){d.className='indicator-dot local';t.innerText='本地缓存'}else{d.className='indicator-dot default';t.innerText='默认数据'}}
 
 function parseVersionRange(input) { const range = input.trim(); if (!range.includes('-')) return [range]; const [start, end] = range.split('-').map(v => v.trim()); if (!start || !end) return [range]; const filtered = ALL_KNOWN_VERSIONS.filter(v => v >= start && v <= end); return filtered.length ? filtered : [range]; }
@@ -954,7 +1088,7 @@ typeBtns.forEach(b=>{b.addEventListener('click',()=>{setActiveTypeBtn(b.dataset.
 
 function renderDynamicTags(){if(!dynamicTagList)return;const allTags=extractAllTags().map(([tag])=>tag);const fixed=['Fabric','Forge','NeoForge'];const other=allTags.filter(t=>!fixed.includes(t));dynamicTagList.innerHTML=other.length?other.map(t=>`<button type="button" class="tag-btn" data-tag="${escapeHtml(t)}">${escapeHtml(t)}</button>`).join(''):'<span style="font-size:0.7rem;color:#aaa">暂无其他标签</span>';document.querySelectorAll('.dynamic-tag-list-wrap .tag-btn').forEach(b=>b.addEventListener('click',function(){const t=this.dataset.tag,cv=cardTagsInput.value.trim();cardTagsInput.value=cv?cv.split(',').map(s=>s.trim()).includes(t)?cv:cv+', '+t:t}))}
 
-function parseBatchText() {
+async function parseBatchText() {
     let raw = batchTextarea.value.trim();
     if (!raw) return alert('请输入文本');
 
@@ -1076,7 +1210,7 @@ function parseBatchText() {
             setTimeout(addNextBatch, 10); // 让步，保持响应
         } else {
             // 全部完成
-            saveDataToStorage();
+            saveDataToStorage().catch(err => console.error('保存失败', err));
             renderAll();        // 刷新主界面
             currentPage = 1;
 
@@ -1169,10 +1303,62 @@ function updateScrollGradients(el){if(!el)return;const hasScroll=el.scrollHeight
 const scrollAreas=[document.getElementById('groupsScrollArea'),document.getElementById('versionScrollArea'),document.getElementById('tagScrollArea')];
 scrollAreas.forEach(el=>{if(el){el.addEventListener('scroll',()=>updateScrollGradients(el));updateScrollGradients(el);}});
 
-function enableAdminMode(){isAdminMode=true;document.getElementById('adminToolbar').style.display='flex';document.getElementById('addGroupBtn').style.display='inline-flex';updateSortOptions();renderCards();renderGroupButtons();renderVersionList();sessionStorage.setItem('adminModeAuto','true')}
-function disableAdminMode(){isAdminMode=false;document.getElementById('adminToolbar').style.display='none';document.getElementById('addGroupBtn').style.display='none';updateSortOptions();renderCards();renderGroupButtons();renderTagList();sessionStorage.removeItem('adminModeAuto');if(confirm('退出编辑模式，是否重新从云端加载最新数据？'))location.reload()}
+async function enableAdminMode() {
+    if (isAdminMode) return;
+    isAdminMode = true;
+    useIndexedDB = true;
+    
+    // 将当前普通模式的数据迁移到 IndexedDB
+    const currentData = { groupsData, versions };
+    await saveToIndexedDB(currentData);
+    
+    // 更新 UI
+    document.getElementById('adminToolbar').style.display = 'flex';
+    document.getElementById('addGroupBtn').style.display = 'inline-flex';
+    updateSortOptions();
+    renderCards();
+    renderGroupButtons();
+    renderVersionList();
+    sessionStorage.setItem('adminModeAuto', 'true');
+    alert('已进入管理员模式，现在支持超大容量数据存储（IndexedDB）。');
+}
+async function disableAdminMode() {
+    if (!isAdminMode) return;
+    
+    if (useIndexedDB) {
+        const backup = confirm('您已使用大容量存储模式。是否导出当前所有数据为 JSON 文件备份？\n（建议导出，以免数据丢失）');
+        if (backup) {
+            exportData();
+        }
+        // 清空 IndexedDB
+        await clearIndexedDB();
+        useIndexedDB = false;
+        
+        // 重新加载普通模式数据（从 localStorage 或默认）
+        await loadInitialData();  // useIndexedDB = false，会走普通加载流程
+    }
+    
+    isAdminMode = false;
+    document.getElementById('adminToolbar').style.display = 'none';
+    document.getElementById('addGroupBtn').style.display = 'none';
+    updateSortOptions();
+    renderCards();
+    renderGroupButtons();
+    renderTagList();
+    sessionStorage.removeItem('adminModeAuto');
+    alert('已退出管理员模式，未保存的大容量数据已清空。如需保留数据，请使用导出功能。');
+}
 function checkAdminPassword(){const p=prompt('管理员密码：');if(p==='admin123')enableAdminMode();else alert('密码错误')}
-function clearAllCache(){if(confirm('清除所有本地缓存并刷新？')){['editable_groups_data','mc_versions','layout_settings','glass_custom_theme','glass_opacity','gradient_angle','custom_bg_image','custom_bg_color','listViewPreference','sortPreference'].forEach(k=>localStorage.removeItem(k));sessionStorage.removeItem('adminModeAuto');location.reload()}}
+async function clearAllCache() {
+    if (confirm('清除所有本地缓存（包括 IndexedDB 和 localStorage）并刷新？')) {
+        await clearIndexedDB();
+        localStorage.clear();
+        sessionStorage.removeItem('adminModeAuto');
+        useIndexedDB = false;
+        isAdminMode = false;
+        location.reload();
+    }
+}
 function exportData() {
     const d = { groups: groupsData, versions: versions };
     
@@ -1205,7 +1391,25 @@ function exportData() {
     a.click();
     URL.revokeObjectURL(url);
 }
-function resetToDefault(){if(confirm('重置所有数据？')){groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));versions=[...DEFAULT_VERSIONS];saveVersions();saveDataToStorage();currentGroupIndex=0;currentKeyword='';currentTagFilter=null;currentVersionFilter=null;currentPage=1;if(searchInput)searchInput.value='';renderAll()}}
+async function resetToDefault() {
+    if (confirm('重置所有数据？')) {
+        groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
+        versions = [...DEFAULT_VERSIONS];
+        saveVersions();
+        if (useIndexedDB) {
+            await saveToIndexedDB({ groupsData, versions });
+        } else {
+            localStorage.setItem('editable_groups_data', JSON.stringify(groupsData));
+        }
+        currentGroupIndex = 0;
+        currentKeyword = '';
+        currentTagFilter = null;
+        currentVersionFilter = null;
+        currentPage = 1;
+        if (searchInput) searchInput.value = '';
+        renderAll();
+    }
+}
 
 function updateLayout(){const rs=document.getElementById('radiusSlider'),ps=document.getElementById('paddingSlider'),gs=document.getElementById('gapSlider');if(!rs)return;['--card-radius',rs.value+'px','--card-padding',ps.value+'px','--card-gap',gs.value+'px'].forEach((v,i,a)=>{if(i%2===0)document.documentElement.style.setProperty(a[i],a[i+1])});['radiusVal',rs.value+'px','paddingVal',ps.value+'px','gapVal',gs.value+'px'].forEach((v,i,a)=>{if(i%2===0){const e=document.getElementById(a[i]);if(e)e.innerText=a[i+1]}});localStorage.setItem('layout_settings',JSON.stringify({radius:rs.value,padding:ps.value,gap:gs.value}))}
 function buildPalette(){const sg=document.getElementById('solidColorGrid'),gg=document.getElementById('gradientColorGrid');if(sg){const colors=["#eef2f8","#12151c","#fce9e6","#fef0e0","#fef9e0","#eaf4ea","#e0f2f5","#e3edfa","#f0e9fc","#ffe0f0","#d9e6f2","#f5e6d3"];sg.innerHTML='';colors.forEach(c=>{const d=document.createElement('div');d.className='color-swatch';d.style.backgroundColor=c;d.addEventListener('click',()=>{document.getElementById('wallpaper-layer').style.backgroundImage='';document.body.classList.remove('custom-bg');document.body.style.background=c;const tn=(parseInt(c.slice(1,3),16)*0.299+parseInt(c.slice(3,5),16)*0.587+parseInt(c.slice(5,7),16)*0.114)<128?'black':'white';setTheme(tn);localStorage.setItem('custom_bg_color',c);localStorage.removeItem('custom_bg_image')});sg.appendChild(d)})}if(gg){const grads=["linear-gradient(135deg,#ff9a9e,#fecfef)","linear-gradient(135deg,#a1c4fd,#c2e9fb)","linear-gradient(135deg,#2b5876,#4e4376)","linear-gradient(135deg,#fbc2eb,#a6c1ee)","linear-gradient(135deg,#b5d6a7,#9bbd8c)","linear-gradient(135deg,#1f1c2c,#2a2a4a)","linear-gradient(135deg,#ffe29a,#ffb7b2)","linear-gradient(135deg,#c7e9fb,#b6e0fe)"];gg.innerHTML='';grads.forEach((g,i)=>{const d=document.createElement('div');d.className='color-swatch';d.style.background=g;d.addEventListener('click',()=>{document.getElementById('wallpaper-layer').style.backgroundImage='';document.body.classList.remove('custom-bg');document.body.style.background='';setTheme(GRADIENT_THEMES[i]);['custom_bg_image','custom_bg_color'].forEach(k=>localStorage.removeItem(k))});gg.appendChild(d)})}}
@@ -1723,8 +1927,15 @@ function populateModrinthVersionFilter() {
     });
 }
 
-async function start(){loadVersions();await loadInitialData();loadSortPreference();initBackground();buildPalette();updateSortOptions();renderAll();}start();
-})();
+async function start() {
+    loadVersions();
+    await loadInitialData();
+    loadSortPreference();
+    initBackground();
+    buildPalette();
+    updateSortOptions();
+    // renderAll 已在 loadInitialData 中调用，无需重复
+}
 
 
 // ========== 翻译字符配额管理 ==========
