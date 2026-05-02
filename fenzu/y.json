@@ -1,0 +1,5092 @@
+{
+  "groups": [
+    {
+      "groupName": "🎮 Minecraft 模组",
+      "items": [
+        {
+          "title": "YetAnotherConfigLib (YACL)(全新配置库)",
+          "description": "基于构建器的我的世界跨平台配置库",
+          "author": "isxander",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "Fabric",
+            "实用",
+            "Forge",
+            "库",
+            "管理"
+          ],
+          "version": "1.19-26.2-snapshot-2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yacl"
+        },
+        {
+          "title": "YUNG's API(YUNG系列模组前置库)",
+          "description": "YUNG 全系地形建筑模组共用前置依赖",
+          "author": "YUNGNICKYOUNG",
+          "tags": [
+            "NeoForge",
+            "Fabric",
+            "Forge",
+            "库",
+            "世界生成"
+          ],
+          "version": "1.18.2-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yungs-api"
+        },
+        {
+          "title": "Your Options Shall Be Respected (YOSBR)(设置保留优化)",
+          "description": "妥善保留游戏各项设置，避免意外重置",
+          "author": "shedaniel",
+          "tags": [
+            "Quilt",
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.8.9-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yosbr"
+        },
+        {
+          "title": "YUNG's Better Nether Fortresses(下界要塞重制)",
+          "description": "全面重新设计原版下界要塞结构与地形布局",
+          "author": "YUNGNICKYOUNG",
+          "tags": [
+            "NeoForge",
+            "冒险",
+            "Fabric",
+            "装饰",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.18.2-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yungs-better-nether-fortresses"
+        },
+        {
+          "title": "YUNG's Better Ocean Monuments(海底神殿重制)",
+          "description": "全面重新设计原版海底神殿结构与内部布局",
+          "author": "YUNGNICKYOUNG",
+          "tags": [
+            "NeoForge",
+            "冒险",
+            "Fabric",
+            "装饰",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.19.2-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yungs-better-ocean-monuments"
+        },
+        {
+          "title": "YUNG's Better Dungeons(地牢重制)",
+          "description": "全面重新设计原版地牢结构与生成逻辑",
+          "author": "YUNGNICKYOUNG",
+          "tags": [
+            "NeoForge",
+            "冒险",
+            "Fabric",
+            "装饰",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.19.2-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yungs-better-dungeons"
+        },
+        {
+          "title": "YUNG's Better Jungle Temples(丛林神庙重制)",
+          "description": "全面重新设计原版丛林神庙结构与内部布局",
+          "author": "YUNGNICKYOUNG",
+          "tags": [
+            "NeoForge",
+            "冒险",
+            "Fabric",
+            "装饰",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.19.2-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yungs-better-jungle-temples"
+        },
+        {
+          "title": "YUNG's Better Mineshafts(废弃矿井重制)",
+          "description": "全面翻新原版废弃矿井的结构生成与内部布局",
+          "author": "YUNGNICKYOUNG",
+          "tags": [
+            "NeoForge",
+            "冒险",
+            "Fabric",
+            "装饰",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.19.2-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yungs-better-mineshafts"
+        },
+        {
+          "title": "YUNG's Better End Island(YUNG优化末地主岛)",
+          "description": "全面重做末影龙战斗所在的末地主地岛地形结构",
+          "author": "YUNGNICKYOUNG",
+          "tags": [
+            "NeoForge",
+            "冒险",
+            "Fabric",
+            "装饰",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.18.2-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yungs-better-end-island"
+        },
+        {
+          "title": "YUNG's Better Strongholds(YUNG优化要塞)",
+          "description": "全面重新设计我的世界地下要塞结构与布局",
+          "author": "YUNGNICKYOUNG",
+          "tags": [
+            "NeoForge",
+            "冒险",
+            "Fabric",
+            "装饰",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.19.2-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yungs-better-strongholds"
+        },
+        {
+          "title": "YUNG's Better Witch Huts(YUNG优化女巫小屋)",
+          "description": "为沼泽生物群系新增重做升级版女巫小屋建筑",
+          "author": "YUNGNICKYOUNG",
+          "tags": [
+            "NeoForge",
+            "冒险",
+            "Fabric",
+            "装饰",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.19.2-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yungs-better-witch-huts"
+        },
+        {
+          "title": "Yeetus Experimentus(实验设置弹窗屏蔽)",
+          "description": "关闭创建和加载世界时弹出的实验性设置提示窗口",
+          "author": "Sunekaer",
+          "tags": [
+            "NeoForge",
+            "Fabric",
+            "实用工具",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.18.2-26.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yeetus-experimentus"
+        },
+        {
+          "title": "YUNG's Better Desert Temples(YUNG优化沙漠神殿)",
+          "description": "全面重新设计我的世界沙漠神殿内部结构与外观",
+          "author": "YUNGNICKYOUNG",
+          "tags": [
+            "NeoForge",
+            "冒险",
+            "Fabric",
+            "装饰",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.19.2-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yungs-better-desert-temples"
+        },
+        {
+          "title": "YUNG's Bridges(YUNG自然桥梁)",
+          "description": "在世界各地自然生成造型精美的原生态桥梁建筑",
+          "author": "YUNGNICKYOUNG",
+          "tags": [
+            "NeoForge",
+            "冒险",
+            "Fabric",
+            "装饰",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.19.2-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yungs-bridges"
+        },
+        {
+          "title": "YUNG's Extras(YUNG额外结构拓展)",
+          "description": "新增海量原生态建筑、地形特征与原版风格内容，适配各类整合包",
+          "author": "YUNGNICKYOUNG",
+          "tags": [
+            "NeoForge",
+            "冒险",
+            "Fabric",
+            "装饰",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.19.2-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yungs-extras"
+        },
+        {
+          "title": "Yes Steve Model(史蒂夫模型重绘)",
+          "description": "修改原版玩家史蒂夫模型外观",
+          "author": "TartaricAcid",
+          "tags": [
+            "Fabric",
+            "装饰",
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.16.5-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yes-steve-model"
+        },
+        {
+          "title": "YDM's Weapon Master (YDM武器外观展示)",
+          "description": "快捷栏物品会显示在角色身上，盾牌与旗帜拥有专属摆放位置",
+          "author": "YourDailyModder",
+          "tags": [
+            "Fabric、装饰、NeoForge、Forge"
+          ],
+          "version": "1.7.10-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/weaponmaster"
+        },
+        {
+          "title": "You Shall Not Spawn! (生物生成禁用)",
+          "description": "整合包实用工具，可自定义禁用任意生物生成",
+          "author": "ElocinDev",
+          "tags": [
+            "Quilt、NeoForge、生物、Fabric、实用、Forge、优化、管理"
+          ],
+          "version": "1.19-1.21.3",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/you-shall-not-spawn"
+        },
+        {
+          "title": "YUNG's Menu Tweaks (YUNG菜单优化)",
+          "description": "轻量小型模组，大幅优化游戏菜单浏览体验",
+          "author": "YUNGNICKYOUNG",
+          "tags": [
+            "NeoForge、Fabric、装饰、游戏机制、实用、Forge"
+          ],
+          "version": "1.20.1-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yungs-menu-tweaks"
+        },
+        {
+          "title": "You're in Grave Danger（坟墓重生）",
+          "description": "以死亡玩法为核心，死亡后生成坟墓保留物品",
+          "author": "b1n-ry",
+          "tags": [
+            "NeoForge",
+            "冒险",
+            "Fabric",
+            "存储",
+            "实用"
+          ],
+          "version": "1.16.5-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yigd"
+        },
+        {
+          "title": "YUNG's Cave Biomes(杨式洞穴生物群系)",
+          "description": "新增多款原版风格洞穴群系与地下专属内容",
+          "author": "YUNGNICKYOUNG",
+          "tags": [
+            "Neoforge",
+            "生物",
+            "冒险",
+            "Fabric",
+            "装饰",
+            "食物",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.18.2-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yungs-cave-biomes"
+        },
+        {
+          "title": "Yuushya Townscape(优舍城镇建材)",
+          "description": "提供2600余种建筑方块，打造唯美城镇景观",
+          "author": "Coco",
+          "tags": [
+            "Fabric",
+            "装饰",
+            "Neoforge",
+            "Forge"
+          ],
+          "version": "1.16.5-26.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yuushya-townscape"
+        },
+        {
+          "title": "YDM's Fennec Fox（耳廓狐生物）",
+          "description": "为我的世界新增耳廓狐生物。",
+          "author": "YourDailyModder",
+          "tags": [
+            "Forge",
+            "Fabric",
+            "生物"
+          ],
+          "version": "1.16.5-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ydms-fennec-fox"
+        },
+        {
+          "title": "YDM's MobHealthBar（生物生命条）",
+          "description": "在生物头顶显示生命值条。",
+          "author": "YourDailyModder",
+          "tags": [
+            "Fabric",
+            "装饰",
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.16.5-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ydms-mobhealthbar"
+        },
+        {
+          "title": "Youkai's Homecoming(妖怪还乡)",
+          "description": "添加日式食物、植物及东方Project相关游戏内容",
+          "author": "lcy0x1",
+          "tags": [
+            "小游戏",
+            "Neoforge",
+            "生物",
+            "冒险",
+            "食物",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/youkaishomecoming"
+        },
+        {
+          "title": "YUNG's Better Caves (优格优化洞穴)",
+          "description": "全面重做洞穴生成，新增地下湖泊、河流、岩浆海洋等地形！",
+          "author": "YUNGNICKYOUNG",
+          "tags": [
+            "Neoforge",
+            "冒险",
+            "Fabric",
+            "装饰",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yungs-better-caves"
+        },
+        {
+          "title": "Your Reputation (村民声望显示)",
+          "description": "适配WTHIT/Jade模组，悬浮提示显示与村民的声望值。",
+          "author": "Aton-Kish",
+          "tags": [
+            "Fabric",
+            "趣味",
+            "实用"
+          ],
+          "version": "1.19-1.20.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/your-reputation"
+        },
+        {
+          "title": "Yuushya Modelling（悠舍建模工具）",
+          "description": "提供方块移动、旋转、缩放等3D建模编辑工具",
+          "author": "Coco",
+          "tags": [
+            "NeoForge",
+            "Fabric",
+            "装饰",
+            "游戏机制",
+            "实用工具",
+            "Forge"
+          ],
+          "version": "1.16.5-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yuushya-modelling"
+        },
+        {
+          "title": "You Died(黑暗之魂死亡界面)",
+          "description": "添加黑暗之魂风格的死亡重生界面",
+          "author": "GoryMoon",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "Fabric",
+            "Forge",
+            "猎奇"
+          ],
+          "version": "1.16.5-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/you-died"
+        },
+        {
+          "title": "Your Reputation (Jade)(村民声望 玉质提示)",
+          "description": "玉质信息显示插件，在村民悬浮提示栏展示玩家声望等级",
+          "author": "Aton-Kish",
+          "tags": [
+            "趣味恶搞",
+            "实用工具",
+            "Fabric"
+          ],
+          "version": "1.21-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/your-reputation-jade"
+        },
+        {
+          "title": "YANDO's Villager Names(扬多村民命名)",
+          "description": "为村民与铁傀儡添加名字的模组",
+          "author": "OverlordsIII",
+          "tags": [
+            "冒险",
+            "Fabric",
+            "实用工具"
+          ],
+          "version": "1.16.4-1.21",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/villager-names"
+        },
+        {
+          "title": "YDM's Red Panda(YDM小熊猫)",
+          "description": "向游戏中添加小熊猫",
+          "author": "YourDailyModder",
+          "tags": [
+            "Forge",
+            "Fabric",
+            "NeoForge",
+            "生物"
+          ],
+          "version": "1.16.5-1.21.7",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ydms-red-panda"
+        },
+        {
+          "title": "Yet Another Recipe Conflict Fixer (YARCF)（又一配方冲突修复器）",
+          "description": "本模组添加一个简易按钮，可帮你切换同物品的替代合成配方",
+          "author": "siromgitsyou",
+          "tags": [
+            "Forge",
+            "优化",
+            "实用工具"
+          ],
+          "version": "1.12.2-1.12.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yarcf"
+        },
+        {
+          "title": "You Thief: Remastered Edition（村民警觉重制版）",
+          "description": "玩家私自开启村庄宝箱会激怒村民，沉浸式RPG生存体验，增加挑战玩法",
+          "author": "Eugene",
+          "tags": [
+            "生物",
+            "冒险",
+            "Fabric",
+            "游戏机制",
+            "Forge",
+            "经济"
+          ],
+          "version": "1.19.2-1.20.3",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/you-thief-remastered-edition"
+        },
+        {
+          "title": "Yet Another World Protector（又一世界保护）",
+          "description": "服务端专用保护模组，可抵御玩家、生物、自然环境对建筑的破坏，全方位保护存档建筑",
+          "author": "Z0rdak",
+          "tags": [
+            "NeoForge",
+            "Fabric",
+            "实用工具",
+            "游戏机制",
+            "Forge",
+            "社交",
+            "管理"
+          ],
+          "version": "1.16.5-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yawp"
+        },
+        {
+          "title": "Yet Another Bingo(多人宾果小游戏)",
+          "description": "多人宾果/封锁对战小游戏及大厅，支持原版客户端联机",
+          "author": "fennifith",
+          "tags": [
+            "小游戏",
+            "Quilt",
+            "冒险",
+            "Fabric",
+            "实用工具"
+          ],
+          "version": "1.20-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yet-another-minecraft-bingo"
+        },
+        {
+          "title": "Your Items Are Safe(物品安全保障)",
+          "description": "玩家死亡时生成箱子与盔甲架存放物品，替代墓碑",
+          "author": "Serilum",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "冒险",
+            "Fabric",
+            "游戏机制",
+            "Forge",
+            "装备"
+          ],
+          "version": "1.16.5-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/your-items-are-safe"
+        },
+        {
+          "title": "yyz's backpack(YYZ背包)",
+          "description": "全新背包模组，更适配游戏",
+          "author": "yyz729",
+          "tags": [
+            "交通",
+            "NeoForge",
+            "冒险",
+            "Fabric",
+            "存储",
+            "游戏机制",
+            "实用工具",
+            "Forge",
+            "装备"
+          ],
+          "version": "1.18-1.21.9",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yyzs-backpack"
+        },
+        {
+          "title": "Yggdrasil(世界树巨型结构)",
+          "description": "服务端模组/数据包，添加超巨型可探索结构，探索耗时久且奖励丰厚",
+          "author": "Hardel-DW",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "Fabric",
+            "数据包",
+            "Forge",
+            "世界生成",
+            "魔法"
+          ],
+          "version": "1.21-pre2-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yggdrasil-structure"
+        },
+        {
+          "title": "You  Bandit!",
+          "description": "Join pillagers, loot villagers!",
+          "author": "Eugene",
+          "tags": [
+            "Quilt",
+            "mobs",
+            "adventure",
+            "Fabric",
+            "utility",
+            "game-mechanics",
+            "Forge"
+          ],
+          "version": "1.19-1.20.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/you-bandit!"
+        },
+        {
+          "title": "You've Goat to be Kidding Me（山羊趣味拓展）",
+          "description": "新增可撞碎方块的公羊、茅草方块、维京头盔与特色山羊生物",
+          "author": "Plantkillable",
+          "tags": [
+            "NeoForge",
+            "生物",
+            "食物",
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.19.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/goated"
+        },
+        {
+          "title": "You Were Slain(你被击败了)",
+          "description": "高度自定义死亡界面",
+          "author": "Superkat32",
+          "tags": [
+            "Fabric",
+            "冒险",
+            "装饰",
+            "游戏机制"
+          ],
+          "version": "1.20-1.20.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/you-were-slain"
+        },
+        {
+          "title": "YAML Config (YAML配置界面库)",
+          "description": "基于YAML格式、自带图形界面的模组配置前置库",
+          "author": "DAQEM",
+          "tags": [
+            "Fabric",
+            "NeoForge"
+          ],
+          "version": "1.21-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yaml-config"
+        },
+        {
+          "title": "Yeehaw Towns! (西部恶棍小镇)",
+          "description": "添加西部风格的灾厄村民小镇生成到你的世界中",
+          "author": "aureljz",
+          "tags": [
+            "Fabric",
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yeehaw-towns"
+        },
+        {
+          "title": "Yet Another Furniture (全新精致家具)",
+          "description": "复刻经典家具模组并全面翻新，新增大量家具方块与功能",
+          "author": "crispytwig",
+          "tags": [
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yet-another-furniture"
+        },
+        {
+          "title": "Yamato Gun (简易枪械)",
+          "description": "添加基础枪械道具，更轻松击杀各类生物",
+          "author": "pitan76",
+          "tags": [
+            "织物",
+            "锻造",
+            "新锻造"
+          ],
+          "version": "1.18-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yamato-gun"
+        },
+        {
+          "title": "Yori3o's Grappling Hooks (物理抓钩绳索)",
+          "description": "新增原版风格且物理效果写实的抓钩道具",
+          "author": "Yori3o",
+          "tags": [
+            "NeoForge",
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.20.1-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yori3os-grappling-hooks"
+        },
+        {
+          "title": "Yunzhu Transit Extension (云珠轨道交通拓展)",
+          "description": "丰富轨道交通模组电梯组件与车站装饰内容",
+          "author": "X-Funny",
+          "tags": [
+            "Fabric",
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.16.5-1.20.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yunzhu-transit-extension"
+        },
+        {
+          "title": "Yet Another Cobblestone Generator (自定义刷石机)",
+          "description": "高度灵活可自定义的刷石机模组",
+          "author": "syorito-hatsuki",
+          "tags": [
+            "织物、科技、实用、游戏机制、存储"
+          ],
+          "version": "1.18.2-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yacg"
+        },
+        {
+          "title": "YARRP (另一款运行时资源包)",
+          "description": "全新运行时资源包加载模组",
+          "author": "RubixDev",
+          "tags": [
+            "Fabric",
+            "NeoForge"
+          ],
+          "version": "1.20.5-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yarrp"
+        },
+        {
+          "title": "Ytones (幻彩建材方块)",
+          "description": "大量现代、科幻、奇幻风格装饰建筑方块，延续Z/Xtones模组内容",
+          "author": "Fuzs",
+          "tags": [
+            "Fabric",
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.20.1-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ytones"
+        },
+        {
+          "title": "Your Options Shall Be Saved (配置永久保存)",
+          "description": "整合包更新时保留玩家自定义设置，仅首次启动生成默认配置",
+          "author": "Yomna",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.14-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yosbs"
+        },
+        {
+          "title": "You Thief! (村民防盗机制)",
+          "description": "玩家私自打开村民宝箱会激怒村民",
+          "author": "Eugene",
+          "tags": [
+            "Quilt",
+            "Fabric",
+            "Forge",
+            "生物",
+            "冒险",
+            "游戏机制",
+            "存储",
+            "猎奇"
+          ],
+          "version": "1.18-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/you-thief!"
+        },
+        {
+          "title": "YEETem Potions (投掷药水)",
+          "description": "可直接投掷药水而非原地放置，简化药水使用方式",
+          "author": "CAS_ual_TY",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.18.2-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yeetem-potions"
+        },
+        {
+          "title": "Y Is There AutoJump (自动跳跃关闭)",
+          "description": "关闭默认开启的自动跳跃，避免误操作干扰游玩",
+          "author": "kreezxil",
+          "tags": [
+            "Fabric",
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.16.4-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/y-is-there-autojump"
+        },
+        {
+          "title": "Your Reputation (WTHIT声望显示)",
+          "description": "WTHIT提示框插件，在村民悬浮提示中显示玩家声望值",
+          "author": "Aton-Kish",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/your-reputation-wthit"
+        },
+        {
+          "title": "YDM's Custom Camera View (自定义相机视角)",
+          "description": "自由调整相机位置、旋转角度，也可让相机脱离玩家跟随",
+          "author": "YourDailyModder",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.16.5-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ydms-custom-camera-view"
+        },
+        {
+          "title": "Yank It Out（拔箭自愈）",
+          "description": "可拔出插在身上的箭矢，还原真实受伤细节",
+          "author": "zsvan",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.16.5-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yank-it-out"
+        },
+        {
+          "title": "YNot (XNet跨模组兼容)",
+          "description": "为XNet网络模组提供跨模组兼容适配",
+          "author": "asie",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.12.2-1.12.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ynot"
+        },
+        {
+          "title": "Yeet (投掷万物)",
+          "description": "主打物品投掷玩法的趣味模组",
+          "author": "tropheusj",
+          "tags": [
+            "Quilt",
+            "Fabric"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yeet"
+        },
+        {
+          "title": "Yttr (虚空纪元)",
+          "description": "以虚空为主题的原版大型改版+内容拓展模组",
+          "author": "exaptations",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.16.3-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yttr"
+        },
+        {
+          "title": "You are seeing dungeons (全新地牢探索)",
+          "description": "加入大量全新地牢结构，供玩家探索发掘",
+          "author": "TradeoPan",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.18.2-1.19.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/you-are-seeing-dungeons"
+        },
+        {
+          "title": "Yet Another FNAF Mod (全新玩具熊模组)",
+          "description": "原版风格可爱玩偶玩具熊主题模组",
+          "author": "MarceloGToonz",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yet-another-fnaf-mod"
+        },
+        {
+          "title": "You May Rest Now（安心入眠）",
+          "description": "只要附近怪物无法寻路到玩家位置，即可随时睡觉跳过夜晚",
+          "author": "jamalam",
+          "tags": [
+            "Fabric",
+            "Forge",
+            "NeoForge"
+          ],
+          "version": "1.20.4-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/you-may-rest-now"
+        },
+        {
+          "title": "Yukami's Sophisticated Backpack Tab (精致背包界面分页)",
+          "description": "品质生活模组，将已装备的精致背包加入物品栏分页，便捷打开使用",
+          "author": "Yukami",
+          "tags": [
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.20.1-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yukamis-sophisticated-backpack-tab"
+        },
+        {
+          "title": "Yet Just Another Silver (又一白银模组)",
+          "description": "为游戏新增白银矿物及相关内容",
+          "author": "iceice666",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.20-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yetjustanothersilver"
+        },
+        {
+          "title": "Yapping Tooltips（详尽物品提示）",
+          "description": "客户端小型模组，为所有物品添加详细悬浮提示说明",
+          "author": "Yirmiri",
+          "tags": [
+            "Quilt、NeoForge、Fabric、实用、社交、管理"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yapping-tooltips"
+        },
+        {
+          "title": "YDM's Copper Golem (铜傀儡回归)",
+          "description": "为游戏加入原版铜傀儡生物",
+          "author": "YourDailyModder",
+          "tags": [
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.18-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ydms-copper-golem"
+        },
+        {
+          "title": "Yeleefff's Enderite (末地合金装备)",
+          "description": "添加下界合金后续进阶材质末地合金，采用原汁原味原版风格设计",
+          "author": "Yeleefff",
+          "tags": [
+            "Fabric、NeoForge"
+          ],
+          "version": "1.18-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yeleefffs-enderite"
+        },
+        {
+          "title": "YetAnotherCarpetAddition (地毯模组拓展)",
+          "description": "地毯模组的实用拓展功能",
+          "author": "ryan100c",
+          "tags": [
+            "Fabric",
+            "游戏机制"
+          ],
+          "version": "1.20.3-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yaca"
+        },
+        {
+          "title": "YDM's Scorpions (蝎子模组)",
+          "description": "为游戏添加蝎子生物",
+          "author": "YourDailyModder",
+          "tags": [
+            "Forge",
+            "Fabric",
+            "NeoForge",
+            "生物"
+          ],
+          "version": "1.16.5-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ydms-scorpions"
+        },
+        {
+          "title": "You Wouldn't Put Gunpowder In A Furnace (火药入炉易爆)",
+          "description": "将火药放入熔炉熔炼会直接触发爆炸",
+          "author": "Kryptography",
+          "tags": [
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.19.2-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/you-wouldnt-put-gunpowder-in-a-furnace"
+        },
+        {
+          "title": "You Are My Poison! (食物投毒恶作剧)",
+          "description": "可暗中将药水效果添加到任意食物中，用来恶作剧其他玩家",
+          "author": "Nikk452",
+          "tags": [
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/you-are-my-poison"
+        },
+        {
+          "title": "YTech（史前科技时代）",
+          "description": "通过史前科技延长进入铁器时代的周期，优化游戏前期体验",
+          "author": "lalis.jan",
+          "tags": [
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.20.1-1.21.3",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ytech"
+        },
+        {
+          "title": "Yet Another Additions Mod (杂项拓展)",
+          "description": "添加各类实用方块与物品",
+          "author": "Seba244c",
+          "tags": [
+            "Fabric",
+            "装饰",
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yaam"
+        },
+        {
+          "title": "Youtuber Mod (主播专用辅助)",
+          "description": "为主播录制视频提供专属功能，适配回放模组使用",
+          "author": "ltecheroffical",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.20-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/youtuber-mod"
+        },
+        {
+          "title": "YDM's Gunblades (枪刃武器)",
+          "description": "融合枪械与刀剑玩法的全新武器类型",
+          "author": "YourDailyModder",
+          "tags": [
+            "Forge",
+            "Fabric",
+            "NeoForge"
+          ],
+          "version": "1.16.5-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ydms-gunblades"
+        },
+        {
+          "title": "Yggdrasil Proxy (英灵神殿验证代理)",
+          "description": "自动读取设备代理，加速正版账号验证流程",
+          "author": "4x",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.18-26.2-snapshot-3",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yggdrasil-proxy"
+        },
+        {
+          "title": "Yqloss Client (Mixin) (伊克洛斯客户端)",
+          "description": "基于Spongepowered Mixin重写的Yqloss客户端功能，适用于MC1.8.9 Forge版本",
+          "author": "Yqloss",
+          "tags": [
+            "Forge",
+            "实用"
+          ],
+          "version": "1.8.9-1.8.9",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yqlossclientmixin"
+        },
+        {
+          "title": "Your Options Shall Be Neoforged (NeoForge设置兼容)",
+          "description": "让游戏设置界面在NeoForge加载器下正常适配兼容",
+          "author": "Vercte",
+          "tags": [
+            "NeoForge"
+          ],
+          "version": "1.21-26.1.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yosbr-neo"
+        },
+        {
+          "title": "You Die You Lose a Heart (死亡扣除生命值)",
+          "description": "每次死亡永久扣除一颗心，生命值耗尽强制进入旁观模式",
+          "author": "MarsThePlanet",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.18.1-1.21",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/you-die-you-lose-a-heart"
+        },
+        {
+          "title": "YesCheat (无回弹优化)",
+          "description": "修复游戏角色位移回弹问题",
+          "author": "JFronny",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.19-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yescheat"
+        },
+        {
+          "title": "Yun's Weather (芸式天气优化)",
+          "description": "重制原版降雨天气系统，适配自定义动态结构生成",
+          "author": "YunHerry",
+          "tags": [
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yuns-weather"
+        },
+        {
+          "title": "YetGamer's Crawling (自定义匍匐爬行)",
+          "description": "按下快捷键即可在游戏中匍匐爬行。",
+          "author": "YetGamerPro",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yetgamers-crawling"
+        },
+        {
+          "title": "Yeast 'n Feast (酿酒美食模组)",
+          "description": "以蜂蜜酒酿造与美食制作为核心，包含精致料理与果酱制作。",
+          "author": "AstralyaStudios",
+          "tags": [
+            "Fabric、Neoforge、Forge"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yeast-n-feast"
+        },
+        {
+          "title": "Yardwork (庭院工具)",
+          "description": "新增除草机等庭院劳作工具。",
+          "author": "woodiertexas",
+          "tags": [
+            "Quilt"
+          ],
+          "version": "1.19.2-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yardwork"
+        },
+        {
+          "title": "YDM's Spellswords (附魔特效长剑)",
+          "description": "新增命中触发特效的魔法长剑。",
+          "author": "YourDailyModder",
+          "tags": [
+            "Forge",
+            "Fabric",
+            "NeoForge"
+          ],
+          "version": "1.16.5-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ydms-spellswords"
+        },
+        {
+          "title": "YDM's Vulture (YDM的秃鹫)",
+          "description": "向游戏添加秃鹫生物",
+          "author": "YourDailyModder",
+          "tags": [
+            "Forge",
+            "Fabric",
+            "生物"
+          ],
+          "version": "1.16.5-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ydms-vulture"
+        },
+        {
+          "title": "YDM's coreX Library (coreX核心前置库)",
+          "description": "简化Forge模组开发代码的专用前置库",
+          "author": "YourDailyModder",
+          "tags": [
+            "Forge",
+            "前置库"
+          ],
+          "version": "1.16.5-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ydms-corex-library"
+        },
+        {
+          "title": "Yeat the Sheep ! (薅羊大法)",
+          "description": "通过薅羊来获取羊毛",
+          "author": "thePlaceholder",
+          "tags": [
+            "Fabric",
+            "Forge",
+            "NeoForge",
+            "生物",
+            "实用",
+            "猎奇"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yeat-the-sheep"
+        },
+        {
+          "title": "Yuns Cuisine (云的料理)",
+          "description": "小型模组，添加1-2种食物",
+          "author": "kinawastaken",
+          "tags": [
+            "Fabric",
+            "食物"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yuns-cuisine"
+        },
+        {
+          "title": "YellowText (黄色文字)",
+          "description": "菜单文字悬停时变为黄色，还原1.15版本前的效果",
+          "author": "MisterCheezeCake",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.20.1-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yellowtext"
+        },
+        {
+          "title": "You Need Bait! (你需要诱饵！)",
+          "description": "深度钓鱼体验模组，全自定义3D模型，专属鱼竿支持强化 modifiers",
+          "author": "Dragondog7",
+          "tags": [
+            "Forge",
+            "Fabric",
+            "生物",
+            "食物",
+            "装饰",
+            "游戏机制",
+            "实用",
+            "装备"
+          ],
+          "version": "1.20.1-1.20.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/youneedbait"
+        },
+        {
+          "title": "YDM's WeirdMobs (YDM的奇异生物)",
+          "description": "向游戏中添加大量全新生物",
+          "author": "YourDailyModder",
+          "tags": [
+            "Forge",
+            "装备",
+            "世界生成",
+            "生物"
+          ],
+          "version": "1.16.5-1.19.3",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ydms-weirdmobs"
+        },
+        {
+          "title": "Years C (岁月纪年)",
+          "description": "选择时代，让角色逐渐衰老",
+          "author": "YourDailyModder",
+          "tags": [
+            "Forge",
+            "装饰"
+          ],
+          "version": "1.16.5-1.20.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/years-c"
+        },
+        {
+          "title": "Yet Another Hex Addon (另一个巫术拓展)",
+          "description": "巫术铸造模组附属，新增多款法术、图案和物品",
+          "author": "TheRobbie73",
+          "tags": [
+            "Fabric",
+            "魔法",
+            "实用"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yaha"
+        },
+        {
+          "title": "YANTR (简易命名牌配方)",
+          "description": "另一种命名牌合成配方，可制作命名牌！",
+          "author": "Blyrium",
+          "tags": [
+            "Fabric",
+            "实用",
+            "游戏机制",
+            "管理"
+          ],
+          "version": "1.20-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yet-another-nametag-recipe"
+        },
+        {
+          "title": "YMetalLib (Fabric) (Y金属库Fabric版)",
+          "description": "锭、板、矿石！添加所有金属相关内容",
+          "author": "Hye0N",
+          "tags": [
+            "Fabric",
+            "库"
+          ],
+          "version": "1.17-1.18.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ymetallib-fabric"
+        },
+        {
+          "title": "Youtuber Natural Disasters (主播自然灾害)",
+          "description": "精准复刻“100名我的世界主播VS自然灾害”视频所用模组",
+          "author": "JY9146",
+          "tags": [
+            "Forge",
+            "冒险",
+            "猎奇"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/youtubernaturaldisasters"
+        },
+        {
+          "title": "Yood's Collection (尤德的收藏)",
+          "description": "尤德的个人宝石与音乐收藏模组",
+          "author": "DaneMakesMusic",
+          "tags": [
+            "Fabric",
+            "Forge",
+            "NeoForge",
+            "生物",
+            "装饰",
+            "库",
+            "装备"
+          ],
+          "version": "1.20.1-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yoods-collection"
+        },
+        {
+          "title": "YetGamer's Illegal blocks (YetGamer的违规方块)",
+          "description": "允许你直接从物品栏中放置技术性方块",
+          "author": "YetGamerPro",
+          "tags": [
+            "Forge",
+            "装饰",
+            "恶搞",
+            "实用"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yetgamers-illegal-blocks"
+        },
+        {
+          "title": "YDM's Allay (YDM的悦灵)",
+          "description": "移植1.19的悦灵生物",
+          "author": "YourDailyModder",
+          "tags": [
+            "Forge",
+            "NeoForge",
+            "Fabric",
+            "装饰"
+          ],
+          "version": "1.16.5-1.21.7",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ydms-allay"
+        },
+        {
+          "title": "Your Items to New Worlds (物品跨世界迁移)",
+          "description": "允许将一个世界的物品复制到新世界",
+          "author": "TrueHorse",
+          "tags": [
+            "Fabric",
+            "Forge",
+            "NeoForge",
+            "实用"
+          ],
+          "version": "1.20-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/your-items-to-new-worlds"
+        },
+        {
+          "title": "yumo compactmachines por (雨墨压缩机器)",
+          "description": "通过预估产量优化压缩空间",
+          "author": "yumo2333",
+          "tags": [
+            "Fabric",
+            "Forge",
+            "科技",
+            "存储",
+            "游戏机制",
+            "实用",
+            "优化",
+            "管理"
+          ],
+          "version": "1.18.2-1.20.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yumo-compactmachines-por"
+        },
+        {
+          "title": "YouTube Chat(油管聊天)",
+          "description": "在游戏内显示油管直播弹幕",
+          "author": "SteveKunG",
+          "tags": [
+            "Forge",
+            "Fabric",
+            "实用",
+            "社交"
+          ],
+          "version": "1.18.2-1.19.3",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/youtube-chat"
+        },
+        {
+          "title": "YM-Additions(YM附属)",
+          "description": "远程管理与访问AE网络",
+          "author": "xinyihl",
+          "tags": [
+            "Forge",
+            "科技"
+          ],
+          "version": "1.12.2-1.12.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ymadditions"
+        },
+        {
+          "title": "YouArch (你的建筑)",
+          "description": "移除或修改部分功能的投影模组",
+          "author": "Bug_BBQ",
+          "tags": [
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.21-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/youarch"
+        },
+        {
+          "title": "Yippee (耶！)",
+          "description": "将神秘树、表情包等趣味内容加入游戏",
+          "author": "Ninni",
+          "tags": [
+            "Fabric",
+            "装饰",
+            "实用",
+            "Forge"
+          ],
+          "version": "1.19.1-1.19.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yippee"
+        },
+        {
+          "title": "YDM's Iceologer (YDM的冰术师)",
+          "description": "添加2020生物投票中的冰术师",
+          "author": "YourDailyModder",
+          "tags": [
+            "Forge",
+            "Fabric",
+            "Neoforge",
+            "生物"
+          ],
+          "version": "1.17.1-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ydms-iceologer"
+        },
+        {
+          "title": "YDM's Glare (YDM的凝视者)",
+          "description": "添加2021生物投票中的凝视者生物",
+          "author": "YourDailyModder",
+          "tags": [
+            "Forge",
+            "Fabric",
+            "生物"
+          ],
+          "version": "1.18-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ydms-glare"
+        },
+        {
+          "title": "Yet Another Calculator (简易计算器)",
+          "description": "在游戏内添加计算器功能",
+          "author": "wafarm",
+          "tags": [
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.20-1.21.7",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yet-another-calculator"
+        },
+        {
+          "title": "YARPC (简约Discord状态同步)",
+          "description": "无需原生库的跨平台Discord状态同步模组",
+          "author": "NepNep21",
+          "tags": [
+            "Fabric、Forge"
+          ],
+          "version": "1.8.9-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yarpc"
+        },
+        {
+          "title": "YAFDA (农夫乐事附属美食)",
+          "description": "为热门模组添加刀具与特色美食内容",
+          "author": "Partonetrain",
+          "tags": [
+            "NeoForge"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yafda"
+        },
+        {
+          "title": "Yet Another Keystrokes Overlay (自定义按键显示)",
+          "description": "高度自定义的按键悬浮显示模组，可自由美化每个按键样式",
+          "author": "loonsthemoons",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yako"
+        },
+        {
+          "title": "Yet Another Discord Chat Link (游戏Discord互通)",
+          "description": "连通游戏内聊天与Discord频道，实现双向消息同步",
+          "author": "Jonas_Jones",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.17-1.20.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yet-another-discord-chat-link"
+        },
+        {
+          "title": "yesseruser's Ice cream Mod (耶瑟用户的冰淇淋模组)",
+          "description": "简易冰淇淋模组，添加多种可制作食用的冰淇淋",
+          "author": "yesseruser",
+          "tags": [
+            "NeoForge",
+            "Fabric",
+            "Forge",
+            "食物"
+          ],
+          "version": "1.20-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yesserusers-ice-cream-mod"
+        },
+        {
+          "title": "Your_Time (你的时间)",
+          "description": "在游戏界面显示游玩时长",
+          "author": "rotgruengelb",
+          "tags": [
+            "Fabric",
+            "科技",
+            "实用",
+            "游戏机制",
+            "社交",
+            "管理"
+          ],
+          "version": "1.20.4-1.21",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/your_time"
+        },
+        {
+          "title": "youtubers (主播主题内容拓展)",
+          "description": "加入多位知名MC主播相关道具与设定内容",
+          "author": "autismmermaidgamer",
+          "tags": [
+            "Neoforge"
+          ],
+          "version": "1.21.1-26.1.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/knarfy,-system-zee,-and-fundy"
+        },
+        {
+          "title": "Yummy Glass (可食用玻璃)",
+          "description": "新增可直接食用的玻璃趣味食物",
+          "author": "bringmebagel",
+          "tags": [
+            "Fabric 食物 趣味恶搞"
+          ],
+          "version": "1.20.1-1.20.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "httpsmodrinth.com/mod/yummy_glass"
+        },
+        {
+          "title": "YDM's Ostrich (YDM鸵鸟)",
+          "description": "添加可骑乘的鸵鸟生物",
+          "author": "YourDailyModder",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.16.5-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ydms-ostrich"
+        },
+        {
+          "title": "You are here (你已抵达生物群系)",
+          "description": "显示你进入的生物群系/维度标题",
+          "author": "Mrbysco",
+          "tags": [
+            "Forge",
+            "NeoForge"
+          ],
+          "version": "1.18.2-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/you-are-here"
+        },
+        {
+          "title": "YDM's Gourmets (美食扩充)",
+          "description": "为生存模式添加更多美食料理",
+          "author": "YourDailyModder",
+          "tags": [
+            "食物",
+            "Forge",
+            "Fabric",
+            "NeoForge"
+          ],
+          "version": "1.16.5-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ydms-gourmets"
+        },
+        {
+          "title": "YetGamer's Custom Fog (自定义迷雾)",
+          "description": "允许自定义迷雾颜色与作用玩家",
+          "author": "YetGamerPro",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yetgamers-custom-fog"
+        },
+        {
+          "title": "Yood's Paintings Collection (尤德画作合集)",
+          "description": "新增多款风格独特的装饰画作",
+          "author": "DaneMakesMusic",
+          "tags": [
+            "NeoForge",
+            "Fabric",
+            "Forge",
+            "装饰",
+            "前置库"
+          ],
+          "version": "1.19.4-1.20.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yoods-paintings-collection"
+        },
+        {
+          "title": "Your Log Saw Something Last Night (玩家行为日志)",
+          "description": "服务端工具模组，记录玩家各类交互行为日志",
+          "author": "Commoble",
+          "tags": [
+            "Forge",
+            "NeoForge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/your-log-saw-something-last-night"
+        },
+        {
+          "title": "YoinkGui (界面复制)",
+          "description": "Fabric模组，通过物品NBT复制界面并转换为可复制格式",
+          "author": "ThatOneDevil",
+          "tags": [
+            "实用",
+            "库",
+            "社交",
+            "管理",
+            "Fabric"
+          ],
+          "version": "1.21-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yoinkgui"
+        },
+        {
+          "title": "YCreatives Flowers (创意花卉)",
+          "description": "32像素分辨率的花朵与花卉主题方块",
+          "author": "YCreatives",
+          "tags": [
+            "冒险",
+            "装饰",
+            "forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ycreativesflowers"
+        },
+        {
+          "title": "Yarnwrap (反混淆库)",
+          "description": "我的世界运行时反混淆前置库，用于脚本运行环境",
+          "author": "Siriusmart",
+          "tags": [
+            "织物",
+            "实用",
+            "游戏机制",
+            "优化",
+            "前置库",
+            "管理"
+          ],
+          "version": "1.21-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yarnwrap"
+        },
+        {
+          "title": "Yori3o's Relics 'n Jewelry (饰品遗物魔法道具)",
+          "description": "添加各类饰品、古代遗物、魔法法术书等内容",
+          "author": "Yori3o",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21.11-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yori3os-relics"
+        },
+        {
+          "title": "You Stand No Chance (毫无胜算)",
+          "description": "添加镰刀等全新武器，风格贴合原版我的世界",
+          "author": "Astridiol",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.20.1-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/you-stand-no-chance"
+        },
+        {
+          "title": "Yummy Quilt Hacks (美味Quilt辅助)",
+          "description": "为Quilt加载器提供趣味辅助功能",
+          "author": "Sylv",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.18.2-1.19.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yqh"
+        },
+        {
+          "title": "You Shall Not Climb! (禁止怪物爬梯)",
+          "description": "移除非原生具备爬梯能力怪物的梯子攀爬权限",
+          "author": "SyberiaK",
+          "tags": [
+            "Fabric",
+            "NeoForge"
+          ],
+          "version": "1.20.5-1.21",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ysnc"
+        },
+        {
+          "title": "Yakchancement patch (附魔优化补丁)",
+          "description": "附魔模组的补丁，调整自定义耐久移除逻辑仅适用于附魔工具",
+          "author": "TheTrueYak",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21.1-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yakchancement-patch"
+        },
+        {
+          "title": "YedelMod (实用优化)",
+          "description": "基础游戏功能与Hypixel专用功能的优质体验模组",
+          "author": "Yedel",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.8.9-1.8.9",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yedelmod"
+        },
+        {
+          "title": "Yaju Senpai MOD (野兽先辈模组)",
+          "description": "趣味恶搞模组",
+          "author": "morimori0317",
+          "tags": [
+            "Fabric",
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.19-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yaju-senpai"
+        },
+        {
+          "title": "You Must Know This Notice (强制游戏提示)",
+          "description": "自定义游戏启动前的强制提示信息",
+          "author": "AblazeAQZL",
+          "tags": [
+            "NeoForge"
+          ],
+          "version": "1.21.1-1.21.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/you-must-know-this-notice"
+        },
+        {
+          "title": "Ytgld : Better Beacon (信标光照优化)",
+          "description": "修改信标光照渲染逻辑，优化视觉与性能表现",
+          "author": "YTGLD",
+          "tags": [
+            "Fabric",
+            "NeoForge"
+          ],
+          "version": "1.21.1-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/better-ytgld-orb-beacon"
+        },
+        {
+          "title": "Yume Artifacts (梦日记神器)",
+          "description": "将梦日记的效果添加为神器",
+          "author": "linfox",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yumeartifacts"
+        },
+        {
+          "title": "Yggdrasil Alternative (世界树改版)",
+          "description": "更适合整合包的世界树模组改版",
+          "author": "Hardel-DW",
+          "tags": [
+            "Fabric",
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.21.11-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yggdrasil-alternative"
+        },
+        {
+          "title": "Yttrium (钇元素杂项微调)",
+          "description": "整合多项趣味微调：扩大玩家列表、实体倒置、自定义模型耳朵等实用趣味功能",
+          "author": "Fruitloopins",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.20.2-1.21.7",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yttrium"
+        },
+        {
+          "title": "YJ's Casino and Economy (赌场经济系统)",
+          "description": "新增二十一点、百家乐等赌场游戏，附带完整服务器经济系统",
+          "author": "YJMinecraft",
+          "tags": [
+            "Fabric",
+            "Forge",
+            "NeoForge"
+          ],
+          "version": "1.21.8-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yjs-casino-and-economy"
+        },
+        {
+          "title": "Yeetus Narratus (旁白辅助优化)",
+          "description": "客户端旁白功能自定义按键，移除首次启动无障碍弹窗",
+          "author": "CallMeiota",
+          "tags": [
+            "Fabric",
+            "NeoForge"
+          ],
+          "version": "1.21.1-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yeetus-narratus"
+        },
+        {
+          "title": "yakuza fishing (极道钓鱼趣味)",
+          "description": "为钓鱼玩法添加搞笑极道风格趣味内容",
+          "author": "dsinkerii",
+          "tags": [
+            "Fabric",
+            "趣味恶搞",
+            "实用"
+          ],
+          "version": "1.21-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yakuza-fishing"
+        },
+        {
+          "title": "Yellow Snow (黄色积雪)",
+          "description": "为游戏新增黄色积雪方块，专为冬季主题创作活动制作",
+          "author": "MelanX",
+          "tags": [
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.16.4-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yellow-snow"
+        },
+        {
+          "title": "Yo-kai Watch: Komasan's Journey (妖怪手表联动)",
+          "description": "将妖怪手表世界观与角色内容加入游戏",
+          "author": "L_Komasan",
+          "tags": [
+            "生物、冒险、食物、Forge、装备道具"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/komasans_journey"
+        },
+        {
+          "title": "Yood's Collection [Modpack Edition] (尤德收藏 整合包版)",
+          "description": "定制收藏模组适配博主整合包，含宝石、音乐收藏，部分功能仍在开发",
+          "author": "DaneMakesMusic",
+          "tags": [
+            "Fabric、Forge、NeoForge"
+          ],
+          "version": "1.20.1-1.20.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yoods-collection-modpack-edition"
+        },
+        {
+          "title": "Yet Another Bingo - Team Chest (宾果小游戏团队宝箱)",
+          "description": "为宾果小游戏模组新增团队共用宝箱功能",
+          "author": "ChengZhiFy",
+          "tags": [
+            "小游戏",
+            "Fabric",
+            "储物",
+            "实用"
+          ],
+          "version": "1.20-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yab-teamchest"
+        },
+        {
+          "title": "You Stand No Chance Fabric (镰刀矿石拓展)",
+          "description": "新增镰刀武器与专属矿石内容，Fabric版本专属",
+          "author": "itskyla",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.19.2-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/you-stand-no-chance-fabric"
+        },
+        {
+          "title": "Yumecraft (梦核 liminal 维度)",
+          "description": "新增梦核风格阈限空间维度，灵感源自梦日记系列",
+          "author": "rebbystuff",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21-1.21.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yumecraft"
+        },
+        {
+          "title": "You're Dead (死亡界面重制)",
+          "description": "替换原版死亡屏幕样式，全新视觉设计",
+          "author": "jasiek",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/youre-dead"
+        },
+        {
+          "title": "Yet Another Craftable Bedrock Mod (又一基岩合成模组)",
+          "description": "极简模组，解锁基岩合成配方",
+          "author": "haru",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.7.10-1.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yacbm"
+        },
+        {
+          "title": "You Dropped This (物品掉落音效)",
+          "description": "物品掉落与落地时播放专属提示音效",
+          "author": "fonnymunkey",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.12.2-1.12.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/youdroppedthis"
+        },
+        {
+          "title": "You're a fish now! (化身鱼类)",
+          "description": "玩家必须在水下呼吸，改变生存规则",
+          "author": "Pieman",
+          "tags": [
+            "Fabric",
+            "游戏机制"
+          ],
+          "version": "1.16-1.19.3",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/youre-a-fish-now"
+        },
+        {
+          "title": "Yoho's Vehicle Mod (悠合载具)",
+          "description": "休闲载具模组，新增多类别生存可获取载具，各有专属特性优势",
+          "author": "YohoRu",
+          "tags": [
+            "Forge",
+            "运输",
+            "科技",
+            "冒险",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yohos-veichle-mod"
+        },
+        {
+          "title": "Yazz's Redstone Golem (红石傀儡改良)",
+          "description": "重做地牢红石傀儡，属性与强度全面提升",
+          "author": "FoxedMischief",
+          "tags": [
+            "NeoForge"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yazzs-redstone-golem"
+        },
+        {
+          "title": "Yummy Cake (美味蛋糕拓展)",
+          "description": "新增多款创意蛋糕食物",
+          "author": "__Comma",
+          "tags": [
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.19.2-1.19.3",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yummy-cake"
+        },
+        {
+          "title": "You can't damage me! (免伤规则)",
+          "description": "新增游戏规则，可控制玩家是否受到伤害",
+          "author": "Patbox",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.16.2-1.16.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/youcantdamageme"
+        },
+        {
+          "title": "Yori3o's Grappling Hooks & Copper Age Backport (铜制钩索复古移植)",
+          "description": "为旧版本游戏添加铜制钩索道具",
+          "author": "Yori3o",
+          "tags": [
+            "NeoForge",
+            "Fabric"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yori3os-grappling-hooks-copper-addon"
+        },
+        {
+          "title": "Yagen's Attributes (战甲风格属性拓展)",
+          "description": "以星际战甲为灵感，全面改造游戏原版属性体系",
+          "author": "Yagen",
+          "tags": [
+            "NeoForge"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yagens-attributes"
+        },
+        {
+          "title": "Yet Another Industrialization! (另类工业化拓展)",
+          "description": "为现代工业模组补充各类趣味实用功能",
+          "author": "luligabi1",
+          "tags": [
+            "NeoForge"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yet-another-industrialization"
+        },
+        {
+          "title": "Yama Copper Pressure Plates(铜质玩家压力板)",
+          "description": "新增仅可被玩家触发的铜制压力板",
+          "author": "truetripled",
+          "tags": [
+            "Fabric",
+            "NeoForge",
+            "生物",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.21.1-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yama-copper-pressure-plates"
+        },
+        {
+          "title": "Your friend! - Tequila arrives (专属伙伴特基拉)",
+          "description": "为单人世界添加专属伙伴角色，告别孤独游玩体验",
+          "author": "anarquista",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/your-friend!-tequila-arrives"
+        },
+        {
+          "title": "Yellow_Submarine (黄色潜水艇)",
+          "description": "向世界生成可互动的黄色潜水艇建筑",
+          "author": "mooredesign13_63897",
+          "tags": [
+            "Forge",
+            "NeoForge",
+            "冒险",
+            "世界生成"
+          ],
+          "version": "1.19.2-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yellow_submarine"
+        },
+        {
+          "title": "Youtube Creators mod. Hungary creators (匈牙利博主模组)",
+          "description": "将匈牙利知名油管博主形象加入游戏的趣味模组",
+          "author": "Teszta12",
+          "tags": [
+            "Forge、NeoForge、生物"
+          ],
+          "version": "1.20.1-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/youtube-creators-mod.-hungary-creators"
+        },
+        {
+          "title": "Youtubers (知名博主生物)",
+          "description": "将热门游戏博主形象作为生物加入我的世界",
+          "author": "KikiTheBoti_",
+          "tags": [
+            "生物、冒险、游戏机制、Forge、装备"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/youtubers"
+        },
+        {
+          "title": "Y Modern Warfare (现代战争炮台)",
+          "description": "新增紧凑型炮台挂载装置",
+          "author": "Tryzubnyy",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/y-modern-warfare"
+        },
+        {
+          "title": "Yummy Steak (饱腹牛排)",
+          "description": "星尘附魔牛排可获得高饱食效果，附魔后可无限食用",
+          "author": "codehead",
+          "tags": [
+            "Fabric",
+            "Forge",
+            "NeoForge"
+          ],
+          "version": "1.21.5-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yummy-steak"
+        },
+        {
+          "title": "Your Only Move Is Origins (招式起源模组)",
+          "description": "基于游戏《Your Only Move Is Hustle》设计全新起源种族",
+          "author": "Rose_EX",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.20-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/your-only-move-is-origins"
+        },
+        {
+          "title": "Y2K4's Data Pack (Y2K4合集数据包)",
+          "description": "收录作者自制的全部数据包作品",
+          "author": "Y2K4",
+          "tags": [
+            "Fabric、NeoForge、Forge"
+          ],
+          "version": "1.16.2-1.19.3",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/y2k4-datapack"
+        },
+        {
+          "title": "YesIDownloadedYourResourcepack (资源包拒绝免踢)",
+          "description": "拒绝服务器资源包时不会被服务器踢出",
+          "author": "MeexReay",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.20.1-1.20.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yesidownloadedyourresourcepack"
+        },
+        {
+          "title": "Yunbei Urban Construction (云北城建装饰)",
+          "description": "海量装饰方块，助力搭建城市建筑与景观",
+          "author": "Beigu",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.20.1-1.20.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yunbeiuc"
+        },
+        {
+          "title": "Yellowstoned (黄石荒野自然)",
+          "description": "还原北美荒野自然风貌，新增生物、植被与特色玩法",
+          "author": "Repook",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yellowstoned"
+        },
+        {
+          "title": "YouAreMyHatNow (头顶生物)",
+          "description": "可将小动物放置在玩家头顶",
+          "author": "deflatedpickle",
+          "tags": [
+            "Quilt",
+            "Fabric"
+          ],
+          "version": "1.18.1-1.19.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/youaremyhatnow"
+        },
+        {
+          "title": "Yum Yum / Ñam Ñam (美食盛宴)",
+          "description": "全面的食物扩展模组，添加蔬果、植物与树木",
+          "author": "Tavox27",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.19.2-1.19.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yumyum"
+        },
+        {
+          "title": "Your Toilets (趣味马桶装饰)",
+          "description": "添加金制、铁制、钻石、泥土、下界合金材质的趣味马桶装饰方块",
+          "author": "Linowo",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/your-toilets"
+        },
+        {
+          "title": "YACH (简易坐标悬浮窗)",
+          "description": "极简坐标悬浮显示模组，实时展示玩家当前位置坐标",
+          "author": "Stereo528",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.19.3-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yach"
+        },
+        {
+          "title": "yunfalib (云发库)",
+          "description": "提供配置、数学、事件、模块等功能的库",
+          "author": "yunfachi",
+          "tags": [
+            "Fabric",
+            "库"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yunfalib"
+        },
+        {
+          "title": "YouTube Chat Mod (油管直播弹幕)",
+          "description": "将YouTube直播间弹幕实时显示在我的世界游戏界面中",
+          "author": "techmc64",
+          "tags": [
+            "Fabric",
+            "实用",
+            "游戏机制",
+            "社交",
+            "管理"
+          ],
+          "version": "1.21.11-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/youtube-chat-mod"
+        },
+        {
+          "title": "YourDeathLocation (死亡位置定位)",
+          "description": "精准标记并指引你上一次死亡的坐标位置",
+          "author": "firelynx5958",
+          "tags": [
+            "优化",
+            "冒险",
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.21.1-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yourdeathlocation"
+        },
+        {
+          "title": "Yumo isk-Stackstackstack (自动堆叠)",
+          "description": "使用原版冰淇淋束自动堆叠杂乱物品，无需合成束！",
+          "author": "yumo2333",
+          "tags": [
+            "NeoForge",
+            "Fabric",
+            "Forge",
+            "存储",
+            "游戏机制",
+            "实用",
+            "数据包",
+            "优化",
+            "管理"
+          ],
+          "version": "1.20.1-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yumo-isk"
+        },
+        {
+          "title": "YellowKnife (离线账号切换)",
+          "description": "游戏内离线账号快速切换工具",
+          "author": "ifemboypig",
+          "tags": [
+            "科技",
+            "Fabric",
+            "实用工具",
+            "游戏机制",
+            "社交"
+          ],
+          "version": "1.16.5-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yellowknife"
+        },
+        {
+          "title": "YEEHAW! (耶哈！)",
+          "description": "游戏过程中会随机概率播放《植物大战僵尸》中经典的绳索僵尸音效",
+          "author": "Axolotl_Man",
+          "tags": [
+            "NeoForge",
+            "Forge",
+            "趣味恶搞",
+            "游戏机制"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yeehaw!"
+        },
+        {
+          "title": "YAQOL (又一个优质生活模组)",
+          "description": "又一款优质生活优化模组",
+          "author": "hutzdog",
+          "tags": [
+            "Forge",
+            "装备",
+            "Quilt",
+            "实用"
+          ],
+          "version": "1.19-1.19.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yaqol"
+        },
+        {
+          "title": "yyz's backpack restrictions (yyz背包限制)",
+          "description": "禁止将yyz背包放入潜影盒与束袋中",
+          "author": "Laazuli",
+          "tags": [
+            "冒险",
+            "Fabric",
+            "存储",
+            "实用",
+            "装备"
+          ],
+          "version": "1.21.1-1.21.9",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yyzs-backpack-restrictions"
+        },
+        {
+          "title": "Yori3o's Grappling Hooks & Enderite CJ Edition (末地合金抓钩拓展)",
+          "description": "添加末地合金材质抓钩道具",
+          "author": "Yori3o",
+          "tags": [
+            "交通、NeoForge、冒险、Fabric、装备"
+          ],
+          "version": "1.20.1-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yori3os-grappling-hooks-enderite-addon"
+        },
+        {
+          "title": "yum! delicious! (美味佳肴)",
+          "description": "为我的世界添加大量3D零食和有趣的经济系统",
+          "author": "ZQzhongqu",
+          "tags": [
+            "Forge",
+            "经济",
+            "食物"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yum!-delicious!"
+        },
+        {
+          "title": "Yesn't mod (趣味维度模组)",
+          "description": "趣味恶搞模组，新增全新维度、生物群系、矿石、装备与食物",
+          "author": "Wall_guy",
+          "tags": [
+            "冒险、食物、Fabric、Forge、装备、世界生成"
+          ],
+          "version": "1.17.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yesnt-mod"
+        },
+        {
+          "title": "YAF's Colored Planks (YAF彩色木板)",
+          "description": "仅添加彩色木板的简易模组",
+          "author": "YAF",
+          "tags": [
+            "Forge",
+            "装饰"
+          ],
+          "version": "1.19.4-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yafs-colored-planks"
+        },
+        {
+          "title": "You Gotta Be Squidding Me (鱿鱼玩法拓展)",
+          "description": "重做鱿鱼设定，赋予鱿鱼全新实用功能，不再是无用生物",
+          "author": "LeonardoGammer",
+          "tags": [
+            "Forge",
+            "食物",
+            "实用工具",
+            "生物"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/you-gotta-be-squidding-me"
+        },
+        {
+          "title": "YDM's Auto-Run (自动奔跑快捷键)",
+          "description": "新增自定义自动奔跑快捷键",
+          "author": "YourDailyModder",
+          "tags": [
+            "Forge、实用"
+          ],
+          "version": "1.21-1.21",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ydms-auto-run"
+        },
+        {
+          "title": "Yoyomod123 (趣味笔记本模组)",
+          "description": "猎奇趣味模组，可在游戏内建造笔记本并免费下载运行虚拟内存。",
+          "author": "ChocofushEagler",
+          "tags": [
+            "NeoForge",
+            "猎奇",
+            "游戏机制",
+            "生物"
+          ],
+          "version": "1.20.6-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yoyomod123"
+        },
+        {
+          "title": "Your Ideas (你的创意)",
+          "description": "专为你定制的模组！",
+          "author": "Goulixiaoji",
+          "tags": [
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.18.2-1.18.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/your-ideas"
+        },
+        {
+          "title": "Yet Another TPA (极简传送请求)",
+          "description": "整合多款传送功能设计，轻量简洁，兼容Fabric与服务端插件，完美替代传统传送模组",
+          "author": "cev-api",
+          "tags": [
+            "Paper",
+            "Fabric",
+            "实用功能",
+            "游戏机制",
+            "经济",
+            "管理"
+          ],
+          "version": "1.21-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yet-another-tpa"
+        },
+        {
+          "title": "YoutuberMix (主播主题装备)",
+          "description": "添加各类网红主播主题武器与工具",
+          "author": "LightFreecs",
+          "tags": [
+            "Fabric",
+            "装备"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/youtubermix"
+        },
+        {
+          "title": "Yan from FF14（FF14燕角色）",
+          "description": "加入最终幻想14中的燕角色生物",
+          "author": "RedstoneGate",
+          "tags": [
+            "Forge|Fabric|Neoforge|生物"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yan-from-ff14"
+        },
+        {
+          "title": "Yes, delete it（一键清空服务器）",
+          "description": "一键批量删除所有已保存服务器列表",
+          "author": "Kreil_88737",
+          "tags": [
+            "Fabric|实用"
+          ],
+          "version": "1.21-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yes,-delete-it"
+        },
+        {
+          "title": "YetAnotherBackpackMod (新款背包模组)",
+          "description": "为游戏新增全新背包道具",
+          "author": "Tier1234",
+          "tags": [
+            "NeoForge",
+            "存储",
+            "游戏机制",
+            "实用工具"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yetanotherbackpackmod"
+        },
+        {
+          "title": "Yas Zoom (简易缩放)",
+          "description": "又一款简约好用的视角缩放模组",
+          "author": "mafien0",
+          "tags": [
+            "冒险",
+            "Fabric",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.21.10-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yaszoom"
+        },
+        {
+          "title": "Yiv's API (伊夫通用前置库)",
+          "description": "伊夫系列模组共享API，包含客户端事件、条件混入插件及兼容辅助工具",
+          "author": "Yivani",
+          "tags": [
+            "Fabric",
+            "前置库"
+          ],
+          "version": "1.21-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yivs-api"
+        },
+        {
+          "title": "YAC (Yet Another核心前置库)",
+          "description": "Hutzdog系列模组通用核心前置库",
+          "author": "hutzdog",
+          "tags": [
+            "Fabric",
+            "前置库"
+          ],
+          "version": "1.21.4-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yac"
+        },
+        {
+          "title": "Yet Another Sleep Voting (简易睡觉投票)",
+          "description": "简易服务端睡觉投票模组",
+          "author": "Blue-Beaker",
+          "tags": [
+            "Forge",
+            "游戏机制"
+          ],
+          "version": "1.12.2-1.12.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yet-another-sleep-voting"
+        },
+        {
+          "title": "You Don't Have The Right (Recipe) (你无权合成)",
+          "description": "强化有限合成游戏规则的执行效果，同时添加数据驱动酿造配方和开发工具",
+          "author": "neirenoir",
+          "tags": [
+            "Forge",
+            "优化",
+            "猎奇",
+            "游戏机制"
+          ],
+          "version": "1.20-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/you-dont-have-the-right"
+        },
+        {
+          "title": "Yarn Mapping Provider (Yarn映射提供器)",
+          "description": "为映射解析器提供Yarn映射支持",
+          "author": "KrisanaponMeksamoot",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.19-1.19.3",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yarn-mapping-provider"
+        },
+        {
+          "title": "YAML Resources (YAML资源)",
+          "description": "简易资源附加组件，为《我的世界》原版与自定义注册资源添加YAML格式支持",
+          "author": "Yorick-06",
+          "tags": [
+            "Fabric",
+            "实用工具",
+            "管理",
+            "库"
+          ],
+          "version": "1.0-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yaml-resources"
+        },
+        {
+          "title": "You've been Mugged! (遭遇抢劫！)",
+          "description": "简易模组，开启死亡保留物品后，玩家仍可互相掠夺物品",
+          "author": "Hipposgrumm",
+          "tags": [
+            "Fabric",
+            "游戏机制",
+            "管理"
+          ],
+          "version": "1.20-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/youve-been-mugged"
+        },
+        {
+          "title": "YuniUtil (尤尼通用工具库)",
+          "description": "适用于Beta 1.7.3版本Babric/Station API的通用实用工具库",
+          "author": "Yunivers",
+          "tags": [
+            "Fabric",
+            "实用工具",
+            "Babric",
+            "库"
+          ],
+          "version": "b1.7.3-b1.7.3",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yuniutil"
+        },
+        {
+          "title": "Yomai Style (夜麦趣味杂项)",
+          "description": "原版风格杂项模组，添加各类小型趣味内容",
+          "author": "yomai68",
+          "tags": [
+            "食物",
+            "存储",
+            "装饰",
+            "实用",
+            "Forge",
+            "装备"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yomai-style"
+        },
+        {
+          "title": "youtube ideas (油管创意)",
+          "description": "实现观众提供的模组创意",
+          "author": "Im_not_tim",
+          "tags": [
+            "Forge",
+            "装备",
+            "生物"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/youtube-ideas"
+        },
+        {
+          "title": "Yiv's DDTW (Yiv禁用双击W)",
+          "description": "禁用双击W键疾跑功能",
+          "author": "Yivani",
+          "tags": [
+            "Fabric",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.21-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yivs-ddtw"
+        },
+        {
+          "title": "Yuhan's Ride Config (宝可梦骑行配置)",
+          "description": "简易模组，可自定义调整宝可梦骑行机制",
+          "author": "Vietcong",
+          "tags": [
+            "实用",
+            "NeoForge"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yuhans-ride-config"
+        },
+        {
+          "title": "YouMatter (UU物质克隆)",
+          "description": "独立Forge模组，添加UU稀有物质，可消耗材料克隆各类物品",
+          "author": "realmayus",
+          "tags": [
+            "Forge",
+            "魔法",
+            "科技"
+          ],
+          "version": "1.19.4-1.19.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/youmatter"
+        },
+        {
+          "title": "Ye Gamol Chattels Reborn (复古装饰杂物合集)",
+          "description": "收录大量纯装饰性复古趣味道具与物品",
+          "author": "Pecsitonic",
+          "tags": [
+            "生物",
+            "冒险",
+            "装饰",
+            "实用工具",
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ye-gamol-chattels-reborn"
+        },
+        {
+          "title": "YTChatToMinecraft (油管直播弹幕同步)",
+          "description": "简易实用模组，将YouTube直播弹幕同步至游戏内聊天栏",
+          "author": "SysTheCat",
+          "tags": [
+            "Fabric",
+            "实用工具",
+            "社交"
+          ],
+          "version": "1.20.4-1.20.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ytchattominecraft"
+        },
+        {
+          "title": "Year of the Bomb (核废土纪元)",
+          "description": "移除大部分原版方块与物品，生成巨型橙色后启示录废土世界",
+          "author": "sr_steve",
+          "tags": [
+            "NeoForge",
+            "生物",
+            "冒险",
+            "食物",
+            "游戏机制",
+            "装备",
+            "世界生成"
+          ],
+          "version": "1.21.1-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/year-of-the-bomb"
+        },
+        {
+          "title": "Yoshi's Random Things (耀西随机杂物)",
+          "description": "新增各类零散道具、魔法内容与趣味玩法",
+          "author": "Yoshi01111",
+          "tags": [
+            "冒险",
+            "实用工具",
+            "Forge",
+            "装备",
+            "趣味恶搞",
+            "魔法"
+          ],
+          "version": "1.19.2-1.19.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yoshis-random-things"
+        },
+        {
+          "title": "YearnForAKey (微光钥匙开门)",
+          "description": "让指令获取的微光钥匙可用于开启25w14craftmine版本的枢纽大门",
+          "author": "h1ggsk",
+          "tags": [
+            "Fabric",
+            "实用工具",
+            "游戏机制"
+          ],
+          "version": "25w14craftmine-25w14craftmine",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yearnforakey"
+        },
+        {
+          "title": "Yellow Snow (黄色积雪)",
+          "description": "添加趣味黄色积雪食物道具，满足趣味玩法需求",
+          "author": "TheYoungSeth",
+          "tags": [
+            "食物",
+            "Fabric",
+            "装饰",
+            "装备"
+          ],
+          "version": "1.19-1.19.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yellow-snowball"
+        },
+        {
+          "title": "You can't touch grass! (踏草即死)",
+          "description": "触碰草方块直接死亡的趣味整蛊数据包",
+          "author": "AquaWarden",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "Fabric",
+            "游戏机制",
+            "数据包",
+            "Forge",
+            "魔法",
+            "猎奇"
+          ],
+          "version": "1.21.10-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/you-cant-touch-grass_datapack"
+        },
+        {
+          "title": "yafuce's Nerfed Totems (不死图腾平衡削弱)",
+          "description": "服务端简易模组，大幅削弱原版过强的不死图腾效果，平衡生存难度",
+          "author": "yafuce",
+          "tags": [
+            "冒险",
+            "Fabric",
+            "装备",
+            "游戏机制"
+          ],
+          "version": "1.21-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yafuces-nerfed-totems"
+        },
+        {
+          "title": "You Died! (Reborn) (你阵亡了！重生)",
+          "description": "为新版本和翻译适配的“你阵亡了”模组分支",
+          "author": "javivi09dev",
+          "tags": [
+            "Neoforge",
+            "Fabric",
+            "科技",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.21.10-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/you-died-rb"
+        },
+        {
+          "title": "Yellow Forest (黄色森林生物群系)",
+          "description": "全新黄色主题生物群系，自带专属木材与独特生物；纯原版风格拓展游戏内容",
+          "author": "PerroZaurio",
+          "tags": [
+            "Forge",
+            "世界生成",
+            "生物"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yellow-forest"
+        },
+        {
+          "title": "You've Ruined Portal (修复废弃传送门)",
+          "description": "修复1.18.2-rc1版本废弃传送门的数据修复漏洞",
+          "author": "apple502j",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.18.2-rc1-1.18.2-rc1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/youve-ruined-portal"
+        },
+        {
+          "title": "You Can't See Me! (隐形透明玻璃)",
+          "description": "原版可合成全透明玻璃及变种方块，极致隐身视觉效果",
+          "author": "AdmiralSdot",
+          "tags": [
+            "科技",
+            "Fabric",
+            "装饰",
+            "实用",
+            "Forge",
+            "优化",
+            "趣味恶搞"
+          ],
+          "version": "1.16-1.16.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/you-cant-see-me!"
+        },
+        {
+          "title": "YMod (Y模组生态拓展)",
+          "description": "新增生物、生物群系、美食及各类趣味内容",
+          "author": "nightfury717",
+          "tags": [
+            "生物",
+            "冒险",
+            "食物",
+            "Forge",
+            "装备",
+            "世界生成",
+            "猎奇"
+          ],
+          "version": "1.19.2-1.19.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ymod"
+        },
+        {
+          "title": "YCK's Auto Torch (YCK自动火把)",
+          "description": "添加可开关的道具，光照不足时自动放置火把",
+          "author": "Yoacek",
+          "tags": [
+            "Neoforge",
+            "生物",
+            "科技",
+            "冒险",
+            "实用",
+            "游戏机制",
+            "装备"
+          ],
+          "version": "1.21.1-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ycks-auto-torch"
+        },
+        {
+          "title": "Yiv's Preset (伊夫预设)",
+          "description": "单快捷键切换建造、探索、战斗画质预设，自动保存每个世界/服务器的设置，仅客户端、兼容原版设置",
+          "author": "Yivani",
+          "tags": [
+            "优化",
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.21-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yivs-preset"
+        },
+        {
+          "title": "Yo's Coins (悠悠货币)",
+          "description": "轻量化服务器经济货币模组",
+          "author": "Weatheraintbad",
+          "tags": [
+            "经济",
+            "Fabric",
+            "实用模组",
+            "游戏机制"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yos-coins"
+        },
+        {
+          "title": "Youtubers Ingame (主播生物入驻)",
+          "description": "将知名油管主播以生物形式加入游戏",
+          "author": "janne.hakola06",
+          "tags": [
+            "猎奇",
+            "NeoForge",
+            "生物"
+          ],
+          "version": "1.21.4-1.21.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/youtubers-ingame"
+        },
+        {
+          "title": "Yeet That (投掷方块)",
+          "description": "拾取方块、瞄准目标、一键投掷方块道具",
+          "author": "Qwatrum",
+          "tags": [
+            "冒险、Fabric、实用、游戏机制"
+          ],
+          "version": "1.21.5-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yeet-that"
+        },
+        {
+          "title": "Yucraft (悠游成长拓展)",
+          "description": "新增更多生存进阶成长要素",
+          "author": "Y_UUO",
+          "tags": [
+            "冒险、装备、NeoForge、世界生成"
+          ],
+          "version": "1.21.1-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/sakurap"
+        },
+        {
+          "title": "Yiga Hideout (依盖队基地)",
+          "description": "数据包，添加依盖队基地，一旦造访，将永远被依盖队追杀",
+          "author": "ThirtyFangs",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "生物",
+            "Fabric",
+            "数据包",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.21.11-26.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yiga-hideout"
+        },
+        {
+          "title": "Yes It's A Kids' Game (没错这是儿童游戏)",
+          "description": "为游戏世界添加美观、适合儿童的彩虹，可自定义彩虹效果",
+          "author": "TheIcyOne",
+          "tags": [
+            "装饰",
+            "Neoforge"
+          ],
+          "version": "1.21.4-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yikg"
+        },
+        {
+          "title": "Youtube Comment mod (油管评论模组)",
+          "description": "征集油管评论区的模组创意制作而成",
+          "author": "DaBreadKing",
+          "tags": [
+            "Forge",
+            "食物",
+            "恶搞"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/youtube-comment-mod"
+        },
+        {
+          "title": "Your Tool Is Too Powerful (工具过载)",
+          "description": "调整挖掘延迟，允许更快挖掘或防止过度破坏",
+          "author": "Duox29",
+          "tags": [
+            "Neoforge",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.21.1-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/your-tool-is-too-powerful"
+        },
+        {
+          "title": "Yeah So, I Furnished It Up (没错，我加装了家具)",
+          "description": "一款保持原版《我的世界》纹理与建模风格的家具模组",
+          "author": "boidavidman",
+          "tags": [
+            "Neoforge",
+            "装饰",
+            "存储"
+          ],
+          "version": "1.20.4-1.20.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yeahso_furniture"
+        },
+        {
+          "title": "YouShallNotMove (禁止移动)",
+          "description": "简易模组，阻止实体被移动",
+          "author": "Quim201",
+          "tags": [
+            "Fabric",
+            "生物",
+            "实用",
+            "游戏机制",
+            "优化",
+            "魔法"
+          ],
+          "version": "1.21.1-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/youshallnotmove"
+        },
+        {
+          "title": "You Received a Crit from the Arrow│你受到了箭矢的暴擊 (箭矢暴击来袭)",
+          "description": "AI生物射出的箭矢必定为暴击箭矢",
+          "author": "Special_TT",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "Forge",
+            "Fabric",
+            "生物",
+            "游戏机制",
+            "数据包"
+          ],
+          "version": "1.21.5-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/you-received-a-crit-from-the-arrow"
+        },
+        {
+          "title": "yoy (悠悠球)",
+          "description": "添加悠悠球，一种强力的圆形猫咪生物，矿石悠悠球可使用对应矿石驯服",
+          "author": "bartb6",
+          "tags": [
+            "Forge",
+            "生物"
+          ],
+          "version": "1.18.2-1.18.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yoy"
+        },
+        {
+          "title": "Yet Another Hammer Mod (YAHM) (又一个锤子模组)",
+          "description": "为我的世界添加几款简易锤子",
+          "author": "XDuskAshes",
+          "tags": [
+            "Fabric",
+            "装备"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yahm"
+        },
+        {
+          "title": "YAVPM (原版细微优化)",
+          "description": "原版风格细微改进，支持右键收割作物等多项生活化便捷调整",
+          "author": "StemZ",
+          "tags": [
+            "食物",
+            "Fabric",
+            "实用功能",
+            "游戏机制"
+          ],
+          "version": "1.21.10-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yavpm_"
+        },
+        {
+          "title": "Yoshi (耀西能力增补)",
+          "description": "趣味休闲模组，为玩家新增三种耀西专属能力",
+          "author": "SuperHeroPuppy",
+          "tags": [
+            "Fabric",
+            "游戏机制"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yoshi"
+        },
+        {
+          "title": "Youdzhi's API (尤德吉API)",
+          "description": "个人模组专用的简易高效API",
+          "author": "_ydz",
+          "tags": [
+            "Forge",
+            "管理",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/youdzhis-api"
+        },
+        {
+          "title": "Yeah, I Like This (我喜欢这样)",
+          "description": "随机添加方块、食物、盔甲等内容，增强原版游戏体验",
+          "author": "IseDenL_FsT",
+          "tags": [
+            "食物",
+            "装饰",
+            "实用",
+            "Forge",
+            "装备",
+            "世界生成"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yeah,-i-like-this"
+        },
+        {
+          "title": "yakut (雅库特矿物)",
+          "description": "新增雅库特矿石、道具、盔甲、传送门、傀儡及矿工头盔",
+          "author": "01ghf6559",
+          "tags": [
+            "NeoForge",
+            "生物",
+            "冒险",
+            "实用",
+            "游戏机制",
+            "装备",
+            "世界生成"
+          ],
+          "version": "1.21.4-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yakut"
+        },
+        {
+          "title": "Yinglet Language Addon for, ReIndev (林格语 ReIndev插件)",
+          "description": "客户端翻译插件，此前为Beta 1.7.3的BTA制作，现适配SilverOS的ReIndev",
+          "author": "SelfDugGrave",
+          "tags": [
+            "Quilt",
+            "恶搞"
+          ],
+          "version": "b1.7.3-b1.7.3",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yinglish-for-reindev"
+        },
+        {
+          "title": "Yumemigusa (梦草)",
+          "description": "高度可定制的树叶轨迹和物理优化模组，为世界带来生动的风感",
+          "author": "Flechazo098",
+          "tags": [
+            "Fabric",
+            "装饰",
+            "实用",
+            "Neoforge"
+          ],
+          "version": "1.21.1-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yumemigusa"
+        },
+        {
+          "title": "You Mined Your Last Block (挖矿随机处决)",
+          "description": "玩家累计挖掘随机数量方块后会被直接击杀",
+          "author": "Silky-Wilky",
+          "tags": [
+            "小游戏",
+            "Fabric",
+            "游戏机制"
+          ],
+          "version": "1.21.4-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/you-mined-your-last-block"
+        },
+        {
+          "title": "Yang's Electricity (杨氏电力)",
+          "description": "基于挖矿与创造的全新电力模组，即刻体验",
+          "author": "XingYang_lc_11",
+          "tags": [
+            "科技",
+            "Fabric",
+            "游戏机制",
+            "世界生成"
+          ],
+          "version": "1.20.1-1.20.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yangs-electricity"
+        },
+        {
+          "title": "YALAM (悬浮信息显示)",
+          "description": "看向物品/方块时，显示名称、模组来源、挖掘需求及生命值信息",
+          "author": "Vinnie64",
+          "tags": [
+            "NeoForge"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yalam"
+        },
+        {
+          "title": "YukisMod (雪之模组)",
+          "description": "独立开发者雪制作的最佳缩放模组",
+          "author": "YukiSuou",
+          "tags": [
+            "织物"
+          ],
+          "version": "1.21.4-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yukismod"
+        },
+        {
+          "title": "yafuce's Nerfed Ender Chests (末影箱平衡削弱)",
+          "description": "Fabric服务端轻量模组，平衡过于强势的末影箱存储与传送机制",
+          "author": "yafuce",
+          "tags": [
+            "科技",
+            "冒险",
+            "Fabric",
+            "存储",
+            "游戏机制",
+            "装备",
+            "经济",
+            "魔法"
+          ],
+          "version": "1.21-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yafuces-nerfed-ender-chests"
+        },
+        {
+          "title": "YAWYE - You are what you eat (食效增益)",
+          "description": "食用不同食物获得专属增益状态效果，实现吃什么获得什么加成",
+          "author": "MajorMilk",
+          "tags": [
+            "食物",
+            "Fabric",
+            "游戏机制"
+          ],
+          "version": "1.21.5-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yawye"
+        },
+        {
+          "title": "YttrJEI (YttrJEI兼容)",
+          "description": "Yttr模组的附属模组，添加JEI物品管理器支持",
+          "author": "TheLMiffy1111",
+          "tags": [
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.18.2-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yttrjei"
+        },
+        {
+          "title": "Yautja Origins (铁血战士起源)",
+          "description": "起源模组的小型附属，添加铁血战士幼体起源职业",
+          "author": "GenericPybro",
+          "tags": [
+            "Forge",
+            "Fabric"
+          ],
+          "version": "1.20-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yautja-origins"
+        },
+        {
+          "title": "YourWarden (自定义监守者)",
+          "description": "轻松自定义我的世界监守者的属性",
+          "author": "mygameidk",
+          "tags": [
+            "Forge",
+            "生物"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yourwarden"
+        },
+        {
+          "title": "Youtube Essentials (油管创作者工具)",
+          "description": "为视频创作者添加趣味道具与方块，含订阅主题方块等内容",
+          "author": "skowmovies02",
+          "tags": [
+            "NeoForge、Fabric、装饰、实用工具、趣味恶搞"
+          ],
+          "version": "1.21.8-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/youtube_essentials"
+        },
+        {
+          "title": "YouTuber Block Telugu Edition (泰卢固博主方块)",
+          "description": "添加泰卢固知名博主主题方块、专属Boss与趣味玩法",
+          "author": "collabwithyeshcrazy",
+          "tags": [
+            "NeoForge、生物、科技、冒险、装备、社交、世界生成"
+          ],
+          "version": "1.21.4-1.21.7",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/youtuber-block-telugu-edition"
+        },
+        {
+          "title": "Yuki'sStuff (优纪的小功能)",
+          "description": "一些可自定义的小型客户端功能，比如服务器快速加入按钮和聊天时间戳",
+          "author": "LunarAkai",
+          "tags": [
+            "实用",
+            "Neoforge"
+          ],
+          "version": "1.21.8-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yukisstuff"
+        },
+        {
+          "title": "YourLine (世界冰封生存)",
+          "description": "生存向模组，将整个世界变为冰封地貌",
+          "author": "Kuwma",
+          "tags": [
+            "冒险、食物、游戏机制、Forge、社交、世界生成、管理、魔法"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yourline"
+        },
+        {
+          "title": "YetAnotherDiscordIntegration (YADI) (又一个Discord互通)",
+          "description": "又一个Discord互通模组——连接Discord聊天与我的世界服务器",
+          "author": "shellawa",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21.8-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yadi"
+        },
+        {
+          "title": "Yo's Trade Post (Yo的贸易站)",
+          "description": "添加全新的交易方块",
+          "author": "Weatheraintbad",
+          "tags": [
+            "经济",
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yos-trade-post"
+        },
+        {
+          "title": "yay mod (耶模组)",
+          "description": "添加大量趣味道具、方块及其他内容",
+          "author": "1HPclutch",
+          "tags": [
+            "Neoforge",
+            "食物",
+            "世界生成",
+            "魔法",
+            "搞怪"
+          ],
+          "version": "1.21.8-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yay-mod"
+        },
+        {
+          "title": "yambol's simple ahh keystrokes (yambol的简易按键显示)",
+          "description": "感谢john892带来的创意灵感",
+          "author": "yambol",
+          "tags": [
+            "Fabric",
+            "装饰",
+            "实用"
+          ],
+          "version": "1.21.10-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yambols-ahh-keystrokes"
+        },
+        {
+          "title": "yossiikun pet health boost (宠物血量增幅)",
+          "description": "将宠物生命值提升1000点，作者首款公开模组",
+          "author": "yossiikun",
+          "tags": [
+            "生物",
+            "猎奇",
+            "实用",
+            "Forge",
+            "NeoForge"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yossiikun-pet-health-boost"
+        },
+        {
+          "title": "You Have Treasure! (宝藏显形)",
+          "description": "玩家携带指定物品时，该物品会显示在实体头顶",
+          "author": "Xiaoyu_2009",
+          "tags": [
+            "实用",
+            "Neoforge"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/you-have-treasure"
+        },
+        {
+          "title": "You will be sad : (悲伤物语)",
+          "description": "为MC添加更多合成配方和物品",
+          "author": "CasiStillPlaysMinecraftmods",
+          "tags": [
+            "实用",
+            "恶搞",
+            "Neoforge",
+            "装备"
+          ],
+          "version": "1.21.4-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/you-will-be-sad"
+        },
+        {
+          "title": "You Can Craft It Now (即刻合成)",
+          "description": "为无合成配方的物品添加合成方式",
+          "author": "Dornick",
+          "tags": [
+            "模组加载器:Neoforge;标签:装备",
+            "游戏机制",
+            "实用工具"
+          ],
+          "version": "1.21.4-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/you-can-craft-it-now"
+        },
+        {
+          "title": "YtShorts Worlds (短视频世界)",
+          "description": "添加2个适合短视频拍摄的全新世界",
+          "author": "mrdeimat9",
+          "tags": [
+            "Forge",
+            "Neoforge"
+          ],
+          "version": "1.21.8-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ytshorts-worlds"
+        },
+        {
+          "title": "YCNCSEBH (可合成嗅探兽蛋)",
+          "description": "你现在可以合成嗅探兽蛋了，开心吧",
+          "author": "hegog",
+          "tags": [
+            "Fabric",
+            "实用工具",
+            "生物"
+          ],
+          "version": "1.20.1-1.20.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/sniff"
+        },
+        {
+          "title": "Y - The Whole New World Update (1.Y-全新世界更新)",
+          "description": "回归游戏本源，同时为被忽视的内容注入新活力的《我的世界》模组",
+          "author": "deroplayz",
+          "tags": [
+            "Neoforge",
+            "生物",
+            "冒险",
+            "食物",
+            "装饰",
+            "游戏机制",
+            "装备",
+            "魔法"
+          ],
+          "version": "1.20.6-1.20.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/1.y-the-whole-new-world-update"
+        },
+        {
+          "title": "Ying-Yang (阴阳)",
+          "description": "我的世界模组，添加自定义光环、隐身效果的武器装备",
+          "author": "Tyler_s_1211",
+          "tags": [
+            "Quilt",
+            "Fabric",
+            "装饰",
+            "装备",
+            "恶搞"
+          ],
+          "version": "1.20-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ying-yang"
+        },
+        {
+          "title": "Yurushi (Discord白名单)",
+          "description": "Fabric专用Discord联动服务器白名单模组，简化服务器权限管理",
+          "author": "tantaihaha4487",
+          "tags": [
+            "Fabric",
+            "管理"
+          ],
+          "version": "1.21.11-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yurushi"
+        },
+        {
+          "title": "YeepCraft (耶普物品合集)",
+          "description": "自制模组，将耶普系列全部物品加入我的世界，适配生存模式玩法",
+          "author": "CrazyCrazy660",
+          "tags": [
+            "小游戏",
+            "科技",
+            "生物",
+            "Fabric",
+            "游戏机制",
+            "装备",
+            "社交",
+            "猎奇"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yeepcraft"
+        },
+        {
+          "title": "YT1D's Backpacks (YT1D的背包)",
+          "description": "仅添加5级背包（所有等级详见描述）",
+          "author": "YT1D",
+          "tags": [
+            "交通",
+            "冒险",
+            "存储",
+            "游戏机制",
+            "实用",
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yt1ds-backpacks"
+        },
+        {
+          "title": "yyz's backpack compat (YYZ背包兼容适配)",
+          "description": "让YYZ背包模组兼容更多第三方模组界面",
+          "author": "MWojt",
+          "tags": [
+            "存储",
+            "装备",
+            "NeoForge",
+            "实用工具"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yyzs-backpack-compat"
+        },
+        {
+          "title": "Yeth's TPA (耶斯的传送请求)",
+          "description": "超高兼容性、功能完善、稳定运行的传送请求模组",
+          "author": "yethdev",
+          "tags": [
+            "交通",
+            "ornithe",
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "liteloader",
+            "legacy-fabric",
+            "游戏机制",
+            "实用",
+            "Forge",
+            "社交",
+            "管理"
+          ],
+          "version": "1.7.2-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yeths-tpa"
+        },
+        {
+          "title": "Yuku's Cutscenes (优库的过场动画)",
+          "description": "实用模组，为冒险地图和剧情内容添加相机路径和画面效果工具",
+          "author": "zuyuku",
+          "tags": [
+            "Fabric",
+            "实用",
+            "管理"
+          ],
+          "version": "1.21.11-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yukus-cutscenes"
+        },
+        {
+          "title": "Yes My Resource Pack Is Compatable (资源包兼容提示移除)",
+          "description": "移除资源包不兼容的警告提示",
+          "author": "badstagram",
+          "tags": [
+            "Fabric",
+            "实用",
+            "管理"
+          ],
+          "version": "1.21.7-1.21.7",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yes-my-resource-pack-is-compatable"
+        },
+        {
+          "title": "Your Private World(掌心私人世界)",
+          "description": "解锁专属私人小世界，随时随地进入游玩",
+          "author": "TheDiamondPlayer",
+          "tags": [
+            "NeoForge"
+          ],
+          "version": "1.21.4-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/your-private-world"
+        },
+        {
+          "title": "Yudo's VC Interaction (Sculks and Warden) (优多的语音交互（幽匿生物与监守者）)",
+          "description": "灵感源自henkelmax的语音交互模组，基于Neoforge制作，会根据你的音量大小吸引幽匿感测体与监守者",
+          "author": "Yudouku",
+          "tags": [
+            "Neoforge"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yudos-vc-interaction-(sculks-and-warden)"
+        },
+        {
+          "title": "Yiga's Dumb Diamond Burger (伊格的钻石汉堡)",
+          "description": "简易模组，仅添加夹着钻石的汉堡",
+          "author": "Yiga",
+          "tags": [
+            "冒险",
+            "食物",
+            "猎奇",
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yigas-dumb-diamond-burger"
+        },
+        {
+          "title": "Your Mind (你的意识)",
+          "description": "你的意识：迷雾正在注视着你",
+          "author": "datesteve_",
+          "tags": [
+            "冒险",
+            "Fabric",
+            "游戏机制",
+            "魔法",
+            "诅咒"
+          ],
+          "version": "1.21.8-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/your-mind"
+        },
+        {
+          "title": "yukigamau bar (雪上状态栏)",
+          "description": "修改我的世界界面，数字化显示生命值",
+          "author": "yvehuanghun@outlook.com",
+          "tags": [
+            "Forge",
+            "实用工具",
+            "NeoForge"
+          ],
+          "version": "1.20.1-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yukigamau-bar"
+        },
+        {
+          "title": "Ytterbium (镱模组)",
+          "description": "向世界添加镱元素，可制作伽马射线和精准时钟",
+          "author": "valdtaniem",
+          "tags": [
+            "Fabric",
+            "装备",
+            "科技",
+            "魔法"
+          ],
+          "version": "1.21.11-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ytterbium-valdtaniem"
+        },
+        {
+          "title": "Yumesumi Economy (梦澄经济)",
+          "description": "简单的硬币模组，包含铜、银、金、钻石四种硬币，击杀怪物掉落，可编辑配置文件调整设置",
+          "author": "Yumesumi",
+          "tags": [
+            "经济",
+            "冒险",
+            "实用",
+            "Neoforge"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yumesumi_economy"
+        },
+        {
+          "title": "Yapi: Forgotten Echoes (亚皮：遗忘回响)",
+          "description": "遗失在时光中的物品不会消失——它们会归来，该模组会收集世界中消失的物品，并通过生物将其带回，创造意想不到的奇遇和随机故事",
+          "author": "Y221",
+          "tags": [
+            "Forge",
+            "生物",
+            "冒险",
+            "游戏机制",
+            "装备"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yapi-forgotten-echoes"
+        },
+        {
+          "title": "Yapi: Paleofusion (亚皮：古生物融合)",
+          "description": "史前生物和恐龙模组的模块化兼容层，统一DNA、化石、分析仪器、生成和进阶系统；仅在安装支持的模组时加载可选兼容组件",
+          "author": "Y221",
+          "tags": [
+            "Forge",
+            "生物",
+            "冒险",
+            "实用",
+            "游戏机制",
+            "世界生成"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yapi-paleofusion"
+        },
+        {
+          "title": "Yapi: Farmer's Choice (亚皮：农夫之选)",
+          "description": "农夫的喜悦模组附属件，解决整合包中令人沮丧的随机生成问题，完全控制砍伐结果，简洁升级，贴合原版体验",
+          "author": "Y221",
+          "tags": [
+            "Forge",
+            "科技",
+            "食物",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yapi-farmers-choice"
+        },
+        {
+          "title": "Yarndin Is Here (亚丁降临)",
+          "description": "将一位主播作为迷你BOSS添加到我的世界中",
+          "author": "guiviogamer",
+          "tags": [
+            "Neoforge",
+            "生物"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yarndin"
+        },
+        {
+          "title": "YapiFix (亚皮修复)",
+          "description": "修复因模组生物群系功能顺序循环导致的世界生成崩溃问题",
+          "author": "Y221",
+          "tags": [
+            "Forge",
+            "实用",
+            "世界生成"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yapifix"
+        },
+        {
+          "title": "Yrmog's TimeFixer mod (时间天气一键修正)",
+          "description": "一键将时间固定至10000刻，同时清空天气改为晴天。",
+          "author": "Yrmog",
+          "tags": [
+            "Fabric",
+            "装饰",
+            "游戏机制",
+            "管理"
+          ],
+          "version": "1.21.10-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yrmogs-timefixer-mod"
+        },
+        {
+          "title": "You Need Hydration (口渴饮水机制)",
+          "description": "新增饮水生理机制，包含脏水、饮水增益buff与自定义视觉设置。",
+          "author": "youziqwq539",
+          "tags": [
+            "NeoForge",
+            "冒险",
+            "食物",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/you-need-hydration"
+        },
+        {
+          "title": "Your Best Road (全新道路方块)",
+          "description": "新增多款道路风格方块，告别原版单调道路。",
+          "author": "TNew",
+          "tags": [
+            "交通",
+            "装饰",
+            "实用",
+            "NeoForge"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/your-best-road"
+        },
+        {
+          "title": "Yearbound (岁月边界)",
+          "description": "热门生存系列“Yearbound”使用的整合包，核心生存第二季专属",
+          "author": "Krihffy",
+          "tags": [
+            "小游戏",
+            "冒险",
+            "Fabric",
+            "游戏机制",
+            "社交"
+          ],
+          "version": "1.21.9-1.21.9",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/yearbound"
+        }
+      ]
+    }
+  ],
+  "versions": [
+    "1.21.11",
+    "1.21.1",
+    "1.20.6",
+    "1.20.1",
+    "1.19.4",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ]
+}
