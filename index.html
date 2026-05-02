@@ -251,7 +251,7 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 
 /* Modrinth 搜索模态框样式 */
 .modrinth-modal .modal-content {
-    max-width: 700px;
+    max-width: 1000px;   /* 加宽模态框，便于平铺 */
     width: 90%;
 }
 .modrinth-search-input {
@@ -276,20 +276,83 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
     cursor: pointer;
 }
 .modrinth-results {
-    max-height: 500px;
+    max-height: 70vh;
     overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    padding: 8px 4px;
 }
 .modrinth-result-item {
-    background: rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.1);
     border-radius: 16px;
     padding: 12px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    gap: 8px;
+    transition: 0.1s;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+.modrinth-result-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+.modrinth-result-checkbox {
+    margin-top: 4px;
+    flex-shrink: 0;
+}
+
+.modrinth-result-info {
+    flex: 1;
+    min-width: 0; /* 防止溢出 */
+}
+
+.modrinth-result-title {
+    font-weight: bold;
+    font-size: 0.95rem;
+    word-break: break-word;
+}
+
+.modrinth-result-author {
+    font-size: 0.7rem;
+    opacity: 0.7;
+}
+
+.modrinth-result-desc {
+    font-size: 0.7rem;
+    margin: 6px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.3;
+}
+
+.modrinth-result-stats {
+    font-size: 0.65rem;
+    display: flex;
+    flex-wrap: wrap;
     gap: 12px;
+    margin-top: 6px;
+    color: #ccc;
+}
+
+.modrinth-add-single-btn {
+    background: #10b981;
+    border: none;
+    padding: 4px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    color: white;
+    font-size: 0.7rem;
+    align-self: flex-start;
+    margin-top: 6px;
+}
+
+.modrinth-add-single-btn:hover {
+    background: #059669;
 }
 .modrinth-result-info {
     flex: 1;
@@ -1660,7 +1723,13 @@ scrollAreas.forEach(el=>{if(el){el.addEventListener('scroll',()=>updateScrollGra
 function enableAdminMode(){isAdminMode=true;document.getElementById('adminToolbar').style.display='flex';document.getElementById('addGroupBtn').style.display='inline-flex';updateSortOptions();renderCards();renderGroupButtons();renderVersionList();sessionStorage.setItem('adminModeAuto','true')}
 function disableAdminMode(){isAdminMode=false;document.getElementById('adminToolbar').style.display='none';document.getElementById('addGroupBtn').style.display='none';updateSortOptions();renderCards();renderGroupButtons();renderTagList();sessionStorage.removeItem('adminModeAuto');if(confirm('退出编辑模式，是否重新从云端加载最新数据？'))location.reload()}
 function checkAdminPassword(){const p=prompt('管理员密码：');if(p==='admin123')enableAdminMode();else alert('密码错误')}
-
+// 如果 Modrinth 模态框是打开状态且有结果，重新渲染
+const modalActive = modrinthModal && modrinthModal.classList.contains('active');
+const currentQuery = modrinthQuery.value.trim();
+if (modalActive && currentQuery) {
+    // 延迟一点确保模式切换完成
+    setTimeout(() => searchModrinth(currentQuery), 100);
+}
 async function clearAllCache() {
     if (confirm('清除所有本地缓存并刷新？')) {
         await clearIndexedDBCache();
@@ -1805,7 +1874,6 @@ async function searchModrinth(originalQuery) {
     }
 
     try {
-        
         let facets = [];
         if (modrinthSelectedVersion) {
             facets = [[`versions:${modrinthSelectedVersion}`]];
@@ -1821,7 +1889,7 @@ async function searchModrinth(originalQuery) {
             return;
         }
 
-        // 构造基础数据（原始英文，不翻译）
+        // 构造基础数据（原始英文）
         let rawItems = hits.map(hit => ({
             slug: hit.slug,
             title: hit.title || hit.slug,
@@ -1833,18 +1901,25 @@ async function searchModrinth(originalQuery) {
             url: `https://modrinth.com/mod/${hit.slug}`
         }));
 
-        // 渲染带复选框的列表（显示原始英文）
-        let html = `
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                <label style="display: flex; align-items: center; gap: 6px; font-size: 0.8rem;">
-                    <input type="checkbox" id="modrinthSelectAll"> 全选
-                </label>
-                <button id="modrinthBatchAdd" class="modrinth-add-btn" style="background: #f59e0b;">📦 批量添加所选</button>
-            </div>
-            <div id="modrinthResultsList" class="modrinth-results">
-        `;
+        // 根据管理员模式决定是否显示批量操作栏和复选框
+        const isAdmin = isAdminMode;   // 使用全局变量
+        let batchBarHtml = '';
+        if (isAdmin) {
+            batchBarHtml = `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding: 0 4px;">
+                    <label style="display: flex; align-items: center; gap: 6px; font-size: 0.8rem;">
+                        <input type="checkbox" id="modrinthSelectAll"> 全选
+                    </label>
+                    <button id="modrinthBatchAdd" class="modrinth-add-btn" style="background: #f59e0b;">📦 批量添加所选</button>
+                </div>
+            `;
+        }
+
+        // 网格卡片布局（每个卡片一个 result-item）
+        let resultsHtml = `<div id="modrinthResultsList" class="modrinth-results">`;
         for (const item of rawItems) {
-            html += `
+            const checkboxHtml = isAdmin ? `<div class="modrinth-result-checkbox"><input type="checkbox" class="modrinth-select-cb" style="width: 18px; height: 18px;"></div>` : '';
+            resultsHtml += `
                 <div class="modrinth-result-item" 
                      data-slug="${escapeHtml(item.slug)}" 
                      data-title="${escapeHtml(item.title)}" 
@@ -1854,8 +1929,8 @@ async function searchModrinth(originalQuery) {
                      data-categories="${escapeHtml(item.categories.join(','))}" 
                      data-url="${escapeHtml(item.url)}" 
                      data-downloads="${item.downloads}">
-                    <div style="display: flex; align-items: center; gap: 12px; width: 100%;">
-                        <input type="checkbox" class="modrinth-select-cb" style="width: 18px; height: 18px; flex-shrink: 0;">
+                    <div class="modrinth-result-header">
+                        ${checkboxHtml}
                         <div class="modrinth-result-info">
                             <div class="modrinth-result-title">${escapeHtml(item.title)}</div>
                             <div class="modrinth-result-author">👤 ${escapeHtml(item.author)}</div>
@@ -1870,65 +1945,82 @@ async function searchModrinth(originalQuery) {
                 </div>
             `;
         }
-        html += `</div>`;
-        modrinthResults.innerHTML = html;
+        resultsHtml += `</div>`;
+
+        modrinthResults.innerHTML = batchBarHtml + resultsHtml;
+
+        // 为每个卡片添加点击跳转（点击卡片空白区域打开链接，复选框除外）
         document.querySelectorAll('.modrinth-result-item').forEach(item => {
             item.addEventListener('click', (e) => {
-                // 如果点击的是复选框，不跳转
-                if (e.target.type === 'checkbox') return;
+                if (e.target.type === 'checkbox' || e.target.closest('.modrinth-result-checkbox')) return;
                 const url = item.dataset.url;
                 if (url) window.open(url, '_blank');
             });
-            // 可选：添加手指光标样式
             item.style.cursor = 'pointer';
         });
-        // 绑定全选逻辑
-        const selectAllCb = document.getElementById('modrinthSelectAll');
-        const itemCheckboxes = () => document.querySelectorAll('.modrinth-select-cb');
-        if (selectAllCb) {
-            selectAllCb.addEventListener('change', (e) => {
-                itemCheckboxes().forEach(cb => cb.checked = e.target.checked);
-            });
-        }
 
-        // 批量添加按钮（点击后才翻译）
-        // 批量添加按钮（直接添加原始英文，不翻译内容）
-        const batchAddBtn = document.getElementById('modrinthBatchAdd');
-        if (batchAddBtn) {
-            batchAddBtn.addEventListener('click', async () => {
-                const selected = Array.from(itemCheckboxes()).filter(cb => cb.checked);
-                if (selected.length === 0) return alert('请至少选择一个模组');
-                if (!confirm(`确定添加 ${selected.length} 个模组到当前分组吗？`)) return;
+        // 如果管理员模式，绑定全选和批量添加按钮事件
+        if (isAdmin) {
+            // 绑定全选复选框
+            const selectAllCb = document.getElementById('modrinthSelectAll');
+            if (selectAllCb) {
+                // 移除旧监听器避免重复绑定
+                const newSelectAll = selectAllCb.cloneNode(true);
+                selectAllCb.parentNode.replaceChild(newSelectAll, selectAllCb);
+                newSelectAll.addEventListener('change', (e) => {
+                    if (!isAdminMode) return; // 二次安全检查
+                    document.querySelectorAll('.modrinth-select-cb').forEach(cb => cb.checked = e.target.checked);
+                });
+            }
 
-                let addedCount = 0;
-                for (let i = 0; i < selected.length; i++) {
-                    const cb = selected[i];
-                    const container = cb.closest('.modrinth-result-item');
-                    if (!container) continue;
-                    const cardData = {
-                        title: container.dataset.title,           // 原始英文标题
-                        description: container.dataset.desc,      // 原始英文描述
-                        author: container.dataset.author,
-                        tags: container.dataset.categories ? container.dataset.categories.split(',') : [], // 原始英文标签
-                        version: container.dataset.version,
-                        url: container.dataset.url,
-                        downloads: container.dataset.downloads
-                    };
-                   await addModrinthCardToCurrentGroup(cardData);
-                    addedCount++;
-                }
-                alert(`成功添加 ${addedCount} 个模组！`);
-                modrinthModal.classList.remove('active');
-                currentPage = 1;
-                renderAll();
-            });
+            // 绑定批量添加按钮
+            const batchAddBtn = document.getElementById('modrinthBatchAdd');
+            if (batchAddBtn) {
+                // 移除旧监听器
+                const newBatchBtn = batchAddBtn.cloneNode(true);
+                batchAddBtn.parentNode.replaceChild(newBatchBtn, batchAddBtn);
+                newBatchBtn.addEventListener('click', async () => {
+                    // ========== 管理员权限检查 ==========
+                    if (!isAdminMode) {
+                        alert('只有管理员才能批量添加模组，请先启用管理员模式。');
+                        return;
+                    }
+                    // ================================
+                    const selected = Array.from(document.querySelectorAll('.modrinth-select-cb:checked'));
+                    if (selected.length === 0) {
+                        alert('请至少选择一个模组');
+                        return;
+                    }
+                    if (!confirm(`确定添加 ${selected.length} 个模组到当前分组吗？`)) return;
+
+                    let addedCount = 0;
+                    for (const cb of selected) {
+                        const container = cb.closest('.modrinth-result-item');
+                        if (!container) continue;
+                        const cardData = {
+                            title: container.dataset.title,
+                            description: container.dataset.desc,
+                            author: container.dataset.author,
+                            tags: container.dataset.categories ? container.dataset.categories.split(',') : [],
+                            version: container.dataset.version,
+                            url: container.dataset.url,
+                            downloads: container.dataset.downloads
+                        };
+                        await addModrinthCardToCurrentGroup(cardData);
+                        addedCount++;
+                    }
+                    alert(`成功添加 ${addedCount} 个模组！`);
+                    modrinthModal.classList.remove('active');
+                    currentPage = 1;
+                    renderAll();
+                });
+            }
         }
     } catch (err) {
         console.error(err);
         modrinthResults.innerHTML = '<div style="text-align:center;padding:20px;color:red">搜索失败，请检查网络或稍后重试。</div>';
     }
 }
-
 
 // 翻译单个文本（复用已有的 translateToEnglish，但是中文→英文？不，我们需要英译中）
 // 修改：增加英译中函数
