@@ -276,22 +276,17 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
     cursor: pointer;
 }
 .modrinth-results {
-    max-height: 70vh;
-    overflow-y: auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 16px;
-    padding: 8px 4px;
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+    gap: 16px !important;
+    padding: 8px 4px !important;
 }
 .modrinth-result-item {
+    display: flex !important;
+    flex-direction: column !important;
     background: rgba(255,255,255,0.1);
     border-radius: 16px;
     padding: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    transition: 0.1s;
-    cursor: pointer;
     border: 1px solid rgba(255,255,255,0.2);
 }
 .modrinth-result-header {
@@ -306,7 +301,6 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 
 .modrinth-result-info {
     flex: 1;
-    min-width: 0; /* 防止溢出 */
 }
 
 .modrinth-result-title {
@@ -840,6 +834,8 @@ document.getElementById('toggleDataSourceBtn')?.addEventListener('click', () => 
         switchToCloudMode();
     }
 });
+
+
 
 /* 智能对比度 */
 function updateContrastColors(backgroundColorHex){
