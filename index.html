@@ -513,7 +513,7 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
             每行一个卡片，字段用 || 分隔（句号可选）
         </p>
 
-        <!-- ✅ 新增文件选择区域 -->
+        <!-- 文件选择区域 -->
         <div style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
             <button id="batchFileBtn" style="background: rgba(255,255,240,0.2); border: 1px solid rgba(255,255,255,0.3); color: #eee; padding: 6px 14px; border-radius: 14px; cursor: pointer; font-size: 0.8rem;">
                 📂 选择本地文件
@@ -523,6 +523,17 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
         </div>
 
         <textarea id="batchTextarea" style="width:100%;height:180px;font-family:monospace;background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.3);border-radius:12px;padding:10px;font-size:0.8rem;resize:vertical" placeholder="粘贴文本..."></textarea>
+
+        <!-- 进度条区域（默认隐藏） -->
+        <div id="batchProgressArea" style="display:none; margin:12px 0;">
+            <div style="display:flex; justify-content:space-between; font-size:0.7rem; margin-bottom:4px;">
+                <span id="batchProgressText">处理中...</span>
+                <span id="batchProgressPercent">0%</span>
+            </div>
+            <div style="background:rgba(255,255,255,0.2); border-radius:20px; overflow:hidden;">
+                <div id="batchProgressFill" style="width:0%; height:8px; background:var(--theme-accent); transition:width 0.2s;"></div>
+            </div>
+        </div>
 
         <div class="modal-buttons">
             <button class="cancel-btn" id="batchCancelBtn">取消</button>
@@ -941,63 +952,74 @@ function renderDynamicTags(){if(!dynamicTagList)return;const allTags=extractAllT
 function parseBatchText() {
     let raw = batchTextarea.value.trim();
     if (!raw) return alert('请输入文本');
+    
+    // 准备进度条UI
+    const progressArea = document.getElementById('batchProgressArea');
+    const progressFill = document.getElementById('batchProgressFill');
+    const progressText = document.getElementById('batchProgressText');
+    const progressPercent = document.getElementById('batchProgressPercent');
+    const parseBtn = document.getElementById('batchParseBtn');
+    const cancelBtn = document.getElementById('batchCancelBtn');
+    
+    // 禁用按钮，显示进度条
+    parseBtn.disabled = true;
+    cancelBtn.disabled = true;
+    progressArea.style.display = 'block';
+    progressFill.style.width = '0%';
+    progressText.innerText = '正在预处理数据...';
+    progressPercent.innerText = '0%';
+    
+    // 分割行
     raw = raw.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
-    const lines = raw.split('\n').filter(l => l.trim());
-
-    let added = 0;
+    let lines = raw.split('\n').filter(l => l.trim());
+    const totalLines = lines.length;
+    if (totalLines === 0) {
+        alert('没有有效数据');
+        parseBtn.disabled = false;
+        cancelBtn.disabled = false;
+        progressArea.style.display = 'none';
+        return;
+    }
+    
+    // 预解析所有行，转化为有效卡片数据（不直接添加，避免卡死）
+    let validCards = [];
     let skipped = 0;
     let skippedReasons = [];
-
-    lines.forEach((line, lineNum) => {
-        let cl = line.trim();
-        // 可选句号：如果有句号就去掉，没有也没关系
+    
+    for (let idx = 0; idx < lines.length; idx++) {
+        let cl = lines[idx].trim();
         if (cl.endsWith('。')) cl = cl.slice(0, -1).trim();
         if (!cl) {
             skipped++;
-            return;
+            continue;
         }
-
-        // 按 || 分割，并 trim 每个部分
+        
         const parts = cl.split('||').map(s => s.trim());
-
-        // 取标题（第1段），如果不存在则为空字符串
         let rawTitle = parts[0] || '';
-        // 去除序号前缀，如 "1. "、"2. "、"10. " 等
-        rawTitle = rawTitle.replace(/^\d+\.\s*/, '');
-
-        // 如果没有标题，直接跳过
+        rawTitle = rawTitle.replace(/^\d+\.\s*/, '');  // 去除序号
+        
         if (!rawTitle) {
             skipped++;
-            if (skippedReasons.length < 5) {
-                skippedReasons.push(`第 ${lineNum + 1} 行: 标题为空，已跳过`);
-            }
-            return;
+            if (skippedReasons.length < 5) skippedReasons.push(`第 ${idx+1} 行: 标题为空`);
+            continue;
         }
-
-        // 字段提取：允许任意长度，缺失的字段用空字符串代替
+        
         const desc   = parts[1] || '';
         const url    = parts[2] || '';
         const author = parts[3] || '';
         const ver    = parts[4] || '';
         const tagsStr = parts[5] || '';
-
-        // URL 不能为空
+        
         if (!url) {
             skipped++;
-            if (skippedReasons.length < 5) {
-                skippedReasons.push(`第 ${lineNum + 1} 行: URL 为空，已跳过`);
-            }
-            return;
+            if (skippedReasons.length < 5) skippedReasons.push(`第 ${idx+1} 行: URL 为空`);
+            continue;
         }
-
-        // 处理标签：逗号分隔，去掉空标签
+        
         const tags = tagsStr ? tagsStr.split(',').map(s => s.trim()).filter(s => s) : [];
-
-        // 描述如果为空，就用 URL 代替（可选，可以让卡片更友好）
         const finalDesc = desc || url;
-
-        // 添加到当前分组
-        groupsData[currentGroupIndex].items.push({
+        
+        validCards.push({
             title: rawTitle,
             description: finalDesc,
             author: author,
@@ -1010,27 +1032,66 @@ function parseBatchText() {
             type: 'link',
             url: url
         });
-        added++;
-    });
-
-    if (added > 0) {
-        saveDataToStorage();
-        batchModal.classList.remove('active');
-        currentPage = 1;
-        renderAll();
     }
-
-    let msg = `✅ 成功添加 ${added} 个卡片。`;
-    if (skipped > 0) {
-        msg += `\n⏭️ 跳过 ${skipped} 行无效数据。`;
-        if (skippedReasons.length) {
-            msg += `\n\n原因示例（前${skippedReasons.length}条）：\n${skippedReasons.join('\n')}`;
+    
+    const totalValid = validCards.length;
+    if (totalValid === 0) {
+        let msg = `⚠️ 没有有效的卡片数据。\n跳过 ${skipped} 行。`;
+        if (skippedReasons.length) msg += `\n原因示例：${skippedReasons.slice(0,3).join('；')}`;
+        alert(msg);
+        parseBtn.disabled = false;
+        cancelBtn.disabled = false;
+        progressArea.style.display = 'none';
+        return;
+    }
+    
+    // 分批次添加卡片（每次15个，避免UI长时间阻塞）
+    const BATCH_SIZE = 15;
+    let currentIndex = 0;
+    let addedCount = 0;
+    
+    function addNextBatch() {
+        const end = Math.min(currentIndex + BATCH_SIZE, totalValid);
+        for (let i = currentIndex; i < end; i++) {
+            groupsData[currentGroupIndex].items.push(validCards[i]);
+            addedCount++;
         }
-        msg += `\n\n提示：每行格式为「标题 || 描述 || URL || 作者 || 版本 || 标签1,标签2」\n所有字段都可以为空（除标题和URL外），不需要句号结尾。`;
-    } else if (added === 0 && skipped > 0) {
-        msg = `⚠️ 没有有效的卡片数据，请检查格式。\n${skippedReasons.slice(0, 3).join('\n')}`;
+        currentIndex = end;
+        
+        // 更新进度条
+        const percent = Math.floor((currentIndex / totalValid) * 100);
+        progressFill.style.width = percent + '%';
+        progressText.innerText = `正在添加卡片 ${currentIndex} / ${totalValid}`;
+        progressPercent.innerText = percent + '%';
+        
+        if (currentIndex < totalValid) {
+            // 继续下一批
+            setTimeout(addNextBatch, 10);  // 让出主线程，保持UI响应
+        } else {
+            // 全部完成
+            saveDataToStorage();
+            batchModal.classList.remove('active');
+            currentPage = 1;
+            renderAll();
+            
+            let msg = `✅ 成功添加 ${addedCount} 个卡片。`;
+            if (skipped > 0) {
+                msg += `\n⏭️ 跳过 ${skipped} 行无效数据。`;
+                if (skippedReasons.length) {
+                    msg += `\n\n原因示例（前${Math.min(5,skippedReasons.length)}条）：\n${skippedReasons.slice(0,5).join('\n')}`;
+                }
+            }
+            alert(msg);
+            
+            // 恢复按钮状态
+            parseBtn.disabled = false;
+            cancelBtn.disabled = false;
+            progressArea.style.display = 'none';
+        }
     }
-    alert(msg);
+    
+    // 开始分批添加
+    addNextBatch();
 }
 
 function openTextView(title,content){textModalTitle.innerText=title;textContentDisplay.innerHTML=escapeHtml(content).replace(/\n/g,'<br>');textModal.classList.add('active')}
