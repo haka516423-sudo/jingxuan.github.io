@@ -446,8 +446,14 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
         <input type="text" class="search-box" id="searchInput" placeholder="🔍 实时过滤 · 标题/描述/作者/标签/版本">
         <button class="clear-search-btn" id="clearSearchBtn" style="display: none;">✖</button>
     </div>
-    <button class="view-toggle-btn" id="viewToggleBtn">📋 列表视图</button>
+    <select id="searchModeSelect" class="view-toggle-btn" style="width: auto;">
+        <option value="all">🔍 全部字段</option>
+        <option value="title">📝 仅标题</option>
+        <option value="author">👤 仅作者</option>
+    </select>
+    
     <button class="view-toggle-btn" id="modrinthSearchBtn">🔍 Modrinth 搜索</button>
+    <button class="view-toggle-btn" id="viewToggleBtn">📋 列表视图</button>
     <select class="sort-select" id="sortSelect">
         <option value="title-asc">🔤 标题 A-Z</option>
         <option value="date-desc">📅 最新优先</option>
@@ -572,6 +578,8 @@ let versions=[...DEFAULT_VERSIONS];
 // 加载日志记录
 let loadLogs = []; // 存储 { timestamp, level, message, details }
 
+let currentDataMode = 'cloud';   // 'cloud' 或 'local'
+
 function addLog(level, message, details = null) {
     const logEntry = {
         timestamp: new Date().toISOString(),
@@ -616,6 +624,16 @@ function getFirstLetter(title) {
     // 前端只根据文件名请求，不需要实时计算首字母，因此本函数在分片加载中实际上不用。
     // 这里保留占位，实际分片加载时直接按文件名请求，不依赖此函数。
     return firstChar;
+}
+
+function getDataSizeMB(data) {
+    try {
+        const serialized = JSON.stringify(data);
+        const bytes = new Blob([serialized]).size;
+        return (bytes / (1024 * 1024)).toFixed(2);
+    } catch(e) {
+        return '?';
+    }
 }
 
 // 加载单个字母的 JSON 文件
@@ -732,6 +750,15 @@ async function exportShardsToZip() {
 }
 document.getElementById('exportShardsBtn')?.addEventListener('click', exportShardsToZip);
 document.getElementById('exportLogBtn')?.addEventListener('click', exportLoadLogs);
+
+document.getElementById('toggleDataSourceBtn')?.addEventListener('click', () => {
+    if (currentDataMode === 'cloud') {
+        switchToLocalMode();
+    } else {
+        switchToCloudMode();
+    }
+});
+
 /* 智能对比度 */
 function updateContrastColors(backgroundColorHex){
     const root=document.documentElement;
@@ -947,11 +974,11 @@ function mergeGroups(targetMap, groupsArray) {
         }
     }
 }
+
 async function loadInitialData() {
-    // 1. 首先检查是否有管理员自动模式（从 sessionStorage 恢复）
     const autoAdmin = sessionStorage.getItem('adminModeAuto') === 'true';
     if (autoAdmin) {
-        // 如果之前处于管理员模式，尝试从 localStorage 读取快照（可能是用户编辑过的数据）
+        // 管理员模式优先从 localStorage 读取快照（兼容旧逻辑）
         const localSnapshot = localStorage.getItem('editable_groups_data');
         if (localSnapshot) {
             try {
@@ -960,35 +987,90 @@ async function loadInitialData() {
                     groupsData = parsed;
                     currentDataSource = 'local';
                     hasLocalChanges = true;
+                    currentDataMode = 'local';
                     updateDataSourceIndicator();
                     renderAll();
                     return;
                 }
             } catch (e) {}
         }
-        // 没有本地快照，则从分片加载
-        await loadFromShardsAndRender();
-        return;
     }
 
-    // 2. 非管理员模式：优先从 IndexedDB 缓存读取（如果有）
-    const cached = await loadFromIndexedDB();  // 需要实现该函数，见下文步骤2.5
-    if (cached && cached.groupsData && cached.groupsData.length) {
-        groupsData = cached.groupsData;
-        versions = cached.versions || [...DEFAULT_VERSIONS];
-        currentDataSource = 'local';
-        hasLocalChanges = true;
-        updateDataSourceIndicator();
-        renderAll();
+    // 非管理员模式：根据 currentDataMode 决定
+    if (currentDataMode === 'local') {
+        // 本地模式：从 IndexedDB 读取缓存
+        const cached = await loadFromIndexedDB();
+        if (cached && cached.groupsData && cached.groupsData.length) {
+            groupsData = cached.groupsData;
+            versions = cached.versions || [...DEFAULT_VERSIONS];
+            currentDataSource = 'local';
+            hasLocalChanges = true;
+            updateDataSourceIndicator();
+            renderAll();
+            return;
+        } else {
+            // 没有缓存，降级为云端模式（加载并保存到缓存）
+            console.warn('本地无缓存，切换到云端模式');
+            currentDataMode = 'cloud';
+            await loadFromShardsAndRender(true); // 加载并保存到缓存
+            currentDataMode = 'cloud'; // 仍保持云端，但缓存已更新
+        }
+    } else {
+        // 云端模式：强制从服务器加载，不保存缓存
+        await loadFromShardsAndRender(false);
+    }
+}
+
+async function switchToLocalMode() {
+    if (currentDataMode === 'local') {
+        alert('已经是本地模式');
         return;
     }
+    // 估算当前内存数据大小
+    const sizeMB = getDataSizeMB(groupsData);
+    const confirmMsg = `当前数据大小约 ${sizeMB} MB。\n切换到本地模式后，会将当前数据保存到本地缓存，以后将从此缓存读取（不自动更新）。是否继续？`;
+    if (!confirm(confirmMsg)) return;
+    
+    // 保存当前内存数据到 IndexedDB
+    await saveToIndexedDB({ groupsData, versions });
+    currentDataMode = 'local';
+    document.getElementById('toggleDataSourceBtn').innerHTML = '💾 本地模式';
+    // 数据已经在内存中，无需重新加载，只需更新 UI 指示
+    currentDataSource = 'local';
+    hasLocalChanges = true;
+    updateDataSourceIndicator();
+    alert('已切换到本地模式，数据已缓存。');
+}
 
-    // 3. 没有缓存则从分片 JSON 加载
-    await loadFromShardsAndRender();
+async function switchToCloudMode() {
+    if (currentDataMode === 'cloud') {
+        alert('已经是云端模式');
+        return;
+    }
+    const confirmMsg = '切换到云端模式将重新从服务器加载最新数据，当前本地未保存的修改会丢失。是否继续？';
+    if (!confirm(confirmMsg)) return;
+    
+    // 重新从服务器加载（不保存缓存）
+    await loadFromShardsAndRender(false);
+    currentDataMode = 'cloud';
+    document.getElementById('toggleDataSourceBtn').innerHTML = '☁️ 云端模式';
+    alert('已切换到云端模式，当前数据来自服务器，未写入本地缓存。如需保存到本地，请点击切换到本地模式。');
+}
+
+async function start() {
+    loadVersions();
+    currentDataMode = 'cloud';   // 默认云端模式
+    document.getElementById('toggleDataSourceBtn').innerHTML = '☁️ 云端模式';
+    await loadInitialData();     // 会根据 currentDataMode 加载
+    loadSortPreference();
+    initBackground();
+    buildPalette();
+    updateSortOptions();
+    renderAll();  // renderAll 已在 loadInitialData 内部调用，但为了安全再调用一次无妨
 }
 
 // 抽离分片加载并渲染的逻辑
-async function loadFromShardsAndRender() {
+async function loadFromShardsAndRender(saveToCache = false) {
     // 显示进度条
     const progressBar = document.getElementById('shardProgressBar');
     const progressFill = document.getElementById('shardProgressFill');
@@ -1022,6 +1104,7 @@ async function loadFromShardsAndRender() {
         if (progressBar) progressBar.style.display = 'none';
     }
 }
+
 const groupContainer=document.getElementById('groupButtonsContainer'),cardsContainer=document.getElementById('cardsContainer'),searchInput=document.getElementById('searchInput'),dynamicTitle=document.getElementById('dynamicTitle'),versionListContainer=document.getElementById('versionListContainer'),addVersionBtn=document.getElementById('addVersionBtn'),tagListContainer=document.getElementById('tagListContainer'),clearTagFilterBtn=document.getElementById('clearTagFilterBtn'),sortSelect=document.getElementById('sortSelect'),viewToggleBtn=document.getElementById('viewToggleBtn'),pageSizeSelect=document.getElementById('pageSizeSelect'),duplicateToolbarContainer=document.getElementById('duplicateToolbarContainer'),paginationContainerTop=document.getElementById('paginationContainerTop'),paginationContainerBottom=document.getElementById('paginationContainerBottom');
 const modal=document.getElementById('cardModal'),cardTitleInput=document.getElementById('cardTitle'),cardDescInput=document.getElementById('cardDesc'),cardUrlInput=document.getElementById('cardUrl'),cardTextContent=document.getElementById('cardTextContent'),cardMindmapContent=document.getElementById('cardMindmapContent'),cardAuthorInput=document.getElementById('cardAuthor'),cardTagsInput=document.getElementById('cardTags'),cardVersionInput=document.getElementById('cardVersion'),cardDownloadsInput=document.getElementById('cardDownloads'),modalCancel=document.getElementById('modalCancel'),modalSave=document.getElementById('modalSave');
 const typeBtns=document.querySelectorAll('#typeBtnGroup .type-btn');
@@ -1183,7 +1266,28 @@ function getTitleDedupKey(title) {
     return withoutParens.replace(/[^a-zA-Z]/g, '').toLowerCase();
 }
 function getDuplicateItems(gi){const items=groupsData[gi].items,m=new Map();items.forEach((it,i)=>{const k=getTitleDedupKey(it.title);if(!k) return;if(!m.has(k))m.set(k,[]);m.get(k).push({...it,cardIdx:i})});const d=[];for(const[,e] of m)if(e.length>1){e.forEach((x,j)=>{d.push({...x,isFirstDuplicate:j===0,isDuplicate:true})})}return d}
-function getFilteredAndSortedItems(){if(currentSort==='duplicates')return []; let items=getDisplayItems(); const kw=currentKeyword.trim().toLowerCase(); if(kw)items=items.filter(it=>it.title.toLowerCase().includes(kw)||it.description.toLowerCase().includes(kw)||it.author.toLowerCase().includes(kw)||normalizeTags(it.tags).some(t=>t.toLowerCase().includes(kw))||(it.version&&it.version.toLowerCase().includes(kw))); return sortItems(items); }
+
+function getFilteredAndSortedItems() {
+    if (currentSort === 'duplicates') return [];
+    let items = getDisplayItems();
+    const kw = currentKeyword.trim().toLowerCase();
+    if (kw) {
+        const mode = document.getElementById('searchModeSelect')?.value || 'all';
+        items = items.filter(it => {
+            const titleMatch = it.title.toLowerCase().includes(kw);
+            const authorMatch = it.author.toLowerCase().includes(kw);
+            if (mode === 'title') return titleMatch;
+            if (mode === 'author') return authorMatch;
+            // 默认全字段
+            return titleMatch ||
+                   it.description.toLowerCase().includes(kw) ||
+                   authorMatch ||
+                   normalizeTags(it.tags).some(t => t.toLowerCase().includes(kw)) ||
+                   (it.version && it.version.toLowerCase().includes(kw));
+        });
+    }
+    return sortItems(items);
+}
 
 function renderCard(item,gi,ci,extra={}){const tagsHtml=normalizeTags(item.tags).map(t=>`<span class="badge">${escapeHtml(t)}</span>`).join('');const vHtml=item.version?`<div class="version-info">📌${escapeHtml(item.version)}</div>`:'';let sb='';if(hasLocalChanges)sb='<span class="data-source-badge">💾本地</span>';else if(currentDataSource==='cloud')sb='<span class="data-source-badge">☁️云端</span>';else sb='<span class="data-source-badge">📄默认</span>';const checkboxHtml=isAdminMode?`<div class="card-checkbox-wrapper"><input type="checkbox" class="card-checkbox" data-g="${gi}" data-c="${ci}"></div>`:'';const aa=isAdminMode?`<div class="card-actions"><button class="edit-btn" data-g="${gi}" data-c="${ci}">✏️</button><button class="delete-btn" data-g="${gi}" data-c="${ci}">🗑️</button></div>`:'';let dupBadge='';if(extra.isDuplicate){dupBadge=`<div class="card-duplicate-badge">${extra.isFirstDuplicate?'重复(保留)':'重复(可删除)'}</div>`}return`<div class="card${extra.isDuplicate?' duplicate':''}" data-g="${gi}" data-c="${ci}" data-type="${item.type}" data-url="${escapeHtml(item.url||'')}" data-title="${escapeHtml(item.title)}" data-content="${escapeHtml(item.textContent||'')}">${dupBadge}${checkboxHtml}${aa}<div class="card-title"><img src="${getFavicon(item.type==='link'?item.url:'#')}" style="width:20px;height:20px;border-radius:4px"><span>${escapeHtml(item.title)}</span></div><div class="card-description">${escapeHtml(item.description||'')}</div><div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px">${tagsHtml}${vHtml}${sb}</div><div class="card-footer"><span>👤${escapeHtml(item.author)}</span><span>${item.stats?.downloads?'📥'+item.stats.downloads:''} ${item.stats?.updated?'🕒'+item.stats.updated:''}</span></div></div>`}
 
