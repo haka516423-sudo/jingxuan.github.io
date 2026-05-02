@@ -1,0 +1,5799 @@
+{
+  "groups": [
+    {
+      "groupName": "🎮 Minecraft 模组",
+      "items": [
+        {
+          "title": "Quark(夸克趣味拓展)",
+          "description": "集合大量小型趣味功能与细节优化的综合性模组",
+          "author": "Vazkii",
+          "tags": [
+            "NeoForge",
+            "科技",
+            "实用",
+            "游戏机制",
+            "Forge"
+          ],
+          "version": "1.9.4-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quark"
+        },
+        {
+          "title": "Quartz Elevator(石英电梯)",
+          "description": "新增石英材质电梯方块，便捷垂直移动",
+          "author": "Aton-Kish",
+          "tags": [
+            "运输",
+            "Fabric",
+            "趣味恶搞"
+          ],
+          "version": "1.19-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quartz-elevator"
+        },
+        {
+          "title": "Quilted Fabric API (QFAPI) / Quilt Standard Libraries (QSL)(Quilt标准前置库)",
+          "description": "Quilt生态必备标准核心前置库，是Quilt模组开发运行的基础依赖。",
+          "author": "Quilt-Holdings",
+          "tags": [
+            "Quilt",
+            "前置库"
+          ],
+          "version": "1.18.2-1.21",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qsl"
+        },
+        {
+          "title": "qrafty's Jungle Villages（丛林村庄生成）",
+          "description": "为游戏新增随机生成的丛林村庄，弥补原版丛林村民的缺失！",
+          "author": "qrafty",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "冒险",
+            "Fabric",
+            "数据包",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.19-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qraftys-jungle-villages"
+        },
+        {
+          "title": "Quad（标签拓展）",
+          "description": "新增海量物品标签，以原版风格赋予玩家更多自定义权限。",
+          "author": "LieOnLion",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "Fabric",
+            "实用",
+            "游戏机制",
+            "Forge",
+            "前置库"
+          ],
+          "version": "1.18-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quad"
+        },
+        {
+          "title": "Quilt Kotlin Libraries (QKL)(Quilt Kotlin库)",
+          "description": "Quilt官方Kotlin库",
+          "author": "Quilt-Holdings",
+          "tags": [
+            "Quilt",
+            "前置库"
+          ],
+          "version": "1.19-1.21",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qkl"
+        },
+        {
+          "title": "Quality Sounds(优质音效)",
+          "description": "为大量无专属音效的方块添加踩踏、敲击、破坏、放置的舒适音效",
+          "author": "RKeblawi",
+          "tags": [
+            "Fabric",
+            "装饰",
+            "实用工具",
+            "Forge"
+          ],
+          "version": "1.19.2-1.20.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quality-sounds"
+        },
+        {
+          "title": "QuickQuit(快速退出)",
+          "description": "允许游戏启动时，在Forge资源加载界面直接关闭我的世界",
+          "author": "Microcontrollers",
+          "tags": [
+            "Forge",
+            "优化"
+          ],
+          "version": "1.8.9-1.8.9",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickquit"
+        },
+        {
+          "title": "Quark Oddities(夸克奇物)",
+          "description": "夸克附属，精心设计的建造向功能",
+          "author": "Vazkii",
+          "tags": [
+            "NeoForge",
+            "Forge",
+            "实用工具",
+            "游戏机制"
+          ],
+          "version": "1.12.2-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quark-oddities"
+        },
+        {
+          "title": "QuickShulker (潜影盒快捷开启)",
+          "description": "无需放置即可快捷打开潜影盒及更多容器",
+          "author": "kyrptonaught",
+          "tags": [
+            "Fabric",
+            "存储",
+            "实用"
+          ],
+          "version": "1.19-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickshulker"
+        },
+        {
+          "title": "qraftyfied: STRUCTURES（Qrafty自定义建筑）",
+          "description": "为我的世界生成大量精致自定义建筑，支持Terralith地形模组",
+          "author": "qrafty",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "冒险",
+            "Fabric",
+            "数据包",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.19-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qraftyfied"
+        },
+        {
+          "title": "qrafty's End Villages(末地村庄生成)",
+          "description": "末地生态过于空旷，该模组为末地添加来自异世界的古老遗迹建筑",
+          "author": "qrafty",
+          "tags": [
+            "冒险",
+            "世界生成",
+            "魔法",
+            "Quilt",
+            "NeoForge",
+            "Fabric",
+            "数据包",
+            "Forge"
+          ],
+          "version": "1.19-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qraftys-end-villages"
+        },
+        {
+          "title": "quick pack(资源包加载加速)",
+          "description": "优化数据包与资源包压缩文件的加载速度",
+          "author": "DrexHD",
+          "tags": [
+            "性能优化",
+            "Quilt",
+            "NeoForge",
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.17-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-pack"
+        },
+        {
+          "title": "Quickjoin(快速加入)",
+          "description": "快速加入Hypixel任意游戏",
+          "author": "QWERTZexe",
+          "tags": [
+            "Forge",
+            "Fabric",
+            "实用工具"
+          ],
+          "version": "1.8.9-26.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickjoin"
+        },
+        {
+          "title": "Quick Right-Click(快捷右键使用)",
+          "description": "床、工作台、末影箱、潜影盒等物品支持右键便携使用，无需放置摆放",
+          "author": "Serilum",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "Fabric",
+            "实用",
+            "游戏机制",
+            "Forge"
+          ],
+          "version": "1.18.2-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-right-click"
+        },
+        {
+          "title": "qrafty's Bamboo Villages",
+          "description": "This mod/datapack adds lagfree generating villages with 15 unique custom build structures to the bamboo jungle in your minecraft world! 🌍",
+          "author": "qrafty",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "adventure",
+            "Fabric",
+            "datapack",
+            "Forge",
+            "worldgen"
+          ],
+          "version": "1.20-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qraftys-bamboo-villages"
+        },
+        {
+          "title": "Qliphoth Awakening",
+          "description": "Adds various bosses with unique attacks and mechanics.",
+          "author": "FINDERFEED",
+          "tags": [
+            "Neoforge",
+            "mobs",
+            "Forge",
+            "equipment",
+            "worldgen"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qliphoth-awakening"
+        },
+        {
+          "title": "Quality Food（品质食物）",
+          "description": "为食物及部分农作物等食材新增品质系统",
+          "author": "Cadentem",
+          "tags": [
+            "NeoForge",
+            "Forge",
+            "游戏机制"
+          ],
+          "version": "1.18.2-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quality-food"
+        },
+        {
+          "title": "Quicksand（流沙地形）",
+          "description": "为世界自然生成新增流沙方块地形",
+          "author": "Shnupbups",
+          "tags": [
+            "Fabric",
+            "世界生成"
+          ],
+          "version": "20w49a-1.20.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quicksand"
+        },
+        {
+          "title": "qrafty's Japanese Villages（日式樱花村庄）",
+          "description": "为樱花生物群系新增唯美日式村庄与建筑结构",
+          "author": "qrafty",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "冒险",
+            "Fabric",
+            "数据包",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.20-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qraftys-japanese-villages"
+        },
+        {
+          "title": "Qu Enchantments (匠心原创附魔)",
+          "description": "风格贴合原版设计的全新原创附魔效果合集",
+          "author": "Quplet",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.18.2-1.20.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qu-enchantments"
+        },
+        {
+          "title": "Quick Menu(快捷命令菜单)",
+          "description": "客户端模组，添加可自定义的快捷菜单，一键执行常用重复指令",
+          "author": "ImCodist",
+          "tags": [
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.19.4-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-menu"
+        },
+        {
+          "title": "Quick Skin(快速换肤)",
+          "description": "一键切换皮肤，解锁官方披风",
+          "author": "ThePlum",
+          "tags": [
+            "Forge",
+            "Fabric",
+            "实用工具",
+            "NeoForge"
+          ],
+          "version": "1.20.1-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-skin"
+        },
+        {
+          "title": "QDAA(快速抗锯齿)",
+          "description": "基于2倍超级采样的简易快速抗锯齿",
+          "author": "exaptations",
+          "tags": [
+            "Fabric",
+            "装饰",
+            "NeoForge",
+            "Quilt"
+          ],
+          "version": "1.14-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qdaa"
+        },
+        {
+          "title": "QuickConfig(快速配置)",
+          "description": "将Forge模组按钮改为打开统一配置菜单",
+          "author": "Microcontrollers",
+          "tags": [
+            "Forge",
+            "趣味恶搞",
+            "实用工具"
+          ],
+          "version": "1.8.9-1.8.9",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickconfig"
+        },
+        {
+          "title": "Quarry Reborn(采石场重生)",
+          "description": "添加自动挖掘矿石的采石场",
+          "author": "nikvyrn",
+          "tags": [
+            "Fabric",
+            "科技"
+          ],
+          "version": "1.20.1-1.20.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quarry-reborn"
+        },
+        {
+          "title": "Queen Bee (蜂王模组)",
+          "description": "新增蜂王生物、专属道具及自然生成结构",
+          "author": "CerbonXD",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.18.2-1.20.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/queen-bee"
+        },
+        {
+          "title": "Quilt Loading Screen (Quilt加载界面)",
+          "description": "基于Quilt社区服务器横幅制作的加载界面",
+          "author": "hibi",
+          "tags": [
+            "Fabric",
+            "Quilt"
+          ],
+          "version": "1.16.5-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quilt-loading-screen"
+        },
+        {
+          "title": "Quick Exp (快速抛射经验瓶)",
+          "description": "长按右键可连续快速投掷经验瓶",
+          "author": "CardeJIbka",
+          "tags": [
+            "Fabric",
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.16.5-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-exp"
+        },
+        {
+          "title": "Quick Paths(快速路径)",
+          "description": "设置起点与终点，一键创建长路径",
+          "author": "Serilum",
+          "tags": [
+            "交通",
+            "Quilt",
+            "NeoForge",
+            "Fabric",
+            "实用工具",
+            "Forge"
+          ],
+          "version": "1.16.5-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-paths"
+        },
+        {
+          "title": "QuickBackupMulti (多槽位快捷备份)",
+          "description": "游戏多存档槽位一键备份与还原管理模组",
+          "author": "SkyDynamic",
+          "tags": [
+            "Fabric",
+            "NeoForge"
+          ],
+          "version": "1.16.5-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickbackupmulti"
+        },
+        {
+          "title": "Queen Cats & Dogs(萌宠猫娘犬娘化)",
+          "description": "将原版猫咪与狼伙伴变身可爱拟人造型，治愈日常生存玩法",
+          "author": "Pevori",
+          "tags": [
+            "生物",
+            "食物",
+            "Fabric",
+            "存储",
+            "Forge"
+          ],
+          "version": "1.18.2-1.20.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/queen-cats-dogs"
+        },
+        {
+          "title": "Quest Plaques (成就任务牌匾)",
+          "description": "为成就牌匾系统新增任务专属牌匾样式",
+          "author": "Grend",
+          "tags": [
+            "锻造"
+          ],
+          "version": "1.16.5-1.18.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quest-plaques"
+        },
+        {
+          "title": "Quick Connect Button（一键连服按钮）",
+          "description": "一键快速连接收藏服务器！",
+          "author": "CraftVoltage",
+          "tags": [
+            "Quilt",
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.16-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickconnectbutton"
+        },
+        {
+          "title": "Quick Elytra Reborn (鞘翅快捷切换重生)",
+          "description": "一键快速切换鞘翅与胸甲，附带多种实用拓展功能",
+          "author": "glitchifyed",
+          "tags": [
+            "Quilt",
+            "Fabric"
+          ],
+          "version": "1.20-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick_hotkeys"
+        },
+        {
+          "title": "Quickcraft (极速合成)",
+          "description": "提升工作台合成操作速度",
+          "author": "811Alex",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.16.1-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickcraft"
+        },
+        {
+          "title": "Quickshot(速射远程武器)",
+          "description": "添加多款趣味且攻速极快的远程武器",
+          "author": "Yoshi01111",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickshot"
+        },
+        {
+          "title": "QuarkPonders (夸克教程可视化)",
+          "description": "为夸克模组功能添加沉思式图文教程",
+          "author": "LeoBeliik",
+          "tags": [
+            "NeoForge/Forge"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quarkponders"
+        },
+        {
+          "title": "Quicksort（快捷整理）",
+          "description": "简易物品一键整理，原版客户端亦可兼容使用",
+          "author": "pcal43",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.19-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quicksort"
+        },
+        {
+          "title": "Quick Leaf Decay（树叶快速腐烂）",
+          "description": "树叶快速凋零掉落，依赖精简、更新高效",
+          "author": "Blue_ON",
+          "tags": [
+            "Quilt",
+            "Fabric"
+          ],
+          "version": "1.20.4-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickleafdecay"
+        },
+        {
+          "title": "QuickBench (快捷工作台)",
+          "description": "优化工作台合成交互逻辑",
+          "author": "Ampflower",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.17-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickbench"
+        },
+        {
+          "title": "qrafty's Halloween Villages (万圣节诡异村庄)",
+          "description": "黑森林生成诡异废弃村庄、墓园与神秘祭坛，营造万圣氛围",
+          "author": "qrafty",
+          "tags": [
+            "Fabric",
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.20.2-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qraftys-halloween-villages"
+        },
+        {
+          "title": "qrafty's Underground Villages (地底村庄)",
+          "description": "数据包模组，在Y15高度随机生成小型地底村庄",
+          "author": "qrafty",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.20.3-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qraftys-bunkers"
+        },
+        {
+          "title": "Quick Chat (快捷聊天)",
+          "description": "绑定快捷键一键发送预设聊天消息",
+          "author": "MovTery",
+          "tags": [
+            "NeoForge",
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.20.1-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-chat"
+        },
+        {
+          "title": "Quality of Life (QoL) Fixes (Fabric生活质量优化)",
+          "description": "Fabric加载器多项可配置生活质量优化调整",
+          "author": "spoorn",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.18-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quality-of-life-qol-fixes"
+        },
+        {
+          "title": "Quick Shulker Boxes (快捷潜影盒)",
+          "description": "手持潜影盒无需放置地面，按住潜行右键即可直接打开使用",
+          "author": "efeketket",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.21.2-26.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-shulker-boxes"
+        },
+        {
+          "title": "qrafty's Mangrove Villages（红树林村庄）",
+          "description": "在红树林沼泽生物群系生成稀有分散式村庄建筑",
+          "author": "qrafty",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.20.3-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qraftys-mangrove-villages"
+        },
+        {
+          "title": "Quality Equipment (装备词条重铸)",
+          "description": "为所有装备类型添加丰富的重铸词条系统",
+          "author": "diejeff1",
+          "tags": [
+            "Forge",
+            "NeoForge"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quality-equipment"
+        },
+        {
+          "title": "QvStump (斧劈原木)",
+          "description": "使用斧头直接将原木劈成木板！",
+          "author": "MairanGH",
+          "tags": [
+            "织物、游戏机制、科技"
+          ],
+          "version": "1.19.2-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qv-stump"
+        },
+        {
+          "title": "Quicker Connect Button (快速联机按钮)",
+          "description": "主菜单添加快速服务器直连按钮，一键进入服务器。",
+          "author": "jamalam",
+          "tags": [
+            "织物、新生锻造、锻造、实用、社交、管理"
+          ],
+          "version": "1.20-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quicker-connect-button"
+        },
+        {
+          "title": "Quick Cure (Fabric) (村民快速治愈 织物版)",
+          "description": "一键瞬间治愈僵尸村民，现已适配织物加载器",
+          "author": "Logboy2000",
+          "tags": [
+            "织物、怪物、实用、游戏机制、经济"
+          ],
+          "version": "1.20-26.1.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-cure-fabric"
+        },
+        {
+          "title": "qraftyfied: Industrial Structures (工业蒸汽朋克结构)",
+          "description": "为工业风格模组新增蒸汽朋克建筑结构，附带趣味红石机关",
+          "author": "qrafty",
+          "tags": [
+            "Fabric",
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.21.1-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qraftyfied-industrial-structures"
+        },
+        {
+          "title": "qrafty's Archeology Dig Sites (克拉夫蒂考古挖掘点)",
+          "description": "把2020我的世界直播展示的考古挖掘点加入世界，包含三种变体",
+          "author": "qrafty",
+          "tags": [
+            "Fabric、冒险、游戏机制、数据包、Forge、世界生成"
+          ],
+          "version": "1.20.4-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qraftys-archeology-dig-sites"
+        },
+        {
+          "title": "qrafty's Mushroom Villages (克拉夫蒂蘑菇村庄)",
+          "description": "数据包兼模组，在蘑菇岛生物群系生成蘑菇风格村庄",
+          "author": "qrafty",
+          "tags": [
+            "NeoForge、冒险、Fabric、装饰、数据包、Forge、世界生成"
+          ],
+          "version": "1.20.5-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qraftys-mushroom-villages"
+        },
+        {
+          "title": "Quiet Fishing (垂钓音效静音)",
+          "description": "屏蔽其他玩家浮漂的垂钓音效",
+          "author": "PMKJun",
+          "tags": [
+            "Fabric",
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.20-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quitefishing"
+        },
+        {
+          "title": "QDResLoader (极简资源加载器)",
+          "description": "轻量化极简资源加载模组，复用游戏原生功能实现资源载入",
+          "author": "exaptations",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.18-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qdresloader"
+        },
+        {
+          "title": "QuickStack (快速收纳)",
+          "description": "一键将物品快速收纳至附近箱子",
+          "author": "2Retr0",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.19.3-1.20.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickstack"
+        },
+        {
+          "title": "QuickChat (快捷聊天表情)",
+          "description": "为游戏聊天添加表情符号与快捷句式",
+          "author": "WinnieTheDampoeh",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.19.3-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickchat"
+        },
+        {
+          "title": "Quest Items (任务道具合集)",
+          "description": "收录多主题杂项道具，适用于冒险任务剧情设定",
+          "author": "ZsoltMolnarrr",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quest-items"
+        },
+        {
+          "title": "Questbind (任务模组按键自定义)",
+          "description": "已停更的实验性模组，支持自定义任务模组快捷键",
+          "author": "DialingSpoon527",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.18.2-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/questbind"
+        },
+        {
+          "title": "qCraft Reimagined（量子工艺重制）",
+          "description": "适配新版我的世界的量子工艺模组重制版",
+          "author": "acikek",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.18.2-1.19",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qcraft"
+        },
+        {
+          "title": "QoM: Excavein (全能连锁采矿)",
+          "description": "功能强大且支持自定义配置的连锁采矿模组",
+          "author": "LopyLuna",
+          "tags": [
+            "Forge",
+            "NeoForge"
+          ],
+          "version": "1.19.2-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/excavein"
+        },
+        {
+          "title": "Quirks Unchained (我的英雄学院个性能力)",
+          "description": "1.20.1版本我的英雄学院主题模组，新增个性异能系统",
+          "author": "Stagman39",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quirks-unchained"
+        },
+        {
+          "title": "qrafty's Oilrigs (石油钻井平台)",
+          "description": "世界生成新增石油钻井平台，可作为铜矿资源点与开局基地探索点",
+          "author": "qrafty",
+          "tags": [
+            "Fabric",
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.20.3-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qraftys-oilrigs"
+        },
+        {
+          "title": "Questlog (任务日志)",
+          "description": "新增任务系统，让整合包的信息指引更加直观易懂",
+          "author": "InfernalStudios",
+          "tags": [
+            "NeoForge",
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.19-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/questlog"
+        },
+        {
+          "title": "QuiltGoSlightlyFasterLol (棉被加载器小幅优化)",
+          "description": "棉被加载器专用优化模组，小幅提升加载器运行速度",
+          "author": "CoolMineman",
+          "tags": [
+            "棉被加载器"
+          ],
+          "version": "rd-132211-1.19.3",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quiltgoslighlyfasterlol"
+        },
+        {
+          "title": "Quick Test World (快速测试世界)",
+          "description": "新增专属「测试世界」世界类型，一键生成简易测试地图",
+          "author": "CassieNya",
+          "tags": [
+            "锻造加载器",
+            "织物加载器",
+            "棉被加载器"
+          ],
+          "version": "1.19-1.19.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/testworld"
+        },
+        {
+          "title": "QuickMäth (错乱数学趣味模组)",
+          "description": "替换游戏内置数学运算为错误算法，引发趣味世界畸变效果",
+          "author": "JFronny",
+          "tags": [
+            "织物加载器"
+          ],
+          "version": "1.16.4-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickmath"
+        },
+        {
+          "title": "Quality Railway（精品轨道交通）",
+          "description": "还原中式轨道交通内容，可与主流列车模组完美兼容",
+          "author": "rtmmtr2",
+          "tags": [
+            "载具、NeoForge、科技、Forge、装备、社交"
+          ],
+          "version": "1.18.2-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quality-railway"
+        },
+        {
+          "title": "Quests Journey（旅途任务）",
+          "description": "全新沉浸式任务冒险玩法系统",
+          "author": "ProdigeGasy",
+          "tags": [
+            "Quilt、NeoForge、冒险、Fabric、实用、游戏机制、数据包、Forge"
+          ],
+          "version": "1.21-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quests-journey"
+        },
+        {
+          "title": "Quantum Generators (量子发电机)",
+          "description": "工业升级模组专属量子发电设备附属拓展",
+          "author": "Denfop",
+          "tags": [
+            "Forge",
+            "NeoForge",
+            "科技"
+          ],
+          "version": "1.12.2-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quantum-generators"
+        },
+        {
+          "title": "QueQiao (鹊桥服务端插件)",
+          "description": "MC服务端模组/插件，实现玩家实时事件播报与接口消息推送",
+          "author": "17TheWord",
+          "tags": [
+            "NeoForge",
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.7.10-26.1.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/queqiao"
+        },
+        {
+          "title": "Quantified API (高性能前置API)",
+          "description": "高性能模组开发接口，高效处理任务、降低卡顿、GPU加速、智能缓存与多线程优化",
+          "author": "Admany",
+          "tags": [
+            "Fabric、Forge、NeoForge"
+          ],
+          "version": "1.18.2-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quantifiedapi"
+        },
+        {
+          "title": "QuickAdditions StationAPI (Beta版简易功能拓展)",
+          "description": "基于StationAPI的Beta1.7.3模组，添加各类玩家诉求的简易小功能",
+          "author": "Telvarost",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "b1.7.3-b1.7.3",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickadditions-stationapi"
+        },
+        {
+          "title": "Quick Turn Mod (快速转身)",
+          "description": "按下配置按键实现180度快速转身",
+          "author": "Endode",
+          "tags": [
+            "Forge",
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.12.2-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-turn-mod"
+        },
+        {
+          "title": "Quit from Game Menu (暂停菜单退出)",
+          "description": "在暂停菜单添加一键退出游戏按钮",
+          "author": "Penpen",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.19.4-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quit-from-game-menu"
+        },
+        {
+          "title": "Quick Print Coords (快捷坐标发送)",
+          "description": "一键在聊天框发送自身坐标，支持单人自用与多人共享",
+          "author": "jstn9",
+          "tags": [
+            "Quilt",
+            "Fabric"
+          ],
+          "version": "1.20-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-print-coords"
+        },
+        {
+          "title": "QuickCarpet (快捷地毯)",
+          "description": "技术性玩家专用全能工具箱，深度掌控游戏机制",
+          "author": "skyrising",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.16.4-1.19.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickcarpet"
+        },
+        {
+          "title": "QDC CORE 4.0 (量子拆解核心4.0)",
+          "description": "原版体验增强模组，整合全套QDC系列附属模组",
+          "author": "DrGraveGuard",
+          "tags": [
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.19.2-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qdc-core-4.0"
+        },
+        {
+          "title": "QuickCopy (快速复制)",
+          "description": "快速复制物品的ID",
+          "author": "canyuesama",
+          "tags": [
+            "Forge",
+            "实用"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickcopy"
+        },
+        {
+          "title": "Quit (退出确认)",
+          "description": "退出游戏前增加确认弹窗",
+          "author": "TachibanaSherry",
+          "tags": [
+            "Forge",
+            "Fabric"
+          ],
+          "version": "1.7.10-1.20.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quit"
+        },
+        {
+          "title": "Queen of Demons (恶魔女王附属)",
+          "description": "钯金模组附属，还原原创角色专属能力特效",
+          "author": "DemonGal6",
+          "tags": [
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/queen-of-demons"
+        },
+        {
+          "title": "quickreplant (一键补种)",
+          "description": "手持种子点击作物即可快速重新种植。",
+          "author": "LordMZTE",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.16.5-1.19",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickreplant"
+        },
+        {
+          "title": "QuestAPI (任务API)",
+          "description": "方便开发者制作任务和对话的库",
+          "author": "Zanckor",
+          "tags": [
+            "Forge、冒险、库"
+          ],
+          "version": "1.18.2-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/questapi"
+        },
+        {
+          "title": "Quicksand (NeoForge) (流沙)",
+          "description": "添加流沙方块",
+          "author": "RaymondBlaze",
+          "tags": [
+            "Forge、NeoForge"
+          ],
+          "version": "1.18.2-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quicksand-neoforge"
+        },
+        {
+          "title": "Quicksaving (快速存档)",
+          "description": "通过F6/F8实现快速存档/读档，支持跨维度，可选仅客户端生效",
+          "author": "Serilum",
+          "tags": [
+            "NeoForge",
+            "Fabric",
+            "实用",
+            "游戏机制",
+            "Forge",
+            "小游戏"
+          ],
+          "version": "1.20.1-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quicksaving"
+        },
+        {
+          "title": "Quilt Tag Plus (Quilt标签扩展)",
+          "description": "添加多个标签，优化基础游戏功能控制",
+          "author": "Arthur-GYT",
+          "tags": [
+            "库"
+          ],
+          "version": "1.19.3-1.21",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quilt-tag-plus"
+        },
+        {
+          "title": "Quickskin (快捷皮肤切换)",
+          "description": "绑定快捷键快速切换皮肤显示设置",
+          "author": "Ryhon",
+          "tags": [
+            "Quilt",
+            "Fabric"
+          ],
+          "version": "1.16-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickskin"
+        },
+        {
+          "title": "Quality of Queso (背包储物增强)",
+          "description": "箱子搜索、精细背包管理等多项储物便捷功能",
+          "author": "Dillon8775",
+          "tags": [
+            "NeoForge",
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.20.1-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quality-of-queso"
+        },
+        {
+          "title": "QuantumChunks (量子区块)",
+          "description": "为大型模组服务器提供多核、区域感知的区块加载优化",
+          "author": "Mental",
+          "tags": [
+            "Forge",
+            "优化",
+            "管理",
+            "科技"
+          ],
+          "version": "1.20.1-1.20.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quantumchunks"
+        },
+        {
+          "title": "Quadz (FPV无人机模拟器)",
+          "description": "Fabric端第一视角无人机模拟模组",
+          "author": "BlueVista",
+          "tags": [
+            "Fabric",
+            "科技"
+          ],
+          "version": "1.16.5-1.16.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quadz"
+        },
+        {
+          "title": "Quick Cure (快速治愈)",
+          "description": "一键瞬间治愈僵尸村民",
+          "author": "Sarinsa",
+          "tags": [
+            "Forge",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.19-1.20.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-cure"
+        },
+        {
+          "title": "QuickCommand（快捷指令）",
+          "description": "游戏内可快速连续执行多条自定义指令，点击聊天框对应按钮即可触发",
+          "author": "1024_byteeeee",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.16.5-26.1-snapshot-9",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickcommand"
+        },
+        {
+          "title": "Qualia Carpet Addition (质感地毯拓展)",
+          "description": "地毯模组的拓展功能模组",
+          "author": "QiuShui1012",
+          "tags": [
+            "Fabric",
+            "Neoforge",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.14.4-26.1.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qca"
+        },
+        {
+          "title": "Quick Craft (快捷合成)",
+          "description": "按下空格键即可像村民交易一样快速合成物品",
+          "author": "BIGBOIBEEF",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21-1.21.7",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-craft"
+        },
+        {
+          "title": "Qolify (生活质量优化)",
+          "description": "小型实用模组，包含缩放、全屏亮度、快捷键标签等功能，更多新功能即将推出",
+          "author": "slushie0",
+          "tags": [
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.19.3-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qolify"
+        },
+        {
+          "title": "Quick UndyingRefill (不死图腾自动填充)",
+          "description": "自动替换使用后的不死图腾，优先从背包，再从潜影盒中获取，硬核玩家必备",
+          "author": "efeketket",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "科技",
+            "冒险",
+            "Fabric",
+            "实用",
+            "游戏机制",
+            "数据包",
+            "Forge",
+            "装备"
+          ],
+          "version": "1.21-26.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/undyingrefill"
+        },
+        {
+          "title": "Questown (小镇物语)",
+          "description": "自行建造房间，生成村庄并接待访客",
+          "author": "bradsk88",
+          "tags": [
+            "Forge",
+            "管理",
+            "小游戏",
+            "游戏机制"
+          ],
+          "version": "1.18.2-1.19.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/questown"
+        },
+        {
+          "title": "Quarry Mining Dimension (采石场采矿维度)",
+          "description": "为整合包提供的采矿维度，生成几乎所有矿石，可用于建造、采石、采矿或爆破",
+          "author": "ivoidable",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quarry-mining-dimension"
+        },
+        {
+          "title": "Questlines (任务系统)",
+          "description": "添加数据驱动的任务线",
+          "author": "DAQEM",
+          "tags": [
+            "冒险",
+            "Fabric",
+            "实用",
+            "Forge",
+            "前置"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/questlines"
+        },
+        {
+          "title": "QuickCapes (快捷披风)",
+          "description": "全员免费获取披风",
+          "author": "xItsSunny",
+          "tags": [
+            "Forge",
+            "装饰",
+            "实用"
+          ],
+          "version": "1.8.9-1.8.9",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickcapes"
+        },
+        {
+          "title": "Quark Ancient Tomes Patch (夸克·古籍补丁)",
+          "description": "允许古籍附魔叠加超过最大等级+1",
+          "author": "accrrsd",
+          "tags": [
+            "冒险",
+            "实用",
+            "装备",
+            "魔法"
+          ],
+          "version": "1.20.1-1.20.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quark-ancient-tomes-patch"
+        },
+        {
+          "title": "Quick Villagers (快捷村民)",
+          "description": "让村民的移动更便捷！",
+          "author": "zerocool",
+          "tags": [
+            "Fabric",
+            "交通",
+            "生物",
+            "实用",
+            "游戏机制",
+            "管理"
+          ],
+          "version": "1.20.1-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-villagers"
+        },
+        {
+          "title": "Quilted Fabric API (QFAPI) / QSL - Biomefix - 1.18.2 (QFAPI/QSL生物群系修复)",
+          "description": "修复QFAPI，为1.18.2版本的更好末地/更好下界等模组提供支持",
+          "author": "frikinjay",
+          "tags": [
+            "前置库"
+          ],
+          "version": "1.18.2-1.18.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qsl-biomefix"
+        },
+        {
+          "title": "QDC Quantum Dis-Assembly Craft (量子拆解合成)",
+          "description": "可将物品拆解为粒子，再用粒子合成其他物品；发现系统会记录拆解过的物品，必须解锁才能重新合成",
+          "author": "DrGraveGuard",
+          "tags": [
+            "Forge",
+            "经济",
+            "实用",
+            "科技"
+          ],
+          "version": "1.19-1.20.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qdc-quantum-dis-assembly-craft"
+        },
+        {
+          "title": "Quantum (量子世界)",
+          "description": "Fabric专属多世界模组",
+          "author": "Unreal852",
+          "tags": [
+            "Fabric",
+            "交通",
+            "实用",
+            "世界生成"
+          ],
+          "version": "1.19.2-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quantum"
+        },
+        {
+          "title": "Quick Armor Swap (快速换装)",
+          "description": "简易盔甲快速切换模组",
+          "author": "kyh148",
+          "tags": [
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.19-1.19.3",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickarmorswap"
+        },
+        {
+          "title": "Questify (任务系统)",
+          "description": "即插即用任务系统，自动转换FTB任务包，兼容Fabric/Forge无需额外设置",
+          "author": "Bobcat",
+          "tags": [
+            "Forge",
+            "Fabric",
+            "实用",
+            "游戏机制",
+            "社交"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/questify"
+        },
+        {
+          "title": "Quality of Life Changes (游戏体验优化)",
+          "description": "数据包模组，优化原版功能，保留原版风格",
+          "author": "mega7",
+          "tags": [
+            "Fabric",
+            "Forge",
+            "NeoForge",
+            "装饰",
+            "游戏机制",
+            "实用工具",
+            "数据包",
+            "优化",
+            "管理"
+          ],
+          "version": "1.20-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quality-of-life-changes"
+        },
+        {
+          "title": "Quirky Vehicles Framework (奇特载具框架)",
+          "description": "模组框架，为实现多部件、多人载具提供便捷工具",
+          "author": "ananasem",
+          "tags": [
+            "Fabric",
+            "Forge",
+            "NeoForge",
+            "交通",
+            "生物",
+            "实用",
+            "游戏机制",
+            "库"
+          ],
+          "version": "1.21-1.21.3",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quirky-vehicles-framework"
+        },
+        {
+          "title": "Quick Swap(快速切换)",
+          "description": "自定义快捷键快速切换物品栏与背包",
+          "author": "lanzhan5656",
+          "tags": [
+            "Fabric",
+            "冒险",
+            "实用",
+            "储存",
+            "优化",
+            "装备",
+            "管理"
+          ],
+          "version": "1.17-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickswap"
+        },
+        {
+          "title": "Quill Notifications(羽毛通知)",
+          "description": "轻量库模组，为玩家发送精美通知",
+          "author": "electrobrine",
+          "tags": [
+            "Fabric",
+            "科技",
+            "实用",
+            "库",
+            "社交",
+            "管理"
+          ],
+          "version": "1.16.5-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quill"
+        },
+        {
+          "title": "Quit Game Confirm (退出游戏确认)",
+          "description": "还在为误关游戏烦恼？这款退出确认模组正是你需要的",
+          "author": "MateusMG2010",
+          "tags": [
+            "Forge",
+            "Fabric",
+            "NeoForge",
+            "实用"
+          ],
+          "version": "1.21.4-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quit-game-confirm"
+        },
+        {
+          "title": "QUIPT (快速综合插件工具包)",
+          "description": "一款为服务器管理员和开发者提供多种工具的综合性项目",
+          "author": "QuickScythe1",
+          "tags": [
+            "Fabric",
+            "实用",
+            "库",
+            "管理"
+          ],
+          "version": "1.0-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quipt"
+        },
+        {
+          "title": "quick-mlg (快速MLG落地)",
+          "description": "自动放置水桶实现安全落地的MLG功能",
+          "author": "Knecht",
+          "tags": [
+            "Forge",
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.8.9-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-mlg"
+        },
+        {
+          "title": "Quilt Bisect (Quilt二分排查)",
+          "description": "Quilt模组问题排查工具，快速定位冲突模组",
+          "author": "anonymous123-code",
+          "tags": [
+            "Quilt",
+            "恶搞",
+            "科技",
+            "实用"
+          ],
+          "version": "1.20.1-1.20.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quilt-bisect"
+        },
+        {
+          "title": "Quick Break (快捷破坏)",
+          "description": "创造模式下按住鼠标左键即可瞬间破坏方块，可自定义切换按键（默认V，可在控制中修改），仅客户端可用",
+          "author": "CardeJIbka",
+          "tags": [
+            "Fabric",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.18-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-break"
+        },
+        {
+          "title": "Quartz Decrafting (石英分解)",
+          "description": "数据包，支持分解石英块",
+          "author": "Aubinclem",
+          "tags": [
+            "NeoForge",
+            "Forge",
+            "Fabric",
+            "存储",
+            "游戏机制",
+            "实用",
+            "数据包"
+          ],
+          "version": "1.19-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quartz-decrafting"
+        },
+        {
+          "title": "Quest Compass Plus (任务指南针增强)",
+          "description": "纪念碑任务指南针的便捷功能拓展",
+          "author": "ShyMike",
+          "tags": [
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.19.4-1.20.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quest-compass-plus"
+        },
+        {
+          "title": "Quest: Rebound (Quest按键重设)",
+          "description": "QuestCraft现代按键绑定助手",
+          "author": "Feli",
+          "tags": [
+            "Fabric",
+            "实用",
+            "管理"
+          ],
+          "version": "1.21.1-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quest-rebound"
+        },
+        {
+          "title": "Qa Villager Extends & Waste innovations (村民拓展与资源回收)",
+          "description": "新增村民职业、功能性工作方块、资源回收机制与专属合金物品",
+          "author": "LitQA",
+          "tags": [
+            "Forge",
+            "NeoForge"
+          ],
+          "version": "1.14.4-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qa-villager-extends"
+        },
+        {
+          "title": "quickiefabric (极速游戏)",
+          "description": "为时间有限的玩家加速游戏进程",
+          "author": "jottyfan",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.18.2-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickiefabric"
+        },
+        {
+          "title": "quick resource pack (快捷资源包)",
+          "description": "设置快捷键快速开关指定材质包",
+          "author": "emqnuele",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-resource-pack"
+        },
+        {
+          "title": "QoL Crafting (实用合成优化)",
+          "description": "新增大量便民合成配方，包含原木切板、半砖合成整方块、粗矿石块烧制等功能",
+          "author": "CooledBeans",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.14.1-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qol-crafting"
+        },
+        {
+          "title": "qliphoth-awakening-dimensions (逆卡巴拉觉醒维度)",
+          "description": "将逆卡巴拉觉醒的Boss移动到独立维度",
+          "author": "_p1nero",
+          "tags": [
+            "Forge",
+            "Neoforge"
+          ],
+          "version": "1.20.1-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qliphoth-awakening-dimensions"
+        },
+        {
+          "title": "Quick Commands (快捷指令)",
+          "description": "可即时添加并生效的指令别名工具",
+          "author": "ExternalTime",
+          "tags": [
+            "Fabric 实用"
+          ],
+          "version": "1.20.4-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-commands"
+        },
+        {
+          "title": "QuickCommands (图形快捷指令)",
+          "description": "自带图形界面，便捷使用各类常用指令",
+          "author": "MarioS271",
+          "tags": [
+            "Fabric 实用"
+          ],
+          "version": "1.21-26.1.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickcommands"
+        },
+        {
+          "title": "Quiet Fishing (钓鱼静音)",
+          "description": "屏蔽其他玩家钓鱼浮标入水的音效干扰",
+          "author": "jimjam4095",
+          "tags": [
+            "Fabric 实用"
+          ],
+          "version": "1.20.1-1.20.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quiet-fishing"
+        },
+        {
+          "title": "Quick Effect (药水原料直接增益)",
+          "description": "无需酿造，使用药水原料即可直接获得对应状态效果",
+          "author": "rirust",
+          "tags": [
+            "Forge",
+            "Fabric"
+          ],
+          "version": "1.20-1.21",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickeffect"
+        },
+        {
+          "title": "Qa Enchants (趣味附魔)",
+          "description": "添加一系列有趣附魔，包含诅咒附魔",
+          "author": "LitQA",
+          "tags": [
+            "Forge",
+            "NeoForge"
+          ],
+          "version": "1.20.1-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qa-enchants"
+        },
+        {
+          "title": "Quiet Pale Gardens (静谧苍白花园)",
+          "description": "仅允许低语生灵在苍白花园生成，屏蔽其他生物刷新",
+          "author": "CJRVWilliams",
+          "tags": [
+            "Forge、Fabric、NeoForge"
+          ],
+          "version": "1.21.11-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quiet-pale-gardens"
+        },
+        {
+          "title": "Quartz Equipment (石英装备)",
+          "description": "让下界石英不再只是装饰，可制作工具、武器和护甲，强度介于金与铁之间，附魔等级高",
+          "author": "Multiverse",
+          "tags": [
+            "NeoForge",
+            "Fabric",
+            "Forge",
+            "冒险",
+            "装饰",
+            "游戏机制",
+            "装备",
+            "管理"
+          ],
+          "version": "1.18.2-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quartz-equipment"
+        },
+        {
+          "title": "Quest Utils (任务模组工具库)",
+          "description": "为任务类整合包提供目标进度辅助工具支持",
+          "author": "McJty",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.12.2-1.12.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quest-utils"
+        },
+        {
+          "title": "Quick Info Panel (快捷信息面板)",
+          "description": "客户端专属Fabric模组，添加HUD显示方向、坐标、时间、下界坐标、生物群系和天气",
+          "author": "hawkelele",
+          "tags": [
+            "实用",
+            "Fabric"
+          ],
+          "version": "1.20.6-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-info-panel"
+        },
+        {
+          "title": "Quicksnad (奇异流沙)",
+          "description": "流沙模组附属，添加特殊的生长能力",
+          "author": "j0lol",
+          "tags": [
+            "实用",
+            "诅咒",
+            "Fabric"
+          ],
+          "version": "1.18.2-1.19.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quicksnad"
+        },
+        {
+          "title": "Quick F3 (快捷信息显示)",
+          "description": "悬浮窗实时显示帧率和玩家坐标",
+          "author": "mubduster",
+          "tags": [
+            "冒险",
+            "实用",
+            "管理",
+            "Fabric"
+          ],
+          "version": "1.21.5-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-f3"
+        },
+        {
+          "title": "Quark Recipes Regions Unexplored (Quark与未知区域配方兼容)",
+          "description": "解决未知区域模组与Quark模组箱子、书柜之间的配方冲突",
+          "author": "LordDDiamond",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quark-recipes-regions-unexplored"
+        },
+        {
+          "title": "quirl (Quirl工具前置)",
+          "description": "Fabric通用工具库类前置模组",
+          "author": "rotgruengelb",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.20-1.20.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quirl"
+        },
+        {
+          "title": "Quilt Crasher (Quilt崩溃调试)",
+          "description": "Quilt调试工具模组，可自定义场景主动触发崩溃用于排错",
+          "author": "anonymous123-code",
+          "tags": [],
+          "version": "1.20-1.20.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quilt-crasher"
+        },
+        {
+          "title": "Quests Cobb (宝可梦支线任务)",
+          "description": "为方块宝可梦添加法语专属支线任务系统",
+          "author": "ChewyGlitter_",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quests-cobb"
+        },
+        {
+          "title": "Quantum's Lamps (量子灯具)",
+          "description": "添加字母、数字、标点符号样式的红石灯",
+          "author": "DomQuantum",
+          "tags": [
+            "新forge",
+            "科技",
+            "装饰",
+            "forge",
+            "社交"
+          ],
+          "version": "1.20.1-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quantums-lamps"
+        },
+        {
+          "title": "QuickCalc (快捷计算器)",
+          "description": "游戏内聊天框计算器模组",
+          "author": "DeltaNedas",
+          "tags": [
+            "织物",
+            "实用"
+          ],
+          "version": "1.16.5-1.18",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickcalc"
+        },
+        {
+          "title": "Quick Item Sorter (快捷物品整理)",
+          "description": "超轻量化的背包物品自动整理系统",
+          "author": "Tasuposed",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-inventory-sorter"
+        },
+        {
+          "title": "Quickstack Reborn (就近物品归位重生)",
+          "description": "仅将已有同类物品的容器自动归入对应物品，智能整理储物",
+          "author": "zulussu",
+          "tags": [
+            "Fabric",
+            "NeoForge"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickstack-reborn"
+        },
+        {
+          "title": "QDC Machines (QDC机械)",
+          "description": "自动化种植、收获、拆解机械，粒子加速器生成自然粒子",
+          "author": "DrGraveGuard",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.19-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qdc-machines"
+        },
+        {
+          "title": "QuitGame (游玩抉择趣味模组)",
+          "description": "趣味模组，提供选项让玩家抉择是否继续游玩我的世界",
+          "author": "AmberFrost",
+          "tags": [
+            "Fabric",
+            "NeoForge"
+          ],
+          "version": "1.20.4-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quitgame"
+        },
+        {
+          "title": "QuickBinds (快捷按键)",
+          "description": "高级客户端模组，支持创建强大的指令快捷键和宏，包含配置文件、动作链、占位符等功能",
+          "author": "Kiola",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21.1-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickbinds"
+        },
+        {
+          "title": "QvRealistic (真实物理)",
+          "description": "修复不合理特性，船不会在地面滚动飞行，玩家无法从山上跳入水桶，追求真实感",
+          "author": "MairanGH",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.20-1.20.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qv-realistic"
+        },
+        {
+          "title": "Quin (奎因)",
+          "description": "轻量原版增强模组，无世界生成，无额外负担",
+          "author": "VoxelDragon6",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.20-1.20.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quin"
+        },
+        {
+          "title": "QDC Quantum Tool (量子变形工具)",
+          "description": "右键方块自动切换工具形态，攻击生物可切换为剑形态",
+          "author": "DrGraveGuard",
+          "tags": [
+            "锻造"
+          ],
+          "version": "1.19-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qdc-quantum-tool"
+        },
+        {
+          "title": "QoMC (配置指令自动生成)",
+          "description": "为使用Kaleido配置的模组自动生成配置管理指令",
+          "author": "AmberFrost",
+          "tags": [
+            "新生锻造、织物、锻造"
+          ],
+          "version": "1.16-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qomc"
+        },
+        {
+          "title": "quickrestart (快速重启)",
+          "description": "一键重启游戏",
+          "author": "thijs226",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21-1.21.7",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickrestart"
+        },
+        {
+          "title": "QDC Pushy Pully Mergy (QDC推拉合并方块)",
+          "description": "新增推拉合并功能方块，为主经济模组生成专属货币",
+          "author": "DrGraveGuard",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.19-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qdc-pushy-pully-mergy"
+        },
+        {
+          "title": "qrafty's Mountain Villages (高山村庄)",
+          "description": "数据包，在雪山坡群系添加雪地村庄",
+          "author": "qrafty",
+          "tags": [
+            "Fabric",
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.21.11-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qraftys-mountain-villages"
+        },
+        {
+          "title": "QDC Quantum Farming (量子农耕)",
+          "description": "打破常规农耕限制，可种植收获工具类物品的趣味模组",
+          "author": "DrGraveGuard",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.19-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qdc-quantum-farming"
+        },
+        {
+          "title": "QuickSlots (快捷按键物品栏)",
+          "description": "自定义快捷键使用快捷栏物品，支持延迟与个性化设置",
+          "author": "euphorria_a",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.20-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickslots"
+        },
+        {
+          "title": "Quickplay (快速游玩回溯)",
+          "description": "将1.20版本快速游玩功能移植到旧版游戏",
+          "author": "IMB11",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.17-1.19.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickplay"
+        },
+        {
+          "title": "Quick Silk & Fortune (精准附魔切换)",
+          "description": "右键一键切换工具的时运与精准采集附魔",
+          "author": "efeketket",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.21.9-26.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ketkets-silk-fortune-switch"
+        },
+        {
+          "title": "Quran Discs (古兰经音乐唱片)",
+          "description": "新增可播放古兰经内容的游戏音乐唱片",
+          "author": "FafaHima",
+          "tags": [
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.19.4-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quran-discs"
+        },
+        {
+          "title": "Quiet Place: Hardcore Stealth (硬核潜行机制)",
+          "description": "沉浸式潜行玩法，包含声音可视化、重甲惩罚、智能生物听觉判定",
+          "author": "Dentri2",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quiet-place-hardcore-stealth"
+        },
+        {
+          "title": "QuitConfirm (退出确认)",
+          "description": "退出世界、断开服务器或关闭游戏时弹出确认提示，防止误操作",
+          "author": "Nixuge",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.8.9-1.8.9",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quitconfirm"
+        },
+        {
+          "title": "Quicker Copper (铜氧化加速)",
+          "description": "加快铜块自然氧化速度，无需长时间等待变色",
+          "author": "zerocool",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.20.4-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quicker-copper"
+        },
+        {
+          "title": "QuLib (向量数学前置库)",
+          "description": "提供向量数学运算所需前置依赖",
+          "author": "LubieKakao1212",
+          "tags": [
+            "Forge",
+            "Fabric",
+            "NeoForge"
+          ],
+          "version": "1.18.2-1.20.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qulib"
+        },
+        {
+          "title": "Quilt Deathswap (Quilt互换生死)",
+          "description": "适配Quilt加载器的生死互换小游戏模组",
+          "author": "TakiSpl",
+          "tags": [
+            "无"
+          ],
+          "version": "1.19-1.19",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qkdeathswap"
+        },
+        {
+          "title": "QDWarp (简易传送点)",
+          "description": "适配Fabric/Quilt端的极简服务器传送点模组",
+          "author": "exaptations",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.19-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qdwarp"
+        },
+        {
+          "title": "QDC Transport (方块物品传输)",
+          "description": "提供传输节点，可在熔炉、箱子等带容器方块间自动传输物品",
+          "author": "DrGraveGuard",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.19-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qdc-transport"
+        },
+        {
+          "title": "QForward (Quilt代理转发)",
+          "description": "Quilt模组服务器专用代理转发功能",
+          "author": "Pyrrha",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.16-1.19",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qforward"
+        },
+        {
+          "title": "QoL 27 (二十七项生活优化)",
+          "description": "为新版本我的世界整合多项便捷生活质量优化",
+          "author": "Sebiann",
+          "tags": [
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.21.5-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qol27"
+        },
+        {
+          "title": "QDC Quantum Chest Stand (量子远程储物台)",
+          "description": "可通过物品远程存取的量子箱子",
+          "author": "DrGraveGuard",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.19-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qdc-quantum-chest-stand"
+        },
+        {
+          "title": "Quick Coordinates Copy (坐标快速复制)",
+          "description": "一键复制游戏内坐标，方便分享给好友",
+          "author": "CraftVoltage",
+          "tags": [
+            "Quilt",
+            "Fabric"
+          ],
+          "version": "1.19-1.19.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qcc"
+        },
+        {
+          "title": "QDC Quantum Lights Wand (量子光源法杖)",
+          "description": "法杖道具，可远距离投放临时光源方块",
+          "author": "DrGraveGuard",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.19-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qdc-quantum-lights-wand"
+        },
+        {
+          "title": "Quick-Switch (快捷物品切换)",
+          "description": "默认快捷键R，一键切换至上一次选中的物品栏插槽",
+          "author": "HourSlow",
+          "tags": [
+            "Quilt",
+            "Fabric"
+          ],
+          "version": "1.19.2-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-draw"
+        },
+        {
+          "title": "Quick Homes (简易回家点位)",
+          "description": "轻量易用的家点位管理模组，适配服务器与单人世界使用",
+          "author": "Natxo",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21.8-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-homes"
+        },
+        {
+          "title": "QDC BiomePortal (群系传送门)",
+          "description": "制作传送 Tablet 与核心，传送至就近任意生物群系",
+          "author": "DrGraveGuard",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.19-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qdc-biomeportal"
+        },
+        {
+          "title": "Quests Tweaker (任务整合兼容)",
+          "description": "实现FTB任务模组与配方修改器模组玩法适配联动",
+          "author": "Blue-Beaker",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.12.2-1.12.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quests-tweaker"
+        },
+        {
+          "title": "QuickFoods (快餐美食模组)",
+          "description": "新增汉堡、披萨、汤品等海量西式快餐食物",
+          "author": "LumivoxStudio",
+          "tags": [
+            "Fabric",
+            "Forge",
+            "NeoForge"
+          ],
+          "version": "1.16.5-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickfoods"
+        },
+        {
+          "title": "QSave & QLoad (快速存档读档)",
+          "description": "为我的世界添加快捷存档与读档功能",
+          "author": "KGS",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.18.2-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quicksave"
+        },
+        {
+          "title": "QuickInfo (快捷信息悬浮显示)",
+          "description": "将F3关键数据固定置顶平视界面，随时查看",
+          "author": "Hugo-CASTELL",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21.4-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickinfo"
+        },
+        {
+          "title": "QuicProtocolSupport (QUIC协议支持)",
+          "description": "为我的世界游戏添加QUIC网络协议兼容",
+          "author": "tesinormed",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quic_protocol_support"
+        },
+        {
+          "title": "QuickEquip (自动换装)",
+          "description": "工具耐久耗尽时，自动按品级、耐久、附魔优先级替换最优工具",
+          "author": "SpaceWho",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.20.1-26.1.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-equip"
+        },
+        {
+          "title": "Quantum Quarry Plus (量子采矿机增强)",
+          "description": "虚空生成资源的高阶采矿机模组",
+          "author": "realzhefop",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.16.5-1.18.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quantum-quarry-plus"
+        },
+        {
+          "title": "QUITter (一键退出游戏)",
+          "description": "单键即可退出当前游戏会话，便捷省心",
+          "author": "DevKnochen",
+          "tags": [
+            "Fabric",
+            "NeoForge",
+            "实用"
+          ],
+          "version": "1.17-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quitter"
+        },
+        {
+          "title": "Quick Coordinates Copy: Enhanced (快捷坐标复制增强)",
+          "description": "一键复制游戏坐标分享给好友，新增更多变量格式可选",
+          "author": "Kaddicus",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickcoordinatescopy-enhanced"
+        },
+        {
+          "title": "Que's BTA Additions (BTA玻璃拓展)",
+          "description": "为Better Than Adventure版本添加彩色玻璃等实用内容",
+          "author": "qSided",
+          "tags": [
+            "Fabric",
+            "装饰"
+          ],
+          "version": "1.7.3-1.7.3",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qbtaa"
+        },
+        {
+          "title": "Qualité de la vie (生活品质优化)",
+          "description": "为生存与极限模式增添必备的生活质量优化功能",
+          "author": "LavishAujla",
+          "tags": [
+            "Forge",
+            "NeoForge",
+            "Fabric",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.21-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qdlv"
+        },
+        {
+          "title": "Quicreate Mod（速创空岛适配）",
+          "description": "速创空岛整合包核心补丁，适配机械动力、灾变、星际探索等模组的兼容与道具补充",
+          "author": "IGoByJake",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quicreate-mod"
+        },
+        {
+          "title": "Qurius (奇趣道具)",
+          "description": "玩法奇特的趣味物品拓展模组",
+          "author": "dev.creator42",
+          "tags": [
+            "Forge",
+            "科技",
+            "生物",
+            "冒险",
+            "食物",
+            "存储",
+            "装备",
+            "魔法",
+            "趣味"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qurius"
+        },
+        {
+          "title": "Qwikse (通用API加载器)",
+          "description": "跨版本通用API前置加载器",
+          "author": "Ran",
+          "tags": [
+            "Quilt",
+            "Fabric",
+            "前置库"
+          ],
+          "version": "1.14.1-1.19.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qwikse"
+        },
+        {
+          "title": "Quiver Logic (箭袋逻辑优化)",
+          "description": "可直接从收纳袋、潜影盒中取用弹射物，智能匹配取用逻辑",
+          "author": "Rochedo",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21.10-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quiver-logic"
+        },
+        {
+          "title": "QuickMine - Mine Smarter, Not Harder! (连锁挖矿)",
+          "description": "轻量连锁挖矿模组，一键开采整片矿脉",
+          "author": "thonyydev",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.21",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickminemod"
+        },
+        {
+          "title": "QDeathBan(死亡封禁)",
+          "description": "Fabric服务端模组，玩家死亡后将被永久封禁服务器",
+          "author": "Zack858",
+          "tags": [
+            "Fabric",
+            "实用",
+            "游戏机制",
+            "服务端"
+          ],
+          "version": "1.21-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qdeathban"
+        },
+        {
+          "title": "quikdisconnect(一键断开连接)",
+          "description": "设置快捷键，快速断开服务器连接",
+          "author": "Snattuw",
+          "tags": [
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.21-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quikdisconnect"
+        },
+        {
+          "title": "Quantum Things (量子物品续作)",
+          "description": "1.12.2版本续写Random Things模组的量子物品内容",
+          "author": "MagicJinn",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.12.2-1.12.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quantum-things"
+        },
+        {
+          "title": "QuickAlias (简易指令别名)",
+          "description": "轻量客户端模组，自定义游戏快捷指令别名",
+          "author": "Florlet",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "Fabric"
+          ],
+          "version": "1.20.1-26.1.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickalias"
+        },
+        {
+          "title": "Quilts (双色地毯)",
+          "description": "新增由两种颜色合成的拼接地毯方块",
+          "author": "mr0gummy",
+          "tags": [
+            "Fabric",
+            "Quilt"
+          ],
+          "version": "1.21.4-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quilts"
+        },
+        {
+          "title": "Quartz Armor (石英盔甲)",
+          "description": "由平滑石英合成的强力但脆弱的盔甲套装",
+          "author": "justfatlard",
+          "tags": [
+            "Fabric",
+            "装备"
+          ],
+          "version": "1.21-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quartz-armor-fabric"
+        },
+        {
+          "title": "Quilt Reflections (Quilt反射工具)",
+          "description": "适配Quilt文件系统的反射调用工具前置",
+          "author": "__",
+          "tags": [
+            "Quilt"
+          ],
+          "version": "1.19-1.19.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quilt-reflections"
+        },
+        {
+          "title": "Quick Climb (快速攀爬)",
+          "description": "攀爬时抬头可提速一半，梯子攀爬更流畅自然",
+          "author": "SpaceWho",
+          "tags": [
+            "Fabric",
+            "Forge",
+            "NeoForge"
+          ],
+          "version": "1.18-26.1.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-climb"
+        },
+        {
+          "title": "Quick Hotbar Selector (快捷物品栏切换)",
+          "description": "优化快捷栏切换逻辑，操作更顺手便捷",
+          "author": "inu_prime",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick_hotbar_selector"
+        },
+        {
+          "title": "QoL Crafts (便捷合成优化)",
+          "description": "添加原木直接合成木板的批量配方，简化生存合成流程",
+          "author": "Zensiert",
+          "tags": [
+            "Fabric",
+            "Forge",
+            "NeoForge"
+          ],
+          "version": "1.21-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qol-crafts"
+        },
+        {
+          "title": "Quick Measure (快速测距)",
+          "description": "客户端简易指令模组，开启标尺模式，可在游戏内直接测量方块间距",
+          "author": "Nhbybnb",
+          "tags": [
+            "Fabric",
+            "实用",
+            "游戏机制",
+            "管理"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-measure"
+        },
+        {
+          "title": "QOGL (游戏生活品质增强)",
+          "description": "可配置HUD悬浮界面，显示生存天数、游玩时长、现实时间、坐标与帧率",
+          "author": "SHAD11T",
+          "tags": [
+            "NeoForge",
+            "Fabric",
+            "Forge",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qogl-(quality-of-game-life)"
+        },
+        {
+          "title": "Quest Shop (任务商店系统)",
+          "description": "内置游戏商店与任务奖励进度系统，适配整合包作者调控物品获取、组队游玩与任务流程",
+          "author": "Holysweet",
+          "tags": [
+            "经济",
+            "NeoForge",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quest-shop"
+        },
+        {
+          "title": "QuickFix (快速修复)",
+          "description": "优化原版游戏，例如树叶有几率掉落木棍、提升矿石生成高度、增加地面多样性等",
+          "author": "XxRexRaptorxX",
+          "tags": [
+            "Forge",
+            "游戏机制",
+            "世界生成"
+          ],
+          "version": "1.12-1.12.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickfix"
+        },
+        {
+          "title": "QωQ Library (QωQ前置库)",
+          "description": "Fabric前置模组，提供简洁的事件订阅与自定义事件开发接口",
+          "author": "Goulixiaoji",
+          "tags": [
+            "Fabric",
+            "前置库"
+          ],
+          "version": "1.18.2-1.18.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qwq-library"
+        },
+        {
+          "title": "Quality Commands (建筑专用指令)",
+          "description": "提供便捷指令，简化MC地图建造流程",
+          "author": "dark-ember",
+          "tags": [
+            "Fabric、实用工具"
+          ],
+          "version": "1.20.1-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quality-commands"
+        },
+        {
+          "title": "Quick Player Trade (玩家快捷交易)",
+          "description": "服务端模组，右键玩家即可快速互相赠予交换物品",
+          "author": "NebSpacefarer",
+          "tags": [
+            "Fabric、存储、实用工具"
+          ],
+          "version": "1.18-1.18.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-player-trade"
+        },
+        {
+          "title": "QuickList (快捷清单工具)",
+          "description": "默认按N键搜索游戏物品，内置计算功能与待办清单，灵感来自幸福工厂。",
+          "author": "Hajsori",
+          "tags": [
+            "Fabric",
+            "实用功能",
+            "游戏机制"
+          ],
+          "version": "1.21-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quicklist"
+        },
+        {
+          "title": "Quacked SMP - Server Management Panel (Quacked SMP服务器管理面板)",
+          "description": "网页端服务器与玩家全功能管理面板，模块化包含领地认领、RPG技能、聊天过滤、防破坏、自定义维度、传送等功能；可对接投票插件、Discord、BlueMap、简易语音聊天",
+          "author": "Monte_Carlo_Simulations",
+          "tags": [
+            "交通、Neoforge、冒险、Fabric、实用工具、社交、管理"
+          ],
+          "version": "1.21.8-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quackedsmp"
+        },
+        {
+          "title": "quickly (迅捷)",
+          "description": "适配新版无混淆我的世界的快捷操作模组继任者",
+          "author": "jottyfan",
+          "tags": [
+            "交通",
+            "Fabric",
+            "装备",
+            "世界生成"
+          ],
+          "version": "26.1-snapshot-1-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickly"
+        },
+        {
+          "title": "QuestMod (简易任务系统)",
+          "description": "新增全员可接取完成的游戏任务系统",
+          "author": "SuperYoshi10000",
+          "tags": [
+            "冒险、Fabric、游戏机制"
+          ],
+          "version": "1.21.8-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/questmod"
+        },
+        {
+          "title": "Qunlifs Bow Additions! (昆利夫弓箭拓展)",
+          "description": "为我的世界添加多款全新弓箭",
+          "author": "Qunlif",
+          "tags": [
+            "Fabric",
+            "装备"
+          ],
+          "version": "1.20.4-1.20.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qunlifsbowadditions"
+        },
+        {
+          "title": "Quantum Hitbox (量子碰撞箱)",
+          "description": "完全自定义实体碰撞箱，支持RGBA实时配色、幻彩渐变与高级可见性筛选，提升视觉清晰度与游戏美观度",
+          "author": "demoflash",
+          "tags": [
+            "Fabric",
+            "装备",
+            "实用工具"
+          ],
+          "version": "1.21-26.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quantum-hitbox"
+        },
+        {
+          "title": "Quasi Crafter Connectivity (合成器准连通)",
+          "description": "为1.21实验性合成器方块添加红石准连通特性",
+          "author": "sschr15",
+          "tags": [
+            "Quilt",
+            "科技",
+            "Fabric",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "23w42a-23w42a",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quasi-crafter-connectivity"
+        },
+        {
+          "title": "QuietLogs (日志冗余清理)",
+          "description": "屏蔽热门模组无用日志刷屏，保持日志简洁易读",
+          "author": "tinywifi",
+          "tags": [
+            "Forge",
+            "优化",
+            "实用"
+          ],
+          "version": "1.20.1-1.20.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quietlogs"
+        },
+        {
+          "title": "QueryInfo (客户端信息查询接口)",
+          "description": "通过HTTP接口获取正在运行的我的世界客户端各类信息",
+          "author": "YELANDAOKONG",
+          "tags": [
+            "Fabric",
+            "实用",
+            "管理"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/queryinfo"
+        },
+        {
+          "title": "Q-Inventory Randomizer (背包随机打乱)",
+          "description": "随时间自动打乱玩家背包物品布局",
+          "author": "Qwertious",
+          "tags": [
+            "小游戏",
+            "Fabric",
+            "存储",
+            "游戏机制",
+            "趣味恶搞"
+          ],
+          "version": "1.20.1-1.20.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/q-inventory-randomizer"
+        },
+        {
+          "title": "QoL (生活质量优化合集)",
+          "description": "1.21.5及以上版本专用，集成必备生存服务器优化功能，内含多款配套数据包内容",
+          "author": "LavishAujla",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "科技",
+            "Fabric",
+            "存储",
+            "游戏机制",
+            "实用功能",
+            "数据包",
+            "Forge",
+            "前置库",
+            "优化",
+            "管理"
+          ],
+          "version": "1.21.5-1.21.9",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/updated-qol"
+        },
+        {
+          "title": "Queen Jelly (水母垂钓)",
+          "description": "新增水母垂钓玩法及专属道具装备",
+          "author": "AlternateHoney",
+          "tags": [
+            "Forge",
+            "食物",
+            "装备",
+            "生物"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/queen-jelly"
+        },
+        {
+          "title": "QDRON（简易NBT配方导出）",
+          "description": "快捷简易的NBT配方导出工具",
+          "author": "LemmaEOF",
+          "tags": [
+            "Quilt|Fabric|实用|库|管理"
+          ],
+          "version": "1.18-1.19.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qdron"
+        },
+        {
+          "title": "QuoiCouMod（结尾消息自动回复）",
+          "description": "经典旧版Forge模组，检测聊天消息指定结尾字符并自动回复",
+          "author": "Nixuge",
+          "tags": [
+            "Forge|实用|趣味恶搞|社交"
+          ],
+          "version": "1.8.9-1.8.9",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quoicoumod"
+        },
+        {
+          "title": "Quill of Origin (起源日志羽毛笔)",
+          "description": "1.16.5 Fabric起源模组附属，可将聊天记录写入专属书本保存",
+          "author": "Alluysl",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.16.5-1.17.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quill-of-origin"
+        },
+        {
+          "title": "Quickr (快捷HUD工具)",
+          "description": "快速自定义添加客户端界面 HUD 的便捷工具前置",
+          "author": "NotHansCYDIa",
+          "tags": [
+            "Quilt",
+            "科技",
+            "Fabric",
+            "实用",
+            "游戏机制",
+            "管理"
+          ],
+          "version": "1.21-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickr"
+        },
+        {
+          "title": "Quick Leave (紧急退出)",
+          "description": "濒临死亡时一键快速退出世界，规避死亡损失",
+          "author": "Herobrinee11196",
+          "tags": [
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.21.11-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickleave"
+        },
+        {
+          "title": "Quietus (经验掉落自定义)",
+          "description": "Fabric模组，可自定义玩家死亡经验掉落规则",
+          "author": "Qther",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.19.3-1.19.3",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quietus"
+        },
+        {
+          "title": "Quality Advancements",
+          "description": "优质成就拓展",
+          "author": "https://modrinth.com/mod/nightml-quality-advancements",
+          "tags": [
+            "1.21-1.21.10"
+          ],
+          "version": "NightMareLore",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "以数据包+模组形式新增大量可解锁成就"
+        },
+        {
+          "title": "qqqwwspoop",
+          "description": "趣味排泄物道具",
+          "author": "https://modrinth.com/mod/qqqwwspoopmod",
+          "tags": [
+            "1.20.1-1.20.1"
+          ],
+          "version": "QQQW114",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "为1.20.1Forge版本添加排泄物及相关趣味道具，客户端服务端需同时安装"
+        },
+        {
+          "title": "Quick Stash (快捷收纳)",
+          "description": "自动将玩家背包物品分类收纳至附近箱子、木桶等存储容器",
+          "author": "DalvSync",
+          "tags": [
+            "Fabric",
+            "存储",
+            "游戏机制",
+            "社交"
+          ],
+          "version": "1.20-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-stash"
+        },
+        {
+          "title": "Quiver's Cleaner Caves (奎弗的整洁洞穴)",
+          "description": "移除下界中的石头变种、泥土和砾石矿脉、发光地衣和封闭熔岩泉，并为移除的物品添加合成配方",
+          "author": "Quiver",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "数据包",
+            "Forge"
+          ],
+          "version": "1.18-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quivers-cleaner-caves"
+        },
+        {
+          "title": "Quartz Tools (石英工具)",
+          "description": "平滑石英制作的高攻速低耐久工具套装",
+          "author": "justfatlard",
+          "tags": [
+            "Fabric",
+            "装备"
+          ],
+          "version": "1.21-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quartz-tools-fabric"
+        },
+        {
+          "title": "Quick Right Click Options (快捷右键菜单)",
+          "description": "为各类界面添加快捷右键选项，支持自定义上下文菜单，让菜单操作更便捷",
+          "author": "bikerboys",
+          "tags": [
+            "Fabric",
+            "实用",
+            "管理"
+          ],
+          "version": "1.21.1-1.21.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-right-click-options"
+        },
+        {
+          "title": "Quartz_Craft (石英工艺)",
+          "description": "添加各类石英材料和自定义物品",
+          "author": "Furina_Focalors",
+          "tags": [
+            "Forge",
+            "装饰"
+          ],
+          "version": "1.12.2-1.12.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quartz_craft"
+        },
+        {
+          "title": "Quary (方形挖掘)",
+          "description": "挖掘脚下的方形区域方块",
+          "author": "TestnAlpaca37",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "科技",
+            "冒险",
+            "Fabric",
+            "实用",
+            "游戏机制",
+            "数据包",
+            "Forge",
+            "优化",
+            "装备"
+          ],
+          "version": "1.21.5-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quary"
+        },
+        {
+          "title": "Quackems Game Addon (夸克游戏扩展)",
+          "description": "添加大量盔甲、方块、工具和可探索世界，玩法无限",
+          "author": "Quackems",
+          "tags": [
+            "生物",
+            "食物",
+            "装饰",
+            "Forge",
+            "装备",
+            "世界生成"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quackems-game-addon"
+        },
+        {
+          "title": "Quantified (量化统计)",
+          "description": "量化你的我的世界统计数据，通过专属分享链接向好友、社区分享你的游戏成就",
+          "author": "RisDN",
+          "tags": [
+            "科技",
+            "冒险",
+            "Fabric",
+            "存储",
+            "实用",
+            "社交",
+            "管理"
+          ],
+          "version": "1.21.7-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quantified"
+        },
+        {
+          "title": "Quickmark (快速标记)",
+          "description": "将堡垒之夜的队伍和标记系统加入我的世界",
+          "author": "UnknKriod",
+          "tags": [
+            "冒险",
+            "Fabric",
+            "社交"
+          ],
+          "version": "1.21.7-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickmark"
+        },
+        {
+          "title": "qModeling (方块建模工具)",
+          "description": "基于方块的3D建模模组，内置专属工作空间方块、自由视角编辑、移动/旋转/缩放操控，支持建模格式导入导出",
+          "author": "qwxon",
+          "tags": [
+            "Forge",
+            "装饰",
+            "游戏机制"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qmodeling"
+        },
+        {
+          "title": "QOL Advanced (Update) (高级优质体验-更新版)",
+          "description": "添加Mojang本该早实装的功能，让我的世界焕然一新，全新版本更流畅优质",
+          "author": "FreezeYaBoy",
+          "tags": [
+            "冒险",
+            "实用",
+            "游戏机制",
+            "Forge",
+            "装备"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qoladvanced"
+        },
+        {
+          "title": "Quicknote (快速笔记)",
+          "description": "在《我的世界》聊天栏快速记录笔记",
+          "author": "smit4k",
+          "tags": [
+            "模组加载器:Fabric;标签:实用功能"
+          ],
+          "version": "1.21-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quicknote"
+        },
+        {
+          "title": "QuickSplash (快速喷溅)",
+          "description": "自动检测并扔出背包内所有瞬间伤害II喷溅药水，可自定义延迟，优化战斗时机和轨迹",
+          "author": "Seyit",
+          "tags": [
+            "Fabric",
+            "装备",
+            "实用"
+          ],
+          "version": "1.20-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quicksplash"
+        },
+        {
+          "title": "Quick menu Renewed (快捷菜单重制版)",
+          "description": "基于原版废弃快捷菜单重构的复刻版本",
+          "author": "doggyfox",
+          "tags": [
+            "Fabric",
+            "实用工具",
+            "科技",
+            "管理"
+          ],
+          "version": "1.21.11-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-menu-renewed"
+        },
+        {
+          "title": "QuietMode (安静模式)",
+          "description": "让你按自己的喜好游玩我的世界：暂时远离怪物的持续攻击，安全地探索、实验和建造——随时可以恢复危险难度",
+          "author": "matekmods",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21.8-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quietmode"
+        },
+        {
+          "title": "QuasiDusting (准直连通)",
+          "description": "这款Fabric模组修改我的世界的准直连通性（QC）机制，通过对受QC影响的方块使用红石，让其变为定向且可切换的状态",
+          "author": "Edwardthe1rst1",
+          "tags": [
+            "科技",
+            "Fabric",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.21-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quasidusting"
+        },
+        {
+          "title": "Quantity Satchels (大容量挎包)",
+          "description": "添加源自社区游戏《太空站13》的挎包（请勿游玩该游戏）",
+          "author": "FBM",
+          "tags": [
+            "Forge",
+            "储物",
+            "实用"
+          ],
+          "version": "1.12.2-1.12.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/bigbag"
+        },
+        {
+          "title": "Qv Mortar And Pestle (研钵和研杵)",
+          "description": "无需弄脏双手，使用研钵和研杵研磨物品",
+          "author": "MairanGH",
+          "tags": [
+            "Quilt",
+            "Fabric",
+            "装饰",
+            "游戏机制",
+            "实用",
+            "魔法"
+          ],
+          "version": "1.19.2-1.19.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qv-mortar-and-pestle"
+        },
+        {
+          "title": "Quick Switch (服务器快速跳转)",
+          "description": "任意世界或服务器内输入指令，即可快速切换、加入其他服务器",
+          "author": "ExiledLizard635",
+          "tags": [
+            "运输",
+            "Fabric",
+            "实用",
+            "科技"
+          ],
+          "version": "1.21.3-1.21.3",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-switch"
+        },
+        {
+          "title": "QuickCast PvP (PvP快捷施法)",
+          "description": "鼠标中键快速PvP施法：立即使用末影珍珠、风弹，或放置末影水晶，并返回之前的快捷栏槽位",
+          "author": "modclaim",
+          "tags": [
+            "Fabric",
+            "优化",
+            "冒险",
+            "装备"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickcast-pvp"
+        },
+        {
+          "title": "Quest Event Bridge (任务事件桥接)",
+          "description": "用于捕获事件并写入持久化数据的桥接模组",
+          "author": "ReconHalcyon",
+          "tags": [
+            "Neoforge",
+            "库"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quest-event-bridge"
+        },
+        {
+          "title": "QOLGenerators (简易资源生成器)",
+          "description": "简约实用的自动化资源生成玩法模组",
+          "author": "sam021800",
+          "tags": [
+            "Forge",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qolgenerators"
+        },
+        {
+          "title": "QianmoSpeedMod (阡陌行路加速)",
+          "description": "借鉴饥荒游戏设计，附魔靴子在道路上获得移速加成，支持双检测模式与高度自定义配置",
+          "author": "Shao_Zhige",
+          "tags": [
+            "运输",
+            "Forge",
+            "实用"
+          ],
+          "version": "1.20.1-1.20.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qianmospeedmod"
+        },
+        {
+          "title": "Quintist Ores (昆提斯特矿石)",
+          "description": "全新矿石、盔甲和工具，提升游戏体验",
+          "author": "SwaixYT",
+          "tags": [
+            "冒险",
+            "装饰",
+            "装备",
+            "Forge"
+          ],
+          "version": "1.19.2-1.19.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quintist-ores"
+        },
+        {
+          "title": "Quest Eleven (11号唱片修复)",
+          "description": "可修复破损的11号音乐唱片，解锁全新完整曲目，破除原版唱片的诡异设定",
+          "author": "pieman492",
+          "tags": [
+            "冒险",
+            "装饰",
+            "Neoforge"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quest-eleven"
+        },
+        {
+          "title": "qwerter (奇幻次元模组)",
+          "description": "新增盔甲、工具、独立维度与自然建筑结构",
+          "author": "james_more",
+          "tags": [
+            "生物",
+            "冒险",
+            "食物",
+            "Fabric",
+            "装备",
+            "世界生成"
+          ],
+          "version": "1.21.8-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qwerter"
+        },
+        {
+          "title": "Quality of Horse (马匹优化增强)",
+          "description": "高可配置轻量化模组，全方位改良马匹属性与玩法",
+          "author": "Ghoul",
+          "tags": [
+            "交通",
+            "NeoForge",
+            "生物",
+            "Fabric",
+            "存储",
+            "游戏机制",
+            "实用工具",
+            "Forge"
+          ],
+          "version": "1.21-26.1.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quality-of-horse"
+        },
+        {
+          "title": "Quick Tree Chopper (快捷伐木)",
+          "description": "便捷伐木机制，砍伐树木不会破坏周边自然地形植被",
+          "author": "BuffSpidey",
+          "tags": [
+            "Fabric",
+            "科技"
+          ],
+          "version": "1.21.8-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-tree-chopper"
+        },
+        {
+          "title": "Quake Weapons (雷神之锤武器复刻)",
+          "description": "复刻雷神之锤游戏内全部武器与增益道具",
+          "author": "PaleMannie",
+          "tags": [
+            "Forge",
+            "装备"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quake-weapons"
+        },
+        {
+          "title": "QuickScale (快捷尺寸调节)",
+          "description": "Fabric轻量化效率模组，快捷键快速调整交互范围与实体尺寸，支持实时配置，适配建筑玩家与测试玩家",
+          "author": "ACEGE_",
+          "tags": [
+            "科技",
+            "Fabric",
+            "游戏机制",
+            "生物"
+          ],
+          "version": "1.21-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickscale"
+        },
+        {
+          "title": "QuickPing (快捷标记)",
+          "description": "客户端方块标记工具，可高亮标注位置便于多人协作",
+          "author": "AshKiano",
+          "tags": [
+            "Fabric",
+            "实用模组",
+            "游戏机制"
+          ],
+          "version": "1.21.10-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickping-ash"
+        },
+        {
+          "title": "QuickCMD (聊天历史快捷指令)",
+          "description": "快捷键搜索聊天历史，输入筛选、方向键选择、回车直接使用指令",
+          "author": "bl791",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickcmd"
+        },
+        {
+          "title": "Quite Logical (合乎逻辑)",
+          "description": "原版扩展模组",
+          "author": "Layj",
+          "tags": [
+            "冒险",
+            "Fabric",
+            "装饰",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.21.11-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quitelogical"
+        },
+        {
+          "title": "QR Scanner (二维码扫描器)",
+          "description": "简易二维码扫描模组",
+          "author": "Zadudoder",
+          "tags": [
+            "Fabric",
+            "实用",
+            "社交"
+          ],
+          "version": "1.21-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qrscanner"
+        },
+        {
+          "title": "QuickNoteMax (快捷记事本)",
+          "description": "游戏内记事本，可记录坐标、笔记等，按N键打开",
+          "author": "Kakasta",
+          "tags": [
+            "Fabric",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.16.5-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quicknotemax"
+        },
+        {
+          "title": "QoL Refined (精致便利)",
+          "description": "一组我认为游戏理应拥有的便利功能合集",
+          "author": "amne",
+          "tags": [
+            "Fabric",
+            "冒险",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.21-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qol-refined"
+        },
+        {
+          "title": "Quantum Bags (量子背包)",
+          "description": "添加可单格存储大量物品的背包，能自动填充半满的物品栏",
+          "author": "xJenny69",
+          "tags": [
+            "Forge",
+            "存储",
+            "游戏机制",
+            "实用",
+            "装备"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quantum-bags"
+        },
+        {
+          "title": "QuizCraft (答题工坊)",
+          "description": "精致答题系统，边玩MC边学习英语或其他知识",
+          "author": "JyuLab",
+          "tags": [
+            "小游戏",
+            "冒险",
+            "Fabric",
+            "实用",
+            "社交"
+          ],
+          "version": "1.20.1-1.20.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quizcraft"
+        },
+        {
+          "title": "QuickEat (快捷自动进食)",
+          "description": "自动从快捷栏选用最优食物充饥",
+          "author": "noxygalaxy",
+          "tags": [
+            "食物",
+            "Fabric",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.20-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickeat"
+        },
+        {
+          "title": "Quick Link (快捷链路方块)",
+          "description": "轻量化模组，添加早期无线物品、能源、流体传输方块，支持颜色通道与侧面配置。",
+          "author": "rofumer",
+          "tags": [
+            "NeoForge",
+            "科技",
+            "游戏机制"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-link"
+        },
+        {
+          "title": "Quartz Useful (实用石英)",
+          "description": "添加石英工具和护甲，石英工具比金制工具稍强，石英护甲强度介于钻石和下界合金之间（石英剑用烈焰棒替代木棍合成）",
+          "author": "xLiquidxMC",
+          "tags": [
+            "冒险",
+            "装备",
+            "游戏机制",
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quartz-useful"
+        },
+        {
+          "title": "QuickKits (快捷套装)",
+          "description": "保存套装并快速穿戴",
+          "author": "harinezumi_dev",
+          "tags": [
+            "Fabric",
+            "实用",
+            "管理"
+          ],
+          "version": "1.21.11-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickkits"
+        },
+        {
+          "title": "QiuymMod (秋风模组)",
+          "description": "添加镰刀等独特物品，优化配方，降低采集难度，含自定义动画与数据包",
+          "author": "qiuym",
+          "tags": [
+            "Forge",
+            "Fabric",
+            "装备",
+            "游戏机制"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qiuymmod"
+        },
+        {
+          "title": "QuicklyLeave (快捷离开)",
+          "description": "快捷键快速离开服务器",
+          "author": "NikoSolstice",
+          "tags": [
+            "Quilt",
+            "实用"
+          ],
+          "version": "1.19.4-1.19.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quicklyleave"
+        },
+        {
+          "title": "Quick Actions (快捷动作)",
+          "description": "客户端将动作绑定到聊天消息",
+          "author": "Apmaster2",
+          "tags": [
+            "Fabric",
+            "实用",
+            "管理"
+          ],
+          "version": "1.21.8-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-actions"
+        },
+        {
+          "title": "Qilby Core (希尔比核心)",
+          "description": "希尔比工业整合包的核心模组",
+          "author": "Annwan",
+          "tags": [
+            "Neoforge",
+            "Forge",
+            "科技",
+            "实用",
+            "库"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qilby-core"
+        },
+        {
+          "title": "QueueLog (队列日志)",
+          "description": "监控并显示游戏内方块更新的模组",
+          "author": "ziprano",
+          "tags": [
+            "优化",
+            "Fabric",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.21.8-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/queuelog"
+        },
+        {
+          "title": "QoLculator (便捷计算器)",
+          "description": "为我的世界聊天栏添加计算器，提升游戏体验",
+          "author": "Nyxef",
+          "tags": [
+            "Forge",
+            "管理",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qolculator"
+        },
+        {
+          "title": "QuestZ (简易任务系统)",
+          "description": "改良原版成就系统，打造轻量化简易任务玩法",
+          "author": "Globox1997",
+          "tags": [
+            "Fabric",
+            "实用功能",
+            "游戏机制"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/questz"
+        },
+        {
+          "title": "Qube's Server Shop (方块服务器商店)",
+          "description": "服务端经济模组，新增虚拟货币与图形化商店，玩家可买卖物品、资源兑换货币",
+          "author": "QubeInteractive",
+          "tags": [
+            "经济",
+            "Fabric",
+            "实用功能"
+          ],
+          "version": "1.20.1-1.20.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qubes-server-shop"
+        },
+        {
+          "title": "QuickStack & Craft (快速堆叠与合成)",
+          "description": "泰拉瑞亚风格的背包优化，支持快速堆叠、清空、远程容器合成",
+          "author": "ZeroTheAbsolute",
+          "tags": [
+            "Fabric",
+            "存储",
+            "NeoForge",
+            "实用"
+          ],
+          "version": "1.21.1-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickstack-craft"
+        },
+        {
+          "title": "Q.C.V.S.E (动态经济系统)",
+          "description": "添加动态经济系统，通过应用交易、投资、管理账户",
+          "author": "Lrouquin",
+          "tags": [
+            "科技",
+            "NeoForge",
+            "生物",
+            "装备",
+            "经济"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qcvse"
+        },
+        {
+          "title": "QueT (个人模组前置库)",
+          "description": "本人多款模组共用的前置依赖库",
+          "author": "QueDoom",
+          "tags": [
+            "Fabric",
+            "前置库"
+          ],
+          "version": "1.21.1-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quet"
+        },
+        {
+          "title": "Quick Coords (快速坐标)",
+          "description": "一键在聊天框分享你的精确坐标，轻量、快速，是所有玩家的必备工具",
+          "author": "Thyronis1",
+          "tags": [
+            "Fabric",
+            "游戏机制"
+          ],
+          "version": "1.21.4-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-coords"
+        },
+        {
+          "title": "QuickAccess (快速访问)",
+          "description": "轻量级服务端Fabric模组，添加快速指令，访问原版常用界面",
+          "author": "knechterus",
+          "tags": [
+            "科技",
+            "Fabric",
+            "存储",
+            "实用",
+            "优化",
+            "管理"
+          ],
+          "version": "1.21.11-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickaccess"
+        },
+        {
+          "title": "Quality Of Life Mod (生活品质优化)",
+          "description": "新增大量杂项配方与道具，提升游玩体验",
+          "author": "alexsad",
+          "tags": [
+            "Forge",
+            "食物",
+            "装备",
+            "实用"
+          ],
+          "version": "1.19.2-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quality-of-life-mod"
+        },
+        {
+          "title": "QuickCraft Utilities (快捷工艺优化)",
+          "description": "包含自动熔炼、快速睡觉、自动作物收获等可配置实用优化功能",
+          "author": "uniquelabs",
+          "tags": [
+            "科技",
+            "冒险",
+            "Fabric",
+            "游戏机制",
+            "优化"
+          ],
+          "version": "1.21.8-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickcraft-utilities"
+        },
+        {
+          "title": "Quantum Dimensions (量子维度)",
+          "description": "穿梭不同维度，发现强大的新实体、方块和物品",
+          "author": "zeyx",
+          "tags": [
+            "Quilt",
+            "冒险",
+            "Fabric",
+            "世界生成",
+            "恶搞"
+          ],
+          "version": "1.21.8-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quantum-dimensions"
+        },
+        {
+          "title": "quickping (快捷标记ping点)",
+          "description": "提供环形快捷菜单，可标记位置、高亮生物、定点标记等功能",
+          "author": "ouyangsunzhi",
+          "tags": [
+            "NeoForge",
+            "社交"
+          ],
+          "version": "1.21-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickping"
+        },
+        {
+          "title": "QisMoreCommands (Qi指令拓展)",
+          "description": "为游戏新增更强力的指令系统与变量功能",
+          "author": "qi",
+          "tags": [
+            "Fabric",
+            "实用工具",
+            "游戏机制"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qismorecommands"
+        },
+        {
+          "title": "QuickHud (快捷信息状态栏)",
+          "description": "自定义HUD界面，显示在线人数、击杀数、计时器、坐标与队伍列表，由服务器统一管控",
+          "author": "SunnyMp",
+          "tags": [
+            "紫珀端",
+            "小游戏",
+            "插件",
+            "Fabric",
+            "装饰",
+            "水桶插件",
+            "游戏机制",
+            "水龙头插件",
+            "实用工具",
+            "Forge",
+            "服务器管理",
+            "魔法"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickhud"
+        },
+        {
+          "title": "Quantum Technologies (量子科技)",
+          "description": "提供模组开发可用的量子科技相关内容与接口",
+          "author": "tririter",
+          "tags": [
+            "Forge",
+            "魔法",
+            "科技",
+            "实用"
+          ],
+          "version": "1.12.2-1.12.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quantum-technologies"
+        },
+        {
+          "title": "Quick Screenshot (快捷截图)",
+          "description": "截图一键复制到剪贴板，便捷保存分享",
+          "author": "zeesea",
+          "tags": [
+            "Fabric",
+            "储物",
+            "实用"
+          ],
+          "version": "1.21.11-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickscreenshot"
+        },
+        {
+          "title": "Quickly Mine Turtle Eggs│快速挖掘海龟蛋",
+          "description": "挖掘海龟蛋时一次性摧毁所有，而非逐个摧毁│挖掘海龟蛋现在会一次摧毁所有海龟蛋，而不是一次摧毁一个。",
+          "author": "Special_TT",
+          "tags": [
+            "棉被",
+            "霓虹锻造",
+            "织物",
+            "游戏机制",
+            "数据包",
+            "锻造",
+            "优化"
+          ],
+          "version": "1.21.5-1.21.7",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickly-mine-turtle-eggs"
+        },
+        {
+          "title": "QuestionAndAnswer (问答闯关游戏)",
+          "description": "Fabric服务器专属模组，将服务器变为智能问答闯关游戏，适合联机聚会、直播互动与趣味团建",
+          "author": "Yulfic",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.20.1-1.20.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/questionandanswer"
+        },
+        {
+          "title": "Quinn's FlexHUD (奎因的弹性界面)",
+          "description": "用于辅助排版的界面库",
+          "author": "tt432",
+          "tags": [
+            "库",
+            "Neoforge"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quinns-flexhud"
+        },
+        {
+          "title": "Quantum Leap (QL) (量子跃迁)",
+          "description": "我的世界科技模组，通过先进量子技术操控空间、时间和物质，支持瞬间传送、新能源实验和强力装置制作",
+          "author": "ToryXen_",
+          "tags": [
+            "交通",
+            "冒险",
+            "装饰",
+            "Forge",
+            "装备",
+            "魔法"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quantum-leap-(ql)"
+        },
+        {
+          "title": "qwq-official (qwq官方)",
+          "description": "qwq是一款社区驱动的模组",
+          "author": "zku7_",
+          "tags": [
+            "Neoforge",
+            "冒险",
+            "装备",
+            "世界生成",
+            "魔法"
+          ],
+          "version": "1.21.4-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qwq-official"
+        },
+        {
+          "title": "QDAA (Reforged) (快速抗锯齿重制)",
+          "description": "快速简易抗锯齿的Forge移植版，通过超级采样减少方块锯齿边缘",
+          "author": "RedCraft86",
+          "tags": [
+            "Forge",
+            "装饰",
+            "实用"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qdaa-reforged"
+        },
+        {
+          "title": "QuantumTools (量子工具)",
+          "description": "新增后期成长向量子系列工具装备，适配游戏进度养成体系",
+          "author": "domkss",
+          "tags": [
+            "NeoForge、科技、Fabric、存储、实用工具、Forge、装备"
+          ],
+          "version": "1.20.1-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quantumtools"
+        },
+        {
+          "title": "Quick_Start (一键启动)",
+          "description": "从多人游戏界面一键启动和停止本地《我的世界》服务器",
+          "author": "Xeno_Slime",
+          "tags": [
+            "Fabric",
+            "实用",
+            "Neoforge"
+          ],
+          "version": "1.20.1-26.1.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick_start"
+        },
+        {
+          "title": "Quick enchant (快速附魔)",
+          "description": "快速为物品附魔，无需繁琐操作",
+          "author": "Smurfer",
+          "tags": [
+            "Fabric",
+            "实用",
+            "优化",
+            "装备",
+            "管理"
+          ],
+          "version": "1.21-1.21.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-enchant"
+        },
+        {
+          "title": "QuitOrNot Revived (退出确认)",
+          "description": "退出游戏前弹出确认提示",
+          "author": "Grapeskin",
+          "tags": [
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.21.9-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quitornot-revived"
+        },
+        {
+          "title": "Quickvane (快捷风向标)",
+          "description": "为所有Minecraft玩家提供必备的便捷按键与指令",
+          "author": "Modvane",
+          "tags": [
+            "Neoforge",
+            "实用",
+            "游戏机制",
+            "社交",
+            "管理"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickvane"
+        },
+        {
+          "title": "QuickTrigger (快捷传送)",
+          "description": "Fabric模组，在Minecraft物品栏中添加快捷传送按钮，适配VanillaTweaks家&重生点数据包",
+          "author": "Sovex66",
+          "tags": [
+            "优化",
+            "冒险",
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.21.11-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quicktrigger"
+        },
+        {
+          "title": "QuickFind (快速查找)",
+          "description": "轻量级我的世界背包搜索优化模组",
+          "author": "manukq_",
+          "tags": [
+            "科技",
+            "Fabric",
+            "实用工具",
+            "Neoforge"
+          ],
+          "version": "1.20.1-26.1.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickfind"
+        },
+        {
+          "title": "QQBot:Rebuild (QQ机器人：重构)",
+          "description": "基于Nonebot2的Python QQ机器人，多方式联动我的世界；功能丰富、易用、高性能、可配置，简易设置即可使用",
+          "author": "JokerZHEN",
+          "tags": [
+            "Fabric",
+            "管理"
+          ],
+          "version": "1.21.10-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qqbotrebuild"
+        },
+        {
+          "title": "Quartermaster Pro (军需官专业版)",
+          "description": "管理多个容器物品清单，快速搜索查找物品",
+          "author": "jaredy00",
+          "tags": [
+            "模组加载器:Fabric;标签:存储",
+            "实用工具"
+          ],
+          "version": "1.21.8-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quartermasterpro"
+        },
+        {
+          "title": "Quizzical Dollars (奎兹卡尔美元)",
+          "description": "为《我的世界》添加货币系统",
+          "author": "QuizzicalXD",
+          "tags": [
+            "模组加载器:Fabric;标签:经济"
+          ],
+          "version": "1.21-1.21",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quizzical-dollars"
+        },
+        {
+          "title": "QuickClock (快捷时钟)",
+          "description": "简约HUD时钟，提升游戏方位感",
+          "author": "AshKiano",
+          "tags": [
+            "模组加载器:Fabric;标签:装备",
+            "游戏机制",
+            "实用工具"
+          ],
+          "version": "1.21.10-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickclock"
+        },
+        {
+          "title": "Quantum_mod (量子领域模组)",
+          "description": "新增量子矿洞、自定义生物群系、强力定居者及各类专属道具",
+          "author": "metehangrc2011",
+          "tags": [
+            "冒险",
+            "装饰",
+            "装备",
+            "NeoForge"
+          ],
+          "version": "1.21.4-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quantum_mod"
+        },
+        {
+          "title": "Quirks (奇趣道具)",
+          "description": "添加趣味小道具，带来超多欢乐",
+          "author": "Unifyre",
+          "tags": [
+            "传送",
+            "Neoforge",
+            "实用",
+            "游戏机制",
+            "Forge",
+            "装备"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quirks"
+        },
+        {
+          "title": "Quiet Life (宁静生活)",
+          "description": "专注于自然主题的模组，享受悠闲的宁静游戏时光",
+          "author": "KristenStuffs",
+          "tags": [
+            "食物",
+            "Fabric",
+            "装饰",
+            "世界生成"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quiet-life-mod"
+        },
+        {
+          "title": "QuickSign (快捷告示牌)",
+          "description": "Shift+中键复制告示牌文字，一键粘贴到其他告示牌，生存创造通用",
+          "author": "Anom-uxxx",
+          "tags": [
+            "Fabric",
+            "装饰",
+            "游戏机制"
+          ],
+          "version": "1.21.11-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quicksign"
+        },
+        {
+          "title": "QOL Commands (品质生活指令)",
+          "description": "该模组添加了一些实用的小型指令",
+          "author": "mikan.brattinga",
+          "tags": [
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.21.8-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qol-commands"
+        },
+        {
+          "title": "Quartz Crafting Mod (石英工艺模组)",
+          "description": "平衡的装备拓展，填补铁质和钻石级装备之间的空白",
+          "author": "I3us",
+          "tags": [
+            "冒险",
+            "Fabric",
+            "装备",
+            "实用"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quartz-crafting-mod"
+        },
+        {
+          "title": "QuickCompass (快捷指南针)",
+          "description": "快捷指南针让你随时知晓方向",
+          "author": "AshKiano",
+          "tags": [
+            "冒险",
+            "Fabric",
+            "实用",
+            "游戏机制",
+            "装备"
+          ],
+          "version": "1.21.10-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickcompass"
+        },
+        {
+          "title": "Quireli (奎利自动化)",
+          "description": "自动化机制简易模组",
+          "author": "Beginnercodinggamer228",
+          "tags": [
+            "Forge",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quireli"
+        },
+        {
+          "title": "Quantized (量子化)",
+          "description": "利用量子力学探索物品制作的奥秘",
+          "author": "ZAppFireCZ",
+          "tags": [
+            "Neoforge",
+            "科技",
+            "存储",
+            "游戏机制",
+            "管理"
+          ],
+          "version": "1.21.8-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quantized"
+        },
+        {
+          "title": "Quick Torch (快捷插火把)",
+          "description": "泰拉瑞亚风格快捷键，可从物品栏任意位置放置火把",
+          "author": "BrusnikaTeam",
+          "tags": [
+            "经济",
+            "Fabric",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.19.1-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quicktorch"
+        },
+        {
+          "title": "Quick Bite (智能自动进食)",
+          "description": "挂机时无需关注饥饿值，模组自动检测并进食补充",
+          "author": "erdemstandi",
+          "tags": [
+            "Fabric",
+            "实用",
+            "游戏机制",
+            "管理"
+          ],
+          "version": "1.21-26.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickbite"
+        },
+        {
+          "title": "QOF (QualityOfLife) (生活质量优化)",
+          "description": "添加全新的便捷合成配方",
+          "author": "ilysaba",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qof-(qualityoflife)"
+        },
+        {
+          "title": "Quarry Mod (采石场模组)",
+          "description": "添加一个简易采石场维度，让你永久地下矿探索！",
+          "author": "JovialDuck78",
+          "tags": [
+            "冒险",
+            "NeoForge",
+            "世界生成"
+          ],
+          "version": "1.21.8-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quarry-mod"
+        },
+        {
+          "title": "QuickBZ (快捷集市)",
+          "description": "添加快捷键宏，支持Hypixel Skyblock集市一键卖出/买入",
+          "author": "lixckxx",
+          "tags": [
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.21.10-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickbz"
+        },
+        {
+          "title": "Quin's weird mod (昆的怪异模组)",
+          "description": "添加岩浆工具和灵魂物品，开发中，建议搭配JEI查看配方",
+          "author": "BastianQuin",
+          "tags": [
+            "装备",
+            "Neoforge"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quins-weird-mod"
+        },
+        {
+          "title": "QIO Autocrafter Mekanism (机械QIO自动合成机)",
+          "description": "联动机械动力，新增接入QIO仓储系统的自动合成机，可直接调用仓储资源全自动合成",
+          "author": "MrPochy",
+          "tags": [
+            "Forge",
+            "管理",
+            "游戏机制",
+            "科技"
+          ],
+          "version": "1.20.1-1.20.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qio-autocrafter-mekanism"
+        },
+        {
+          "title": "Quick Stack (一键收纳)",
+          "description": "一键将背包物品快速移入附近容器，免去手动搬运",
+          "author": "Itamio",
+          "tags": [
+            "Forge",
+            "存储",
+            "实用工具"
+          ],
+          "version": "1.12.2-1.12.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-stack"
+        },
+        {
+          "title": "Quick Toggle Sneak (快速切换潜行)",
+          "description": "通过快捷键快速切换潜行状态",
+          "author": "Beadu",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21.4-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-toggle-sneak"
+        },
+        {
+          "title": "QuickFix XP (经验快速修复)",
+          "description": "实用工具模组，使用积累的经验值瞬间修复工具和盔甲，无需在经验农场挂机",
+          "author": "gerakOD",
+          "tags": [
+            "Forge",
+            "装备",
+            "游戏机制",
+            "实用"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickfix-xp"
+        },
+        {
+          "title": "QuickSort (快速整理)",
+          "description": "客户端快速轻量级模组，一键整理背包、箱子和容器，支持智能物品分组、堆叠优化和垃圾过滤",
+          "author": "ViyomOG",
+          "tags": [
+            "实用",
+            "Fabric",
+            "存储",
+            "管理"
+          ],
+          "version": "1.21.9-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-sort"
+        },
+        {
+          "title": "Qa Zombie Enhance (QA僵尸强化)",
+          "description": "简单强化原版僵尸的模组",
+          "author": "LitQA",
+          "tags": [
+            "Neoforge",
+            "冒险",
+            "游戏机制",
+            "生物"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/qa-zombie-enhance"
+        },
+        {
+          "title": "Quintessential Quintuplets Theme (五等分的新娘主题)",
+          "description": "将我的世界替换为五等分的新娘动漫主题",
+          "author": "Ukognoz",
+          "tags": [
+            "Fabric",
+            "装饰"
+          ],
+          "version": "1.21.11-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quintessential-quintuplets-theme"
+        },
+        {
+          "title": "QuickNames (快捷服务器名)",
+          "description": "提取服务器地址最有意义的部分，自动忽略play、mc、hub等通用前缀与.net、.com等后缀，自定义服务器名则保留原名称",
+          "author": "lime11_11",
+          "tags": [
+            "优化",
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.21.4-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quicknames"
+        },
+        {
+          "title": "Quick Ender Chest (快捷末影箱)",
+          "description": "添加指令，在聊天框输入/ec即可直接打开末影箱，无需获取或放置方块。适合懒人使用",
+          "author": "KalNeverShower",
+          "tags": [
+            "科技",
+            "Fabric",
+            "存储",
+            "游戏机制",
+            "经济",
+            "管理"
+          ],
+          "version": "1.21.11-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-ender-chest"
+        },
+        {
+          "title": "QuickOrganizer (快捷整理背包)",
+          "description": "一键按键快速整理背包物品，轻量化Fabric模组",
+          "author": "CipherMan416",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21.4-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickorganizer"
+        },
+        {
+          "title": "Quantum Door Anxiety (量子困门)",
+          "description": "大幅提升开门难度，增添趣味闯关体验",
+          "author": "TheEpitex",
+          "tags": [
+            "交通、Fabric、趣味恶搞、魔法"
+          ],
+          "version": "1.21.10-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quantum-door-anxiety"
+        },
+        {
+          "title": "QuickWiki (快速维基)",
+          "description": "在游戏内直接查询所需信息",
+          "author": "Muchprow_IT",
+          "tags": [
+            "科技",
+            "Fabric",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quickwiki"
+        },
+        {
+          "title": "Quick leave (快速退出与自动奔跑)",
+          "description": "优化1.21版本退出游戏速度，同时新增常驻自动奔跑开关选项",
+          "author": "FatalV3",
+          "tags": [
+            "优化",
+            "Fabric",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.21-1.21",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-leave"
+        },
+        {
+          "title": "Quiver'd (箭袋)",
+          "description": "将早期测试版0.31中的箭袋加入1.21.1版本",
+          "author": "Addi3_Astarr",
+          "tags": [
+            "Fabric",
+            "装备",
+            "游戏机制",
+            "实用"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quiverd"
+        },
+        {
+          "title": "Quadcasting (四方施法)",
+          "description": "2025年愚人节专属的魔法铸造附属模组，将施法网格改为正方形",
+          "author": "miyucomics",
+          "tags": [
+            "Fabric",
+            "诅咒",
+            "魔法"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quadcasting"
+        },
+        {
+          "title": "Quick Deposit (一键存入容器)",
+          "description": "一键将背包物品自动存入开启的容器中。",
+          "author": "wolfraseq",
+          "tags": [
+            "Fabric",
+            "实用",
+            "存储",
+            "前置库",
+            "管理"
+          ],
+          "version": "1.21.4-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-deposit"
+        },
+        {
+          "title": "QuickSnap (快速截图)",
+          "description": "《我的世界》即时截图分享工具",
+          "author": "rzr",
+          "tags": [
+            "Fabric",
+            "实用工具",
+            "社交"
+          ],
+          "version": "26.1-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quicksnap"
+        },
+        {
+          "title": "Quick Inv Sorter (快速物品栏排序)",
+          "description": "轻量级物品栏管理模组",
+          "author": "omueller51",
+          "tags": [
+            "Fabric",
+            "实用工具",
+            "游戏机制",
+            "管理"
+          ],
+          "version": "1.21.11-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quick-inv-sorter"
+        },
+        {
+          "title": "quizsurvival (问答生存)",
+          "description": "将《我的世界》的所有操作变为知识挑战，砍树、挖矿、战斗、跳跃前都需回答问题，支持自定义题库（数学、物理等任意学科），游玩学习两不误",
+          "author": "Zzai",
+          "tags": [
+            "冒险",
+            "Fabric",
+            "恶搞",
+            "小游戏"
+          ],
+          "version": "1.21.11-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/quizsurvival"
+        }
+      ]
+    }
+  ],
+  "versions": [
+    "1.21.11",
+    "1.21.1",
+    "1.20.6",
+    "1.20.1",
+    "1.19.4",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ]
+}
