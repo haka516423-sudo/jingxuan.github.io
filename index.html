@@ -510,19 +510,35 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
         <p style="font-size:0.7rem;color:#aaa;margin-bottom:10px">
             格式：标题 || 描述 || URL || 作者 || 版本 || 标签1,标签2<br>
             版本支持范围 (如 1.20-1.21)；标签可选<br>
-            每个卡片以句号(。)结尾
+            每行一个卡片，字段用 || 分隔（句号可选）
         </p>
 
-        <!-- ✅ 新增文件选择区域 -->
-        <div style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
-            <button id="batchFileBtn" style="background: rgba(255,255,240,0.2); border: 1px solid rgba(255,255,255,0.3); color: #eee; padding: 6px 14px; border-radius: 14px; cursor: pointer; font-size: 0.8rem;">
+        <!-- 文件选择区域：按钮在上方水平排列，文件信息靠右 -->
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; gap: 12px; flex-wrap: wrap;">
+            <button id="batchFileBtn" style="background: rgba(255,255,240,0.2); border: 1px solid rgba(255,255,255,0.3); color: #eee; padding: 6px 14px; border-radius: 14px; cursor: pointer; font-size: 0.8rem; white-space: nowrap;">
                 📂 选择本地文件
             </button>
-            <input type="file" id="batchFileInput" multiple accept=".txt,.csv,.json,.md" style="display: none;">
-            <span id="batchFileInfo" style="font-size:0.7rem; color:#aaa;"></span>
+            <div id="batchFileInfo" style="font-size:0.7rem; color:#aaa; flex:1; text-align:right; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="已选择的文件"></div>
         </div>
+        <input type="file" id="batchFileInput" multiple accept=".txt,.csv,.json,.md" style="display: none;">
 
         <textarea id="batchTextarea" style="width:100%;height:180px;font-family:monospace;background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.3);border-radius:12px;padding:10px;font-size:0.8rem;resize:vertical" placeholder="粘贴文本..."></textarea>
+
+        <!-- 进度条区域（默认隐藏） -->
+        <div id="batchProgressArea" style="display:none; margin:12px 0;">
+            <div style="display:flex; justify-content:space-between; font-size:0.7rem; margin-bottom:4px;">
+                <span id="batchProgressText">处理中...</span>
+                <span id="batchProgressPercent">0%</span>
+            </div>
+            <div style="background:rgba(255,255,255,0.2); border-radius:20px; overflow:hidden;">
+                <div id="batchProgressFill" style="width:0%; height:8px; background:var(--theme-accent); transition:width 0.2s;"></div>
+            </div>
+        </div>
+
+        <!-- 完成并关闭按钮（初始隐藏） -->
+        <div id="batchCompleteArea" style="display:none; margin-top: 12px;">
+            <button id="batchCompleteBtn" style="background: #10b981; border: none; padding: 8px 16px; border-radius: 30px; color: white; cursor: pointer; width: 100%;">✅ 完成并关闭</button>
+        </div>
 
         <div class="modal-buttons">
             <button class="cancel-btn" id="batchCancelBtn">取消</button>
@@ -938,30 +954,177 @@ typeBtns.forEach(b=>{b.addEventListener('click',()=>{setActiveTypeBtn(b.dataset.
 
 function renderDynamicTags(){if(!dynamicTagList)return;const allTags=extractAllTags().map(([tag])=>tag);const fixed=['Fabric','Forge','NeoForge'];const other=allTags.filter(t=>!fixed.includes(t));dynamicTagList.innerHTML=other.length?other.map(t=>`<button type="button" class="tag-btn" data-tag="${escapeHtml(t)}">${escapeHtml(t)}</button>`).join(''):'<span style="font-size:0.7rem;color:#aaa">暂无其他标签</span>';document.querySelectorAll('.dynamic-tag-list-wrap .tag-btn').forEach(b=>b.addEventListener('click',function(){const t=this.dataset.tag,cv=cardTagsInput.value.trim();cardTagsInput.value=cv?cv.split(',').map(s=>s.trim()).includes(t)?cv:cv+', '+t:t}))}
 
-function parseBatchText(){
-    let raw=batchTextarea.value.trim();
-    if(!raw)return alert('请输入文本');
-    raw=raw.replace(/\r\n/g,'\n').replace(/\r/g,'\n');
-    const lines=raw.split('\n').filter(l=>l.trim());
-    let added=0,errs=[];
-    lines.forEach((line,i)=>{
-        let cl=line.trim();
-        if(cl.endsWith('。'))cl=cl.slice(0,-1).trim();
-        if(!cl)return;
-        const parts=cl.split('||').map(s=>s.trim());
-        if(parts.length<5){ errs.push(`第${i+1}行:格式不完整（至少5个字段）`); return; }
-        const title=parts[0], desc=parts[1], url=parts[2], author=parts[3], ver=parts[4];
-        const tagsStr=parts.length>=6 ? parts[5] : '';
-        if(!title){ errs.push(`第${i+1}行:标题为空`); return; }
-        if(!url){ errs.push(`第${i+1}行:URL为空`); return; }
-        const tags=tagsStr ? tagsStr.split(',').map(s=>s.trim()).filter(s=>s) : [];
-        groupsData[currentGroupIndex].items.push({title,description:desc||url,author:author||'', tags, version:ver||undefined, stats:{downloads:'—', updated:getCurrentTimeString()}, type:'link', url});
-        added++;
-    });
-    if(errs.length) alert(`添加${added}个。错误:\n${errs.join('\n')}`); else alert(`成功添加${added}个卡片！`);
-    saveDataToStorage(); batchModal.classList.remove('active'); currentPage=1; renderAll();
-}
+function parseBatchText() {
+    let raw = batchTextarea.value.trim();
+    if (!raw) return alert('请输入文本');
 
+    // 准备UI元素
+    const progressArea = document.getElementById('batchProgressArea');
+    const progressFill = document.getElementById('batchProgressFill');
+    const progressText = document.getElementById('batchProgressText');
+    const progressPercent = document.getElementById('batchProgressPercent');
+    const completeArea = document.getElementById('batchCompleteArea');
+    const parseBtn = document.getElementById('batchParseBtn');
+    const cancelBtn = document.getElementById('batchCancelBtn');
+
+    // 重置完成区域（隐藏）
+    completeArea.style.display = 'none';
+
+    // 禁用按钮，显示进度条
+    parseBtn.disabled = true;
+    cancelBtn.disabled = true;
+    progressArea.style.display = 'block';
+    progressFill.style.width = '0%';
+    progressText.innerText = '正在预处理数据...';
+    progressPercent.innerText = '0%';
+
+    // 分割行
+    raw = raw.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+    let lines = raw.split('\n').filter(l => l.trim());
+    const totalLines = lines.length;
+    if (totalLines === 0) {
+        alert('没有有效数据');
+        parseBtn.disabled = false;
+        cancelBtn.disabled = false;
+        progressArea.style.display = 'none';
+        return;
+    }
+
+    // 预解析所有合法卡片
+    let validCards = [];
+    let skipped = 0;
+    let skippedReasons = [];
+
+    for (let idx = 0; idx < lines.length; idx++) {
+        let cl = lines[idx].trim();
+        if (cl.endsWith('。')) cl = cl.slice(0, -1).trim();
+        if (!cl) {
+            skipped++;
+            continue;
+        }
+
+        const parts = cl.split('||').map(s => s.trim());
+        let rawTitle = parts[0] || '';
+        rawTitle = rawTitle.replace(/^\d+\.\s*/, '');  // 去除序号
+
+        if (!rawTitle) {
+            skipped++;
+            if (skippedReasons.length < 5) skippedReasons.push(`第 ${idx+1} 行: 标题为空`);
+            continue;
+        }
+
+        const desc   = parts[1] || '';
+        const url    = parts[2] || '';
+        const author = parts[3] || '';
+        const ver    = parts[4] || '';
+        const tagsStr = parts[5] || '';
+
+        if (!url) {
+            skipped++;
+            if (skippedReasons.length < 5) skippedReasons.push(`第 ${idx+1} 行: URL 为空`);
+            continue;
+        }
+
+        const tags = tagsStr ? tagsStr.split(',').map(s => s.trim()).filter(s => s) : [];
+        const finalDesc = desc || url;
+
+        validCards.push({
+            title: rawTitle,
+            description: finalDesc,
+            author: author,
+            tags: tags,
+            version: ver || undefined,
+            stats: {
+                downloads: '—',
+                updated: getCurrentTimeString()
+            },
+            type: 'link',
+            url: url
+        });
+    }
+
+    const totalValid = validCards.length;
+    if (totalValid === 0) {
+        let msg = `⚠️ 没有有效的卡片数据。\n跳过 ${skipped} 行。`;
+        if (skippedReasons.length) msg += `\n原因示例：${skippedReasons.slice(0,3).join('；')}`;
+        alert(msg);
+        parseBtn.disabled = false;
+        cancelBtn.disabled = false;
+        progressArea.style.display = 'none';
+        return;
+    }
+
+    // 分批添加卡片（每批15个，避免UI卡死）
+    const BATCH_SIZE = 15;
+    let currentIndex = 0;
+    let addedCount = 0;
+
+    function addNextBatch() {
+        const end = Math.min(currentIndex + BATCH_SIZE, totalValid);
+        for (let i = currentIndex; i < end; i++) {
+            groupsData[currentGroupIndex].items.push(validCards[i]);
+            addedCount++;
+        }
+        currentIndex = end;
+
+        const percent = Math.floor((currentIndex / totalValid) * 100);
+        progressFill.style.width = percent + '%';
+        progressText.innerText = `正在添加卡片 ${currentIndex} / ${totalValid}`;
+        progressPercent.innerText = percent + '%';
+
+        if (currentIndex < totalValid) {
+            setTimeout(addNextBatch, 10); // 让步，保持响应
+        } else {
+            // 全部完成
+            saveDataToStorage();
+            renderAll();        // 刷新主界面
+            currentPage = 1;
+
+            // 显示完成按钮
+            completeArea.style.display = 'block';
+
+            // 构建完成提示消息
+            let msg = `✅ 成功添加 ${addedCount} 个卡片。`;
+            if (skipped > 0) {
+                msg += `\n⏭️ 跳过 ${skipped} 行无效数据。`;
+                if (skippedReasons.length) {
+                    msg += `\n\n原因示例（前${Math.min(5,skippedReasons.length)}条）：\n${skippedReasons.slice(0,5).join('\n')}`;
+                }
+            }
+            alert(msg);
+
+            // 注意：不在这里恢复按钮，因为等待用户点“完成并关闭”
+            // 但取消按钮仍需禁用，直到关闭
+        }
+    }
+
+    // 启动分批添加
+    addNextBatch();
+
+    // 绑定完成按钮（确保只绑定一次，避免重复）
+    const completeBtn = document.getElementById('batchCompleteBtn');
+    const oldHandler = completeBtn._handler;
+    if (oldHandler) completeBtn.removeEventListener('click', oldHandler);
+    const newHandler = function() {
+        // 清空文本输入区，清除历史
+        batchTextarea.value = '';
+        // 重置文件信息显示
+        const fileInfoSpan = document.getElementById('batchFileInfo');
+        if (fileInfoSpan) fileInfoSpan.innerText = '';
+        // 关闭模态框
+        batchModal.classList.remove('active');
+        // 恢复按钮状态
+        parseBtn.disabled = false;
+        cancelBtn.disabled = false;
+        // 隐藏进度条和完成区域
+        progressArea.style.display = 'none';
+        completeArea.style.display = 'none';
+        // 清理绑定
+        completeBtn.removeEventListener('click', newHandler);
+    };
+    completeBtn.addEventListener('click', newHandler);
+    completeBtn._handler = newHandler;
+}
 function openTextView(title,content){textModalTitle.innerText=title;textContentDisplay.innerHTML=escapeHtml(content).replace(/\n/g,'<br>');textModal.classList.add('active')}
 function closeTextModal(){textModal.classList.remove('active')}
 function openMindmap(gi,ci){const card=groupsData[gi].items[ci];mindmapTitle.innerText=`思维导图 - ${card.title}`;const cont=card.mindmap||'';if(isAdminMode){mindmapEditor.style.display='block';mindmapSave.style.display='inline-block';mindmapEditor.value=cont}else{mindmapEditor.style.display='none';mindmapSave.style.display='none'}renderMindmap(cont||'# 思维导图\n请编辑内容');mindmapModal.classList.add('active');currentMindmapCard={gi,ci}}
@@ -1612,7 +1775,7 @@ document.getElementById('mindmapFileInput')?.addEventListener('change', async (e
     }
     e.target.value = '';
 });
-// 批量导入：本地文件选择
+// 批量导入：本地文件选择（优化显示，不再显示长文件名列表）
 const batchFileBtn = document.getElementById('batchFileBtn');
 const batchFileInput = document.getElementById('batchFileInput');
 const batchFileInfo = document.getElementById('batchFileInfo');
@@ -1627,7 +1790,10 @@ if (batchFileBtn && batchFileInput) {
             allText += text + '\n';
         }
         document.getElementById('batchTextarea').value = allText.trim();
-        batchFileInfo.textContent = `✅ 已加载 ${files.length} 个文件：${files.map(f => f.name).join(', ')}`;
+        // 简洁显示：只显示文件数量，完整列表通过 title 属性展示（鼠标悬浮）
+        const fileNames = files.map(f => f.name).join(', ');
+        batchFileInfo.innerText = `✅ 已加载 ${files.length} 个文件`;
+        batchFileInfo.title = fileNames;   // 鼠标悬停显示完整列表
     });
 }
 // 在页面初始化时运行一次
