@@ -1929,11 +1929,26 @@ function populateModrinthVersionFilter() {
 
 async function start() {
     loadVersions();
-    await loadInitialData();
+    
+    // ===== 新增：恢复管理员模式状态 =====
+    if (sessionStorage.getItem('adminModeAuto') === 'true') {
+        useIndexedDB = true;
+        isAdminMode = true;
+        // 显示管理员工具栏和分组添加按钮
+        const adminToolbar = document.getElementById('adminToolbar');
+        const addGroupBtn = document.getElementById('addGroupBtn');
+        if (adminToolbar) adminToolbar.style.display = 'flex';
+        if (addGroupBtn) addGroupBtn.style.display = 'inline-flex';
+        updateSortOptions();  // 更新排序选项（如重复卡片选项）
+        // 注意：此时 renderAll 还没有调用，但 UI 状态已经设置为管理员模式
+    }
+    // ===================================
+    
+    await loadInitialData();   // 根据 useIndexedDB 决定从哪加载数据
     loadSortPreference();
     initBackground();
     buildPalette();
-    updateSortOptions();
+    updateSortOptions();       // 再次确保排序选项正确
     // renderAll 已在 loadInitialData 中调用，无需重复
 }
 })();
