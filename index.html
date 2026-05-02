@@ -427,7 +427,8 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 </aside><div class="main">
 <div class="header-area"><div class="title-section"><h1 id="dynamicTitle">🎮 Minecraft 模组</h1><p>自定义壁纸 | 版本筛选 | 标签 | 重复管理</p></div><div class="action-buttons"><div id="dataSourceIndicator" class="data-source-indicator" style="display:none"><span class="indicator-dot"></span><span id="sourceText">云端</span></div><button class="palette-btn" id="paletteBtn">🎨 调色板</button><button class="admin-btn" id="adminBtn">🔐 管理员</button></div>
 <div class="palette-panel" id="palettePanel"><div style="font-weight:600;color:#eef2ff;margin-bottom:8px">🎨 纯色预设</div><div class="color-grid" id="solidColorGrid"></div><div style="font-weight:600;color:#eef2ff;margin:8px 0">🌈 渐变预设</div><div class="color-grid" id="gradientColorGrid"></div><div style="display:flex;flex-direction:column;gap:4px"><label style="font-size:0.7rem;color:#ddd">🔮 玻璃透明度 <span id="opacityValue">0.35</span></label><input type="range" id="opacitySlider" min="0.1" max="0.5" step="0.01" value="0.35"></div><div style="display:flex;flex-direction:column;gap:4px"><label style="font-size:0.7rem;color:#ddd">🔄 渐变角度 <span id="angleValue">135°</span></label><input type="range" id="angleSlider" min="0" max="360" step="1" value="135"></div><div><div style="font-weight:600;color:#eef2ff;margin-bottom:8px">🖼️ 自定义壁纸</div><input type="file" id="bgUpload" accept="image/*" style="display:none"><button class="cancel-btn" id="uploadBgBtn" style="padding:6px 12px;font-size:0.7rem">📁 选择图片</button><button class="cancel-btn" id="resetBgBtn" style="padding:6px 12px;font-size:0.7rem;background:rgba(255,80,80,0.3);margin-left:8px">🗑️ 重置</button></div></div></div>
-<div id="adminToolbar" class="admin-toolbar" style="display:none"><label style="margin-left:8px;display:flex;align-items:center;gap:4px"><input type="checkbox" id="selectAllCheckbox"> 全选</label><button id="deleteSelectedBtn">🗑️ 删除所选</button><button id="addCardBtn">➕ 新增卡片</button><button id="resetDataBtn">🔄 重置默认</button><button id="clearCacheBtn">🗑️ 清除缓存</button><button id="clearTransCacheBtn">🗑️ 清空翻译缓存</button> <button id="exportDataBtn">📤 导出JSON</button><button id="layoutSettingsBtn">🎛️ 布局</button><button id="exitAdminBtn">🔒 退出</button></div>
+<div id="adminToolbar" class="admin-toolbar" style="display:none"><label style="margin-left:8px;display:flex;align-items:center;gap:4px"><input type="checkbox" id="selectAllCheckbox"> 全选</label><button id="deleteSelectedBtn">🗑️ 删除所选</button><button id="addCardBtn">➕ 新增卡片</button><button id="resetDataBtn">🔄 重置默认</button><button id="clearCacheBtn">🗑️ 清除缓存</button><button id="clearTransCacheBtn">🗑️ 清空翻译缓存</button> <button id="exportDataBtn">📤 导出JSON</button><button id="exportLetterFilesBtn">📀 导出字母文件(ZIP)</button><button id="letterImportBtn">📚 分字母导入(IndexedDB)</button>
+<button id="exportDiyBtn">📦 导出DIY配置</button><button id="layoutSettingsBtn">🎛️ 布局</button><button id="exitAdminBtn">🔒 退出</button></div>
 <div class="search-bar">
     <div class="search-wrapper">
         <input type="text" class="search-box" id="searchInput" placeholder="🔍 实时过滤 · 标题/描述/作者/标签/版本">
@@ -550,6 +551,156 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 <div id="mindmapModal" class="modal"><div class="modal-content" style="width:90%;max-width:800px;height:75vh;display:flex;flex-direction:column"><h3 id="mindmapTitle">思维导图</h3><textarea id="mindmapEditor" style="width:100%;height:160px;font-family:monospace;display:none"></textarea><div id="mindmapContainer" style="flex:1;min-height:250px;overflow:auto"></div><div class="modal-buttons"><button class="cancel-btn" id="mindmapCancel">关闭</button><button class="save-btn" id="mindmapSave" style="display:none">保存</button></div></div></div>
 
 <script>
+// ========== 1. 首字母提取 ==========
+function getTitleFirstLetter(title) {
+    if (!title || typeof title !== 'string') return 'other';
+    const first = title.trim().charAt(0).toLowerCase();
+    if (first >= 'a' && first <= 'z') return first;
+    return 'other';
+}
+
+// ========== 2. IndexedDB 管理 ==========
+const DB_NAME = 'CardImportDB';
+const STORE_NAME = 'pendingCards';
+let DB_VERSION = 1;
+
+function openImportDB() {
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.open(DB_NAME, DB_VERSION);
+        request.onerror = () => reject(request.error);
+        request.onsuccess = () => resolve(request.result);
+        request.onupgradeneeded = (e) => {
+            const db = e.target.result;
+            if (!db.objectStoreNames.contains(STORE_NAME)) {
+                db.createObjectStore(STORE_NAME, { autoIncrement: true });
+            }
+        };
+    });
+}
+
+async function bulkAddToIndexedDB(cardsArray) {
+    const db = await openImportDB();
+    const tx = db.transaction(STORE_NAME, 'readwrite');
+    const store = tx.objectStore(STORE_NAME);
+    for (const card of cardsArray) {
+        store.add(card);
+    }
+    return new Promise((resolve, reject) => {
+        tx.oncomplete = resolve;
+        tx.onerror = () => reject(tx.error);
+    });
+}
+
+async function processAllCardsFromIndexedDB(batchSize = 300, processor) {
+    const db = await openImportDB();
+    const store = db.transaction(STORE_NAME).objectStore(STORE_NAME);
+    let cursor = await store.openCursor();
+    let batch = [];
+    while (cursor) {
+        batch.push(cursor.value);
+        if (batch.length >= batchSize) {
+            await processor(batch);
+            batch = [];
+        }
+        cursor = await cursor.continue();
+    }
+    if (batch.length) await processor(batch);
+    // 清空 store
+    const clearTx = db.transaction(STORE_NAME, 'readwrite');
+    clearTx.objectStore(STORE_NAME).clear();
+    await clearTx.complete;
+}
+
+// 清除 IndexedDB 全部数据（用于重置）
+async function clearImportDB() {
+    const db = await openImportDB();
+    const tx = db.transaction(STORE_NAME, 'readwrite');
+    tx.objectStore(STORE_NAME).clear();
+    await tx.complete;
+}
+
+// ========== 3. 保存扁平卡片数组到字母文件（使用 localStorage 模拟云端） ==========
+// 实际部署时可将这些数据通过 fetch PUT 到服务器对应文件
+async function saveFlatCardsToLetterFiles(flatCards) {
+    const map = new Map(); // 'a'..'z' + 'other'
+    for (const card of flatCards) {
+        const letter = getTitleFirstLetter(card.title);
+        if (!map.has(letter)) map.set(letter, []);
+        map.get(letter).push(card);
+    }
+    // 处理 other -> data.json
+    const otherCards = map.get('other') || [];
+    localStorage.setItem('letter_data_other', JSON.stringify(otherCards));
+    // 处理 a-z
+    for (let i = 97; i <= 122; i++) {
+        const letter = String.fromCharCode(i);
+        const cards = map.get(letter) || [];
+        localStorage.setItem(`letter_data_${letter}`, JSON.stringify(cards));
+    }
+    // 注意：实际与云端同步时需要调用上传 API
+    console.log('已保存到 localStorage（模拟字母文件）');
+}
+
+async function loadAllLetterFiles() {
+    let allCards = [];
+    // 读取 data.json（非字母开头）
+    try {
+        const res = await fetch('data.json?_=' + Date.now());
+        if (res.ok) {
+            const cards = await res.json();
+            allCards.push(...cards);
+        }
+    } catch(e) { /* 文件不存在则忽略 */ }
+    // 读取 a.json ~ z.json
+    for (let i = 97; i <= 122; i++) {
+        const letter = String.fromCharCode(i);
+        try {
+            const res = await fetch(`${letter}.json?_=` + Date.now());
+            if (res.ok) {
+                const cards = await res.json();
+                allCards.push(...cards);
+            }
+        } catch(e) { /* 文件不存在则忽略 */ }
+    }
+    return allCards;
+}
+
+// ========== 4. 从批量文本解析出卡片对象数组（无 groupId，之后添加） ==========
+function parseLinesToCardObjects(linesArray) {
+    const validCards = [];
+    for (let idx = 0; idx < linesArray.length; idx++) {
+        let line = linesArray[idx].trim();
+        if (!line) continue;
+        // 可选句号结尾
+        if (line.endsWith('。')) line = line.slice(0, -1).trim();
+        const parts = line.split('||').map(s => s.trim());
+        let rawTitle = parts[0] || '';
+        rawTitle = rawTitle.replace(/^\d+\.\s*/, ''); // 去除序号
+        if (!rawTitle) continue;
+        const desc = parts[1] || '';
+        const url = parts[2] || '';
+        if (!url) continue;
+        const author = parts[3] || '';
+        const ver = parts[4] || '';
+        const tagsStr = parts[5] || '';
+        const tags = tagsStr ? tagsStr.split(',').map(s => s.trim()).filter(s => s) : [];
+        validCards.push({
+            title: rawTitle,
+            description: desc || url,
+            author: author,
+            tags: tags,
+            version: ver || undefined,
+            stats: {
+                downloads: '—',
+                updated: getCurrentTimeString()
+            },
+            type: 'link',
+            url: url
+        });
+    }
+    return validCards;
+}
+
 (function(){
 const DEFAULT_GROUPS_DATA=[{groupName:"🎮 Minecraft 模组",items:[{title:"Fabric API",url:"https://modrinth.com/mod/fabric-api",description:"轻量级API",author:"Modmuss50",tags:["Fabric","库"],stats:{downloads:"162M",updated:"4天前"},version:"0.16.5",type:"link"},{title:"Sodium",url:"https://modrinth.com/mod/sodium",description:"渲染优化",author:"CaffeineMC",tags:["Fabric","NeoForge","优化"],stats:{downloads:"147M",updated:"1小时前"},version:"0.5.8",type:"link"},{title:"Iris Shaders",url:"https://modrinth.com/mod/iris",description:"光影加载器",author:"coderbot",tags:["Fabric","NeoForge","视觉"],stats:{downloads:"115M",updated:"3周前"},version:"1.7.0",type:"link"}]},{groupName:"🌐 常用开发网站",items:[{title:"GitHub",url:"https://github.com",description:"开发者平台",author:"GitHub",tags:["开发"],type:"link"}]},{groupName:"📺 视频&学习",items:[{title:"哔哩哔哩",url:"https://www.bilibili.com",description:"弹幕视频网",author:"Bilibili",tags:["视频"],type:"link"}]}];
 const ALL_KNOWN_VERSIONS=["1.14","1.14.1","1.14.2","1.14.3","1.14.4","1.15","1.15.1","1.15.2","1.16","1.16.1","1.16.2","1.16.3","1.16.4","1.16.5","1.17","1.17.1","1.18","1.18.1","1.18.2","1.19","1.19.1","1.19.2","1.19.3","1.19.4","1.20","1.20.1","1.20.2","1.20.3","1.20.4","1.20.5","1.20.6","1.21","1.21.1","1.21.2","1.21.3","1.21.4","1.21.5","1.21.11"];
@@ -693,34 +844,54 @@ function resetWallpaper(){
     else{ const st=localStorage.getItem('glass_custom_theme'); if(st) setTheme(st); else setTheme('white'); }
 }
 
-async function loadInitialData(){
-    const autoAdmin=sessionStorage.getItem('adminModeAuto')==='true';
-    if(autoAdmin){
-        const s=localStorage.getItem('editable_groups_data');
-        if(s)try{const p=JSON.parse(s);if(p&&Array.isArray(p)){groupsData=p;currentDataSource='local';hasLocalChanges=true;updateDataSourceIndicator();renderAll();return}}catch(e){}
-        groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));currentDataSource='default';hasLocalChanges=false;updateDataSourceIndicator();renderAll();
-        return;
-    }
-    let cloud=false;
-    try{
-        const r=await fetch('data.json?v='+Date.now());
-        if(r.ok){
-            const json=await r.json();
-            if(json.groups&&Array.isArray(json.groups)){
-                groupsData=json.groups;
-                if(json.versions&&Array.isArray(json.versions)) versions=json.versions;
-                saveVersions();
-                currentDataSource='cloud';hasLocalChanges=false;
-                localStorage.setItem('editable_groups_data',JSON.stringify(groupsData));
-                cloud=true;
-            }
+async function loadInitialData() {
+    // 1. 尝试加载 diy.json（杂项）
+    let diy = null;
+    try {
+        const res = await fetch('diy.json?_=' + Date.now());
+        if (res.ok) diy = await res.json();
+    } catch(e) { console.warn('无法加载 diy.json，使用默认配置'); }
+
+    if (diy && diy.groups && Array.isArray(diy.groups)) {
+        // 恢复分组（items 暂时为空）
+        groupsData = diy.groups.map(g => ({ groupName: g.groupName, items: [] }));
+        // 恢复版本列表
+        if (diy.versions) versions = diy.versions;
+        // 恢复其他配置（主题，透明度等）
+        if (diy.theme) setTheme(diy.theme);
+        if (diy.glassOpacity) document.body.style.setProperty('--glass-opacity', diy.glassOpacity);
+        if (diy.gradientAngle) document.body.style.setProperty('--gradient-angle', diy.gradientAngle + 'deg');
+        if (diy.layout) {
+            document.documentElement.style.setProperty('--card-radius', diy.layout.radius);
+            document.documentElement.style.setProperty('--card-padding', diy.layout.padding);
+            document.documentElement.style.setProperty('--card-gap', diy.layout.gap);
         }
-    }catch(e){}
-    if(!cloud){
-        const s=localStorage.getItem('editable_groups_data');
-        if(s)try{groupsData=JSON.parse(s);currentDataSource='local';}catch(e){groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));currentDataSource='default';}
-        else{groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));currentDataSource='default';}
+        currentDataSource = 'cloud';
+        hasLocalChanges = false;
+    } else {
+        // 默认分组
+        groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
+        versions = [...DEFAULT_VERSIONS];
+        currentDataSource = 'default';
     }
+
+    // 2. 加载所有字母文件中的卡片（从 localStorage 模拟，实际可从云端 fetch）
+    let allCards = await loadAllLetterFiles();
+    // 3. 按 groupId 分配到 groupsData
+    for (const card of allCards) {
+        const gid = card.groupId;
+        if (groupsData[gid]) {
+            groupsData[gid].items.push(card);
+        } else {
+            // 如果 groupId 无效，默认丢到第一个分组
+            groupsData[0]?.items.push(card);
+        }
+    }
+
+    // 4. 保存到本地可编辑存储（便于管理员编辑）
+    localStorage.setItem('editable_groups_data', JSON.stringify(groupsData));
+    saveVersions();
+
     updateDataSourceIndicator();
     renderAll();
 }
@@ -745,41 +916,190 @@ function getFavicon(url){return`https://www.google.com/s2/favicons?domain=${enco
 function getCurrentTimeString(){const n=new Date();return`${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')} ${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}:${String(n.getSeconds()).padStart(2,'0')}`}
 
 async function saveDataToStorage() {
-    const dataToSave = { groupsData, versions };
-    const serialized = JSON.stringify(dataToSave);
-    const sizeMB = new Blob([serialized]).size / (1024 * 1024);
-    const thresholdMB = 4; // 超过 4MB 自动切换 IndexedDB
-
-    try {
-        if (sizeMB >= thresholdMB) {
-            await saveToIndexedDB(dataToSave);
-            localStorage.removeItem('editable_groups_data');
-            localStorage.setItem('storage_backend', 'idb');
-            console.log(`数据大小 ${sizeMB.toFixed(2)}MB，已存入 IndexedDB`);
-        } else {
-            localStorage.setItem('editable_groups_data', serialized);
-            localStorage.setItem('storage_backend', 'local');
-            console.log(`数据大小 ${sizeMB.toFixed(2)}MB，已存入 localStorage`);
-        }
-        hasLocalChanges = true;
-        if (currentDataSource !== 'cloud') currentDataSource = 'local';
-        updateDataSourceIndicator();
-        renderTagList();
-    } catch (err) {
-        console.error('保存失败', err);
-        if (err.name === 'QuotaExceededError') {
-            alert('存储空间不足！请尝试清空缓存或导出数据后重置。');
-            exportData();
-        } else {
-            alert('保存失败：' + err.message);
-        }
-    }
+    const serialized = JSON.stringify({ groupsData, versions });
+    localStorage.setItem('editable_groups_data', serialized);
+    hasLocalChanges = true;
+    if (currentDataSource !== 'cloud') currentDataSource = 'local';
+    updateDataSourceIndicator();
+    renderTagList();
 }
 function updateDataSourceIndicator(){const c=document.getElementById('dataSourceIndicator'),d=c?.querySelector('.indicator-dot'),t=document.getElementById('sourceText');if(!c)return;c.style.display='flex';if(hasLocalChanges){d.className='indicator-dot local';t.innerText='本地草稿'}else if(currentDataSource==='cloud'){d.className='indicator-dot cloud';t.innerText='云端'}else if(currentDataSource==='local'){d.className='indicator-dot local';t.innerText='本地缓存'}else{d.className='indicator-dot default';t.innerText='默认数据'}}
 
 function parseVersionRange(input) { const range = input.trim(); if (!range.includes('-')) return [range]; const [start, end] = range.split('-').map(v => v.trim()); if (!start || !end) return [range]; const filtered = ALL_KNOWN_VERSIONS.filter(v => v >= start && v <= end); return filtered.length ? filtered : [range]; }
 function addVersionFromInput(input) { const parts = input.split(',').map(v => v.trim()).filter(v => v); let added = 0; parts.forEach(part => { const candidates = parseVersionRange(part); candidates.forEach(v => { if (!versions.includes(v)) { versions.push(v); added++; } }); }); if (added) { versions.sort((a, b) => b.localeCompare(a, undefined, { numeric: true })); saveVersions(); renderVersionList(); } }
 if (addVersionBtn) addVersionBtn.addEventListener('click', () => { const inp = prompt('输入版本或范围（如 1.20-1.21 或 1.16.5）：'); if (inp && inp.trim()) addVersionFromInput(inp); });
+
+// 分字母导入按钮
+document.getElementById('letterImportBtn')?.addEventListener('click', () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.multiple = true;
+    input.accept = '.txt,.csv,.json,.md';
+    input.onchange = async (e) => {
+        const files = Array.from(e.target.files);
+        let allLines = [];
+        for (const file of files) {
+            const text = await file.text();
+            const lines = text.split(/\r?\n/);
+            allLines.push(...lines);
+        }
+        const cards = parseLinesToCardObjects(allLines);
+        if (cards.length === 0) {
+            alert('没有有效的卡片数据');
+            return;
+        }
+        // 先询问用户这些卡片应归属哪个分组？
+        const groupOptions = groupsData.map((g, idx) => `${idx}: ${g.groupName}`).join('\n');
+        const groupIdx = parseInt(prompt(`选择分组 (0-${groupsData.length-1}):\n${groupOptions}`, '0'));
+        if (isNaN(groupIdx) || groupIdx < 0 || groupIdx >= groupsData.length) {
+            alert('无效分组');
+            return;
+        }
+        // 为每张卡片添加 groupId
+        for (const card of cards) card.groupId = groupIdx;
+        
+        // 存入 IndexedDB
+        await bulkAddToIndexedDB(cards);
+        alert(`已将 ${cards.length} 张卡片存入 IndexedDB，开始后台分拣...`);
+        
+        // 显示进度条（复用 batchProgressArea 元素，可单独设置 ID）
+        showLetterImportProgress();
+        
+        // 启动分拣
+        await startLetterSorting();
+    };
+    input.click();
+});
+
+async function startLetterSorting() {
+    const flatCards = [];
+    await processAllCardsFromIndexedDB(400, async (batch) => {
+        flatCards.push(...batch);
+        // 实时更新进度（可选）
+        // 更新 UI 进度条
+        // updateImportProgress(percent);
+    });
+    // 合并现有数据：现有 groupsData 中的卡片也要保留
+    const existingCards = [];
+    for (let gid = 0; gid < groupsData.length; gid++) {
+        for (const item of groupsData[gid].items) {
+            const copy = { ...item, groupId: gid };
+            existingCards.push(copy);
+        }
+    }
+    const allNewCards = [...existingCards, ...flatCards];
+    // 按首字母分文件保存
+    await saveFlatCardsToLetterFiles(allNewCards);
+    // 重新加载数据
+    await loadInitialData(); // 重新初始化，会从字母文件恢复完整 groupsData
+    renderAll();
+    hideLetterImportProgress();
+    alert('分拣完成！所有卡片已按首字母分类存储。');
+}
+
+function showLetterImportProgress() {
+    // 复用或创建一个新进度条
+    let bar = document.getElementById('letterImportProgress');
+    if (!bar) {
+        const div = document.createElement('div');
+        div.id = 'letterImportProgress';
+        div.style.cssText = 'position:fixed; top:20px; right:20px; background:rgba(0,0,0,0.7); padding:15px; border-radius:12px; z-index:10000; min-width:250px;';
+        div.innerHTML = `
+            <div style="color:white; margin-bottom:8px;">📀 正在分拣导入...</div>
+            <div style="background:#333; border-radius:10px;"><div id="letterProgressFill" style="width:0%; height:8px; background:#10b981; border-radius:10px;"></div></div>
+            <div id="letterProgressPercent" style="color:#ccc; font-size:12px; margin-top:5px;">0%</div>
+        `;
+        document.body.appendChild(div);
+    }
+    bar.style.display = 'block';
+}
+function updateImportProgress(percent) {
+    const fill = document.getElementById('letterProgressFill');
+    const text = document.getElementById('letterProgressPercent');
+    if (fill) fill.style.width = percent + '%';
+    if (text) text.innerText = percent + '%';
+}
+function hideLetterImportProgress() {
+    const bar = document.getElementById('letterImportProgress');
+    if (bar) bar.style.display = 'none';
+}
+
+document.getElementById('exportDiyBtn')?.addEventListener('click', () => {
+    const diy = {
+        groups: groupsData.map(g => ({ groupName: g.groupName, items: [] })), // 只导出结构，不导卡片
+        versions: versions,
+        layout: {
+            radius: getComputedStyle(document.documentElement).getPropertyValue('--card-radius').trim(),
+            padding: getComputedStyle(document.documentElement).getPropertyValue('--card-padding').trim(),
+            gap: getComputedStyle(document.documentElement).getPropertyValue('--card-gap').trim(),
+        },
+        theme: document.body.getAttribute('data-theme'),
+        glassOpacity: document.body.style.getPropertyValue('--glass-opacity') || '0.35',
+        gradientAngle: document.body.style.getPropertyValue('--gradient-angle') || '135deg',
+    };
+    const blob = new Blob([JSON.stringify(diy, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'diy.json';
+    a.click();
+    URL.revokeObjectURL(url);
+});
+
+// 需要先引入 JSZip（在 head 中添加）
+// <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+document.getElementById('exportLetterFilesBtn')?.addEventListener('click', async () => {
+    // 1. 将当前 groupsData 展平为带 groupId 的数组
+    const flatCards = [];
+    for (let gid = 0; gid < groupsData.length; gid++) {
+        for (const item of groupsData[gid].items) {
+            flatCards.push({ ...item, groupId: gid });
+        }
+    }
+    // 2. 按首字母分组
+    const map = new Map();
+    for (const card of flatCards) {
+        const letter = getTitleFirstLetter(card.title);
+        if (!map.has(letter)) map.set(letter, []);
+        map.get(letter).push(card);
+    }
+    // 3. 构建文件对象
+    const files = {};
+    files['data.json'] = JSON.stringify(map.get('other') || [], null, 2);
+    for (let i = 97; i <= 122; i++) {
+        const letter = String.fromCharCode(i);
+        files[`${letter}.json`] = JSON.stringify(map.get(letter) || [], null, 2);
+    }
+    // 可选：也备份 diy.json
+    const diy = {
+        groups: groupsData.map(g => ({ groupName: g.groupName, items: [] })),
+        versions: versions,
+        layout: {
+            radius: getComputedStyle(document.documentElement).getPropertyValue('--card-radius').trim(),
+            padding: getComputedStyle(document.documentElement).getPropertyValue('--card-padding').trim(),
+            gap: getComputedStyle(document.documentElement).getPropertyValue('--card-gap').trim(),
+        },
+        theme: document.body.getAttribute('data-theme'),
+        glassOpacity: document.body.style.getPropertyValue('--glass-opacity') || '0.35',
+        gradientAngle: document.body.style.getPropertyValue('--gradient-angle') || '135deg',
+    };
+    files['diy.json'] = JSON.stringify(diy, null, 2);
+
+    // 4. 打包 ZIP
+    const zip = new JSZip();
+    for (const [name, content] of Object.entries(files)) {
+        zip.file(name, content);
+    }
+    const blob = await zip.generateAsync({ type: 'blob' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `cards_export_${new Date().toISOString().slice(0,19)}.zip`;
+    a.click();
+    URL.revokeObjectURL(url);
+    alert('✅ 已生成 ZIP，请解压后将所有 JSON 文件上传到你的云端仓库根目录');
+});
 
 function renderVersionList(){ 
     if(!versionListContainer)return; 
@@ -988,7 +1308,23 @@ function parseBatchText() {
     let raw = batchTextarea.value.trim();
     if (!raw) return alert('请输入文本');
 
-    // 准备UI元素
+    // ========== 新增：大数据量自动切换 ==========
+    const lineCount = raw.split(/\r?\n/).filter(l => l.trim()).length;
+    const THRESHOLD = 500;
+    if (lineCount > THRESHOLD) {
+        const useLetter = confirm(`检测到 ${lineCount} 行数据，直接添加可能卡死。\n是否使用「分字母导入(IndexedDB)」？（推荐）\n点“确定”切换，点“取消”继续普通添加。`);
+        if (useLetter) {
+            const letterBtn = document.getElementById('letterImportBtn');
+            if (letterBtn) {
+                letterBtn.click();
+                batchModal.classList.remove('active');
+            } else {
+                alert('页面未升级分字母导入功能，请先完成相关代码部署。');
+            }
+            return;
+        }
+    }
+    // ========== 原有逻辑继续 ==========
     const progressArea = document.getElementById('batchProgressArea');
     const progressFill = document.getElementById('batchProgressFill');
     const progressText = document.getElementById('batchProgressText');
@@ -997,10 +1333,7 @@ function parseBatchText() {
     const parseBtn = document.getElementById('batchParseBtn');
     const cancelBtn = document.getElementById('batchCancelBtn');
 
-    // 重置完成区域（隐藏）
     completeArea.style.display = 'none';
-
-    // 禁用按钮，显示进度条
     parseBtn.disabled = true;
     cancelBtn.disabled = true;
     progressArea.style.display = 'block';
@@ -1008,7 +1341,6 @@ function parseBatchText() {
     progressText.innerText = '正在预处理数据...';
     progressPercent.innerText = '0%';
 
-    // 分割行
     raw = raw.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
     let lines = raw.split('\n').filter(l => l.trim());
     const totalLines = lines.length;
@@ -1020,7 +1352,6 @@ function parseBatchText() {
         return;
     }
 
-    // 预解析所有合法卡片
     let validCards = [];
     let skipped = 0;
     let skippedReasons = [];
@@ -1035,7 +1366,7 @@ function parseBatchText() {
 
         const parts = cl.split('||').map(s => s.trim());
         let rawTitle = parts[0] || '';
-        rawTitle = rawTitle.replace(/^\d+\.\s*/, '');  // 去除序号
+        rawTitle = rawTitle.replace(/^\d+\.\s*/, '');
 
         if (!rawTitle) {
             skipped++;
@@ -1084,7 +1415,6 @@ function parseBatchText() {
         return;
     }
 
-    // 分批添加卡片（每批15个，避免UI卡死）
     const BATCH_SIZE = 15;
     let currentIndex = 0;
     let addedCount = 0;
@@ -1103,17 +1433,13 @@ function parseBatchText() {
         progressPercent.innerText = percent + '%';
 
         if (currentIndex < totalValid) {
-            setTimeout(addNextBatch, 10); // 让步，保持响应
+            setTimeout(addNextBatch, 10);
         } else {
-            // 全部完成
             saveDataToStorage();
-            renderAll();        // 刷新主界面
+            renderAll();
             currentPage = 1;
-
-            // 显示完成按钮
             completeArea.style.display = 'block';
 
-            // 构建完成提示消息
             let msg = `✅ 成功添加 ${addedCount} 个卡片。`;
             if (skipped > 0) {
                 msg += `\n⏭️ 跳过 ${skipped} 行无效数据。`;
@@ -1122,39 +1448,31 @@ function parseBatchText() {
                 }
             }
             alert(msg);
-
-            // 注意：不在这里恢复按钮，因为等待用户点“完成并关闭”
-            // 但取消按钮仍需禁用，直到关闭
         }
     }
 
-    // 启动分批添加
     addNextBatch();
 
-    // 绑定完成按钮（确保只绑定一次，避免重复）
     const completeBtn = document.getElementById('batchCompleteBtn');
-    const oldHandler = completeBtn._handler;
-    if (oldHandler) completeBtn.removeEventListener('click', oldHandler);
-    const newHandler = function() {
-        // 清空文本输入区，清除历史
-        batchTextarea.value = '';
-        // 重置文件信息显示
-        const fileInfoSpan = document.getElementById('batchFileInfo');
-        if (fileInfoSpan) fileInfoSpan.innerText = '';
-        // 关闭模态框
-        batchModal.classList.remove('active');
-        // 恢复按钮状态
-        parseBtn.disabled = false;
-        cancelBtn.disabled = false;
-        // 隐藏进度条和完成区域
-        progressArea.style.display = 'none';
-        completeArea.style.display = 'none';
-        // 清理绑定
-        completeBtn.removeEventListener('click', newHandler);
-    };
-    completeBtn.addEventListener('click', newHandler);
-    completeBtn._handler = newHandler;
+    if (completeBtn) {
+        const oldHandler = completeBtn._handler;
+        if (oldHandler) completeBtn.removeEventListener('click', oldHandler);
+        const newHandler = function() {
+            batchTextarea.value = '';
+            const fileInfoSpan = document.getElementById('batchFileInfo');
+            if (fileInfoSpan) fileInfoSpan.innerText = '';
+            batchModal.classList.remove('active');
+            parseBtn.disabled = false;
+            cancelBtn.disabled = false;
+            progressArea.style.display = 'none';
+            completeArea.style.display = 'none';
+            completeBtn.removeEventListener('click', newHandler);
+        };
+        completeBtn.addEventListener('click', newHandler);
+        completeBtn._handler = newHandler;
+    }
 }
+
 function openTextView(title,content){textModalTitle.innerText=title;textContentDisplay.innerHTML=escapeHtml(content).replace(/\n/g,'<br>');textModal.classList.add('active')}
 function closeTextModal(){textModal.classList.remove('active')}
 function openMindmap(gi,ci){const card=groupsData[gi].items[ci];mindmapTitle.innerText=`思维导图 - ${card.title}`;const cont=card.mindmap||'';if(isAdminMode){mindmapEditor.style.display='block';mindmapSave.style.display='inline-block';mindmapEditor.value=cont}else{mindmapEditor.style.display='none';mindmapSave.style.display='none'}renderMindmap(cont||'# 思维导图\n请编辑内容');mindmapModal.classList.add('active');currentMindmapCard={gi,ci}}
