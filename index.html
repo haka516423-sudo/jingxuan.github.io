@@ -3,6 +3,8 @@
 <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.15.4/dist/browser/index.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.4"></script>
 <script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.4"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 </script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.15.4/style.css"><style>
 *{margin:0;padding:0;box-sizing:border-box}html{overflow-y:auto;scrollbar-gutter:stable;scrollbar-width:thin;scrollbar-color:var(--scrollbar-thumb) transparent}
 html::-webkit-scrollbar{width:6px}html::-webkit-scrollbar-track{background:transparent}html::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:10px}
@@ -413,7 +415,18 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 .save-btn{background:#10b981;color:white;padding:8px 18px;border-radius:30px;border:none;cursor:pointer}.cancel-btn{background:#6b7280;color:white;padding:8px 18px;border-radius:30px;border:none;cursor:pointer}
 .layout-panel{position:fixed;bottom:20px;right:20px;width:300px;background:rgba(20,22,27,0.95);border-radius:18px;padding:14px;z-index:1000;display:none;flex-direction:column;gap:10px;border:1px solid rgba(255,255,255,0.2)}.layout-panel.show{display:flex}
 @media(max-width:780px){body{padding:12px}.app{flex-direction:column}.sidebar{position:static;width:100%;height:auto}.groups-scroll-area,.version-section,.tag-section{max-height:200px}}
-</style></head><body data-theme="white"><div id="wallpaper-layer"></div><div class="app"><aside class="sidebar" id="sidebarContainer">
+</style></head><body data-theme="white"><div id="wallpaper-layer"></div>
+<!-- 分片加载进度条（初始隐藏） -->
+<div id="shardProgressBar" style="position:fixed; top:0; left:0; width:100%; background:rgba(0,0,0,0.7); z-index:10000; display:none; padding:8px 16px; color:white; font-size:0.8rem; backdrop-filter:blur(8px);">
+    <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+        <span>📦 正在加载数据分片...</span>
+        <span id="shardProgressPercent">0%</span>
+    </div>
+    <div style="background:rgba(255,255,255,0.3); border-radius:20px; overflow:hidden;">
+        <div id="shardProgressFill" style="width:0%; height:6px; background:var(--theme-accent); transition:width 0.1s;"></div>
+    </div>
+</div>
+<div class="app"><aside class="sidebar" id="sidebarContainer">
 <div class="sidebar-header">📁 分组导航<button id="addGroupBtn" class="sidebar-mini-btn">➕</button></div>
 <div class="groups-scroll-area mask-bottom" id="groupsScrollArea"><div class="group-buttons" id="groupButtonsContainer"></div></div>
 <div class="version-section">
@@ -427,7 +440,7 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
 </aside><div class="main">
 <div class="header-area"><div class="title-section"><h1 id="dynamicTitle">🎮 Minecraft 模组</h1><p>自定义壁纸 | 版本筛选 | 标签 | 重复管理</p></div><div class="action-buttons"><div id="dataSourceIndicator" class="data-source-indicator" style="display:none"><span class="indicator-dot"></span><span id="sourceText">云端</span></div><button class="palette-btn" id="paletteBtn">🎨 调色板</button><button class="admin-btn" id="adminBtn">🔐 管理员</button></div>
 <div class="palette-panel" id="palettePanel"><div style="font-weight:600;color:#eef2ff;margin-bottom:8px">🎨 纯色预设</div><div class="color-grid" id="solidColorGrid"></div><div style="font-weight:600;color:#eef2ff;margin:8px 0">🌈 渐变预设</div><div class="color-grid" id="gradientColorGrid"></div><div style="display:flex;flex-direction:column;gap:4px"><label style="font-size:0.7rem;color:#ddd">🔮 玻璃透明度 <span id="opacityValue">0.35</span></label><input type="range" id="opacitySlider" min="0.1" max="0.5" step="0.01" value="0.35"></div><div style="display:flex;flex-direction:column;gap:4px"><label style="font-size:0.7rem;color:#ddd">🔄 渐变角度 <span id="angleValue">135°</span></label><input type="range" id="angleSlider" min="0" max="360" step="1" value="135"></div><div><div style="font-weight:600;color:#eef2ff;margin-bottom:8px">🖼️ 自定义壁纸</div><input type="file" id="bgUpload" accept="image/*" style="display:none"><button class="cancel-btn" id="uploadBgBtn" style="padding:6px 12px;font-size:0.7rem">📁 选择图片</button><button class="cancel-btn" id="resetBgBtn" style="padding:6px 12px;font-size:0.7rem;background:rgba(255,80,80,0.3);margin-left:8px">🗑️ 重置</button></div></div></div>
-<div id="adminToolbar" class="admin-toolbar" style="display:none"><label style="margin-left:8px;display:flex;align-items:center;gap:4px"><input type="checkbox" id="selectAllCheckbox"> 全选</label><button id="deleteSelectedBtn">🗑️ 删除所选</button><button id="addCardBtn">➕ 新增卡片</button><button id="resetDataBtn">🔄 重置默认</button><button id="clearCacheBtn">🗑️ 清除缓存</button><button id="clearTransCacheBtn">🗑️ 清空翻译缓存</button> <button id="exportDataBtn">📤 导出JSON</button><button id="layoutSettingsBtn">🎛️ 布局</button><button id="exitAdminBtn">🔒 退出</button></div>
+<div id="adminToolbar" class="admin-toolbar" style="display:none"><label style="margin-left:8px;display:flex;align-items:center;gap:4px"><input type="checkbox" id="selectAllCheckbox"> 全选</label><button id="deleteSelectedBtn">🗑️ 删除所选</button><button id="addCardBtn">➕ 新增卡片</button><button id="resetDataBtn">🔄 重置默认</button><button id="clearCacheBtn">🗑️ 清除缓存</button><button id="clearTransCacheBtn">🗑️ 清空翻译缓存</button> <button id="exportDataBtn">📤 导出JSON</button><button id="exportShardsBtn">📦 导出分片 ZIP</button><button id="layoutSettingsBtn">🎛️ 布局</button><button id="exitAdminBtn">🔒 退出</button></div>
 <div class="search-bar">
     <div class="search-wrapper">
         <input type="text" class="search-box" id="searchInput" placeholder="🔍 实时过滤 · 标题/描述/作者/标签/版本">
@@ -556,8 +569,133 @@ const ALL_KNOWN_VERSIONS=["1.14","1.14.1","1.14.2","1.14.3","1.14.4","1.15","1.1
 const DEFAULT_VERSIONS=["1.21.11","1.21.1","1.20.6","1.20.1","1.19.4","1.19.2","1.18.2","1.16.5"];
 let groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA)),currentGroupIndex=0,currentKeyword='',isAdminMode=!1,editingCardInfo=null,currentDataSource='default',isListView=!1,hasLocalChanges=!1,currentSort='title-asc',currentTagFilter=null,currentVersionFilter=null,currentCardType='link',currentPage=1,pageSize=50;
 let versions=[...DEFAULT_VERSIONS];
+
+// 新增：分片加载相关变量
+let loadedLetters = new Set();           // 已加载的字母
+let loadingPromise = null;               // 防止重复加载
+let totalLetters = 26;                   // a-z
+let currentLoadProgress = 0;             // 已加载数量
+
+// 获取标题首字母（英文/中文拼音首字母）
+function getFirstLetter(title) {
+    if (!title) return '#';
+    const firstChar = title.charAt(0).toUpperCase();
+    // 英文字母直接返回
+    if (/[A-Z]/.test(firstChar)) return firstChar;
+    // 中文拼音首字母：使用简单的映射表（仅演示常用音节，完整版需引入拼音库）
+    // 为了通用，这里调用一个外部轻量库或使用在线转换，但为了教程简洁，我们假定服务端已按首字母分好文件
+    // 前端只根据文件名请求，不需要实时计算首字母，因此本函数在分片加载中实际上不用。
+    // 这里保留占位，实际分片加载时直接按文件名请求，不依赖此函数。
+    return firstChar;
+}
+
+// 加载单个字母的 JSON 文件
+async function loadLetterJson(letter) {
+    const url = `fenzu/${letter}.json`;
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            console.warn(`加载 ${url} 失败: ${response.status}`);
+            return null;
+        }
+        const data = await response.json();
+        return data;
+    } catch (err) {
+        console.warn(`请求 ${url} 出错`, err);
+        return null;
+    }
+}
+
 function saveVersions(){localStorage.setItem('mc_versions',JSON.stringify(versions))}
 function loadVersions(){const s=localStorage.getItem('mc_versions');if(s)try{versions=JSON.parse(s);if(!Array.isArray(versions)) versions=[];versions=versions.filter(v=>/^\d+(\.\d+)*$/.test(v));if(!versions.length) versions=[...DEFAULT_VERSIONS];}catch(e){versions=[...DEFAULT_VERSIONS]}}
+
+/**
+ * 根据标题首字母（英文，中文拼音首字母）获取字母键
+ * 简易版：只处理英文 A-Z，中文统一归到 '#', 你可以自定义映射表
+ */
+function getLetterKeyForTitle(title) {
+    if (!title) return '#';
+    const firstChar = title.charAt(0).toUpperCase();
+    if (/[A-Z]/.test(firstChar)) return firstChar;
+    // 如果是中文，可以调用拼音库（如 pinyin-pro）转换，但为了简洁，这里直接归为 '#'
+    // 推荐服务端预处理分类，前端无需实时转换
+    return '#';
+}
+
+/**
+ * 将当前 groupsData 拆分为按字母分组的 JSON 对象
+ * 返回 { letter -> { groups, versions } }
+ */
+function splitGroupsIntoShards() {
+    const shardMap = new Map(); // letter -> { groupsMap, itemsCount }
+    // 初始化 26 个字母 + 其他
+    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    letters.forEach(l => shardMap.set(l, new Map()));
+    shardMap.set('#', new Map()); // 存放非英文开头
+
+    // 遍历所有分组和卡片
+    for (const group of groupsData) {
+        const groupName = group.groupName;
+        for (const card of group.items) {
+            const letter = getLetterKeyForTitle(card.title);
+            const groupMap = shardMap.get(letter);
+            if (!groupMap.has(groupName)) {
+                groupMap.set(groupName, []);
+            }
+            groupMap.get(groupName).push(card);
+        }
+    }
+
+    // 构建每个字母对应的完整 groups 结构
+    const result = {};
+    for (const [letter, groupMap] of shardMap.entries()) {
+        const groupsArray = [];
+        for (const [groupName, items] of groupMap.entries()) {
+            if (items.length > 0) {
+                groupsArray.push({ groupName, items });
+            }
+        }
+        if (groupsArray.length > 0) {
+            result[letter] = {
+                groups: groupsArray,
+                versions: versions  // 保持全局版本列表一致
+            };
+        } else {
+            // 如果没有卡片，可以不生成文件，或生成空 groups 数组
+            result[letter] = {
+                groups: [],
+                versions: versions
+            };
+        }
+    }
+    return result;
+}
+
+/**
+ * 导出分片 ZIP 文件
+ */
+async function exportShardsToZip() {
+    const shards = splitGroupsIntoShards();
+    const zip = new JSZip();
+    const folder = zip.folder('fenzu');
+    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+
+    for (const letter of letters) {
+        const data = shards[letter] || { groups: [], versions: versions };
+        const jsonStr = JSON.stringify(data, null, 2);
+        folder.file(`${letter.toLowerCase()}.json`, jsonStr);
+    }
+    // 处理非字母开头的卡片（可选，也可以合并到某个字母）
+    if (shards['#'] && shards['#'].groups.length > 0) {
+        const otherData = shards['#'];
+        folder.file('other.json', JSON.stringify(otherData, null, 2));
+    }
+
+    const content = await zip.generateAsync({ type: 'blob' });
+    saveAs(content, `fenzu_shards_${new Date().toISOString().slice(0,19)}.zip`);
+    alert('分片 ZIP 已生成，请解压后将 fenzu 文件夹上传到服务器根目录。');
+}
+document.getElementById('exportShardsBtn')?.addEventListener('click', exportShardsToZip);
 
 /* 智能对比度 */
 function updateContrastColors(backgroundColorHex){
@@ -693,38 +831,154 @@ function resetWallpaper(){
     else{ const st=localStorage.getItem('glass_custom_theme'); if(st) setTheme(st); else setTheme('white'); }
 }
 
-async function loadInitialData(){
-    const autoAdmin=sessionStorage.getItem('adminModeAuto')==='true';
-    if(autoAdmin){
-        const s=localStorage.getItem('editable_groups_data');
-        if(s)try{const p=JSON.parse(s);if(p&&Array.isArray(p)){groupsData=p;currentDataSource='local';hasLocalChanges=true;updateDataSourceIndicator();renderAll();return}}catch(e){}
-        groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));currentDataSource='default';hasLocalChanges=false;updateDataSourceIndicator();renderAll();
-        return;
-    }
-    let cloud=false;
-    try{
-        const r=await fetch('data.json?v='+Date.now());
-        if(r.ok){
-            const json=await r.json();
-            if(json.groups&&Array.isArray(json.groups)){
-                groupsData=json.groups;
-                if(json.versions&&Array.isArray(json.versions)) versions=json.versions;
-                saveVersions();
-                currentDataSource='cloud';hasLocalChanges=false;
-                localStorage.setItem('editable_groups_data',JSON.stringify(groupsData));
-                cloud=true;
+/**
+ * 分批加载所有字母 JSON 文件（a.json ~ z.json 以及 other.json）
+ * @param {Function} onProgress 进度回调 (loadedCount, totalCount) totalCount = 27 (26个字母 + other)
+ * @returns {Promise<{groupsData: Array, versions: Array}>}
+ */
+async function loadAllShardedData(onProgress) {
+    const letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
+    const loadedGroupsMap = new Map();      // 分组名 -> items数组
+    const versionsSet = new Set();
+
+    // 1. 加载 a-z 共 26 个文件
+    for (let i = 0; i < letters.length; i++) {
+        const letter = letters[i];
+        const data = await loadLetterJson(letter);
+        if (data && data.groups && Array.isArray(data.groups)) {
+            mergeGroups(loadedGroupsMap, data.groups);
+            if (data.versions && Array.isArray(data.versions)) {
+                data.versions.forEach(v => versionsSet.add(v));
             }
         }
-    }catch(e){}
-    if(!cloud){
-        const s=localStorage.getItem('editable_groups_data');
-        if(s)try{groupsData=JSON.parse(s);currentDataSource='local';}catch(e){groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));currentDataSource='default';}
-        else{groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));currentDataSource='default';}
+        if (onProgress) onProgress(i + 1, 27); // 总进度 27（26字母 + other）
+        await new Promise(r => setTimeout(r, 10));
     }
-    updateDataSourceIndicator();
-    renderAll();
+
+    // 2. 加载 other.json（存放非英文字母开头的卡片）
+    const otherData = await loadLetterJson('other');
+    if (otherData && otherData.groups && Array.isArray(otherData.groups)) {
+        mergeGroups(loadedGroupsMap, otherData.groups);
+        if (otherData.versions && Array.isArray(otherData.versions)) {
+            otherData.versions.forEach(v => versionsSet.add(v));
+        }
+    }
+    if (onProgress) onProgress(27, 27);
+
+    // 3. 将 Map 转为 groupsData 数组
+    const newGroupsData = [];
+    for (const [groupName, items] of loadedGroupsMap.entries()) {
+        newGroupsData.push({ groupName, items });
+    }
+
+    // 4. 版本排序（降序）
+    const newVersions = Array.from(versionsSet).sort((a, b) => b.localeCompare(a, undefined, { numeric: true }));
+
+    return { groupsData: newGroupsData, versions: newVersions };
 }
 
+// 辅助函数：合并分组数据
+function mergeGroups(targetMap, groupsArray) {
+    for (const group of groupsArray) {
+        const groupName = group.groupName;
+        if (!targetMap.has(groupName)) {
+            targetMap.set(groupName, []);
+        }
+        const existingItems = targetMap.get(groupName);
+        if (group.items && Array.isArray(group.items)) {
+            existingItems.push(...group.items);
+        }
+    }
+}
+
+// 辅助函数：合并分组数据
+function mergeGroups(targetMap, groupsArray) {
+    for (const group of groupsArray) {
+        const groupName = group.groupName;
+        if (!targetMap.has(groupName)) {
+            targetMap.set(groupName, []);
+        }
+        const existingItems = targetMap.get(groupName);
+        if (group.items && Array.isArray(group.items)) {
+            existingItems.push(...group.items);
+        }
+    }
+}
+async function loadInitialData() {
+    // 1. 首先检查是否有管理员自动模式（从 sessionStorage 恢复）
+    const autoAdmin = sessionStorage.getItem('adminModeAuto') === 'true';
+    if (autoAdmin) {
+        // 如果之前处于管理员模式，尝试从 localStorage 读取快照（可能是用户编辑过的数据）
+        const localSnapshot = localStorage.getItem('editable_groups_data');
+        if (localSnapshot) {
+            try {
+                const parsed = JSON.parse(localSnapshot);
+                if (parsed && Array.isArray(parsed)) {
+                    groupsData = parsed;
+                    currentDataSource = 'local';
+                    hasLocalChanges = true;
+                    updateDataSourceIndicator();
+                    renderAll();
+                    return;
+                }
+            } catch (e) {}
+        }
+        // 没有本地快照，则从分片加载
+        await loadFromShardsAndRender();
+        return;
+    }
+
+    // 2. 非管理员模式：优先从 IndexedDB 缓存读取（如果有）
+    const cached = await loadFromIndexedDB();  // 需要实现该函数，见下文步骤2.5
+    if (cached && cached.groupsData && cached.groupsData.length) {
+        groupsData = cached.groupsData;
+        versions = cached.versions || [...DEFAULT_VERSIONS];
+        currentDataSource = 'local';
+        hasLocalChanges = true;
+        updateDataSourceIndicator();
+        renderAll();
+        return;
+    }
+
+    // 3. 没有缓存则从分片 JSON 加载
+    await loadFromShardsAndRender();
+}
+
+// 抽离分片加载并渲染的逻辑
+async function loadFromShardsAndRender() {
+    // 显示进度条
+    const progressBar = document.getElementById('shardProgressBar');
+    const progressFill = document.getElementById('shardProgressFill');
+    const progressPercent = document.getElementById('shardProgressPercent');
+    if (progressBar) progressBar.style.display = 'block';
+
+    try {
+        const { groupsData: newGroups, versions: newVersions } = await loadAllShardedData((loaded, total) => {
+            const percent = Math.floor((loaded / total) * 100);
+            if (progressFill) progressFill.style.width = percent + '%';
+            if (progressPercent) progressPercent.innerText = percent + '%';
+        });
+        groupsData = newGroups;
+        versions = newVersions.length ? newVersions : [...DEFAULT_VERSIONS];
+        currentDataSource = 'cloud';   // 表示来自远端分片
+        hasLocalChanges = false;
+        // 保存到 IndexedDB 作为缓存
+        await saveToIndexedDB({ groupsData, versions });
+        updateDataSourceIndicator();
+        renderAll();
+    } catch (err) {
+        console.error('分片加载失败', err);
+        // 降级使用默认数据
+        groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
+        versions = [...DEFAULT_VERSIONS];
+        currentDataSource = 'default';
+        hasLocalChanges = false;
+        renderAll();
+        alert('数据加载失败，已使用默认数据。请检查网络或 fenzu/ 文件夹是否存在。');
+    } finally {
+        if (progressBar) progressBar.style.display = 'none';
+    }
+}
 const groupContainer=document.getElementById('groupButtonsContainer'),cardsContainer=document.getElementById('cardsContainer'),searchInput=document.getElementById('searchInput'),dynamicTitle=document.getElementById('dynamicTitle'),versionListContainer=document.getElementById('versionListContainer'),addVersionBtn=document.getElementById('addVersionBtn'),tagListContainer=document.getElementById('tagListContainer'),clearTagFilterBtn=document.getElementById('clearTagFilterBtn'),sortSelect=document.getElementById('sortSelect'),viewToggleBtn=document.getElementById('viewToggleBtn'),pageSizeSelect=document.getElementById('pageSizeSelect'),duplicateToolbarContainer=document.getElementById('duplicateToolbarContainer'),paginationContainerTop=document.getElementById('paginationContainerTop'),paginationContainerBottom=document.getElementById('paginationContainerBottom');
 const modal=document.getElementById('cardModal'),cardTitleInput=document.getElementById('cardTitle'),cardDescInput=document.getElementById('cardDesc'),cardUrlInput=document.getElementById('cardUrl'),cardTextContent=document.getElementById('cardTextContent'),cardMindmapContent=document.getElementById('cardMindmapContent'),cardAuthorInput=document.getElementById('cardAuthor'),cardTagsInput=document.getElementById('cardTags'),cardVersionInput=document.getElementById('cardVersion'),cardDownloadsInput=document.getElementById('cardDownloads'),modalCancel=document.getElementById('modalCancel'),modalSave=document.getElementById('modalSave');
 const typeBtns=document.querySelectorAll('#typeBtnGroup .type-btn');
@@ -746,33 +1000,16 @@ function getCurrentTimeString(){const n=new Date();return`${n.getFullYear()}-${S
 
 async function saveDataToStorage() {
     const dataToSave = { groupsData, versions };
-    const serialized = JSON.stringify(dataToSave);
-    const sizeMB = new Blob([serialized]).size / (1024 * 1024);
-    const thresholdMB = 4; // 超过 4MB 自动切换 IndexedDB
-
     try {
-        if (sizeMB >= thresholdMB) {
-            await saveToIndexedDB(dataToSave);
-            localStorage.removeItem('editable_groups_data');
-            localStorage.setItem('storage_backend', 'idb');
-            console.log(`数据大小 ${sizeMB.toFixed(2)}MB，已存入 IndexedDB`);
-        } else {
-            localStorage.setItem('editable_groups_data', serialized);
-            localStorage.setItem('storage_backend', 'local');
-            console.log(`数据大小 ${sizeMB.toFixed(2)}MB，已存入 localStorage`);
-        }
+        await saveToIndexedDB(dataToSave);
         hasLocalChanges = true;
         if (currentDataSource !== 'cloud') currentDataSource = 'local';
         updateDataSourceIndicator();
         renderTagList();
+        console.log('数据已保存到 IndexedDB 缓存');
     } catch (err) {
         console.error('保存失败', err);
-        if (err.name === 'QuotaExceededError') {
-            alert('存储空间不足！请尝试清空缓存或导出数据后重置。');
-            exportData();
-        } else {
-            alert('保存失败：' + err.message);
-        }
+        alert('保存失败：' + err.message);
     }
 }
 function updateDataSourceIndicator(){const c=document.getElementById('dataSourceIndicator'),d=c?.querySelector('.indicator-dot'),t=document.getElementById('sourceText');if(!c)return;c.style.display='flex';if(hasLocalChanges){d.className='indicator-dot local';t.innerText='本地草稿'}else if(currentDataSource==='cloud'){d.className='indicator-dot cloud';t.innerText='云端'}else if(currentDataSource==='local'){d.className='indicator-dot local';t.innerText='本地缓存'}else{d.className='indicator-dot default';t.innerText='默认数据'}}
@@ -983,6 +1220,61 @@ function closeModal(){modal.classList.remove('active');editingCardInfo=null}
 typeBtns.forEach(b=>{b.addEventListener('click',()=>{setActiveTypeBtn(b.dataset.type);linkContentArea.style.display=currentCardType==='link'?'block':'none';textContentArea.style.display=currentCardType==='text'?'block':'none';mindmapContentArea.style.display=currentCardType==='mindmap'?'block':'none';})});
 
 function renderDynamicTags(){if(!dynamicTagList)return;const allTags=extractAllTags().map(([tag])=>tag);const fixed=['Fabric','Forge','NeoForge'];const other=allTags.filter(t=>!fixed.includes(t));dynamicTagList.innerHTML=other.length?other.map(t=>`<button type="button" class="tag-btn" data-tag="${escapeHtml(t)}">${escapeHtml(t)}</button>`).join(''):'<span style="font-size:0.7rem;color:#aaa">暂无其他标签</span>';document.querySelectorAll('.dynamic-tag-list-wrap .tag-btn').forEach(b=>b.addEventListener('click',function(){const t=this.dataset.tag,cv=cardTagsInput.value.trim();cardTagsInput.value=cv?cv.split(',').map(s=>s.trim()).includes(t)?cv:cv+', '+t:t}))}
+
+// IndexedDB 封装
+const DB_NAME = 'JingxuanCache';
+const DB_VERSION = 1;
+const STORE_NAME = 'shardCache';
+
+function openCacheDB() {
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.open(DB_NAME, DB_VERSION);
+        request.onupgradeneeded = (e) => {
+            const db = e.target.result;
+            if (!db.objectStoreNames.contains(STORE_NAME)) {
+                db.createObjectStore(STORE_NAME);
+            }
+        };
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(request.error);
+    });
+}
+
+async function saveToIndexedDB(data) {
+    const db = await openCacheDB();
+    return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE_NAME, 'readwrite');
+        const store = tx.objectStore(STORE_NAME);
+        const req = store.put(data, 'main');
+        req.onsuccess = () => resolve();
+        req.onerror = () => reject(req.error);
+        tx.oncomplete = () => db.close();
+    });
+}
+
+async function loadFromIndexedDB() {
+    const db = await openCacheDB();
+    return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE_NAME, 'readonly');
+        const store = tx.objectStore(STORE_NAME);
+        const req = store.get('main');
+        req.onsuccess = () => resolve(req.result || null);
+        req.onerror = () => reject(req.error);
+        tx.oncomplete = () => db.close();
+    });
+}
+
+async function clearIndexedDBCache() {
+    const db = await openCacheDB();
+    return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE_NAME, 'readwrite');
+        const store = tx.objectStore(STORE_NAME);
+        const req = store.clear();
+        req.onsuccess = () => resolve();
+        req.onerror = () => reject(req.error);
+        tx.oncomplete = () => db.close();
+    });
+}
 
 function parseBatchText() {
     let raw = batchTextarea.value.trim();
@@ -1202,7 +1494,15 @@ scrollAreas.forEach(el=>{if(el){el.addEventListener('scroll',()=>updateScrollGra
 function enableAdminMode(){isAdminMode=true;document.getElementById('adminToolbar').style.display='flex';document.getElementById('addGroupBtn').style.display='inline-flex';updateSortOptions();renderCards();renderGroupButtons();renderVersionList();sessionStorage.setItem('adminModeAuto','true')}
 function disableAdminMode(){isAdminMode=false;document.getElementById('adminToolbar').style.display='none';document.getElementById('addGroupBtn').style.display='none';updateSortOptions();renderCards();renderGroupButtons();renderTagList();sessionStorage.removeItem('adminModeAuto');if(confirm('退出编辑模式，是否重新从云端加载最新数据？'))location.reload()}
 function checkAdminPassword(){const p=prompt('管理员密码：');if(p==='admin123')enableAdminMode();else alert('密码错误')}
-function clearAllCache(){if(confirm('清除所有本地缓存并刷新？')){['editable_groups_data','mc_versions','layout_settings','glass_custom_theme','glass_opacity','gradient_angle','custom_bg_image','custom_bg_color','listViewPreference','sortPreference'].forEach(k=>localStorage.removeItem(k));sessionStorage.removeItem('adminModeAuto');location.reload()}}
+
+async function clearAllCache() {
+    if (confirm('清除所有本地缓存并刷新？')) {
+        await clearIndexedDBCache();
+        localStorage.clear();
+        sessionStorage.removeItem('adminModeAuto');
+        location.reload();
+    }
+}
 function exportData() {
     const d = { groups: groupsData, versions: versions };
     
@@ -1235,8 +1535,21 @@ function exportData() {
     a.click();
     URL.revokeObjectURL(url);
 }
-function resetToDefault(){if(confirm('重置所有数据？')){groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));versions=[...DEFAULT_VERSIONS];saveVersions();saveDataToStorage();currentGroupIndex=0;currentKeyword='';currentTagFilter=null;currentVersionFilter=null;currentPage=1;if(searchInput)searchInput.value='';renderAll()}}
-
+async function resetToDefault() {
+    if (confirm('重置所有数据？')) {
+        groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
+        versions = [...DEFAULT_VERSIONS];
+        saveVersions();
+        await saveToIndexedDB({ groupsData, versions });
+        currentGroupIndex = 0;
+        currentKeyword = '';
+        currentTagFilter = null;
+        currentVersionFilter = null;
+        currentPage = 1;
+        if (searchInput) searchInput.value = '';
+        renderAll();
+    }
+}
 function updateLayout(){const rs=document.getElementById('radiusSlider'),ps=document.getElementById('paddingSlider'),gs=document.getElementById('gapSlider');if(!rs)return;['--card-radius',rs.value+'px','--card-padding',ps.value+'px','--card-gap',gs.value+'px'].forEach((v,i,a)=>{if(i%2===0)document.documentElement.style.setProperty(a[i],a[i+1])});['radiusVal',rs.value+'px','paddingVal',ps.value+'px','gapVal',gs.value+'px'].forEach((v,i,a)=>{if(i%2===0){const e=document.getElementById(a[i]);if(e)e.innerText=a[i+1]}});localStorage.setItem('layout_settings',JSON.stringify({radius:rs.value,padding:ps.value,gap:gs.value}))}
 function buildPalette(){const sg=document.getElementById('solidColorGrid'),gg=document.getElementById('gradientColorGrid');if(sg){const colors=["#eef2f8","#12151c","#fce9e6","#fef0e0","#fef9e0","#eaf4ea","#e0f2f5","#e3edfa","#f0e9fc","#ffe0f0","#d9e6f2","#f5e6d3"];sg.innerHTML='';colors.forEach(c=>{const d=document.createElement('div');d.className='color-swatch';d.style.backgroundColor=c;d.addEventListener('click',()=>{document.getElementById('wallpaper-layer').style.backgroundImage='';document.body.classList.remove('custom-bg');document.body.style.background=c;const tn=(parseInt(c.slice(1,3),16)*0.299+parseInt(c.slice(3,5),16)*0.587+parseInt(c.slice(5,7),16)*0.114)<128?'black':'white';setTheme(tn);localStorage.setItem('custom_bg_color',c);localStorage.removeItem('custom_bg_image')});sg.appendChild(d)})}if(gg){const grads=["linear-gradient(135deg,#ff9a9e,#fecfef)","linear-gradient(135deg,#a1c4fd,#c2e9fb)","linear-gradient(135deg,#2b5876,#4e4376)","linear-gradient(135deg,#fbc2eb,#a6c1ee)","linear-gradient(135deg,#b5d6a7,#9bbd8c)","linear-gradient(135deg,#1f1c2c,#2a2a4a)","linear-gradient(135deg,#ffe29a,#ffb7b2)","linear-gradient(135deg,#c7e9fb,#b6e0fe)"];gg.innerHTML='';grads.forEach((g,i)=>{const d=document.createElement('div');d.className='color-swatch';d.style.background=g;d.addEventListener('click',()=>{document.getElementById('wallpaper-layer').style.backgroundImage='';document.body.classList.remove('custom-bg');document.body.style.background='';setTheme(GRADIENT_THEMES[i]);['custom_bg_image','custom_bg_color'].forEach(k=>localStorage.removeItem(k))});gg.appendChild(d)})}}
 function initBackground(){const wl=document.getElementById('wallpaper-layer'),si=localStorage.getItem('custom_bg_image');if(si&&si.startsWith('data:image')){wl.style.backgroundImage=`url(${si})`;document.body.classList.add('custom-bg');analyzeImageBrightness(si);return}const sc=localStorage.getItem('custom_bg_color');if(sc){document.body.style.background=sc;updateContrastColors(sc);return}const st=localStorage.getItem('glass_custom_theme');if(st&&GRADIENT_THEMES.includes(st)) setTheme(st); else setTheme('white');}
