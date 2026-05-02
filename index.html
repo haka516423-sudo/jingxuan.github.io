@@ -1001,6 +1001,39 @@ async function saveToIndexedDB(data) {
     metaStore.put({ key: 'versions', value: JSON.stringify(data.versions) });
     return tx.complete;
 }
+async function saveDataToStorage() {
+    const dataToSave = { groupsData, versions };
+    const serialized = JSON.stringify(dataToSave);
+    const sizeMB = new Blob([serialized]).size / (1024 * 1024);
+    const thresholdMB = 4; // 超过 4MB 自动切换 IndexedDB
+
+    try {
+        if (sizeMB >= thresholdMB) {
+            await saveToIndexedDB(dataToSave);
+            localStorage.removeItem('editable_groups_data');
+            localStorage.setItem('storage_backend', 'idb');
+            console.log(`数据大小 ${sizeMB.toFixed(2)}MB，已存入 IndexedDB`);
+        } else {
+            localStorage.setItem('editable_groups_data', serialized);
+            localStorage.setItem('storage_backend', 'local');
+            console.log(`数据大小 ${sizeMB.toFixed(2)}MB，已存入 localStorage`);
+        }
+        hasLocalChanges = true;
+        if (currentDataSource !== 'cloud') currentDataSource = 'local';
+        updateDataSourceIndicator();
+        renderTagList();
+    } catch (err) {
+        console.error('保存失败', err);
+        if (err.name === 'QuotaExceededError') {
+            alert('存储空间不足！请尝试清空缓存或导出数据后重置。');
+            exportData();
+        } else {
+            alert('保存失败：' + err.message);
+        }
+    }
+}
+
+
 function updateDataSourceIndicator(){const c=document.getElementById('dataSourceIndicator'),d=c?.querySelector('.indicator-dot'),t=document.getElementById('sourceText');if(!c)return;c.style.display='flex';if(hasLocalChanges){d.className='indicator-dot local';t.innerText='本地草稿'}else if(currentDataSource==='cloud'){d.className='indicator-dot cloud';t.innerText='云端'}else if(currentDataSource==='local'){d.className='indicator-dot local';t.innerText='本地缓存'}else{d.className='indicator-dot default';t.innerText='默认数据'}}
 
 function parseVersionRange(input) { const range = input.trim(); if (!range.includes('-')) return [range]; const [start, end] = range.split('-').map(v => v.trim()); if (!start || !end) return [range]; const filtered = ALL_KNOWN_VERSIONS.filter(v => v >= start && v <= end); return filtered.length ? filtered : [range]; }
