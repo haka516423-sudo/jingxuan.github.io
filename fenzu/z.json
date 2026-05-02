@@ -1,0 +1,5143 @@
+{
+  "groups": [
+    {
+      "groupName": "🎮 Minecraft 模组",
+      "items": [
+        {
+          "title": "Zoomify (Zoom)(自定义缩放)",
+          "description": "高度可自定义的游戏视角缩放模组",
+          "author": "isxander",
+          "tags": [
+            "Quilt",
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.18-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zoomify"
+        },
+        {
+          "title": "Zeta(泽塔模块化前置库)",
+          "description": "模块化模组开发通用承载前置库，适配多版本多加载器",
+          "author": "Vazkii",
+          "tags": [
+            "Forge",
+            "NeoForge"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zeta"
+        },
+        {
+          "title": "Zume(缩放增强)",
+          "description": "由作者Nolij制作的功能完善的视角缩放模组",
+          "author": "Nolij",
+          "tags": [
+            "Forge",
+            "Fabric",
+            "实用工具",
+            "NeoForge"
+          ],
+          "version": "b1.7.3-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zume"
+        },
+        {
+          "title": "Zombie Awareness(僵尸智能感知)",
+          "description": "僵尸及部分亡灵生物AI强化，可通过气味、声音、光源追踪玩家",
+          "author": "Corosus",
+          "tags": [
+            "NeoForge",
+            "生物",
+            "冒险",
+            "Fabric",
+            "游戏机制",
+            "Forge"
+          ],
+          "version": "1.12.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-awareness"
+        },
+        {
+          "title": "Zenith(巅峰)",
+          "description": "附魔之巅Fabric移植版，修改并扩展大量系统",
+          "author": "TheWinABagel",
+          "tags": [
+            "冒险",
+            "Fabric",
+            "装备",
+            "游戏机制"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zenith"
+        },
+        {
+          "title": "Zenith Attributes(巅峰属性)",
+          "description": "添加属性和属性查看器，供巅峰模组使用",
+          "author": "TheWinABagel",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zenith-attributes"
+        },
+        {
+          "title": "Zombie Horse Spawn(僵尸马生成)",
+          "description": "允许僵尸马自然生成并搭载僵尸骑手，附带其他调整",
+          "author": "Serilum",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "生物",
+            "冒险",
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.16.5-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-horse-spawn"
+        },
+        {
+          "title": "Zipline(滑索)",
+          "description": "我的世界中的幸福工厂风格滑索",
+          "author": "Tomate0613",
+          "tags": [
+            "运输",
+            "Fabric",
+            "科技"
+          ],
+          "version": "1.20.1-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zipline"
+        },
+        {
+          "title": "ZeroCore(零核前置库)",
+          "description": "面向模组作者的通用前置库，重构多方块API、全新GUI系统、简化方块实体数据同步等核心功能",
+          "author": "ZeroNoRyouki",
+          "tags": [
+            "Neoforge",
+            "科技",
+            "实用",
+            "Forge",
+            "前置库"
+          ],
+          "version": "1.9.4-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zerocore"
+        },
+        {
+          "title": "Zetter — Painting Mod(自定义画作模组)",
+          "description": "内置绘图界面，可在我的世界中创作自定义画作并放置展示",
+          "author": "dantaeusb",
+          "tags": [
+            "装饰",
+            "游戏机制",
+            "Forge"
+          ],
+          "version": "1.16.5-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zetter-painting-mod"
+        },
+        {
+          "title": "Zombie Villagers From Spawner（刷怪笼僵尸村民回归）",
+          "description": "还原1.11版本前刷怪笼可生成僵尸村民的经典设定",
+          "author": "Serilum",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "生物",
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.16.5-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-villagers-from-spawner"
+        },
+        {
+          "title": "Zombies Reworked（僵尸族群重制）",
+          "description": "全面重做并强化原版僵尸族群生物特性与行为逻辑",
+          "author": "TheASEStefan",
+          "tags": [
+            "生物",
+            "冒险",
+            "实用模组",
+            "游戏机制",
+            "Forge",
+            "优化",
+            "趣味猎奇"
+          ],
+          "version": "1.19.2-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombies-reworked"
+        },
+        {
+          "title": "Zen(禅)",
+          "description": "Hypixel空岛服实用优化模组",
+          "author": "aurielyn",
+          "tags": [
+            "小游戏",
+            "Fabric",
+            "实用工具",
+            "游戏机制",
+            "Forge"
+          ],
+          "version": "1.8.9-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zenmod"
+        },
+        {
+          "title": "Zombie Proof Doors(防僵尸门)",
+          "description": "阻止僵尸瞄准并破坏木门",
+          "author": "Serilum",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "生物",
+            "Fabric",
+            "游戏机制",
+            "Forge"
+          ],
+          "version": "1.16.5-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-proof-doors"
+        },
+        {
+          "title": "Zigy's Player Animator API(齐吉玩家动画API)",
+          "description": "服务端播放玩家动画的API",
+          "author": "ZigyTheBird",
+          "tags": [
+            "Forge",
+            "Fabric",
+            "NeoForge",
+            "前置库"
+          ],
+          "version": "1.20-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/playeranimatorapi"
+        },
+        {
+          "title": "Zombies+(僵尸增强)",
+          "description": "添加更多原版风格的僵尸",
+          "author": "Paragon1",
+          "tags": [
+            "生物",
+            "冒险",
+            "Fabric",
+            "游戏机制",
+            "Forge"
+          ],
+          "version": "1.20-1.20.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombies-plus-frenzied-horde"
+        },
+        {
+          "title": "Zombie Variants(僵尸变种)",
+          "description": "新增15种僵尸变种，可在不同生物群系自然生成",
+          "author": "Lupin",
+          "tags": [
+            "NeoForge",
+            "生物",
+            "冒险",
+            "Fabric",
+            "装饰",
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.20.1-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-variants"
+        },
+        {
+          "title": "ZombieApocalypseAddon（僵尸末日附属）",
+          "description": "将世界变为僵尸末日；僵尸免疫阳光、玩家附近持续刷新、随时间变强，包含尸潮、血月、生物群系改动及四十余项配置，仅服务端可用无需客户端安装",
+          "author": "Riqqqque",
+          "tags": [
+            "NeoForge",
+            "冒险",
+            "实用",
+            "Forge",
+            "装备"
+          ],
+          "version": "1.18.2-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/apocolypseaddon"
+        },
+        {
+          "title": "Zombie Apocalypse Drops (僵尸末日额外掉落)",
+          "description": "为原版僵尸新增更多战利品掉落物，丰富生存收益",
+          "author": "PeteMC",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.20-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-apocalypse-drops"
+        },
+        {
+          "title": "ZoomX(简易缩放模组)",
+          "description": "轻量极简视角缩放模组，兼容原版及钠光影优化",
+          "author": "spunkyinsaan",
+          "tags": [
+            "实用",
+            "游戏机制",
+            "Forge",
+            "Fabric"
+          ],
+          "version": "1.21-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zoomx"
+        },
+        {
+          "title": "Zombie Horsemen(僵尸骑士)",
+          "description": "类似骷髅陷阱的僵尸骑士事件",
+          "author": "Sashiro",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "生物",
+            "冒险",
+            "Fabric",
+            "实用工具",
+            "游戏机制",
+            "数据包",
+            "Forge",
+            "性能优化",
+            "趣味恶搞"
+          ],
+          "version": "1.14.4-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-horsemen"
+        },
+        {
+          "title": "Zoom (游戏缩放视角)",
+          "description": "一键开启视角缩放，滚轮可调节缩放强度",
+          "author": "W7K",
+          "tags": [
+            "Quilt",
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.18-1.20.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zoom"
+        },
+        {
+          "title": "ZG Mobs (灾变魔物)",
+          "description": "受生命倍率模组腐化魔物启发，强化原版生物属性与特性",
+          "author": "Zetadrayzer",
+          "tags": [
+            "NeoForge",
+            "生物",
+            "冒险",
+            "Forge",
+            "魔法"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zg-mobs"
+        },
+        {
+          "title": "Zoomi(变焦)",
+          "description": "简易变焦模组",
+          "author": "Farbrisus",
+          "tags": [
+            "Fabric",
+            "实用工具"
+          ],
+          "version": "1.21-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zoomi"
+        },
+        {
+          "title": "zombie siege (僵尸围城枪械战利品)",
+          "description": "在战利品宝箱中随机生成枪械道具，适配模组战利品表",
+          "author": "DarthCreeper11",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-siege-(guns-in-minecraft-loot-chests)"
+        },
+        {
+          "title": "zombie siege (Content pack) (僵尸围城内容包)",
+          "description": "适配战争与僵尸末日整合包的道具与战利品表拓展内容包",
+          "author": "DarthCreeper11",
+          "tags": [
+            "锻造"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-siege-(content-pack)"
+        },
+        {
+          "title": "ZeroContact（战术护甲）",
+          "description": "为模组我的世界添加防弹板与战术护甲，搭配TACZ枪械模组带来独特近战体验",
+          "author": "TuDouNi92",
+          "tags": [
+            "Forge",
+            "装备",
+            "小游戏"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zerocontact"
+        },
+        {
+          "title": "Zombie Nightmare Expansions - Undead Horror Monsters (僵尸噩梦拓展：亡灵恐怖生物)",
+          "description": "新增多种造型精致、机制独特的诡异亡灵生物",
+          "author": "vllax",
+          "tags": [
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.19.2-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zoniex"
+        },
+        {
+          "title": "Zephyr (和风附魔宝石)",
+          "description": "为RPG系列模组添加天顶附魔词条与宝石系统",
+          "author": "muon-rw",
+          "tags": [
+            "Fabric、冒险、魔法"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zephyr-mod"
+        },
+        {
+          "title": "Zhipeiweidu(支配维度)",
+          "description": "专属私人维度，无自然生物生成，仅有单层地形方块，完美家园空间",
+          "author": "Yu0zhe513513",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zhipeiweidu"
+        },
+        {
+          "title": "Zoomglass（望远镜快捷使用）",
+          "description": "绑定按键一键快速启用望远镜",
+          "author": "werdei",
+          "tags": [
+            "Quilt",
+            "Fabric"
+          ],
+          "version": "1.18-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zoomglass"
+        },
+        {
+          "title": "Zombify (村民僵尸化保底)",
+          "description": "任意难度下村民被僵尸转化时不会死亡",
+          "author": "caoimhe",
+          "tags": [
+            "Fabric、实用"
+          ],
+          "version": "1.19-1.21.7",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombify"
+        },
+        {
+          "title": "Zombified Player - Kill Your Inner Zombie (玩家僵尸化)",
+          "description": "玩家死亡后生成自身僵尸复刻体",
+          "author": "PeteMC",
+          "tags": [
+            "Fabric",
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.19.2-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombified-player"
+        },
+        {
+          "title": "ZMusic Client (Z音乐客户端)",
+          "description": "我的世界跨平台游戏内音乐播放系统",
+          "author": "RealHeart",
+          "tags": [
+            "Forge",
+            "Fabric"
+          ],
+          "version": "1.12.2-1.20.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "httpsmodrinth.com/mod/zmusic-client"
+        },
+        {
+          "title": "Zeps' Extra Crops (额外农作物)",
+          "description": "新增多款特色种植农作物",
+          "author": "GideonHead",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "httpsmodrinth.com/mod/zeps-extra-crops"
+        },
+        {
+          "title": "Zoo and Wild Animals: Evolved（动物园野生动物进化）",
+          "description": "新增海量野生动物，可建造动物园展区、探索自然生态",
+          "author": "Mnesikos",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.16.5-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "httpsmodrinth.com/mod/zawa-evolved"
+        },
+        {
+          "title": "Zine（Zine前置库）",
+          "description": "Zine系列模组专用前置依赖库",
+          "author": "EightSidedSquare",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21.5-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zine"
+        },
+        {
+          "title": "ZoomX Smooth (平滑缩放)",
+          "description": "我的世界原版/钠光影适配的平滑视角缩放模组",
+          "author": "spunkyinsaan",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21.1-26.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zoomx-smooth"
+        },
+        {
+          "title": "Zombies More (更多僵尸)",
+          "description": "添加独特且有挑战性的僵尸种类与全新物品，贴合原版风格拓展玩法",
+          "author": "RandomCara7",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombies-more"
+        },
+        {
+          "title": "Zelda: Hyrule Terrors (塞尔达海拉鲁灾厄)",
+          "description": "加入塞尔达旷野之息与王国之泪风格盔甲、武器与生物",
+          "author": "Bandit-bytes",
+          "tags": [
+            "NeoForge",
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zelda-hyrule-terrors"
+        },
+        {
+          "title": "Zombie Plague 2 - Hardcore Zombie Apocalypse (僵尸瘟疫2硬核末日)",
+          "description": "大幅提升游戏难度，生成嗜血僵尸末日场景",
+          "author": "gltexture",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.7.10-1.7.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-plague-2-hardcore-zombie-apocalypse"
+        },
+        {
+          "title": "Zombie Apocalypse Core (僵尸末日核心)",
+          "description": "僵尸末日整合包必备核心，含天数统计、实体倍率、刷新规则、方块破坏等自定义功能",
+          "author": "rd342",
+          "tags": [
+            "NeoForge",
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zac"
+        },
+        {
+          "title": "Zombie Tactics 2 (僵尸战术2)",
+          "description": "强化僵尸AI，行为变得更加危险疯狂",
+          "author": "PICOPress",
+          "tags": [
+            "NeoForge",
+            "Fabric"
+          ],
+          "version": "1.21.1-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombietactics2"
+        },
+        {
+          "title": "Zombie Improvements (僵尸强化优化)",
+          "description": "优化僵尸首领、增援机制并修复若干BUG",
+          "author": "pajic",
+          "tags": [
+            "Fabric",
+            "NeoForge"
+          ],
+          "version": "1.21.1-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombieimprovements"
+        },
+        {
+          "title": "Zetter Gallery — Share Paintings（泽特画作分享）",
+          "description": "可将泽特绘画模组创作的作品分享给其他玩家",
+          "author": "dantaeusb",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.16.5-1.20.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zetter-gallery-share-paintings"
+        },
+        {
+          "title": "Ziplines: Rezipped! (索道滑索)",
+          "description": "致敬幸福工厂的我的世界滑索代步模组",
+          "author": "evanbones",
+          "tags": [
+            "Neoforge",
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.20.1-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ziplines-rezipped"
+        },
+        {
+          "title": "Zombie Infection (僵尸感染)",
+          "description": "僵尸不再直接击杀玩家，而是将玩家同化为僵尸",
+          "author": "spiderman31807",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-infection"
+        },
+        {
+          "title": "Zoe Isn't Cyberpunk (非赛博朋克模组)",
+          "description": "科幻载具、生物与玩法的轻度未来风模组",
+          "author": "v4mi",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zoe-isnt-cyberpunk"
+        },
+        {
+          "title": "ZenXArch's Zombie Apocalypse（禅创僵尸末日）",
+          "description": "数据驱动型实验性僵尸末日模组，自带自定义僵尸AI行为逻辑",
+          "author": "ZenXArch",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.20.2-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zenxarch-zombie-apocalypse"
+        },
+        {
+          "title": "Zxygo's Crystal Util（末地水晶辅助工具）",
+          "description": "帮助玩家了解末地水晶机制，测算不同站位受到的爆炸伤害数值",
+          "author": "Zxygo",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zxygo-crystal-util"
+        },
+        {
+          "title": "Zelda, Legend of the Master Sword (塞尔达大师剑原版)",
+          "description": "塞尔达天空之剑风格模组，探索解锁女神剑进化为大师剑",
+          "author": "Mezimaru",
+          "tags": [
+            "新生熔炉、冒险、熔炉、装备、魔法"
+          ],
+          "version": "1.19.2-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zelda-legend-of-the-master-sword"
+        },
+        {
+          "title": "Zoom-o-Matic (多功能缩放)",
+          "description": "简约可自定义的多按键缩放工具，支持三组快捷键、自定义缩放倍率与平滑镜头开关",
+          "author": "NicoIsLost",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.19.3-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zoom-o-matic"
+        },
+        {
+          "title": "Zxygo's Anchor Util (重生锚计算器)",
+          "description": "辅助了解重生锚机制，计算不同位置、护甲、附魔下的承受伤害数值",
+          "author": "Zxygo",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zxygo-anchor-util"
+        },
+        {
+          "title": "Zombie Invasion (僵尸入侵)",
+          "description": "抵御一波又一波僵尸攻势，小心被感染，生存挑战升级",
+          "author": "Diesse",
+          "tags": [
+            "NeoForge",
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.21-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie_invasion"
+        },
+        {
+          "title": "Zero Point Systems (零点物流系统)",
+          "description": "高端物流传输方案，高效灵活的物资运输模组",
+          "author": "G_Mungus",
+          "tags": [
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zps"
+        },
+        {
+          "title": "Zapinators (泰拉瑞亚射线武器)",
+          "description": "移植泰拉瑞亚经典射线武器至我的世界风格玩法",
+          "author": "Namefix",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "Fabric"
+          ],
+          "version": "1.21.1-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zapinators"
+        },
+        {
+          "title": "Zauber（秘术魔法）",
+          "description": "新增法术、法术台与法术书，研习秘术解锁专属能力",
+          "author": "Dev0Louis",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.20-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zauber"
+        },
+        {
+          "title": "Zombies Hates Light (僵尸厌光)",
+          "description": "僵尸会尝试摧毁玩家的光源方块",
+          "author": "nolifeking",
+          "tags": [
+            "NeoForge",
+            "生物",
+            "Fabric",
+            "游戏机制",
+            "Forge"
+          ],
+          "version": "1.20.1-26.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombies-hates-light"
+        },
+        {
+          "title": "Zoom (镜头缩放)",
+          "description": "为玩家相机添加更多功能",
+          "author": "AnECanSaiTin",
+          "tags": [
+            "实用",
+            "NeoForge"
+          ],
+          "version": "1.21.1-1.21.3",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zoom-camera"
+        },
+        {
+          "title": "Zombie Hardcore (硬核僵尸灾变)",
+          "description": "狂暴僵尸可破坏方块追击玩家，提升生存难度",
+          "author": "TheMartinfer22",
+          "tags": [
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.20.1-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-hardcore"
+        },
+        {
+          "title": "Zero Point Labs (零点实验室)",
+          "description": "为高性能航天器移动机制提供创新科技内容",
+          "author": "G_Mungus",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zpl"
+        },
+        {
+          "title": "ZoomSensitivityFix (缩放灵敏度修复)",
+          "description": "服务器视野缩小时降低鼠标灵敏度，适用于带狙击枪的服务器游玩",
+          "author": "MelonHell",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21.4-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zoomsensitivityfix"
+        },
+        {
+          "title": "Zombies attack every entity! (僵尸全域攻击)",
+          "description": "让僵尸主动攻击游戏内所有原版生物",
+          "author": "bikerboys",
+          "tags": [
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombies-attack-every-entity!"
+        },
+        {
+          "title": "Zombie Tactics (僵尸战术AI)",
+          "description": "全面重做僵尸AI，可破坏方块、强化追踪寻路能力",
+          "author": "n643064",
+          "tags": [
+            "NeoForge",
+            "Fabric"
+          ],
+          "version": "1.21-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-tactics"
+        },
+        {
+          "title": "Zrikon's Furniture : Medieval (兹里肯家具：中世纪)",
+          "description": "添加中世纪风格的装饰方块",
+          "author": "zrikon",
+          "tags": [
+            "NeoForge",
+            "Fabric",
+            "装饰",
+            "储物",
+            "Forge"
+          ],
+          "version": "1.19.2-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zrikons-furniture-medieval"
+        },
+        {
+          "title": "Zip To It! (弹力飞爪滑行)",
+          "description": "趣味飞爪道具，可在空中滑行穿梭大陆",
+          "author": "Superkat32",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21.8-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zip-to-it"
+        },
+        {
+          "title": "Zombies Slow You (僵尸减速效果)",
+          "description": "僵尸攻击会使玩家减速并禁止跳跃",
+          "author": "Mnap",
+          "tags": [
+            "Fabric、NeoForge、Forge"
+          ],
+          "version": "1.20-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombies-slow-you"
+        },
+        {
+          "title": "Zhengels's techguns addon (郑格尔的科技枪附属)",
+          "description": "为科技枪模组补充缺失的合成配方、物品和结构，需前置科技枪模组",
+          "author": "Zhengels",
+          "tags": [
+            "Forge",
+            "科技",
+            "生物",
+            "装备",
+            "世界生成"
+          ],
+          "version": "1.12.2-1.12.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zhengelss_techguns_addon"
+        },
+        {
+          "title": "ZastavkaAPI (启动API)",
+          "description": "我的世界Beta 1.7.3版本API模组，提供实体冻结、指定音乐获取设置等小型数据功能",
+          "author": "Telvarost",
+          "tags": [
+            "Fabric",
+            "实用",
+            "游戏机制",
+            "库"
+          ],
+          "version": "b1.7.3-b1.7.3",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zastavkaapi"
+        },
+        {
+          "title": "Zoomly (简易缩放视角)",
+          "description": "轻量Fabric缩放模组，按C键缩放、滚轮调节倍率，无额外依赖配置",
+          "author": "Xeonz",
+          "tags": [
+            "NeoForge",
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.21.10-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zoomly"
+        },
+        {
+          "title": "Zenless Craft Zero (绝区零模组)",
+          "description": "基于游戏《绝区零》制作的我的世界模组",
+          "author": "Noyah_Studios",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zenless-craft-zero"
+        },
+        {
+          "title": "Zombie Conversion (村民僵尸感染保底)",
+          "description": "添加游戏规则，无视难度必定触发村民僵尸感染转化",
+          "author": "DasBlackfur",
+          "tags": [
+            "Fabric",
+            "游戏机制",
+            "实用",
+            "生物"
+          ],
+          "version": "1.14.4-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-conversion"
+        },
+        {
+          "title": "ZA Mega Ability Patch (ZA超极巨技能补丁)",
+          "description": "修改ZA超极巨添加物种的技能，匹配宝可梦对战平台的ZA-OU技能设定",
+          "author": "Dawsani",
+          "tags": [
+            "Fabric",
+            "游戏机制"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/za-mega-ability-patch"
+        },
+        {
+          "title": "Zombie plague virus（僵尸瘟疫病毒）",
+          "description": "被感染僵尸击中后会触发僵尸瘟疫感染效果",
+          "author": "kiwiKcz",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.21-26.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-plague-virus"
+        },
+        {
+          "title": "Zero Times Infinity (无限零消耗)",
+          "description": "附魔无限的弓和弩不再需要背包中有箭即可使用",
+          "author": "Ryhon",
+          "tags": [
+            "Fabric",
+            "实用",
+            "游戏机制",
+            "装备"
+          ],
+          "version": "1.20-1.21",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zerotimesinfinity"
+        },
+        {
+          "title": "Z-PMW | PMW Addon (天气模组附属)",
+          "description": "增强PMWeather模组的云层和视觉效果",
+          "author": "dizasterman",
+          "tags": [
+            "Neoforge",
+            "优化",
+            "游戏机制"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/z-pmw"
+        },
+        {
+          "title": "Zombie Invasion (僵尸入侵)",
+          "description": "添加大量趣味僵尸变种，丰富生物种类！现已上线Modrinth！",
+          "author": "JtC",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.19.2-1.19.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-invasion"
+        },
+        {
+          "title": "Zombification (僵尸化)",
+          "description": "简易模组，新增可通过腐肉与剧毒药水酿造的全新药水，能将生物转化为对应僵尸形态",
+          "author": "SamiH737",
+          "tags": [
+            "Forge",
+            "NeoForge",
+            "魔法"
+          ],
+          "version": "1.19.2-1.21",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombification"
+        },
+        {
+          "title": "Zombie Take Over (僵尸统治)",
+          "description": "让僵尸感染一切生物！",
+          "author": "deinomodder",
+          "tags": [
+            "NeoForge",
+            "Forge",
+            "游戏机制",
+            "生物"
+          ],
+          "version": "1.20.1-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-take-over"
+        },
+        {
+          "title": "ZombiesAreReal Reforged (真实僵尸重制)",
+          "description": "全面重制僵尸人工智能",
+          "author": "oskardotglobal",
+          "tags": [
+            "生物",
+            "冒险",
+            "游戏机制",
+            "Forge",
+            "恶搞"
+          ],
+          "version": "1.12.2-1.12.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombies-are-real-reforged"
+        },
+        {
+          "title": "Zyx's Random Creation (扎克随机创造)",
+          "description": "添加实用新物品，解决原版材料无用、装备限制低的问题",
+          "author": "EmeraldFS",
+          "tags": [
+            "Forge",
+            "生物",
+            "食物",
+            "游戏机制",
+            "优化",
+            "装备"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zyxs-random-creation"
+        },
+        {
+          "title": "Zombie Horses From Abandoned Villages (废弃村庄僵尸马)",
+          "description": "僵尸村庄的动物圈生成僵尸马，可生成幼年体或被僵尸村民骑乘",
+          "author": "PizzaEight",
+          "tags": [
+            "生物",
+            "游戏机制",
+            "数据包",
+            "世界生成"
+          ],
+          "version": "1.21-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-horses-from-abandoned-villages"
+        },
+        {
+          "title": "Zrikon's Military Armor (兹里康的军事盔甲)",
+          "description": "添加原版风格的特种部队装饰盔甲",
+          "author": "zrikon",
+          "tags": [
+            "Forge",
+            "NeoForge",
+            "装备"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zrikons-military-armor"
+        },
+        {
+          "title": "Zombies Eat Villagers (僵尸吃村民)",
+          "description": "需要搭配生肉掉落模组使用，僵尸会捡起并食用生村民肉，获得治疗和增益效果",
+          "author": "ryankshah",
+          "tags": [
+            "Forge",
+            "诅咒",
+            "游戏机制",
+            "生物"
+          ],
+          "version": "1.20.1-1.20.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombies-eat-villagers"
+        },
+        {
+          "title": "zonary123 Cobble WonderTrade (zonary123 宝可梦交换)",
+          "description": "适用于Cobblemon模组的随机宝可梦交换模组，玩家可获取随机宝可梦",
+          "author": "zonary123",
+          "tags": [
+            "Forge",
+            "Fabric",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zonary123-cobble-wondertrade"
+        },
+        {
+          "title": "Zero-Tick Crops (零刻作物)",
+          "description": "恢复部分作物的零刻农场机制，还原原版特性",
+          "author": "tildejustin",
+          "tags": [
+            "食物",
+            "Fabric",
+            "游戏机制"
+          ],
+          "version": "20w12a-1.21.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zero-tick-crops"
+        },
+        {
+          "title": "ZstdMC (网络压缩优化)",
+          "description": "使用zstandard压缩算法节省网络带宽",
+          "author": "MeguminKato",
+          "tags": [
+            "NeoForge",
+            "优化"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zstdmc"
+        },
+        {
+          "title": "ZBGT (格雷科技拓展)",
+          "description": "作者自定义的格雷科技附加内容，非基础模组核心功能",
+          "author": "GregMeister",
+          "tags": [
+            "Forge",
+            "科技"
+          ],
+          "version": "1.12.2-1.12.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zbgt"
+        },
+        {
+          "title": "Zombie Survival Mod (僵尸生存模组)",
+          "description": "抵御10天拥有特殊能力的僵尸，天数越久僵尸越强，最终迎战BOSS，可合成物品、建造防御工事",
+          "author": "Jungdab",
+          "tags": [
+            "Fabric",
+            "冒险",
+            "生物"
+          ],
+          "version": "1.21.1-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-survival-mod-zsm"
+        },
+        {
+          "title": "Zombies improved! (僵尸升级)",
+          "description": "更聪明、更致命的僵尸，新增尸潮和感染机制",
+          "author": "Multiverse",
+          "tags": [
+            "Forge",
+            "科技",
+            "生物",
+            "冒险",
+            "实用",
+            "游戏机制",
+            "优化",
+            "管理",
+            "恶搞"
+          ],
+          "version": "1.20.1-1.20.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombies-improved!"
+        },
+        {
+          "title": "Zoma's SwordSkill Mod (佐马的剑技模组)",
+          "description": "添加致敬刀剑神域的剑技",
+          "author": "Zoma1101",
+          "tags": [
+            "Forge",
+            "NeoForge",
+            "冒险",
+            "装备",
+            "魔法"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/swordskill-mod"
+        },
+        {
+          "title": "Zombie UUID Preservation(僵尸UUID保留)",
+          "description": "村民变僵尸/治愈后保留随机纹理",
+          "author": "Estecka",
+          "tags": [
+            "Fabric",
+            "游戏机制",
+            "生物"
+          ],
+          "version": "1.20-1.21.3",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-uuid-preservation"
+        },
+        {
+          "title": "ZMiracle (MIRACULOUS) RABBIT MIRACULOUS (奇迹少女 兔子奇迹)",
+          "description": "奇迹少女主题模组",
+          "author": "RionoMods",
+          "tags": [
+            "Forge",
+            "生物",
+            "冒险",
+            "食物",
+            "游戏机制",
+            "装备",
+            "社交",
+            "魔法"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zmiracle"
+        },
+        {
+          "title": "Z-13 (Z-13生物)",
+          "description": "Z-13（又名塞巴斯蒂安·索拉斯）是大型水陆两栖生物",
+          "author": "AstridKurai",
+          "tags": [
+            "Forge",
+            "生物",
+            "冒险",
+            "恶搞"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/z-13"
+        },
+        {
+          "title": "Zombie Break & Build (僵尸破坏与建造)",
+          "description": "允许僵尸（及其他生物）破坏、放置方块以追踪目标",
+          "author": "TiK",
+          "tags": [
+            "Forge",
+            "Neoforge",
+            "Fabric",
+            "生物",
+            "冒险",
+            "游戏机制"
+          ],
+          "version": "1.20.1-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombies-break-and-build"
+        },
+        {
+          "title": "Zen's Agricultural Automations (禅的农业自动化)",
+          "description": "自动化种植树木、花朵和灌木",
+          "author": "Zensiert",
+          "tags": [
+            "Fabric",
+            "食物",
+            "游戏机制",
+            "数据包",
+            "Forge"
+          ],
+          "version": "1.20-1.21.9-pre1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zens-agricultural-automations"
+        },
+        {
+          "title": "zzz... rrr... Rawr? (起床提示)",
+          "description": "服务器端模组，天亮时向聊天栏发送可配置的提示消息",
+          "author": "unilock",
+          "tags": [
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.19.2-21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zzz-rawr"
+        },
+        {
+          "title": "Zoomify Classic (经典版缩放)",
+          "description": "我的世界经典版专属的缩放模组",
+          "author": "isxander",
+          "tags": [
+            "Fabric",
+            "猎奇",
+            "实用"
+          ],
+          "version": "c0.30_01c-c0.30_01c",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zoomify-classic"
+        },
+        {
+          "title": "ZoomerLibrary (缩放库)",
+          "description": "LibZoomer非官方移植库，方便其他模组实现缩放与自定义望远镜功能",
+          "author": "TexTrue",
+          "tags": [
+            "Neoforge",
+            "Fabric",
+            "Forge",
+            "库"
+          ],
+          "version": "1.20-1.20.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zoomerlibrary"
+        },
+        {
+          "title": "Zones (区域)",
+          "description": "现代化区域管理插件/模组",
+          "author": "T14D3",
+          "tags": [
+            "Fabric",
+            "实用",
+            "游戏机制",
+            "社交",
+            "管理"
+          ],
+          "version": "1.21-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zones"
+        },
+        {
+          "title": "Zombified Piglin restore anger loot (僵尸猪灵愤怒战利品修复)",
+          "description": "还原1.21版本僵尸猪灵战利品机制，修复金农场",
+          "author": "litetex",
+          "tags": [
+            "Fabric",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "25w02a-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombified-piglin-restore-anger-loot"
+        },
+        {
+          "title": "Zaffre's Mineshafts（废弃矿井重做）",
+          "description": "全面翻新两种废弃矿井的外观、布局与玩法机制",
+          "author": "Zaffre",
+          "tags": [
+            "quilt、NeoForge、Fabric、Forge"
+          ],
+          "version": "1.21.9-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zaffres-mineshafts"
+        },
+        {
+          "title": "Zoomburg（自定义缩放）",
+          "description": "优质视角缩放模组，GUI自定义缩放参数，支持按键修改绑定",
+          "author": "Blasty25",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zoomburg"
+        },
+        {
+          "title": "Zomboid Health System (僵尸毁灭工程生命值系统)",
+          "description": "全新生命值系统，分为8个身体部位，各部位可因刮擦、骨折等不同方式受伤",
+          "author": "Aiven",
+          "tags": [
+            "Fabric",
+            "游戏机制"
+          ],
+          "version": "1.20.1-1.20.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zomboid-health-system"
+        },
+        {
+          "title": "ZundaMod ( VOICEVOX旁白替换)",
+          "description": "用语音软件ずんだもん替换游戏自带旁白音效",
+          "author": "umjammer",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.20.2-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zundamod"
+        },
+        {
+          "title": "Zombies Utils (僵尸实用工具)",
+          "description": "Hypixel僵尸模式全能模组，面向速通玩家，功能符合速通网站规则",
+          "author": "Stachelbeere1248",
+          "tags": [
+            "Forge",
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.8.9-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombies-utils"
+        },
+        {
+          "title": "Zombie Friends! 🧟‍♀️ 🧟 🧟‍♂️ (僵尸朋友!)",
+          "description": "小型模组，为Mojang添加的所有新默认皮肤添加纹理变体。它们会随机应用到生成的僵尸上，但可以使用命名牌手动更改！",
+          "author": "Xaidee",
+          "tags": [
+            "Forge",
+            "生物"
+          ],
+          "version": "1.18.2-1.19.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-friends"
+        },
+        {
+          "title": "zoli2D's Subnautica (深海迷航联动)",
+          "description": "复刻游戏《深海迷航》内容的同人模组",
+          "author": "zoli2D",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.16.5-1.16.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zoli2ds-subnautica"
+        },
+        {
+          "title": "Zehunz's Crops (泽恩兹农作物)",
+          "description": "新增大量农作物，弱化挖矿需求，附带自定义生物与探索内容",
+          "author": "zehunz",
+          "tags": [
+            "Fabric",
+            "NeoForge"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zehunzs-crops"
+        },
+        {
+          "title": "Zombies Guns (僵尸枪械复刻)",
+          "description": "完美复刻Hypixel僵尸小游戏枪械，无需资源包即可使用",
+          "author": "Gamingbarn",
+          "tags": [
+            "Fabric",
+            "Forge",
+            "NeoForge"
+          ],
+          "version": "1.21.4-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombies-guns"
+        },
+        {
+          "title": "ZombieVillagerIgnoreDifficulty (村民转化难度无视)",
+          "description": "单混合模组，让僵尸转化村民时无视游戏难度",
+          "author": "sylvxa",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zvid"
+        },
+        {
+          "title": "Zombies plus plus (僵尸升级版)",
+          "description": "全面强化僵尸，提升游戏难度",
+          "author": "Multicoder",
+          "tags": [
+            "Neoforge",
+            "Fabric"
+          ],
+          "version": "1.20.4-1.21.3",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombies++"
+        },
+        {
+          "title": "Zoo Architect (动物园建筑师)",
+          "description": "建造专属动物园，包含17种动物",
+          "author": "Kale",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.18.2-1.18.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zoo-architect"
+        },
+        {
+          "title": "Zombies Can't Gather (僵尸禁拾)",
+          "description": "阻止僵尸拾取特定物品",
+          "author": "Scubakay",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombies-cant-gather"
+        },
+        {
+          "title": "Zombified mobs (生物僵尸化变体)",
+          "description": "为原版中立生物新增僵尸化变异版本",
+          "author": "Iconsintown22",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombified-mobs"
+        },
+        {
+          "title": "Zoom Out (第三人称远景缩放)",
+          "description": "指令触发第三人称远景拉远效果，纯原版适配可直接加装服务器",
+          "author": "sacdj",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "冒险",
+            "Fabric",
+            "实用",
+            "数据包",
+            "Forge",
+            "恶搞"
+          ],
+          "version": "1.21.6-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zoom-out"
+        },
+        {
+          "title": "Zombie Villager Control (僵尸村民控制)",
+          "description": "配置文件修改村民僵尸化概率，支持瞬间治愈",
+          "author": "Hakujoucho",
+          "tags": [
+            "Forge",
+            "NeoForge"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-villager-control"
+        },
+        {
+          "title": "Zot's Only Silver (佐特专属银矿)",
+          "description": "为简易矿石2模组添加银矿石、工具及相关内容",
+          "author": "Sinhika",
+          "tags": [
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.16.5-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zots-only-silver"
+        },
+        {
+          "title": "Zenith Sword (天顶之剑)",
+          "description": "移植泰拉瑞亚终极武器天顶之剑至我的世界",
+          "author": "xianziyu",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.18.2-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zenith-sword"
+        },
+        {
+          "title": "Zelda Sword Skills Continuation (塞尔达剑术续作)",
+          "description": "塞尔达剑术模组复刻修复版，修复原版各类问题",
+          "author": "quentin452",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.7.10-1.7.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zelda-sword-skills-continuation"
+        },
+        {
+          "title": "Zefir's Optimizations (泽菲尔优化)",
+          "description": "借助阿克卡演员实现实体异步移动，提升游戏性能",
+          "author": "Stikulzon",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zefiroptimizations"
+        },
+        {
+          "title": "Zeph's Hammers (泽夫的锤子)",
+          "description": "添加多款可一次破坏3x3方块的锤子",
+          "author": "ZephaniahNoah",
+          "tags": [
+            "NeoForge",
+            "Forge",
+            "装备"
+          ],
+          "version": "1.16.5-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zephshammers"
+        },
+        {
+          "title": "Zmod (Z模组)",
+          "description": "致敬油管主播的趣味恶搞模组",
+          "author": "solarisblu3",
+          "tags": [
+            "Forge",
+            "冒险",
+            "恶搞",
+            "世界生成"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zmod"
+        },
+        {
+          "title": "Zoooom (自定义缩放视角)",
+          "description": "可自由配置缩放倍率的视角缩放模组",
+          "author": "ryankshah",
+          "tags": [
+            "NeoForge",
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.21.1-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zoooom"
+        },
+        {
+          "title": "ZenXArch's Skyblock (禅心空岛)",
+          "description": "拓展版空岛挑战",
+          "author": "ZenXArch",
+          "tags": [
+            "小游戏",
+            "游戏机制",
+            "世界生成",
+            "Fabric"
+          ],
+          "version": "1.21.1-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zenxarchs-skyblock"
+        },
+        {
+          "title": "Zylty's Charms (魔法护符系统)",
+          "description": "加入可自定义的魔法护符系统，带来全新玩法体验",
+          "author": "zylty_the_goat",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zyltys-charms"
+        },
+        {
+          "title": "Zeph's Excavators (泽夫挖掘器)",
+          "description": "可一次挖掘3x3范围的铲子",
+          "author": "ZephaniahNoah",
+          "tags": [
+            "Forge",
+            "NeoForge"
+          ],
+          "version": "1.16.5-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zephsexcavators"
+        },
+        {
+          "title": "Zombie Proof Doors (防僵尸门)",
+          "description": "数据包，阻止僵尸破坏所有类型的门",
+          "author": "meenimc",
+          "tags": [
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.16-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-proof-doors-by-meenimc"
+        },
+        {
+          "title": "Zoni's Anime Weapons (动漫武器合集)",
+          "description": "新增刀剑神域、原神、命运系列等多款动漫经典武器",
+          "author": "ZoniCraft",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.16.5-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zonis-anime-weapons"
+        },
+        {
+          "title": "Zombie Apocalypse Mod (僵尸启示录)",
+          "description": "僵尸主题模组，添加新武器、盔甲和僵尸",
+          "author": "inqusitor0044",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.16.5-1.16.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombimod"
+        },
+        {
+          "title": "Zhengels's additions (郑格尔增补模组)",
+          "description": "补充原版风格内容，同时修复原版游戏部分缺陷",
+          "author": "Zhengels",
+          "tags": [
+            "NeoForge",
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zhengelss-additions"
+        },
+        {
+          "title": "ZenCloche (沉浸工程温室兼容)",
+          "description": "为沉浸工程温室花盆提供CraftTweaker脚本支持",
+          "author": "SmokeyTheBandicoot",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.12.2-1.12.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zencloche"
+        },
+        {
+          "title": "Zoomax (极致缩放)",
+          "description": "最大化游戏视角缩放功能",
+          "author": "WILD_DRS",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zoomax"
+        },
+        {
+          "title": "zdgx-AutoUpdateMod (自动更新模组)",
+          "description": "简易模组自动更新功能",
+          "author": "z2bguoguo",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.18.2-1.19.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zdgx"
+        },
+        {
+          "title": "Zinc Macerate (锌粉研磨适配)",
+          "description": "工业现代2模组研磨机支持创造模组锌锭研磨",
+          "author": "Alliegaytor",
+          "tags": [
+            "NeoForge"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zinc-macerate"
+        },
+        {
+          "title": "ZVIAM (僵尸病毒感染拓展)",
+          "description": "为僵尸病毒末世整合包新增感染治愈、僵尸玩家与变异动物等内容",
+          "author": "JoudDev",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zviam"
+        },
+        {
+          "title": "Zob's Mining World (佐布采矿维度)",
+          "description": "非常规简易采矿维度，拥有独特地形与资源生成规则",
+          "author": "zob.modding",
+          "tags": [
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.20.1-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zobs-mining-world"
+        },
+        {
+          "title": "Zombie Onslaught (僵尸狂潮)",
+          "description": "新增多种拥有专属能力的变异僵尸变种",
+          "author": "Shaywsgu",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.18.2-1.19.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-onslaught"
+        },
+        {
+          "title": "Zombie Players (玩家僵尸化)",
+          "description": "指定玩家被判定为僵尸生物，僵尸不会攻击，名字变为深绿色，适合僵尸末日服务器",
+          "author": "DavidTheReckless",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-players"
+        },
+        {
+          "title": "Zoomer Bows (多元弓具)",
+          "description": "新增更多种类的弓箭变体",
+          "author": "Pandaismyname1",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zoomer-bows"
+        },
+        {
+          "title": "Zulu's Simple Recipes (简易实用配方)",
+          "description": "新增大量便民合成配方，提升生存体验",
+          "author": "zulussu",
+          "tags": [
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.16.5-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zulus-simple-recipes"
+        },
+        {
+          "title": "Zombie Plague III (僵尸瘟疫3)",
+          "description": "将原版世界改造为僵尸泛滥的硬核生存场景",
+          "author": "gltexture",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-plague-iii"
+        },
+        {
+          "title": "Zav's Stamina and Abilities (体力与天赋系统)",
+          "description": "为游戏添加体力值与专属天赋能力玩法",
+          "author": "Zav",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.19.2-1.20.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zavs-stamina-mod"
+        },
+        {
+          "title": "Zoom Katanas (特效武士刀)",
+          "description": "新增多款附带专属特殊能力的武士刀武器",
+          "author": "1SaltyCracker",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zoom-katanas"
+        },
+        {
+          "title": "Zelda Horse Behavior (塞尔达马匹行为)",
+          "description": "复刻塞尔达传说马匹驯服与行动机制",
+          "author": "Modo-me",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.20.1-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zelda-horse-behavior"
+        },
+        {
+          "title": "Zombie Villager Variants (僵尸村民变种)",
+          "description": "为僵尸村民新增溺尸、尸壳风格变种模型",
+          "author": "OfficePigeon",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-villager-variants"
+        },
+        {
+          "title": "ZombieRool (使命召唤僵尸生存)",
+          "description": "复刻使命召唤僵尸无尽波次玩法，在我的世界体验经典塔防生存",
+          "author": "cryo5512",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombierool"
+        },
+        {
+          "title": "Z-Life Season 2 (极限生命第二季)",
+          "description": "生命系列风格数据包模组，玩家初始仅一滴心与随机生存时长，支持多人联机",
+          "author": "ShelleyKey",
+          "tags": [
+            "Forge、Fabric、NeoForge、Quilt"
+          ],
+          "version": "1.21-26.1.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/z-life-season-2"
+        },
+        {
+          "title": "ZygZag's Endgame Expansion (终局内容拓展)",
+          "description": "补充原版缺失的终局内容，新增高阶盔甲与武器",
+          "author": "zygzaggaming",
+          "tags": [
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.19.2-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zygzags-mod"
+        },
+        {
+          "title": "Zelda Style Horse Controls (塞尔达马术操控)",
+          "description": "为马匹添加渐进转向与鞭策加速机制",
+          "author": "Blzinite",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zelda-style-horse-controls"
+        },
+        {
+          "title": "Zombie rush+ (僵尸突袭增强版)",
+          "description": "新增多种僵尸变种，提升游戏生存难度",
+          "author": "kamil_fghfgh1567",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.12.2-1.12.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-rush+"
+        },
+        {
+          "title": "Zombie horde (僵尸潮)",
+          "description": "硬核僵尸生存模组；随游戏天数增加僵尸刷新量，僵尸可破方块、搭方块靠近玩家、抗日光且随时间装备变强",
+          "author": "NeoAorus",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21.11-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-horde-mod"
+        },
+        {
+          "title": "Zombies Powerups (僵尸强化技能)",
+          "description": "移植使命召唤系列僵尸强化增益效果",
+          "author": "Trunkis",
+          "tags": [
+            "Fabric",
+            "Quilt",
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.21-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombies-powerups"
+        },
+        {
+          "title": "ZoomEase（平滑缩放）",
+          "description": "加入均衡的视角缩放功能，支持快捷使用望远镜",
+          "author": "danield1993",
+          "tags": [
+            "Neoforge"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zoomease"
+        },
+        {
+          "title": "zzzZZ（睡觉自动通知）",
+          "description": "高度自定义消息，玩家睡觉时自动向好友发送状态提示",
+          "author": "jaszlo",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.20.6-1.21",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zzzzz"
+        },
+        {
+          "title": "Zombify Horses (马匹尸化)",
+          "description": "借助凋零效果，可将普通马匹转化为僵尸马与骷髅马",
+          "author": "LoonLord32",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombify-horses"
+        },
+        {
+          "title": "Zoomies (趣味缩放)",
+          "description": "功能丰富的趣味视角缩放模组",
+          "author": "electricdog",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21.11-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zoomies"
+        },
+        {
+          "title": "Zoom Mod (简易缩放)",
+          "description": "轻量实用模组，优化游戏操作便捷性",
+          "author": "onekeky",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21.10-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zoom-mod"
+        },
+        {
+          "title": "Zombie Jerky (腐肉加工肉干)",
+          "description": "可用烟熏炉将腐肉加工为可食用肉干",
+          "author": "kestalkayden",
+          "tags": [
+            "Fabric",
+            "NeoForge"
+          ],
+          "version": "1.16.4-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-jerky"
+        },
+        {
+          "title": "Zaps Converter (能源转换器)",
+          "description": "将常规Forge能源转换为FTBIC模组的Zaps能源",
+          "author": "LobsterJonn",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.19.2-1.19.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zapsconverter"
+        },
+        {
+          "title": "Zzoyn HCompass (简约HUD指南针)",
+          "description": "界面极简的HUD悬浮指南针",
+          "author": "zzoyn33",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zzoyn-hcompass"
+        },
+        {
+          "title": "Z's Wildscape (旷野秘境)",
+          "description": "新增额外生物群系与专属独立维度",
+          "author": "zpeaxirious",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zs-wildscape"
+        },
+        {
+          "title": "Zombie Horse Trap (僵尸马陷阱)",
+          "description": "参照原版骷髅马陷阱机制，新增僵尸马自然生成陷阱",
+          "author": "tomalbrc",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21.1-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-horse-trap"
+        },
+        {
+          "title": "Zusz's CoffeeCraft (咖啡工艺)",
+          "description": "为我的世界新增咖啡饮品及相关玩法。",
+          "author": "Zusz",
+          "tags": [
+            "Forge",
+            "NeoForge"
+          ],
+          "version": "1.19.4-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zuszscoffeecraft"
+        },
+        {
+          "title": "Zombie Cloth (僵尸布料)",
+          "description": "灵感源自冒险类模组，新手自制模组，新增僵尸相关布料内容",
+          "author": "peanuts",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-cloth"
+        },
+        {
+          "title": "Zero Whitelist (离线白名单系统)",
+          "description": "适配NeoForge的离线服务器白名单，采用玩家名称而非UUID验证",
+          "author": "Chihyu",
+          "tags": [
+            "NeoForge"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zero-whitelist"
+        },
+        {
+          "title": "Zavarushka Mod (乱斗模组)",
+          "description": "乱斗游戏专用模组，提供角色、地图与机制信息",
+          "author": "Zadudoder",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21.1-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zavarushka-mod"
+        },
+        {
+          "title": "zonary123 Cobble STS (宝可梦即时出售)",
+          "description": "允许向服务器即时出售宝可梦，价格由服务器根据宝可梦各项属性自动计算",
+          "author": "zonary123",
+          "tags": [
+            "Fabric",
+            "实用",
+            "游戏机制",
+            "Forge",
+            "经济"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zoonary123-cobble-sts"
+        },
+        {
+          "title": "Zapped (电击)",
+          "description": "将避雷针从无用方块变为可传输电力至机器和高效盔甲的装置",
+          "author": "Wangle",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "Fabric",
+            "Forge",
+            "科技",
+            "实用",
+            "游戏机制",
+            "数据包",
+            "装备"
+          ],
+          "version": "1.21-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zapped"
+        },
+        {
+          "title": "Zander Core (赞德核心)",
+          "description": "赞德模组生态所需的轻量级核心库",
+          "author": "ZanderTM",
+          "tags": [
+            "NeoForge",
+            "Forge",
+            "实用",
+            "游戏机制",
+            "库"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zander-core"
+        },
+        {
+          "title": "Zander's Reinforced Armors (赞德的强化盔甲)",
+          "description": "为所有原版套装添加V1和V2强化盔甲，附带加成和祝福，添加特殊效果和新升级",
+          "author": "ZanderTM",
+          "tags": [
+            "NeoForge",
+            "Forge",
+            "冒险",
+            "实用",
+            "游戏机制",
+            "装备"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zanders-reinforced-armors"
+        },
+        {
+          "title": "Zap's Compat (Bean's Backpacks) (豆子背包兼容适配)",
+          "description": "小型附属模组，为豆子背包模组适配多款其他模组内容",
+          "author": "ZAPtron",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zaps-compat-beans-backpacks"
+        },
+        {
+          "title": "Zoni's Gunpowder Ore (佐尼的火药矿石)",
+          "description": "简单模组，允许挖掘获取火药",
+          "author": "ZoniCraft",
+          "tags": [
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zonis-gunpowder-ore"
+        },
+        {
+          "title": "Zeeraket (海萝卜植物)",
+          "description": "新增一年生肉质草本植物海萝卜，拥有纤细或粗壮主根",
+          "author": "TheEpicBlock",
+          "tags": [
+            "Fabric",
+            "装饰"
+          ],
+          "version": "1.21.5-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zeeraket"
+        },
+        {
+          "title": "Zombies Break Glass (僵尸破玻璃)",
+          "description": "僵尸能破门，为什么不能破玻璃？",
+          "author": "Argis",
+          "tags": [
+            "Forge",
+            "游戏机制",
+            "生物"
+          ],
+          "version": "1.12.2-1.12.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombies-break-glass"
+        },
+        {
+          "title": "Zettai RPG (绝对RPG)",
+          "description": "RPG模组，添加4种属性：活力、力量、敏捷、智力，带来更丰富的RPG体验",
+          "author": "ZettaSword",
+          "tags": [
+            "Forge",
+            "冒险",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.12-1.12.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zettai-rpg"
+        },
+        {
+          "title": "Zombie Lag Fix (僵尸卡顿修复)",
+          "description": "经典Fabric模组，采用1.9.4版本的寻路节流代码，减少僵尸寻路导致的卡顿",
+          "author": "baraclese",
+          "tags": [
+            "优化",
+            "经典Fabric",
+            "生物"
+          ],
+          "version": "1.6.4-1.6.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-lag-fix"
+        },
+        {
+          "title": "Zonne's Duplication (可配置物品复制)",
+          "description": "高度自定义配置的游戏物品复制功能模组",
+          "author": "zonneschijn77",
+          "tags": [
+            "NeoForge、冒险、存储、游戏机制、实用、经济、管理、猎奇"
+          ],
+          "version": "1.21.4-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zonnes-duplication"
+        },
+        {
+          "title": "ZapHosting Server Integration Menu (Zap托管服务器整合菜单)",
+          "description": "内置游戏内及网页端定制界面，推广托管合作链接与优惠码，玩家可便捷使用托管服务并支持作者。",
+          "author": "Reggarf",
+          "tags": [
+            "Forge",
+            "实用",
+            "NeoForge"
+          ],
+          "version": "1.20.1-1.21.3",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zaphosting-server-integration-menu"
+        },
+        {
+          "title": "ZoomitSky (缩放视野)",
+          "description": "普通缩放和电影级缩放 [Fabric]",
+          "author": "DevSkyK1D",
+          "tags": [
+            "Fabric",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zoomitsky"
+        },
+        {
+          "title": "ZynAutoEat (自动进食)",
+          "description": "实用的自动进食：优先副手进食，平滑恢复至满饱食度，兼容玩家操作，钓鱼竿旁安全使用，通过简洁可搜索的黑名单界面完全配置（全开关/重置），仅客户端",
+          "author": "Zynwro",
+          "tags": [
+            "食物",
+            "Fabric",
+            "实用",
+            "游戏机制",
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zynautoeat"
+        },
+        {
+          "title": "Zet's Grace: Recraft Equipment (泽特之恩：装备重制)",
+          "description": "装备修复配方，修复后会丢失附加物品数据",
+          "author": "Zetake",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "游戏机制",
+            "数据包",
+            "Forge",
+            "装备"
+          ],
+          "version": "1.13-25w35a",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zg-recraft-eq"
+        },
+        {
+          "title": "zmepeClient (zmepe客户端移植)",
+          "description": "移植客户端特色功能至Forge版本模组",
+          "author": "zmepe",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.8.9-1.8.9",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zmepeclient"
+        },
+        {
+          "title": "Zoomer (简易视角缩放)",
+          "description": "极简视角缩放模组，支持游戏内拉近视野",
+          "author": "EpikBird",
+          "tags": [
+            "优化",
+            "Fabric",
+            "游戏机制",
+            "管理"
+          ],
+          "version": "1.21.3-1.21.3",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zoomer"
+        },
+        {
+          "title": "Zulip Bridge (Zulip聊天联动)",
+          "description": "连通我的世界游戏内聊天与Zulip频道消息",
+          "author": "zotan",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "Fabric",
+            "实用功能",
+            "Forge",
+            "社交"
+          ],
+          "version": "1.7.10-21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zulip-bridge"
+        },
+        {
+          "title": "ZA - Better amethyst (紫水晶优化拓展)",
+          "description": "强化紫水晶实用价值，新增玩法与用途",
+          "author": "Zhengels",
+          "tags": [
+            "NeoForge",
+            "冒险",
+            "装饰",
+            "游戏机制",
+            "装备",
+            "魔法"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/za-better-amethyst"
+        },
+        {
+          "title": "ZSpeed (超速行者)",
+          "description": "专属极速奔跑特效与移动强化模组",
+          "author": "zacronium",
+          "tags": [
+            "交通",
+            "Forge",
+            "装备"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zspeed"
+        },
+        {
+          "title": "Zshoopy Mod（泽舒皮冒险）",
+          "description": "围绕泽舒皮展开冒险并增添更多游戏内容",
+          "author": "conan2903",
+          "tags": [
+            "冒险|实用|装备|Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zshoopy"
+        },
+        {
+          "title": "Zombified Piglin Infection (僵尸猪灵感染)",
+          "description": "僵尸猪灵拥有感染扩散能力，蔓延整个游戏世界",
+          "author": "deinomodder",
+          "tags": [
+            "Forge",
+            "NeoForge",
+            "生物"
+          ],
+          "version": "1.20.1-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombified-piglin-infection"
+        },
+        {
+          "title": "Zoey's Gizmos (佐伊奇妙装置)",
+          "description": "收录各类随机创意玩法与道具的合集模组",
+          "author": "PrincessStrelka",
+          "tags": [
+            "交通",
+            "Neoforge",
+            "科技",
+            "装饰",
+            "Forge",
+            "装备",
+            "魔法"
+          ],
+          "version": "1.18.2-1.21",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/caits-curiosities"
+        },
+        {
+          "title": "zzzZombie World (僵尸世界)",
+          "description": "让游戏中只生成僵尸",
+          "author": "sinisteralien",
+          "tags": [
+            "生物",
+            "冒险",
+            "实用",
+            "游戏机制",
+            "Forge",
+            "世界生成",
+            "管理"
+          ],
+          "version": "1.20.1-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zzzzombie-world"
+        },
+        {
+          "title": "zombieconfig (僵尸进阶配置)",
+          "description": "僵尸高阶自定义模组，支持进化阶段、装备配置与实时自定义，按B键打开配置界面",
+          "author": "2833316882",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombieconfig"
+        },
+        {
+          "title": "Zet's Grace: Recraft Equipment Plus (装备重铸附魔拓展)",
+          "description": "新增装备修复与重铸配方，重铸会清空原有物品附魔数据",
+          "author": "Zetake",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "Fabric",
+            "游戏机制",
+            "数据包",
+            "Forge",
+            "装备"
+          ],
+          "version": "1.20.5-25w37a",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zg-recraft-eq-plus"
+        },
+        {
+          "title": "ZombPlayer (玩家僵尸化生成)",
+          "description": "玩家被亡灵生物击杀后，会生成僵尸化玩家实体",
+          "author": "APeng215",
+          "tags": [
+            "冒险",
+            "实用",
+            "游戏机制",
+            "Forge"
+          ],
+          "version": "1.20.4-1.20.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombplayer"
+        },
+        {
+          "title": "Zorro Luciérnaga (萤火佐罗)",
+          "description": "英文：小型模组，为原版及TLOTD所有工具等级添加武士刀；西班牙文：仅为原版及TLOTD所有工具等级添加武士刀的小型模组",
+          "author": "Salsafox",
+          "tags": [
+            "Fabric",
+            "装饰",
+            "装备",
+            "Quilt"
+          ],
+          "version": "1.20.1-1.20.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zorro-luciernaga"
+        },
+        {
+          "title": "Zenithra (天顶)",
+          "description": "以战斗为核心的多人模组，包含多种RPG强化功能",
+          "author": "LeanderCS",
+          "tags": [
+            "冒险",
+            "Fabric"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zenithra"
+        },
+        {
+          "title": "zbCraft (zb方块)",
+          "description": "小型模组，添加关于zb的物品与方块",
+          "author": "Ianzb",
+          "tags": [
+            "Fabric",
+            "装饰"
+          ],
+          "version": "1.19.2-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zbcraft"
+        },
+        {
+          "title": "Zoni's Companions (佐尼的伙伴)",
+          "description": "添加超酷的伙伴生物",
+          "author": "ZoniCraft",
+          "tags": [
+            "Forge",
+            "生物"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zonis-companions"
+        },
+        {
+          "title": "Zusz's CoffeeCraft2: ReBrewed (祖斯咖啡工艺2：重酿)",
+          "description": "综合性咖啡模组，海量组合与种类",
+          "author": "Zusz",
+          "tags": [
+            "Neoforge",
+            "食物",
+            "装备",
+            "游戏机制"
+          ],
+          "version": "1.21-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zuszs-coffeecraft2-rebrewed"
+        },
+        {
+          "title": "Zel's Disc Crafting (泽尔唱片合成)",
+          "description": "高品质自定义音乐唱片合成方式",
+          "author": "Zel",
+          "tags": [
+            "Fabric",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zels-disc-crafting"
+        },
+        {
+          "title": "ZeldaCraft (塞尔达传说联动)",
+          "description": "基于塞尔达传说IP制作，自定义3D模型与专属玩法体验",
+          "author": "SilverPlayz77",
+          "tags": [
+            "科技",
+            "生物",
+            "冒险",
+            "Forge",
+            "装备",
+            "世界生成",
+            "魔法"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zelda-craft"
+        },
+        {
+          "title": "Zombie Potion (僵尸药水)",
+          "description": "拥有独特生存机制的僵尸变形药水",
+          "author": "yamataka22",
+          "tags": [
+            "Forge",
+            "食物",
+            "实用",
+            "生物"
+          ],
+          "version": "1.20.1-1.20.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-potion"
+        },
+        {
+          "title": "ZomBilliard Balls (僵尸台球)",
+          "description": "骷髅击杀僵尸可掉落台球道具，灵感来源于奇幻梦境",
+          "author": "damiennesretrotech",
+          "tags": [
+            "Quilt",
+            "生物",
+            "Fabric",
+            "装饰",
+            "游戏机制",
+            "数据包",
+            "Forge"
+          ],
+          "version": "1.21-1.21",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombilliard-balls"
+        },
+        {
+          "title": "ZiiM-Hud (简约界面)",
+          "description": "简洁的模块化界面，显示实用游戏信息",
+          "author": "ZiiMs",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.19-1.19",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ziimhud"
+        },
+        {
+          "title": "zombuild (僵尸建造)",
+          "description": "僵尸可以用圆石建造方块、破坏路径障碍，远距离锁定玩家，极具威胁",
+          "author": "SiQe",
+          "tags": [
+            "Neoforge",
+            "生物",
+            "Fabric",
+            "游戏机制",
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombuild"
+        },
+        {
+          "title": "Zombie Chickens (僵尸鸡模组)",
+          "description": "添加僵尸鸡以及多种全新生物与物品",
+          "author": "CozyGlow",
+          "tags": [
+            "NeoForge",
+            "生物"
+          ],
+          "version": "1.21.1-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-chickens"
+        },
+        {
+          "title": "Zedonho (泽东霍)",
+          "description": "添加一个喜爱椰子水的“友好”幽灵主播生物",
+          "author": "MithriaStudios",
+          "tags": [
+            "Forge",
+            "生物"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zedonho"
+        },
+        {
+          "title": "Zelda Door Mechanics (塞尔达门机制)",
+          "description": "数据包，添加靠近即可平滑升降的大门，无需材质包，还可添加锁具",
+          "author": "ThirtyFangs",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "Fabric",
+            "装饰",
+            "游戏机制",
+            "数据包",
+            "Forge"
+          ],
+          "version": "1.21.9-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zelda-door-mechanics"
+        },
+        {
+          "title": "Zombie Horde Event + Anti Skybase Phantoms (僵尸潮事件+反空基幻翼)",
+          "description": "为服务器制作的服务端Fabric小型模组",
+          "author": "burvy",
+          "tags": [
+            "冒险",
+            "Fabric",
+            "游戏机制",
+            "生物"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/weekly-horde-event"
+        },
+        {
+          "title": "Zweihander (双手巨剑)",
+          "description": "原版风格PVP战斗拓展模组，主打双手巨剑玩法",
+          "author": "nikgub",
+          "tags": [
+            "Forge",
+            "冒险",
+            "游戏机制",
+            "装备",
+            "魔法"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zweihander"
+        },
+        {
+          "title": "Zombie Crawler (爬行僵尸)",
+          "description": "基于原版僵尸的爬行变种僵尸",
+          "author": "Devyr",
+          "tags": [
+            "Neoforge",
+            "生物"
+          ],
+          "version": "1.21.4-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-crawler"
+        },
+        {
+          "title": "Zombie Leather (僵尸皮革)",
+          "description": "服务端模组，可将腐肉转化为皮革",
+          "author": "panda-hackerman",
+          "tags": [
+            "Fabric",
+            "实用工具",
+            "游戏机制",
+            "生物"
+          ],
+          "version": "1.21.4-1.21.7",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-leather"
+        },
+        {
+          "title": "Złoty Mod (兹罗提货币模组)",
+          "description": "添加波兰货币兹罗提及铀矿石相关内容",
+          "author": "Frogrine",
+          "tags": [
+            "经济",
+            "Fabric",
+            "猎奇",
+            "装备"
+          ],
+          "version": "1.19.2-1.19.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zloty-mod"
+        },
+        {
+          "title": "ZA - tools (ZA实用工具)",
+          "description": "添加镰刀、建筑锤等多种便捷生存工具",
+          "author": "Zhengels",
+          "tags": [
+            "NeoForge",
+            "冒险",
+            "实用",
+            "游戏机制",
+            "装备",
+            "管理"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/za_tools"
+        },
+        {
+          "title": "Zombie Hunter (猎食僵尸)",
+          "description": "僵尸可攀爬树木追击玩家",
+          "author": "Devyr",
+          "tags": [
+            "NeoForge",
+            "生物"
+          ],
+          "version": "1.21.4-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-hunter"
+        },
+        {
+          "title": "Zoological Aviators (飞鸟生灵)",
+          "description": "全新鸟类模组，拥有专属动画、行为模型与精致外观",
+          "author": "zach5809",
+          "tags": [
+            "生物、冒险、食物、Forge、世界生成"
+          ],
+          "version": "1.19.4-1.19.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zoological-aviators"
+        },
+        {
+          "title": "ZMCore (ZM核心前置)",
+          "description": "为空岛整合包制作的简易核心前置模组",
+          "author": "Zaksen",
+          "tags": [
+            "科技",
+            "Fabric",
+            "游戏机制"
+          ],
+          "version": "1.19.2-1.19.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zmcore"
+        },
+        {
+          "title": "Zoni's War Supplies (佐尼战争物资)",
+          "description": "新增医疗包与军粮，为战斗提供生存补给",
+          "author": "ZoniCraft",
+          "tags": [
+            "Forge",
+            "食物",
+            "装备"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zonis-war-supplies"
+        },
+        {
+          "title": "zipline recipe fix (滑索配方修复)",
+          "description": "数据包修复，解决1.2.1+1.21.8版本滑索模组无法合成的问题",
+          "author": "yycyycyyc",
+          "tags": [
+            "Fabric",
+            "数据包"
+          ],
+          "version": "1.21.8-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zipline-recipe-fix"
+        },
+        {
+          "title": "Z More Carrots (更多胡萝卜)",
+          "description": "添加更多种类的胡萝卜",
+          "author": "UN4VAILABLE",
+          "tags": [
+            "模组加载器:Fabric;标签:食物"
+          ],
+          "version": "1.19-1.19",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zmorecarrot"
+        },
+        {
+          "title": "Zer0's XP Mod (零号经验模组)",
+          "description": "添加经验相关内容，目前新增经验矿石，挖掘后掉落经验值",
+          "author": "deluxe1delusional",
+          "tags": [
+            "模组加载器:Forge;标签:游戏机制"
+          ],
+          "version": "1.19.2-1.19.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/the-xp-mod"
+        },
+        {
+          "title": "Zynd's Infection Mod: The Spread (兹因感染：蔓延)",
+          "description": "它吞噬、生长、变形、蔓延",
+          "author": "Zynd",
+          "tags": [
+            "NeoForge",
+            "生物",
+            "游戏机制",
+            "世界生成",
+            "猎奇"
+          ],
+          "version": "1.21.4-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zynds-infection-mod-the-spread"
+        },
+        {
+          "title": "Zombies Utils Core (僵尸工具核心)",
+          "description": "僵尸工具API实现",
+          "author": "Stachelbeere1248",
+          "tags": [
+            "Fabric",
+            "前置库"
+          ],
+          "version": "1.21.11-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombies-utils-core"
+        },
+        {
+          "title": "Zet's Grace: Craft Equipment (泽特恩典：装备合成)",
+          "description": "为原版不可合成的物品（以装备为主）添加合成配方",
+          "author": "Zetake",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "Fabric",
+            "数据包",
+            "Forge",
+            "装备"
+          ],
+          "version": "1.13-25w35a",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zg-craft-eq"
+        },
+        {
+          "title": "Zakuro (番石榴生存拓展)",
+          "description": "提供多模块功能，自定义原版生存各类细节玩法",
+          "author": "QiuShui1012",
+          "tags": [
+            "Fabric",
+            "实用工具",
+            "游戏机制",
+            "管理"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zakuro"
+        },
+        {
+          "title": "Zombiesmore (僵尸群拓展)",
+          "description": "基于原版僵尸浪潮更新，新增14种全新僵尸变体生物",
+          "author": "yamikingg",
+          "tags": [
+            "Forge",
+            "Fabric",
+            "NeoForge",
+            "生物"
+          ],
+          "version": "1.20.2-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombiesmore"
+        },
+        {
+          "title": "zLife Season 1 (生命赛季第一季)",
+          "description": "基于生命系列的数据包/模组，所有玩家初始拥有随机数量的生命和一颗心，和朋友一起生存，还是让世界陷入血战？",
+          "author": "ShelleyKey",
+          "tags": [
+            "小游戏",
+            "Quilt",
+            "Neoforge",
+            "冒险",
+            "Fabric",
+            "游戏机制",
+            "数据包",
+            "Forge",
+            "社交"
+          ],
+          "version": "1.21-26.1.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zlife"
+        },
+        {
+          "title": "Zombies Addon (僵尸插件)",
+          "description": "整合多款僵尸模组并提供模块化支持",
+          "author": "hahaha98757",
+          "tags": [
+            "Forge",
+            "实用"
+          ],
+          "version": "1.8.9-1.8.9",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombies-addon"
+        },
+        {
+          "title": "Zombie Boomer (爆裂僵尸变种)",
+          "description": "拥有爆炸特性的僵尸变种生物",
+          "author": "Devyr",
+          "tags": [
+            "NeoForge",
+            "生物"
+          ],
+          "version": "1.21.4-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-boomer"
+        },
+        {
+          "title": "Zero's Bunch O' Stuff (零点杂物拓展)",
+          "description": "拓展紫水晶与幽匿块的玩法用途，后续将持续更新更多内容",
+          "author": "ZeroMatic",
+          "tags": [
+            "NeoForge",
+            "食物",
+            "实用工具",
+            "游戏机制",
+            "装备",
+            "魔法"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zeros-bunch-o-stuff"
+        },
+        {
+          "title": "Zoni's I Love Gambling (趣味赌博玩法)",
+          "description": "新增多人趣味赌博互动玩法",
+          "author": "ZoniCraft",
+          "tags": [
+            "经济",
+            "冒险",
+            "社交",
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zonis-i-love-gambling"
+        },
+        {
+          "title": "Zet's Grace: Beneficial Effects (永久增益指令)",
+          "description": "提供指令实现无限常驻状态效果",
+          "author": "Zetake",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "Fabric",
+            "实用模组",
+            "游戏机制",
+            "数据包",
+            "Forge"
+          ],
+          "version": "1.15-25w37a",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zg-beneffects"
+        },
+        {
+          "title": "zombies-eat-animals (僵尸捕食动物)",
+          "description": "僵尸会捕猎动物获取食物，吃肉可恢复生命值并逐渐变强",
+          "author": "vomiter",
+          "tags": [
+            "冒险",
+            "恶搞",
+            "游戏机制",
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombies-eat-animals"
+        },
+        {
+          "title": "ZetDash (简易冲刺闪避)",
+          "description": "制作简易的基础人物冲刺闪避模组",
+          "author": "zetcipher",
+          "tags": [
+            "冒险",
+            "Forge"
+          ],
+          "version": "1.18.2-1.18.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zetdash"
+        },
+        {
+          "title": "Zebra's Toggle Sneak&Sprint (斑马切换疾跑潜行-Fabric版)",
+          "description": "客户端模组，支持一键切换潜行与疾跑状态，需Fabric加载器",
+          "author": "nqme",
+          "tags": [
+            "优化",
+            "Fabric"
+          ],
+          "version": "1.19-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zebrastogglesneak-fabric"
+        },
+        {
+          "title": "ZA - gunpowder (火药获取新增途径)",
+          "description": "为玩家新增多种简易获取火药的方式",
+          "author": "Zhengels",
+          "tags": [
+            "冒险",
+            "Fabric",
+            "游戏机制",
+            "世界生成"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/za-gunpowder"
+        },
+        {
+          "title": "ZenithHUD (巅峰界面)",
+          "description": "⚡巅峰界面——终极自定义F3界面",
+          "author": "shubham96__",
+          "tags": [
+            "Fabric",
+            "科技",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.21-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zenith-hud"
+        },
+        {
+          "title": "Zee's Web Integration (泽伊的网页集成)",
+          "description": "在浏览器中显示我的世界聊天消息、玩家统计等数据",
+          "author": "zpeaxirious",
+          "tags": [
+            "Fabric",
+            "实用",
+            "科技"
+          ],
+          "version": "1.21.1-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zees-web-integration"
+        },
+        {
+          "title": "Ziggy's Compressed Blocks (齐吉压缩方块)",
+          "description": "轻量化模组，新增多款压缩方块，兼顾存储便利与建筑多样搭配",
+          "author": "ZiggySchulz",
+          "tags": [
+            "Fabric",
+            "装饰",
+            "存储",
+            "实用工具"
+          ],
+          "version": "1.21.11-26.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ziggys-compressed-blocks"
+        },
+        {
+          "title": "Zombies are strong together (僵尸群体强化)",
+          "description": "强化群体僵尸属性，提升群居僵尸战斗力",
+          "author": "FLOODJeff",
+          "tags": [
+            "Forge",
+            "猎奇",
+            "游戏机制",
+            "生物"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombies-are-strong-together"
+        },
+        {
+          "title": "Zone Cleaner (区域清理)",
+          "description": "强大的服务器管理工具，无卡顿批量清除大范围方块与实体，支持进度条显示和撤销操作",
+          "author": "DreykaOas",
+          "tags": [
+            "Neoforge",
+            "Fabric",
+            "实用",
+            "游戏机制",
+            "Forge",
+            "世界生成",
+            "管理"
+          ],
+          "version": "1.19.2-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zone-cleaner"
+        },
+        {
+          "title": "Zzoyn Markers (佐因标记)",
+          "description": "添加简洁的3D标记系统，显示世界中的距离，适配团队合作和PVP",
+          "author": "zzoyn33",
+          "tags": [
+            "Forge",
+            "实用"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zzoyn-markers"
+        },
+        {
+          "title": "Zombies everywhere (僵尸遍地)",
+          "description": "生物死亡后可能直接变成僵尸，僵尸生成时可携带装备武器，现在能破坏和搭建方块，模组将持续更新",
+          "author": "minecraft_pwp",
+          "tags": [
+            "Forge",
+            "生物",
+            "冒险",
+            "装备"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombies-everywhere"
+        },
+        {
+          "title": "zekkie's asylum (泽基的疯人院)",
+          "description": "用诡异的维度、无趣的梗和糟糕的生物，让你的我的世界体验变得更差！",
+          "author": "zekkie",
+          "tags": [
+            "生物",
+            "冒险",
+            "食物",
+            "Forge",
+            "装备",
+            "恶搞"
+          ],
+          "version": "1.18.2-1.18.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zekkies-asylum"
+        },
+        {
+          "title": "Zoni's Unbreakable (佐尼的永不破损)",
+          "description": "让所有有耐久度的物品变为永不破损",
+          "author": "ZoniCraft",
+          "tags": [
+            "Forge",
+            "实用"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zonis-unbreakable"
+        },
+        {
+          "title": "ZUNPet (ZUN专属宠物)",
+          "description": "为游戏新增ZUN主题专属宠物",
+          "author": "Arrokoth",
+          "tags": [
+            "Fabric",
+            "装饰",
+            "实用工具"
+          ],
+          "version": "1.19.2-1.19.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zunpet"
+        },
+        {
+          "title": "Zi Lib (兹伊开发库)",
+          "description": "作者专属库类模组，优化UI开发底层支持",
+          "author": "Zioxs",
+          "tags": [
+            "Fabric",
+            "实用工具",
+            "库模组"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zi-lib"
+        },
+        {
+          "title": "Zombi Trusa (僵尸掉落服饰)",
+          "description": "僵尸死亡有概率掉落专属内衣趣味道具",
+          "author": "LoLXpley123",
+          "tags": [
+            "NeoForge",
+            "装饰",
+            "实用工具",
+            "游戏机制",
+            "Forge",
+            "装备"
+          ],
+          "version": "1.20.1-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombi-trusa"
+        },
+        {
+          "title": "ZzaiClear (智能清怪)",
+          "description": "本模组提供实体清理功能",
+          "author": "Zzai",
+          "tags": [
+            "Fabric",
+            "实用",
+            "管理"
+          ],
+          "version": "1.21.10-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zzaiclear"
+        },
+        {
+          "title": "ZacKikiCraft's Purple Mod (紫韵初作)",
+          "description": "作者首款原创我的世界模组。",
+          "author": "ryannt0507",
+          "tags": [
+            "冒险",
+            "装备",
+            "世界生成",
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zackikicrafts-purple-mod"
+        },
+        {
+          "title": "Zenith Vanilla (原版天顶剑)",
+          "description": "原版资源制天顶剑，一击必杀",
+          "author": "Mafiozy42",
+          "tags": [
+            "Forge",
+            "冒险",
+            "装饰",
+            "装备"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zenith-vanilla"
+        },
+        {
+          "title": "Zacian Companions (苍响伙伴)",
+          "description": "将凶猛的僵尸变为友好的苍响！喂食、装备、武装它们，让它们与你并肩作战",
+          "author": "DraconicArcher",
+          "tags": [
+            "Forge",
+            "生物",
+            "冒险",
+            "世界生成"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zacian-companions"
+        },
+        {
+          "title": "Zombies Apocalyptic AI (僵尸末世AI)",
+          "description": "改造僵尸行为逻辑，无视视野穿墙追踪目标，动态切换攻击对象，营造末世尸潮氛围",
+          "author": "oggvik",
+          "tags": [
+            "Forge",
+            "实用功能",
+            "游戏机制",
+            "生物"
+          ],
+          "version": "1.16.5-1.16.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombies-apocalyptic-ai"
+        },
+        {
+          "title": "Zombie Entities (批量僵尸生成)",
+          "description": "可通过指令一次性生成1至5000只僵尸，建议切换夜晚模式使用，大量生成可能造成卡顿或崩溃",
+          "author": "optimus1love",
+          "tags": [
+            "生物",
+            "冒险",
+            "魔法",
+            "Forge"
+          ],
+          "version": "1.12.2-1.12.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-entities"
+        },
+        {
+          "title": "ZenaviaQoL (泽纳维亚便捷工具)",
+          "description": "专为泽纳维亚《我的世界》服务器“感染者”游戏模式制作的客户端便捷模组",
+          "author": ".corail44",
+          "tags": [
+            "Fabric",
+            "实用",
+            "游戏机制",
+            "社交"
+          ],
+          "version": "1.21.8-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zenavia-qol"
+        },
+        {
+          "title": "Zombie Expansion (僵尸拓展)",
+          "description": "新增多种僵尸变种、方块、道具、维度及全新游戏机制",
+          "author": "XxCreeperxX",
+          "tags": [
+            "NeoForge",
+            "生物",
+            "冒险",
+            "装备",
+            "魔法"
+          ],
+          "version": "1.21.1-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-expansion"
+        },
+        {
+          "title": "Zones API (区域API)",
+          "description": "纯服务端区域划分接口模组，提供自定义区域开发接口",
+          "author": "Wolframoviy",
+          "tags": [
+            "Fabric",
+            "实用",
+            "游戏机制",
+            "库前置",
+            "管理"
+          ],
+          "version": "1.21.8-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zones-api"
+        },
+        {
+          "title": "Zurvival Mod (祖尔生存模组)",
+          "description": "添加祖尔生存相关内容的模组",
+          "author": "klodskateam",
+          "tags": [
+            "经济",
+            "Forge",
+            "恶搞",
+            "生物"
+          ],
+          "version": "1.18.2-1.18.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zurvival-mod"
+        },
+        {
+          "title": "ZerodayStyleHotbar (简约风格快捷栏)",
+          "description": "重塑快捷栏与物品提示框样式，自带详细信息展示与现代简约外观",
+          "author": "ch1ck3n-ovo",
+          "tags": [
+            "冒险",
+            "Fabric",
+            "装饰",
+            "游戏机制",
+            "实用工具",
+            "性能优化"
+          ],
+          "version": "1.21.4-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zerodaystylehotbar"
+        },
+        {
+          "title": "Zavora's Copper: Core (扎沃拉的铜：核心)",
+          "description": "铜制装饰与趣味内容，为PLS2整合包制作",
+          "author": "zavorateam",
+          "tags": [
+            "生物",
+            "装饰",
+            "实用工具",
+            "Forge",
+            "装备",
+            "世界生成",
+            "恶搞"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/copper-core"
+        },
+        {
+          "title": "Zone Conquest: Tactical Battles (区域征服：战术对战)",
+          "description": "团队目标模式，红方攻占据点，蓝方防守拖延，依靠团队配合、站位和区域控制取胜",
+          "author": "Vinlanx",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zone-conquest-tactical-battles"
+        },
+        {
+          "title": "Zqil's Discord Status (MC联动Discord状态)",
+          "description": "精致联动机器人，实时同步我的世界游戏状态至Discord个人资料",
+          "author": "zqil",
+          "tags": [
+            "实用",
+            "Fabric",
+            "社交",
+            "管理"
+          ],
+          "version": "1.21.6-1.21.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zqils-discord-status"
+        },
+        {
+          "title": "Zinc Pickaxe (锌矿镐拓展)",
+          "description": "新增锌矿石与锌锭道具，可制作专属锌制镐子",
+          "author": "adamgaming6987",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zinc-pickaxe"
+        },
+        {
+          "title": "zCup's Random Expansion (随机趣味拓展)",
+          "description": "汇集玩家共创的各类无厘头趣味道具、机制与内容，丰富游戏玩法",
+          "author": "zCup43",
+          "tags": [
+            "NeoForge",
+            "猎奇",
+            "游戏机制",
+            "装备"
+          ],
+          "version": "1.21.4-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zcups-random-expansion"
+        },
+        {
+          "title": "Zeo's Click Bot (泽奥的点击音效)",
+          "description": "游戏内播放点击和键盘音效，最真实的点击音效模组",
+          "author": "zeozeozeo",
+          "tags": [
+            "Fabric",
+            "装饰",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.21.8-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zcb-live"
+        },
+        {
+          "title": "Zip Fetcher (压缩包获取)",
+          "description": "适用于1.12.2版本的模组，从指定URL获取并解压压缩包",
+          "author": "Argis",
+          "tags": [
+            "存储",
+            "游戏机制",
+            "实用",
+            "Forge",
+            "管理"
+          ],
+          "version": "1.12.2-1.12.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zip-fetcher"
+        },
+        {
+          "title": "Zusz's Lil' Donuts (祖兹迷你甜甜圈)",
+          "description": "为我的世界添加迷你甜甜圈食物道具",
+          "author": "Zusz",
+          "tags": [
+            "食物、NeoForge"
+          ],
+          "version": "1.21-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zuszs-lil-donuts"
+        },
+        {
+          "title": "zarinite (扎里尼特矿石)",
+          "description": "趣味小型模组，新增扎里尼特矿石及相关道具",
+          "author": "nezercat33",
+          "tags": [
+            "Forge、装饰、装备"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zarinite"
+        },
+        {
+          "title": "Zelda Foes (塞尔达敌群)",
+          "description": "复刻塞尔达时之笛经典敌人生物，风格贴合原版且拥有独特机制与专属掉落物",
+          "author": "Harvy",
+          "tags": [
+            "生物、冒险、Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zelda-foes"
+        },
+        {
+          "title": "ZenithPlus (天顶增强)",
+          "description": "适用于纪念碑MMO游戏的实用模组，专为天顶模式设计",
+          "author": "DaysSky",
+          "tags": [
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.20.4-1.20.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zenithplus"
+        },
+        {
+          "title": "Zoni's Void Dimension (佐尼的虚空维度)",
+          "description": "为我的世界添加虚空维度",
+          "author": "ZoniCraft",
+          "tags": [
+            "Forge",
+            "实用",
+            "世界生成"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zonis-void-dimension"
+        },
+        {
+          "title": "zenithium (天顶矿石)",
+          "description": "基于全新维度（合成、建筑、强力生物）的模组，带有奇幻氛围。在主世界搭建传送门前往天顶维度，探索新生物群系，制作特殊物品、全新护甲和盔甲纹饰",
+          "author": "predatordu85110",
+          "tags": [
+            "Forge",
+            "装备",
+            "世界生成",
+            "怪物"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zenithium"
+        },
+        {
+          "title": "ZhongLv-12ET (中律12平均律)",
+          "description": "显示演奏音符名称的模组",
+          "author": "ESEAbsolute",
+          "tags": [
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.19.2-1.19.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zhonglv-12et"
+        },
+        {
+          "title": "ZApocalypse (僵尸末日)",
+          "description": "1.21.1 Fabric末日模组，每晚触发僵尸浪潮，含精英变种、血色之夜与僵尸领主BOSS；末日升级后僵尸解锁专属能力，其他敌对生物退守Y=25深层区域",
+          "author": "Swin",
+          "tags": [
+            "生物",
+            "游戏机制",
+            "Fabric"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zapocalypsebyswin"
+        },
+        {
+          "title": "zombiesbetter (僵尸增强)",
+          "description": "生存向增强模组，赋予僵尸挖掘方块、搭建梯子、使用专用工具追击玩家的能力，再也不能躲在墙后苟活",
+          "author": "creatersemo",
+          "tags": [
+            "Forge",
+            "装备",
+            "生物"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombiesbetter"
+        },
+        {
+          "title": "zongzimod (粽子模组)",
+          "description": "我的世界模组，添加可食用的粽子",
+          "author": "Zongzi",
+          "tags": [
+            "食物",
+            "Fabric"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zongzimod"
+        },
+        {
+          "title": "ZTAutoDrop (自动丢弃)",
+          "description": "根据配置自动从背包中丢弃物品",
+          "author": "zzoyn33",
+          "tags": [
+            "Forge",
+            "实用工具",
+            "游戏机制"
+          ],
+          "version": "1.20-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ztautodrop"
+        },
+        {
+          "title": "Zombie Enhanced (僵尸强化)",
+          "description": "僵尸变得更危险，携带特殊物品，包括可挖方块的镐、击晕玩家的铁砧等",
+          "author": "Logicrust",
+          "tags": [
+            "模组加载器:Fabric;标签:装备",
+            "游戏机制",
+            "生物"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-enhanced"
+        },
+        {
+          "title": "Zer0's XP Mod V2 (零号经验模组V2)",
+          "description": "旧版经验模组的重制版，功能基本不变，优化界面与细节",
+          "author": "deluxe1delusional",
+          "tags": [
+            "模组加载器:Forge;标签:装备",
+            "游戏机制",
+            "实用工具"
+          ],
+          "version": "1.19.2-1.19.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zer0s-xp-mod-v2"
+        },
+        {
+          "title": "Zonetrigger (区域触发器)",
+          "description": "无需编程即可实现简易区域触发功能，复刻地图编辑器相关逻辑",
+          "author": "Mirovingen",
+          "tags": [
+            "Forge",
+            "管理",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.20.1-1.20.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zonetrigger"
+        },
+        {
+          "title": "Zoro Spear Bridge (索罗长矛兼容适配)",
+          "description": "将1.21.11长矛模型向下兼容适配旧版本服务器",
+          "author": "ZoroGG",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21.4-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zoro-spear-bridge"
+        },
+        {
+          "title": "Zay'z Bow (泽伊之弓)",
+          "description": "添加多款强力弓箭",
+          "author": "ZayzXyt",
+          "tags": [
+            "Neoforge"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zayz-bow"
+        },
+        {
+          "title": "ZipZtoneMTK (压缩石MTK)",
+          "description": "添加超高倍率压缩圆石，挑战你的制作能力",
+          "author": "takoyaki3466",
+          "tags": [
+            "Forge",
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zipztonemtk"
+        },
+        {
+          "title": "Zoni's Mob Ores (佐尼生物矿石)",
+          "description": "挖掘和合成生物掉落物！",
+          "author": "ZoniCraft",
+          "tags": [
+            "Forge",
+            "世界生成"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zonis-mob-ores"
+        },
+        {
+          "title": "Zoni's Mob Friendly Fire (佐尼的生物友伤关闭)",
+          "description": "让怪物无法对其他怪物造成伤害",
+          "author": "ZoniCraft",
+          "tags": [
+            "Forge",
+            "实用",
+            "生物"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zonis-mob-friendly-fire"
+        },
+        {
+          "title": "Zipir Havaci (齐皮尔飞行器)",
+          "description": "高效向趣味项目，包含重量-based战斗物理系统",
+          "author": "pixarityfiravununpabucu",
+          "tags": [
+            "Forge",
+            "魔法",
+            "游戏机制",
+            "科技"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zipir-havaci"
+        },
+        {
+          "title": "Zurned Utils (泽恩德实用工具)",
+          "description": "添加泽恩德系列实用道具和功能",
+          "author": "Zurned",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.19.2-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zurned-util"
+        },
+        {
+          "title": "ZMC's Currency Mod (ZMC货币模组)",
+          "description": "我的世界简易货币模组",
+          "author": "TheChosenZMC",
+          "tags": [
+            "Neoforge"
+          ],
+          "version": "1.21.4-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zmcs-currency-mod"
+        },
+        {
+          "title": "Ziyang‘s item(紫阳魔法圣剑)",
+          "description": "自制冰系魔法圣剑，拥有两大特殊效果：减缓生物移速、对高生命值生物造成额外伤害",
+          "author": "wangziyang88866",
+          "tags": [
+            "NeoForge、冒险、装备、魔法"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/ziyangs-item"
+        },
+        {
+          "title": "Zoberr's Overhaul (佐贝尔全面重制)",
+          "description": "重制我的世界游戏进度，添加新矿石、大量合成配方和众多武器，各有特色与风险，安全并非首要",
+          "author": "Zoberr",
+          "tags": [
+            "Neoforge",
+            "冒险",
+            "Fabric",
+            "装饰",
+            "装备"
+          ],
+          "version": "1.21.8-26.1.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zoberrstoolsandarmour"
+        },
+        {
+          "title": "Zelash's Clutch Items (泽拉什的应急物品)",
+          "description": "3x3锤子、多功能工具、经验书、电梯等更多内容即将推出！",
+          "author": "ZelashMC",
+          "tags": [
+            "实用",
+            "Neoforge"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zelashs-clutch-items"
+        },
+        {
+          "title": "Zak's Sword (扎克之剑)",
+          "description": "添加一把石质钻石剑的模组",
+          "author": "iliazak",
+          "tags": [
+            "冒险",
+            "装备",
+            "NeoForge"
+          ],
+          "version": "1.21.8-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zaks-sword-mod"
+        },
+        {
+          "title": "Zelda Stable (塞尔达马厩)",
+          "description": "将塞尔达传说：旷野之息中的经典马厩完整移植到我的世界",
+          "author": "YW20120720@163.com",
+          "tags": [
+            "冒险",
+            "食物",
+            "实用工具",
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zelda-stable"
+        },
+        {
+          "title": "Zombies Ignore LOS (僵尸无视视线)",
+          "description": "让僵尸无视视线阻挡，即使有墙壁也能锁定玩家",
+          "author": "oggvik",
+          "tags": [
+            "Forge",
+            "游戏机制",
+            "生物"
+          ],
+          "version": "1.16.5-1.16.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombies-ignore-los"
+        },
+        {
+          "title": "zalk's stats (扎尔克统计)",
+          "description": "扎尔克统计模组，查看日志获取数据",
+          "author": "zallkyre",
+          "tags": [
+            "科技",
+            "Fabric",
+            "实用",
+            "游戏机制",
+            "管理"
+          ],
+          "version": "1.21.11-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zalks-stats"
+        },
+        {
+          "title": "zuum (缩放工具)",
+          "description": "适用于Fabric和Quilt的基础缩放模组",
+          "author": "Bishops_exe",
+          "tags": [
+            "Fabric",
+            "装饰",
+            "实用",
+            "Quilt"
+          ],
+          "version": "1.21.11-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zuum"
+        },
+        {
+          "title": "Zombie Mod (僵尸模组)",
+          "description": "简单模组，为Minecraft添加僵尸",
+          "author": "wearyt45411",
+          "tags": [
+            "Neoforge",
+            "生物"
+          ],
+          "version": "1.21.8-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-mod-wearyt"
+        },
+        {
+          "title": "Zander's Goofy Plasma Mod (赞德的趣味等离子模组)",
+          "description": "添加等离子相关物品和方块，目前已添加等离子物品和合成表，更多内容即将更新",
+          "author": "ZanderVander",
+          "tags": [
+            "Forge",
+            "装备"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zanders-goofy-plasma-mod"
+        },
+        {
+          "title": "zombie+ (僵尸拓展)",
+          "description": "为游戏添加两种全新僵尸变种",
+          "author": "Lagpha29",
+          "tags": [
+            "Fabric",
+            "冒险",
+            "生物"
+          ],
+          "version": "26.1-26.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/laps-zombie-variants"
+        },
+        {
+          "title": "ZhaoZizhengs Subway (赵子镇轨道交通)",
+          "description": "添加我的世界风格铁路交通设施。",
+          "author": "yb33221",
+          "tags": [
+            "交通",
+            "Fabric",
+            "科技"
+          ],
+          "version": "1.21-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zhaos"
+        },
+        {
+          "title": "Zombie Builder (建筑僵尸)",
+          "description": "添加可以放置方块接近目标的僵尸",
+          "author": "sMilizr",
+          "tags": [
+            "Forge",
+            "实用工具",
+            "游戏机制",
+            "生物"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zombie-builder"
+        },
+        {
+          "title": "ZEN's Better Difficulty (禅的更好难度)",
+          "description": "贴合原版的难度缩放系统，随世界存在时间提升敌对生物危险性",
+          "author": "Zendry",
+          "tags": [
+            "冒险",
+            "Neoforge",
+            "生物"
+          ],
+          "version": "26.1.2-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/zens-better-difficulty"
+        }
+      ]
+    }
+  ],
+  "versions": [
+    "1.21.11",
+    "1.21.1",
+    "1.20.6",
+    "1.20.1",
+    "1.19.4",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ]
+}
