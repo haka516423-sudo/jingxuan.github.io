@@ -1,0 +1,3250 @@
+{
+  "groups": [
+    {
+      "groupName": "🎮 Minecraft 模组",
+      "items": [
+        {
+          "title": "Xaero's Minimap(赛罗小地图)",
+          "description": "屏幕角落显示地形、玩家、生物与实体地图，支持自定义路标标记点位",
+          "author": "thexaero",
+          "tags": [
+            "运输",
+            "Quilt",
+            "NeoForge",
+            "冒险",
+            "Fabric",
+            "实用",
+            "Forge"
+          ],
+          "version": "1.7.10-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xaeros-minimap"
+        },
+        {
+          "title": "Xaero's World Map(赛罗世界地图)",
+          "description": "添加全屏世界地图，记录已探索区域，可与赛罗小地图搭配使用",
+          "author": "thexaero",
+          "tags": [
+            "运输",
+            "Quilt",
+            "NeoForge",
+            "冒险",
+            "Fabric",
+            "实用",
+            "Forge"
+          ],
+          "version": "1.7.10-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xaeros-world-map"
+        },
+        {
+          "title": "XaeroPlus(xaero地图增强)",
+          "description": "为Xaero世界地图与小地图新增大量拓展功能与自定义选项",
+          "author": "rfresh2",
+          "tags": [
+            "移动",
+            "Quilt",
+            "NeoForge",
+            "冒险",
+            "Fabric",
+            "实用工具",
+            "Forge"
+          ],
+          "version": "1.12.2-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xaeroplus"
+        },
+        {
+          "title": "Xaero Zoomout(xaero地图极限缩放)",
+          "description": "将Xaero世界地图最小缩放倍率从0.0625倍降至0.0025倍，全局视野一览无余",
+          "author": "NotRyken",
+          "tags": [
+            "运输",
+            "Quilt",
+            "NeoForge",
+            "冒险",
+            "Fabric",
+            "实用工具",
+            "Forge"
+          ],
+          "version": "1.19-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xaero-zoomout"
+        },
+        {
+          "title": "XP Tome(经验典籍)",
+          "description": "可自定义存储经验值的书本道具",
+          "author": "bl4ckscor3",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "科技",
+            "冒险",
+            "Fabric",
+            "存储",
+            "实用",
+            "Forge",
+            "魔法"
+          ],
+          "version": "1.12.2-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-tome"
+        },
+        {
+          "title": "XP Storage(经验存储)",
+          "description": "提供多种方式存储游戏经验值",
+          "author": "Pardys",
+          "tags": [
+            "存储",
+            "冒险",
+            "Fabric",
+            "装备"
+          ],
+          "version": "1.19-1.21.3",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-storage"
+        },
+        {
+          "title": "XXL Packets(超大数据包)",
+          "description": "XXL Packets 是 XL Packets 的分支模组，将数据包大小限制从2MB提升至Java整型上限（2147483647 GB）。",
+          "author": "Lazuline",
+          "tags": [
+            "Quilt",
+            "Fabric",
+            "实用优化",
+            "Forge",
+            "性能优化"
+          ],
+          "version": "1.18-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xxl-packets"
+        },
+        {
+          "title": "XP Storage - Trinkets(经验存储-饰品兼容)",
+          "description": "扩展模组，为经验存储模组添加饰品模组适配支持。",
+          "author": "Pardys",
+          "tags": [
+            "冒险",
+            "Fabric",
+            "存储",
+            "装备",
+            "魔法"
+          ],
+          "version": "1.19-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-storage-trinkets"
+        },
+        {
+          "title": "XPlus Autofish(全自动钓鱼)",
+          "description": "鱼上钩后自动收竿并重新抛竿，附带实用设置与漏洞修复，全加载器兼容。",
+          "author": "Wudji",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "冒险",
+            "Fabric",
+            "实用优化",
+            "游戏机制",
+            "Forge"
+          ],
+          "version": "1.18.2-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/x+-autofish"
+        },
+        {
+          "title": "Xenon（氙气性能优化）",
+          "description": "光影性能优化模组钠版的Forge移植版本。",
+          "author": "Txni",
+          "tags": [
+            "Forge",
+            "优化",
+            "实用",
+            "NeoForge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xenon-forge"
+        },
+        {
+          "title": "XPlus ContingameIME(全屏游戏输入法)",
+          "description": "原版游戏内输入法非官方续作，支持我的世界全屏状态下使用输入法",
+          "author": "Wudji",
+          "tags": [
+            "小游戏",
+            "Fabric",
+            "实用功能",
+            "游戏机制",
+            "优化"
+          ],
+          "version": "1.21-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xplus-contingameime"
+        },
+        {
+          "title": "Xaero's Minimap (Fair-Play)(小地图｜公平版)",
+          "description": "小地图的公平竞技版，专为无小地图玩家的公平PVP设计",
+          "author": "thexaero",
+          "tags": [
+            "运输",
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "实用工具",
+            "Forge"
+          ],
+          "version": "1.7.10-1.21",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xaeros-minimap-fair"
+        },
+        {
+          "title": "Xaero's Minimap & World Map - Waystones Compatibility(xaero地图与传送石兼容)",
+          "description": "激活传送石时，自动在xaero小地图与世界地图中生成对应路标",
+          "author": "arcanealloy",
+          "tags": [
+            "交通",
+            "Neoforge",
+            "实用",
+            "游戏机制",
+            "Forge"
+          ],
+          "version": "1.18.2-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xaeros-minimap-world-map-waystones-compatibility-forge"
+        },
+        {
+          "title": "X Ray (no cheats)(合规透视)",
+          "description": "更快更便捷地在矿脉中寻找矿石资源",
+          "author": "BizCub",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "冒险",
+            "Fabric",
+            "实用",
+            "游戏机制",
+            "数据包",
+            "Forge",
+            "世界生成",
+            "趣味恶搞"
+          ],
+          "version": "1.16.2-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/x_ray"
+        },
+        {
+          "title": "X-Ray World Generation(透视地形生成)",
+          "description": "非作弊透视模组，数据包生成特殊地形，仅保留透视可见矿石区块其余为空",
+          "author": "Klinbee",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "冒险",
+            "Fabric",
+            "实用",
+            "数据包",
+            "Forge",
+            "世界生成",
+            "趣味恶搞"
+          ],
+          "version": "1.19-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/x-ray-world"
+        },
+        {
+          "title": "Xaero's Map Server Utils(赛罗地图服务器管控)",
+          "description": "服主可便捷禁用赛罗地图系列模组的实体雷达、小地图等功能，保障竞技公平性",
+          "author": "xxtg666",
+          "tags": [
+            "实用工具",
+            "数据包",
+            "管理",
+            "Quilt",
+            "NeoForge",
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.16-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xaeros-map-server-utils"
+        },
+        {
+          "title": "XaeroLib（xaero地图前置库）",
+          "description": "xaero小地图与世界地图共用基础前置代码",
+          "author": "thexaero",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.12.2-1.16.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xaerolib"
+        },
+        {
+          "title": "XNet（X网络线缆）",
+          "description": "高度优化的通用网络线缆系统，可传输物品、能量、流体、信号等",
+          "author": "McJty",
+          "tags": [
+            "运输",
+            "Forge",
+            "NeoForge",
+            "科技"
+          ],
+          "version": "1.10.2-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xnet"
+        },
+        {
+          "title": "XP Obelisk(经验方尖碑)",
+          "description": "用于存储经验值的简易模组，灵感源自末影接口的经验方尖碑",
+          "author": "Meridanus",
+          "tags": [
+            "实用工具",
+            "Fabric",
+            "存储",
+            "生物"
+          ],
+          "version": "1.18-1.19.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-obelisk"
+        },
+        {
+          "title": "Xander's Sodium Options(桑德钠模组设置)",
+          "description": "基于YACL的我的世界风格钠模组设置界面",
+          "author": "IMB11",
+          "tags": [
+            "Fabric",
+            "实用工具",
+            "管理"
+          ],
+          "version": "1.19-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xanders-sodium-options"
+        },
+        {
+          "title": "XK's Decoration(XK多元装饰)",
+          "description": "多功能装饰模组，新增600+装饰方块，涵盖古文明、科幻朋克、工厂等多种风格",
+          "author": "Snownee",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "装饰",
+            "Forge"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xks-decoration"
+        },
+        {
+          "title": "XP Obelisk Additions(经验方碑拓展)",
+          "description": "可放入经验道具，显示连通经验存储等级，新增专属道具、方块与装饰",
+          "author": "Meridanus",
+          "tags": [
+            "实用工具",
+            "Fabric",
+            "存储",
+            "管理"
+          ],
+          "version": "1.18-1.19.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-obelisk-additions"
+        },
+        {
+          "title": "Xaero's Maps x Waystones(赛罗地图 传送石联动)",
+          "description": "在赛罗小地图/世界地图显示传送石位置",
+          "author": "alinco8",
+          "tags": [
+            "Forge",
+            "Fabric",
+            "实用工具",
+            "NeoForge"
+          ],
+          "version": "1.20-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xaeros-maps-x-waystones"
+        },
+        {
+          "title": "XNet Gases（XNet 气体传输）",
+          "description": "借助XNet网络实现通用机械化学流体与气体的传输",
+          "author": "Terrails",
+          "tags": [
+            "运输",
+            "Forge",
+            "NeoForge",
+            "科技"
+          ],
+          "version": "1.15.2-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xnet-gases"
+        },
+        {
+          "title": "Xtra Arrows（箭矢拓展）",
+          "description": "弓箭玩法拓展模组，新增海量特殊箭矢类型，适配双加载器",
+          "author": "Jackbusters",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "冒险",
+            "Fabric",
+            "实用",
+            "游戏机制",
+            "Forge",
+            "装备"
+          ],
+          "version": "1.16.4-1.21.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xtra-arrows"
+        },
+        {
+          "title": "XP From Harvest Reworked (收割经验重制)",
+          "description": "复刻并优化原版收割作物获取经验机制",
+          "author": "Stoutscientist",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.19.2-1.21",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-from-harvest-reworked"
+        },
+        {
+          "title": "Xaero's Map Chest Tracker Integration(夏罗地图箱子追踪)",
+          "description": "在夏罗地图上显示箱子追踪结果",
+          "author": "fewwan",
+          "tags": [
+            "Quilt",
+            "Fabric",
+            "存储",
+            "实用工具"
+          ],
+          "version": "1.19-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xaeros-map-chest-tracker-integration"
+        },
+        {
+          "title": "Xray Snitch (透视材质检测)",
+          "description": "服务端检测并预警使用透视材质包的玩家",
+          "author": "lunofe",
+          "tags": [
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xray-snitch"
+        },
+        {
+          "title": "XPGui (经验值存储界面)",
+          "description": "可视化存储与管理玩家经验值",
+          "author": "ChongYu668",
+          "tags": [
+            "Fabric、冒险、实用功能、存储、整理管理"
+          ],
+          "version": "1.19.2-26.1.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xpgui"
+        },
+        {
+          "title": "X-HP (血量伤害显示)",
+          "description": "直观展示实体生命值与攻击伤害数值",
+          "author": "the-doo",
+          "tags": [
+            "Fabric、装饰、Forge"
+          ],
+          "version": "1.16.5-1.20.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/x-hp"
+        },
+        {
+          "title": "XP From Harvest (收获得经验)",
+          "description": "收获农作物即可获取经验值",
+          "author": "RealGecko",
+          "tags": [
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.12.2-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-from-harvest"
+        },
+        {
+          "title": "Xaero Train Map (赛罗火车地图适配)",
+          "description": "在赛罗世界地图中添加机械动力火车导航，复刻旅途地图同类功能",
+          "author": "1Foxy2",
+          "tags": [
+            "NeoForge"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xaero-train-map"
+        },
+        {
+          "title": "XiaoXue's Delta Force mod (三角洲特种部队模组)",
+          "description": "向我的世界移植三角洲特种部队资产内容，后续持续更新拓展玩法",
+          "author": "XiaoXue_df",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "httpsmodrinth.com/mod/xiaoxues-delta-force-mod"
+        },
+        {
+          "title": "Xp from Crops (作物掉落经验)",
+          "description": "作物收获也能掉落经验值",
+          "author": "SirQuestalot",
+          "tags": [
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.20.1-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-from-crops"
+        },
+        {
+          "title": "XaeroShare (小地图路标共享)",
+          "description": "支持向指定玩家分享Xaero小地图路标点位",
+          "author": "MisremEmberEd",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21.1-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xaeroshare"
+        },
+        {
+          "title": "Xg's Story Mode Armor, Items and More (故事模式装备道具拓展)",
+          "description": "添加我的世界故事模式专属盔甲、道具与内容",
+          "author": "xg787",
+          "tags": [
+            "Forge",
+            "Neoforge",
+            "装备"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xgs-storymode-items-and-more"
+        },
+        {
+          "title": "X Backup (Fabric高级备份)",
+          "description": "Fabric端专用高级世界备份管理模组",
+          "author": "zly2006",
+          "tags": [
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.18.1-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/x-backup"
+        },
+        {
+          "title": "XD's Library (XD前置库)",
+          "description": "XDPXI开发的多功能通用前置资源库",
+          "author": "XDPXI",
+          "tags": [
+            "Fabric",
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.7.2-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xdlib"
+        },
+        {
+          "title": "XDBar（经验状态栏微调）",
+          "description": "微调经验条与定位栏视觉样式，界面更美观",
+          "author": "Lukiiy",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21.6-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xdbar"
+        },
+        {
+          "title": "Xibao Plus Plus / 喜报++（喜报增强版）",
+          "description": "服务器异常掉线时自动播放喜庆或悲伤背景音乐",
+          "author": "GregTao",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.16-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xibao-plus-plus"
+        },
+        {
+          "title": "XP Boost Enchantment（经验增幅附魔）",
+          "description": "工具与武器专属附魔，使用时额外获取经验值",
+          "author": "lullaby",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.21-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-boost-enchantment"
+        },
+        {
+          "title": "xkball's Auto Translate（xkball自动翻译）",
+          "description": "借助AI或谷歌翻译翻译物品提示框与FTB任务文本",
+          "author": "xkball",
+          "tags": [
+            "Forge",
+            "NeoForge"
+          ],
+          "version": "1.19.2-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xkballs-auto-translate"
+        },
+        {
+          "title": "Xaero Map Addition (Xaero小地图拓展)",
+          "description": "Xaero小地图功能拓展适配模组",
+          "author": "plusls",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.14.4-1.19",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xaero-map-addition"
+        },
+        {
+          "title": "X-PlayerInfo (玩家信息查看)",
+          "description": "按下Tab键随时查看目标玩家详细信息",
+          "author": "the-doo",
+          "tags": [
+            "Forge",
+            "Fabric"
+          ],
+          "version": "1.20-1.20.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/x-playerinfo"
+        },
+        {
+          "title": "Xander's Sodium Options: Continued (钠设置界面原版风格)",
+          "description": "将钠优化模组设置界面替换为原版风格样式",
+          "author": "soradotwav",
+          "tags": [
+            "织物、实用、新生熔炉、管理"
+          ],
+          "version": "1.21.6-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xso"
+        },
+        {
+          "title": "X-Enchantment (额外附魔扩展)",
+          "description": "新增多款自定义附魔效果",
+          "author": "the-doo",
+          "tags": [
+            "冒险、织物、实用、熔炉、猎奇、魔法"
+          ],
+          "version": "1.20-1.20.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/x-enchantment"
+        },
+        {
+          "title": "Xtones Reworked (现代奇幻装饰方块)",
+          "description": "1.19.2及以上可用，新增512种现代、未来、奇幻风格建筑装饰方块与灯具",
+          "author": "Ghost",
+          "tags": [
+            "Forge",
+            "NeoForge"
+          ],
+          "version": "1.16.5-1.21",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xtones-reworked"
+        },
+        {
+          "title": "XercaMod (原创内容拓展模组)",
+          "description": "补充原版缺失的大量玩法、物品与机制内容",
+          "author": "xerca",
+          "tags": [
+            "锻造"
+          ],
+          "version": "1.12.2-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xercamod"
+        },
+        {
+          "title": "XYZ Book (坐标记录典籍)",
+          "description": "客户端简易典籍模组，一键存储记录各地标坐标位置",
+          "author": "diskria",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.14.4-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xyzbook"
+        },
+        {
+          "title": "Xaero's Minimap and Waystones Compatibility (小地图传送石兼容)",
+          "description": "激活、新增、重命名传送石碑时，自动在xaero小地图生成对应路标",
+          "author": "Shoqapik",
+          "tags": [
+            "交通",
+            "NeoForge",
+            "冒险",
+            "Fabric",
+            "实用",
+            "Forge"
+          ],
+          "version": "1.21-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xaeros-minimap-and-waystones-compatibility"
+        },
+        {
+          "title": "Xtones (奇幻现代建材)",
+          "description": "新增大量现代、科幻、奇幻风格装饰建筑方块，是Ztones模组官方续作",
+          "author": "ModrinthArchives",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.10-1.12.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xtones"
+        },
+        {
+          "title": "XP Synthesiser (经验合成器)",
+          "description": "无需刷怪塔，利用能源合成经验值，单机多人通用且低卡顿",
+          "author": "MC_Dart",
+          "tags": [
+            "NeoForge"
+          ],
+          "version": "1.21.1-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-synthesiser"
+        },
+        {
+          "title": "XBB's Roaring Knight (咆哮骑士)",
+          "description": "添加德尔塔穹中的强力BOSS咆哮骑士",
+          "author": "XBB",
+          "tags": [
+            "Forge",
+            "NeoForge",
+            "生物"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xbbs-roaring-knight"
+        },
+        {
+          "title": "XenoTech (异星科技)",
+          "description": "载具科技模组，推动交通科技发展",
+          "author": "darimus",
+          "tags": [
+            "Forge",
+            "传送",
+            "实用",
+            "科技"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xenotech"
+        },
+        {
+          "title": "XP Farming (经验种植)",
+          "description": "无需刷怪塔，通过魔法作物在家种植经验",
+          "author": "SomeKoiFee",
+          "tags": [
+            "NeoForge",
+            "食物",
+            "实用",
+            "游戏机制",
+            "Forge",
+            "优化",
+            "世界生成",
+            "魔法"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-farming"
+        },
+        {
+          "title": "XP Thrower (经验自动投掷)",
+          "description": "一键自动投掷经验球，适配宏操作玩法",
+          "author": "Kanhaiya",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-thrower"
+        },
+        {
+          "title": "XP Stream (经验球吸收优化)",
+          "description": "加快经验球吸收速度且不堆叠聚集，保留原版经验收集质感",
+          "author": "Jed-Tech",
+          "tags": [
+            "NeoForge",
+            "Fabric"
+          ],
+          "version": "1.21.1-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-stream"
+        },
+        {
+          "title": "X3R's Dungeons (X3R地下城)",
+          "description": "原版风格地下城模组，新增大量武器、生物、BOSS与地牢结构",
+          "author": "x3rmination",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.16.4-1.16.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/x3dungeons"
+        },
+        {
+          "title": "Xenon (氙气实用库 已停更)",
+          "description": "轻量化Fabric实用工具附属模组，项目已废弃停止更新",
+          "author": "diblenderbenzene",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.19-1.20.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xenon"
+        },
+        {
+          "title": "XP Crystals (经验水晶)",
+          "description": "可制作水晶存储经验，分等级且支持自定义",
+          "author": "Phyton",
+          "tags": [
+            "Fabric",
+            "Forge",
+            "NeoForge",
+            "冒险",
+            "存储",
+            "游戏机制",
+            "数据包",
+            "装备",
+            "管理",
+            "魔法"
+          ],
+          "version": "1.21-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-crystals"
+        },
+        {
+          "title": "xNICEx（精致装饰拓展）",
+          "description": "专注装饰内容的精品模组，新增大量建筑装饰方块",
+          "author": "McJty",
+          "tags": [
+            "Forge",
+            "NeoForge"
+          ],
+          "version": "1.10.2-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xnicex"
+        },
+        {
+          "title": "XenoFactions (异族阵营)",
+          "description": "X雷达阵营模组的分支，为服务器所有者优化，无需插件即可使用阵营/领地功能",
+          "author": "RagexPrince683",
+          "tags": [
+            "Forge",
+            "食物",
+            "储存",
+            "游戏机制",
+            "实用",
+            "库",
+            "社交",
+            "经济",
+            "管理"
+          ],
+          "version": "1.7.10-1.7.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xenofactions"
+        },
+        {
+          "title": "X-Life (无限生命)",
+          "description": "无限生命服务器专用生命值模组",
+          "author": "DAQEM",
+          "tags": [
+            "Fabric",
+            "Forge",
+            "冒险",
+            "游戏机制",
+            "魔法",
+            "猎奇"
+          ],
+          "version": "1.16.3-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/x-life-health-mod"
+        },
+        {
+          "title": "XiBao ×× (喜报)",
+          "description": "中文趣味模组，断开连接时显示喜报界面",
+          "author": "CiLu",
+          "tags": [
+            "Fabric",
+            "Neoforge"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xibaoxx"
+        },
+        {
+          "title": "XP Slurper (经验吸食器)",
+          "description": "可直接饮用经验瓶获取经验，无需打碎瓶子",
+          "author": "asquared31415",
+          "tags": [
+            "Fabric",
+            "魔法",
+            "实用"
+          ],
+          "version": "1.20.1-1.20.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-slurper"
+        },
+        {
+          "title": "XYZ (坐标显示)",
+          "description": "在HUD上显示主世界和下界坐标",
+          "author": "Genesis",
+          "tags": [
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.17.1-1.19.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xyz"
+        },
+        {
+          "title": "XinexLib (希奈克斯库)",
+          "description": "终极工作室模组的专用库文件",
+          "author": "Qboi",
+          "tags": [
+            "模组加载器：NeoForge、Fabric；标签：库"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xinexlib"
+        },
+        {
+          "title": "XP Vial (经验瓶)",
+          "description": "魔法玻璃瓶，可安全存储和取回你的经验值",
+          "author": "UnnamedGlitch",
+          "tags": [
+            "Fabric",
+            "Forge",
+            "NeoForge"
+          ],
+          "version": "1.21.4-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-vial"
+        },
+        {
+          "title": "xokz's Glowing Toggle (发光切换)",
+          "description": "输入/trigger glowing指令切换发光效果，用于多人联机追踪",
+          "author": "xokz",
+          "tags": [
+            "NeoForge",
+            "Fabric",
+            "Forge",
+            "实用",
+            "游戏机制",
+            "数据包",
+            "社交"
+          ],
+          "version": "1.13-26.1.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xokzs-glowing-toggle"
+        },
+        {
+          "title": "XP: Attribute Core (经验属性核心)",
+          "description": "添加大量RPG风格的属性系统",
+          "author": "HER0XP",
+          "tags": [
+            "Forge",
+            "库",
+            "实用工具",
+            "游戏机制"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-attribute-core"
+        },
+        {
+          "title": "XaeroNuhUh (禁用地图)",
+          "description": "服务端完全禁用Xaero的大小地图",
+          "author": "blacklizardcode",
+          "tags": [
+            "Fabric",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.21.10-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xaeronuhuh"
+        },
+        {
+          "title": "Xaero's World Map: Synchronized (xaero地图同步)",
+          "description": "多人之间同步xaero世界地图探索数据",
+          "author": "5w14",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xaeros-world-map-synchronized"
+        },
+        {
+          "title": "Xp Bottles (经验瓶)",
+          "description": "安全储存和分享你的经验！使用简单可重复使用的经验容器保护经验不丢失，轻松转移给朋友",
+          "author": "ProdigeGasy",
+          "tags": [
+            "NeoForge",
+            "Forge",
+            "Fabric",
+            "冒险",
+            "实用",
+            "游戏机制",
+            "数据包",
+            "经济"
+          ],
+          "version": "1.21-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-bottles"
+        },
+        {
+          "title": "xiyu's Exchanted book (汐语的附魔书)",
+          "description": "提供个性化附魔效果，满足玩家创意需求",
+          "author": "Mai_xiyu",
+          "tags": [
+            "NeoForge",
+            "Forge",
+            "魔法",
+            "游戏机制"
+          ],
+          "version": "1.18.1-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xiyus-enchanted-book"
+        },
+        {
+          "title": "Xdi8Aho Mod (希丁语主题模组)",
+          "description": "面向希丁语社群的专属主题模组，新增萤火虫等特色内容",
+          "author": "QWERTY770",
+          "tags": [
+            "NeoForge",
+            "生物",
+            "冒险",
+            "Fabric",
+            "装饰",
+            "食物",
+            "实用",
+            "Forge",
+            "装备",
+            "世界生成"
+          ],
+          "version": "1.18.2-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xdi8aho-mod"
+        },
+        {
+          "title": "X-Bar Theory (生长战斗塔)",
+          "description": "新增可自主生长的战斗塔楼建筑",
+          "author": "flirora",
+          "tags": [
+            "冒险",
+            "Fabric",
+            "装备"
+          ],
+          "version": "1.21.5-26.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/x-bar-theory"
+        },
+        {
+          "title": "XBB's hot air balloon fantasy (XBB热气球幻想)",
+          "description": "添加多功能热气球实体",
+          "author": "XBB",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xbbs-hot-air-balloon-fantasy"
+        },
+        {
+          "title": "Xtra Discs (额外唱片)",
+          "description": "添加《动画 vs 我的世界》系列的全新唱片",
+          "author": "kidv0lt",
+          "tags": [
+            "Forge",
+            "社交"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xtra-discs"
+        },
+        {
+          "title": "Xp Mine (矿石掉落经验)",
+          "description": "让原本不掉落经验的矿石开采后正常产出经验",
+          "author": "trampodev",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21.5-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-mine"
+        },
+        {
+          "title": "XP Bank (经验值存储瓶)",
+          "description": "可将经验值存入玻璃瓶，随时取出使用",
+          "author": "Diesse",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.21-1.21.3",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/exp-bank"
+        },
+        {
+          "title": "X to Xray (X光透视)",
+          "description": "按下X键在任意服务器/世界开启/关闭X光透视",
+          "author": "1_st_Cat",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21-26.1.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/x-to-xray"
+        },
+        {
+          "title": "Xof (异态畸变生物)",
+          "description": "基于油管同人设定制作的诡异畸变生物模组",
+          "author": "unlikepaladin",
+          "tags": [
+            "棉被框架、织物"
+          ],
+          "version": "20w14infinite-1.19.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xof"
+        },
+        {
+          "title": "XXL Enderchest (巨型末影箱)",
+          "description": "织物模组，将原版3行末影箱拓展至最高6行54格存储空间",
+          "author": "SwordfishBE",
+          "tags": [
+            "织物"
+          ],
+          "version": "1.21.11-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xxlenderchest"
+        },
+        {
+          "title": "XPotter's Hallows (哈利波特模组)",
+          "description": "添加扫帚、隐形斗篷、魔杖和法术等",
+          "author": "PixelsMotion",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.16.5-1.16.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xharrypottermod"
+        },
+        {
+          "title": "XYZ Scythes (XYZ镰刀)",
+          "description": "添加5把拥有独特技能的新武器",
+          "author": "duckxyz",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xyz-scythes"
+        },
+        {
+          "title": "XFILLX's Swords (XFILLX刀剑模组)",
+          "description": "新增3把原版风格长剑与8把魔改风格刀剑，扩充武器选择",
+          "author": "XFILLX",
+          "tags": [
+            "Forge",
+            "Fabric"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xfillxs-swords"
+        },
+        {
+          "title": "Xp Jellies (经验果冻)",
+          "description": "为经验值增添更多实用用途",
+          "author": "forest_vessel",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-jellies"
+        },
+        {
+          "title": "Xatrix's Unfair Nether (险恶下界拓展)",
+          "description": "重塑下界生存难度，新增陷阱植物、特效、方块与敌对生物，提升开荒挑战性",
+          "author": "Xatrix-7155",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xatrixs-unfair-nether"
+        },
+        {
+          "title": "XP Multiplier (经验倍率调节)",
+          "description": "Fabric服务端模组，可配置全局经验获取倍率，自由增减经验收益",
+          "author": "Prunty",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/configurable-xp-plus"
+        },
+        {
+          "title": "XL-mod (巨型拓展模组)",
+          "description": "新增各类武器与全新地形生物群系",
+          "author": "uertyk_",
+          "tags": [
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xl-mod"
+        },
+        {
+          "title": "XunLib (迅通用前置库)",
+          "description": "简化模组开发的公共代码前置库",
+          "author": "Xun",
+          "tags": [
+            "Forge、Fabric、NeoForge"
+          ],
+          "version": "1.21-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xunlib"
+        },
+        {
+          "title": "Xtra Commands (趣味额外指令)",
+          "description": "多款休闲娱乐向趣味游戏指令",
+          "author": "ZigTheHedge",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.19.2-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xtra-commands"
+        },
+        {
+          "title": "Xp Formula (经验等级公式调整)",
+          "description": "自定义升级所需经验数值",
+          "author": "Tesseract",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.8.9-1.12.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-formula"
+        },
+        {
+          "title": "Xengi'MobPlush (怪物毛绒玩偶)",
+          "description": "趣味怪物主题毛绒装饰道具",
+          "author": "Xenogenesis3838",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xengimobplush"
+        },
+        {
+          "title": "XYKey (坐标快捷分享)",
+          "description": "便捷分享游戏坐标的实用模组",
+          "author": "kotakotik22",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.16.1-1.17",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xykey"
+        },
+        {
+          "title": "XP Alchemy (经验炼金转化)",
+          "description": "解锁经验值全新用途，可炼制专属药水与特殊道具",
+          "author": "VELD-Dev",
+          "tags": [
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.20-1.20.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xpalchemy"
+        },
+        {
+          "title": "XpBeacons（经验信标）",
+          "description": "地毯模组Fabric拓展，支持基于经验调整信标效果等级、自定义信标作用范围等功能",
+          "author": "fracturedcode",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.19-1.20.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xpbeacons"
+        },
+        {
+          "title": "Xianxia (仙侠修真)",
+          "description": "将仙侠武侠小说题材融入我的世界，打造完整修真玩法体系",
+          "author": "Naescent",
+          "tags": [
+            "NeoForge"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xianxia"
+        },
+        {
+          "title": "XP From Blocks (方块兑换经验)",
+          "description": "使用全新经验桌将多余方块转化为附魔之瓶",
+          "author": "mooredesign13_63897",
+          "tags": [
+            "NeoForge",
+            "Forge"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-from-blocks"
+        },
+        {
+          "title": "X-Hearts (生命挑战)",
+          "description": "开局1颗心，每死亡一次增加1颗心，源自极限人生挑战玩法",
+          "author": "mittensDev",
+          "tags": [
+            "Quilt",
+            "NeoForge",
+            "Fabric",
+            "Forge"
+          ],
+          "version": "1.21.2-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/x-hearts"
+        },
+        {
+          "title": "XP Share (经验分享)",
+          "description": "提供指令可向好友赠送经验值",
+          "author": "Sunroses",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.18-1.19.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-share"
+        },
+        {
+          "title": "Xylene (轻质优化)",
+          "description": "轻量FPS优化模组，小幅提升游戏帧率，优化效果直观可感",
+          "author": "SkyNexus",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21.11-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xylene"
+        },
+        {
+          "title": "XenAddons(复古功能复刻)",
+          "description": "1.21.10专属Fabric模组，复刻空岛租赁服1.8.9经典功能",
+          "author": "Xenus",
+          "tags": [
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.21.10-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xenaddons"
+        },
+        {
+          "title": "XP Config (经验配置)",
+          "description": "可自定义各类经验来源的倍率，自由调控获取效率",
+          "author": "Sniklz",
+          "tags": [
+            "NeoForge"
+          ],
+          "version": "1.21.1-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-config"
+        },
+        {
+          "title": "XP 2 items (经验兑换物品)",
+          "description": "消耗经验随机兑换各类游戏物品",
+          "author": "xJenny69",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-2-items"
+        },
+        {
+          "title": "XR's Expanded Moss (苔藓方块拓展)",
+          "description": "简易模组制作器打造，新增多种苔藓化方块转化方式",
+          "author": "ImXR24",
+          "tags": [
+            "Forge",
+            "装饰",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/expanded-moss"
+        },
+        {
+          "title": "Xyza's Ice Mod (冰雪维度模组)",
+          "description": "大量冰雪主题内容，新增专属冰洞维度",
+          "author": "XyzaGames",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xyzas-ice-mod"
+        },
+        {
+          "title": "xCraft (开局加速)",
+          "description": "前期游戏加速，提升掉落倍率、熔炉烧制速度等",
+          "author": "polvallverdu",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xcraft_real"
+        },
+        {
+          "title": "Xenyria Experience Enhancement Mod (泽尼里亚服务器优化)",
+          "description": "泽尼里亚专属服务器模组，多项体验优化功能",
+          "author": "LumaUwU",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.19.4-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xeem"
+        },
+        {
+          "title": "XehTascing (巫术拓展道具)",
+          "description": "为咒术之源模组添加更多趣味道具与玩法内容",
+          "author": "Jempasam",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.19.2-1.19.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xehtascing"
+        },
+        {
+          "title": "Xaero's Optimal Beacons Add-On (xaero地图信标优化)",
+          "description": "xaero世界地图与小地图附属模组，可预览信标覆盖范围，自动计算最优信标摆放位置",
+          "author": "deanxbox",
+          "tags": [
+            "Fabric"
+          ],
+          "version": "1.21.11-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xaeros-optimal-beacons-add-on"
+        },
+        {
+          "title": "XyTpa (多功能传送社交)",
+          "description": "全能传送模组，支持玩家互传、家点管理、死亡点回溯与完整多语言适配",
+          "author": "xiaoyu9430",
+          "tags": [
+            "Fabric",
+            "实用",
+            "社交"
+          ],
+          "version": "1.21.1-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xytpa"
+        },
+        {
+          "title": "XP Simplifier (经验值自定义)",
+          "description": "Fabric轻量模组，全面可控经验值规则，可按来源自定义经验数值，兼容原版与模组内容",
+          "author": "Qdeeme",
+          "tags": [
+            "性能优化",
+            "Fabric",
+            "实用工具",
+            "游戏机制"
+          ],
+          "version": "1.20-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-simplifier"
+        },
+        {
+          "title": "XMod Additions XL (X模组拓展豪华版)",
+          "description": "一系列拓展内容，让冷门物品更有用，强化薄弱玩法，以独特特性为灵感打造原版拓展内容",
+          "author": "revisiony2k",
+          "tags": [
+            "Neoforge",
+            "Fabric",
+            "Forge",
+            "科技",
+            "冒险",
+            "装饰",
+            "实用",
+            "装备"
+          ],
+          "version": "1.18.2-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xmod-additions-xl"
+        },
+        {
+          "title": "XenNote (泛音音符盒)",
+          "description": "新增多款音符盒，支持任意常规音调调音",
+          "author": "zhenlige",
+          "tags": [
+            "Quilt、Fabric、实用工具"
+          ],
+          "version": "1.21-1.21.3",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xennote"
+        },
+        {
+          "title": "XDeathsBans (死亡封禁系统)",
+          "description": "可配置服务器死亡封禁机制，设置死亡上限、临时封禁及封禁管理功能",
+          "author": "vowxky",
+          "tags": [
+            "小游戏、Fabric、实用工具、游戏机制、管理"
+          ],
+          "version": "1.19.2-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xdeathsbans"
+        },
+        {
+          "title": "Xp Stealer (击杀偷取经验)",
+          "description": "玩家击杀其他玩家后可掠夺对方经验值",
+          "author": "LeroTheGuy",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-stealer"
+        },
+        {
+          "title": "Xtra Stuff (额外杂物)",
+          "description": "【停止维护，推荐使用Kibe模组】添加各类实用杂物",
+          "author": "null2264",
+          "tags": [
+            "Fabric",
+            "装饰",
+            "实用工具"
+          ],
+          "version": "1.16.4-1.16.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xtrastuff"
+        },
+        {
+          "title": "XYZ Copy (坐标复制)",
+          "description": "添加/替换快捷键，复制玩家坐标和目标方块坐标",
+          "author": "NotCoded",
+          "tags": [
+            "Quilt",
+            "Neoforge",
+            "Fabric",
+            "实用工具",
+            "Forge"
+          ],
+          "version": "1.16-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xyzcopy"
+        },
+        {
+          "title": "X-tra stuff (额外内容拓展)",
+          "description": "为我的世界补充各类趣味额外道具与玩法内容",
+          "author": "Michiel20122023",
+          "tags": [
+            "生物、冒险、食物、Forge、装备"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/x-tra-stuff"
+        },
+        {
+          "title": "Xenogenesis (异形起源)",
+          "description": "受《异形》和《普罗米修斯》启发的生物机械恐怖模组，探索密封地下建筑、寄生生命周期、抱脸虫和异形生物",
+          "author": "devvyyxyz",
+          "tags": [
+            "Neoforge"
+          ],
+          "version": "1.21.8-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xenogenesis"
+        },
+        {
+          "title": "XtraRecipes (缺失配方补充)",
+          "description": "为原版无法合成的物品补充合成配方",
+          "author": "SkyCaleb",
+          "tags": [
+            "Forge",
+            "实用工具",
+            "游戏机制"
+          ],
+          "version": "1.12.2-1.12.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xtrarecipes"
+        },
+        {
+          "title": "XP Tools (经验值工具)",
+          "description": "Forge模组，自定义游戏经验值相关机制，面向整合包作者开发",
+          "author": "Micle",
+          "tags": [
+            "Forge",
+            "实用"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-tools"
+        },
+        {
+          "title": "XP Sword (经验宝剑恶搞)",
+          "description": "为好友制作的趣味恶搞经验值宝剑模组",
+          "author": "spaceofnova",
+          "tags": [
+            "Fabric",
+            "趣味魔改",
+            "游戏机制",
+            "实用"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-sword"
+        },
+        {
+          "title": "xibao-1.8.9 (惜宝音效)",
+          "description": "国内网络梗模组，非正常退出服务器时播放专属激昂或伤感音乐",
+          "author": "Black_Moss",
+          "tags": [
+            "Forge",
+            "社交"
+          ],
+          "version": "1.8.9-1.8.9",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xibao-1.8.9"
+        },
+        {
+          "title": "Xaero PointShare (迷你地图点共享)",
+          "description": "简易Fabric模组，自定义泽罗迷你地图路径点共享规则",
+          "author": "mafien0",
+          "tags": [
+            "运输",
+            "Fabric",
+            "实用",
+            "游戏机制",
+            "社交",
+            "管理"
+          ],
+          "version": "1.21.11-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xaeropointshare"
+        },
+        {
+          "title": "Xodium (优化核心)",
+          "description": "轻量级Fabric模组，平衡内存占用与游戏稳定性",
+          "author": "980million",
+          "tags": [
+            "优化",
+            "Fabric",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.21.11-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xodium"
+        },
+        {
+          "title": "Xicz Gap Releaser (Xicz金苹果优化)",
+          "description": "自动在完美时刻释放金苹果，确保最佳食用时机，与消耗品优化器不同",
+          "author": "starskillers553",
+          "tags": [
+            "优化",
+            "Fabric",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.21.11-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xiczgapreleaser"
+        },
+        {
+          "title": "Xeluim Mod (赛卢姆模组)",
+          "description": "为我的服务器制作的模组，基于MCreator开发，仅支持1.16.5版本",
+          "author": "PatateGivree",
+          "tags": [
+            "Forge",
+            "装饰",
+            "装备"
+          ],
+          "version": "1.16.5-1.16.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xeluim"
+        },
+        {
+          "title": "XP-Sync (经验同步)",
+          "description": "修复在高Y坐标维度进出时经验值消失的漏洞",
+          "author": "Vortron-rd",
+          "tags": [
+            "Forge",
+            "实用"
+          ],
+          "version": "1.12.2-1.12.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-sync"
+        },
+        {
+          "title": "Xtra stuf (更多内容)",
+          "description": "添加海量全新内容",
+          "author": "Funnybird890",
+          "tags": [
+            "Neoforge",
+            "生物",
+            "科技",
+            "冒险",
+            "食物",
+            "装饰",
+            "游戏机制",
+            "存储",
+            "Forge",
+            "优化",
+            "装备",
+            "世界生成",
+            "魔法"
+          ],
+          "version": "1.20.1-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xtra-stuf"
+        },
+        {
+          "title": "Xiaoan's Farming Core (小安农业核心)",
+          "description": "小安农业系列模组的核心，可通过Sinytra连接器在Forge中使用",
+          "author": "imxiaoanag",
+          "tags": [
+            "食物",
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.21-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xiaoanfc"
+        },
+        {
+          "title": "Xtra Drinks (特调饮品)",
+          "description": "以水果为核心的饮食模组",
+          "author": "istrikeboomi",
+          "tags": [
+            "NeoForge",
+            "科技",
+            "冒险",
+            "食物",
+            "Forge"
+          ],
+          "version": "1.12.2-1.21.6",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xtra-drinks"
+        },
+        {
+          "title": "XP Extractor (经验提取器)",
+          "description": "允许玩家将经验值提取并储存到瓶子中的我的世界模组",
+          "author": "amoghagrawal",
+          "tags": [
+            "Fabric",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-extractor"
+        },
+        {
+          "title": "Xionian Revolution (希昂革新)",
+          "description": "半成品机械科技与多维度冒险综合模组",
+          "author": "The_Bastiouse",
+          "tags": [
+            "运输",
+            "科技",
+            "生物",
+            "冒险",
+            "食物",
+            "装饰",
+            "游戏机制",
+            "存储",
+            "Forge",
+            "装备",
+            "世界生成",
+            "魔法"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xionian-revolution"
+        },
+        {
+          "title": "Xaero Custom Waypoint Colors (xaero小地图路标自定义颜色)",
+          "description": "为xaero小地图添加取色器，突破原版16种预设路标颜色限制",
+          "author": "loooosh98",
+          "tags": [
+            "运输",
+            "冒险",
+            "Fabric",
+            "实用工具"
+          ],
+          "version": "26.1.11-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xaero-custom-waypoint-colors"
+        },
+        {
+          "title": "XP Limiter (经验等级限制)",
+          "description": "可限制所有玩家经验等级，同步客户端与服务端数值",
+          "author": "bikerboys",
+          "tags": [
+            "Fabric",
+            "实用工具",
+            "游戏机制",
+            "管理"
+          ],
+          "version": "1.20.1-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-limiter"
+        },
+        {
+          "title": "xinziafk (自动防挂机)",
+          "description": "自动旋转视角、后台保活，避免游戏后台暂停判定",
+          "author": "shixinzia",
+          "tags": [
+            "Fabric",
+            "实用模组"
+          ],
+          "version": "1.21.1-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xinziafk"
+        },
+        {
+          "title": "X-tra Recipes (额外配方)",
+          "description": "简单的我的世界模组，仅添加额外合成配方",
+          "author": "Michiel20122023",
+          "tags": [
+            "Forge",
+            "管理",
+            "装备",
+            "游戏机制"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/x-tra-recipes"
+        },
+        {
+          "title": "XP Theory (经验理论)",
+          "description": "为生物添加经验吸收功能，移植我的世界地下城的生物附魔系统",
+          "author": "OwOWorld",
+          "tags": [
+            "Forge",
+            "魔法",
+            "游戏机制",
+            "生物"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-theory"
+        },
+        {
+          "title": "XpLands (经验维度)",
+          "description": "专属经验值养成新维度世界，满足所有经验玩法需求",
+          "author": "squidboiiiiii",
+          "tags": [
+            "Neoforge"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xplands"
+        },
+        {
+          "title": "xyz-copier (坐标复制器)",
+          "description": "帮助你快速复制游戏坐标！",
+          "author": "r266s",
+          "tags": [
+            "Fabric",
+            "实用",
+            "科技",
+            "管理"
+          ],
+          "version": "1.21.8-1.21.10",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xyz-copier"
+        },
+        {
+          "title": "xViewShulkers (潜影盒预览)",
+          "description": "鼠标悬停查看潜影盒内容",
+          "author": "jn_willfrydev",
+          "tags": [
+            "冒险",
+            "Fabric",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.20.4-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xviewshulkers"
+        },
+        {
+          "title": "Xenium (氙矿)",
+          "description": "添加氙制剑和盔甲，盔甲比下界合金稍强，剑右键后5秒召唤闪电",
+          "author": "StendeSton",
+          "tags": [
+            "冒险",
+            "Fabric",
+            "装备"
+          ],
+          "version": "1.19-1.19.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xenium"
+        },
+        {
+          "title": "XP: Dungeon Blocks (经验：地牢方块)",
+          "description": "添加一系列拥有独特机制的方块，完美适配地牢类模组",
+          "author": "HER0XP",
+          "tags": [
+            "Neoforge",
+            "Forge",
+            "库",
+            "游戏机制"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-dungeon-blocks"
+        },
+        {
+          "title": "Xiaoan's Mooncake Fever (小安的月饼狂热)",
+          "description": "小安农业核心附属模组，为游戏添加月饼",
+          "author": "imxiaoanag",
+          "tags": [
+            "食物",
+            "Fabric"
+          ],
+          "version": "1.21-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xiaoanmooncake"
+        },
+        {
+          "title": "Xtensions (扩展合集)",
+          "description": "为斧头等物品添加扩展功能，该模组使用Mcreator制作",
+          "author": "MINIS",
+          "tags": [
+            "冒险",
+            "装备",
+            "世界生成",
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xtensions"
+        },
+        {
+          "title": "XLands (超大维度)",
+          "description": "XLands维度模组",
+          "author": "nightfury717",
+          "tags": [
+            "冒险",
+            "食物",
+            "Forge",
+            "装备",
+            "世界生成"
+          ],
+          "version": "1.19.2-1.19.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xlands"
+        },
+        {
+          "title": "Xfect (完美形态)",
+          "description": "想成为独一无二的完美存在吗？现在可以实现了",
+          "author": "xCorrupter",
+          "tags": [
+            "Fabric",
+            "交通",
+            "实用",
+            "设备",
+            "魔法"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xfect"
+        },
+        {
+          "title": "Xenith's Beacon Infused Armor (泽尼思的信标附魔护甲)",
+          "description": "将信标效果附魔到护甲上",
+          "author": "XenithDMN",
+          "tags": [
+            "NeoForge",
+            "科技",
+            "装饰",
+            "实用",
+            "游戏机制",
+            "装备",
+            "魔法"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xeniths-beacon-infused-armor"
+        },
+        {
+          "title": "XP Health (经验生命值)",
+          "description": "简易Fabric模组，玩家提升经验等级可获得额外生命值奖励",
+          "author": "mvciek",
+          "tags": [
+            "冒险",
+            "Fabric",
+            "游戏机制"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/health-xp"
+        },
+        {
+          "title": "XDonPlugins (XDon插件)",
+          "description": "为我的世界资源包制作的功能性模组，后续将持续更新更多有趣功能，详情可在哔哩哔哩搜索查看教程",
+          "author": "XDon_",
+          "tags": [
+            "Fabric",
+            "实用",
+            "游戏机制",
+            "管理"
+          ],
+          "version": "1.21.10-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xdonplugins"
+        },
+        {
+          "title": "XandeMiner (桑德连锁挖矿)",
+          "description": "蹲下挖掘矿石时，自动连锁挖掘所有相连的同类矿石",
+          "author": "OiAlexandre",
+          "tags": [
+            "Forge",
+            "实用工具",
+            "游戏机制"
+          ],
+          "version": "1.21-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xandeminer"
+        },
+        {
+          "title": "XPFarm (经验农场)",
+          "description": "农耕即可获得经验；无需花费数小时挖掘石英、击杀生物、建造刷怪塔",
+          "author": "4ty91",
+          "tags": [
+            "Fabric",
+            "实用工具",
+            "paper"
+          ],
+          "version": "1.16.5-1.16.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xpfarm"
+        },
+        {
+          "title": "XEnchant (附魔指令增强)",
+          "description": "强化/enchant附魔指令功能",
+          "author": "MajickTek",
+          "tags": [
+            "Fabric",
+            "实用工具"
+          ],
+          "version": "1.15-1.16.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xenchant"
+        },
+        {
+          "title": "xpnocd (经验球无冷却)",
+          "description": "移除经验球拾取冷却",
+          "author": "Cassy-Lee",
+          "tags": [
+            "Forge",
+            "优化",
+            "实用"
+          ],
+          "version": "1.16.5-1.16.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xpnocd"
+        },
+        {
+          "title": "XMod Additions (X模组拓展)",
+          "description": "Vanilla+风格，添加配方、物品、生物、维度、群系等",
+          "author": "revisiony2k",
+          "tags": [
+            "Forge",
+            "科技",
+            "生物",
+            "冒险",
+            "食物",
+            "装饰",
+            "存储",
+            "实用",
+            "装备",
+            "世界生成"
+          ],
+          "version": "1.12.2-1.14.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xmod-additions"
+        },
+        {
+          "title": "XustomTeams (自定义队伍)",
+          "description": "一款优质的类更好队伍模组",
+          "author": "puurell",
+          "tags": [
+            "Fabric",
+            "实用",
+            "游戏机制",
+            "社交",
+            "管理"
+          ],
+          "version": "1.21.10-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xustomteams"
+        },
+        {
+          "title": "Xebo Tweaks (谢博优化)",
+          "description": "添加命名牌、鞍、马铠、经验瓶等合成配方，新增成就",
+          "author": "_Luckyy",
+          "tags": [
+            "Forge",
+            "恶搞",
+            "实用"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xebotweaks"
+        },
+        {
+          "title": "Xanadu-mod (时光跳跃道具)",
+          "description": "简易休闲模组，添加校园回忆风格道具与时光跳跃小功能",
+          "author": "DukeAvi",
+          "tags": [
+            "Fabric",
+            "实用功能",
+            "游戏机制"
+          ],
+          "version": "1.21-1.21.5",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xanadu-mod"
+        },
+        {
+          "title": "Xbox 360 Annoyances Remover (Xbox360烦扰修复)",
+          "description": "修复Beta1.7.3版本Xbox360服务器的各类小问题，同时兼容普通服务器",
+          "author": "emmowo",
+          "tags": [
+            "鸟类",
+            "趣味整活",
+            "实用工具"
+          ],
+          "version": "b1.7.3-b1.7.3",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xbox-360-annoyances-remover"
+        },
+        {
+          "title": "XDL的武器1 (XDL的武器1)",
+          "description": "添加了几把武器和一些生物及一个BOSS",
+          "author": "Daniel2013wang",
+          "tags": [
+            "装备",
+            "NeoForge",
+            "生物"
+          ],
+          "version": "1.21.4-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xdl1"
+        },
+        {
+          "title": "XInput Mod (X输入模组)",
+          "description": "为我的世界1.4.7添加手柄支持",
+          "author": "xvx",
+          "tags": [
+            "锻造",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.4.7-1.4.7",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xinput-mod"
+        },
+        {
+          "title": "XP: DevTools (模组开发工具)",
+          "description": "为整合包制作者与模组开发者提供便捷实用开发工具",
+          "author": "HER0XP",
+          "tags": [
+            "Forge",
+            "实用工具",
+            "NeoForge"
+          ],
+          "version": "1.20.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-devtools"
+        },
+        {
+          "title": "X_explotion Utils (爆炸系列前置工具)",
+          "description": "作者旗下爆炸系列模组专属前置实用工具库",
+          "author": "x_explotion",
+          "tags": [
+            "Fabric",
+            "实用工具"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/x_explotion-utils"
+        },
+        {
+          "title": "XYMultiChat (XY多窗口聊天)",
+          "description": "根据指定规则将聊天消息分类到不同窗口",
+          "author": "SummerRecall",
+          "tags": [
+            "优化",
+            "Fabric"
+          ],
+          "version": "1.21.8-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xymultichat"
+        },
+        {
+          "title": "Xyndra's Crates (辛德拉的箱子)",
+          "description": "将Pebble的箱子模组移植到NeoForge 1.21.1版本",
+          "author": "Xyndra",
+          "tags": [
+            "经济",
+            "管理",
+            "NeoForge"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xyndras_crates"
+        },
+        {
+          "title": "XP Helper (经验助手)",
+          "description": "右键自动使用经验瓶",
+          "author": "0221.dev",
+          "tags": [
+            "Fabric",
+            "实用",
+            "游戏机制",
+            "优化",
+            "装备"
+          ],
+          "version": "1.21.11-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-helper"
+        },
+        {
+          "title": "XenovaProtect (泽诺瓦保护)",
+          "description": "轻量服务端领地保护模组，使用金斧选择两点划定保护区域",
+          "author": "capitanecx",
+          "tags": [
+            "Fabric",
+            "实用"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xenovaprotect"
+        },
+        {
+          "title": "XPMagnet (经验球磁铁)",
+          "description": "潜行吸引经验球，疾跑推开经验球",
+          "author": "dervarex",
+          "tags": [
+            "Fabric",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.19.4-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xpmagnet"
+        },
+        {
+          "title": "XPStats (经验值统计)",
+          "description": "添加一个快捷键，替换经验条，并切换显示实用的PVP统计信息，如精确生命值（小数精度）、金苹果数量等",
+          "author": "einlasse",
+          "tags": [
+            "优化",
+            "Fabric",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.21.9-1.21.11",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xpstats"
+        },
+        {
+          "title": "Xaero Seedmap (谢罗种子地图)",
+          "description": "利用世界种子完成地图填充",
+          "author": "TGdoesCode",
+          "tags": [
+            "Fabric",
+            "装饰",
+            "实用"
+          ],
+          "version": "1.21.8-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xaero-seedmap"
+        },
+        {
+          "title": "Xenoverse Project (异度空间计划)",
+          "description": "融合多款科幻恐怖作品怪物的模组",
+          "author": "Alastor1474",
+          "tags": [
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xenoverse-project"
+        },
+        {
+          "title": "XP Tablets (经验 tablet)",
+          "description": "将经验值存储到 tablet 中，可取出使用，也可在铁砧中修复工具/盔甲",
+          "author": "T0mt4ru",
+          "tags": [
+            "科技",
+            "装备",
+            "Neoforge",
+            "实用"
+          ],
+          "version": "1.21-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-tablets"
+        },
+        {
+          "title": "Xengi'CakeCow (辛吉蛋糕牛)",
+          "description": "为你的世界添加可爱的蛋糕牛，也是蛋糕小队多人服务器的吉祥物",
+          "author": "Xenogenesis3838",
+          "tags": [
+            "食物",
+            "Fabric",
+            "生物"
+          ],
+          "version": "1.21.4-1.21.4",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xengicakecow"
+        },
+        {
+          "title": "XyCraft (星际工艺)",
+          "description": "科幻风格科技模组",
+          "author": "Soarynn",
+          "tags": [
+            "NeoForge",
+            "科技",
+            "Forge",
+            "资源库",
+            "装备"
+          ],
+          "version": "1.19-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xycraft"
+        },
+        {
+          "title": "XPansion (经验拓展)",
+          "description": "附魔系统优化",
+          "author": "alzaryx",
+          "tags": [
+            "Fabric",
+            "装备",
+            "游戏机制",
+            "魔法"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xpansion"
+        },
+        {
+          "title": "XPTP: Teleport using experience (经验传送：消耗经验传送)",
+          "description": "添加消耗经验等级传送的指令，可通过游戏内指令高度自定义",
+          "author": "Deepie",
+          "tags": [
+            "交通",
+            "实用",
+            "Forge",
+            "社交",
+            "魔法"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xptp-teleport-using-experience"
+        },
+        {
+          "title": "Xianziyu's Interesting Items (仙子鱼的趣味物品)",
+          "description": "多款实用工具，包含矿物类武器等物品",
+          "author": "xianziyu",
+          "tags": [
+            "冒险",
+            "实用",
+            "装备",
+            "Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xianziyus-interesting-items"
+        },
+        {
+          "title": "XySmallTool (XY小工具)",
+          "description": "轻量级Fabric模组，通过YAML配置文件控制生物生成、爆炸破坏、末影人行为、农田踩踏、凋灵头颅寿命",
+          "author": "xiaoyu9430",
+          "tags": [
+            "Fabric",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xysmalltool"
+        },
+        {
+          "title": "Xirao's More Items and Blocks (西劳的更多物品与方块)",
+          "description": "向我的世界添加大量压缩物品和方块",
+          "author": "AZ_Xirao",
+          "tags": [
+            "Fabric",
+            "实用工具"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xiraos-more-items-and-blocks"
+        },
+        {
+          "title": "Xiaoxiang Cultivation World (潇湘修仙世界)",
+          "description": "吸纳天地灵气、突破修为境界，从凡人渡劫飞升成真仙",
+          "author": "XiaoXiangMods",
+          "tags": [
+            "冒险、魔法、游戏机制、Forge"
+          ],
+          "version": "1.20.1-1.20.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xiaoxiang-cultivation-world"
+        },
+        {
+          "title": "XPbar[+] (经验条拓展)",
+          "description": "显示升级所需的经验值",
+          "author": "_Wintr__",
+          "tags": [
+            "Fabric",
+            "装饰",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xpbar+"
+        },
+        {
+          "title": "Xaero Background ( xaero地图背景)",
+          "description": "为xaero世界地图添加背景",
+          "author": "TGdoesCode",
+          "tags": [
+            "Fabric",
+            "装饰"
+          ],
+          "version": "1.21.8-1.21.8",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xaero-background"
+        },
+        {
+          "title": "xiyu os (汐雨系统)",
+          "description": "基于Web技术构建的模拟操作系统，拥有精美的Windows 11风格界面，深度同步《我的世界》游戏状态（包含专属Fabric模组）",
+          "author": "zza52",
+          "tags": [
+            "实用",
+            "Fabric",
+            "社交",
+            "管理"
+          ],
+          "version": "1.21.1-1.21.1",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xiyu-os"
+        },
+        {
+          "title": "XPTracker (经验追踪面板)",
+          "description": "实时监测经验获取来源并分类统计，以简洁可配置的悬浮界面展示。",
+          "author": "dennis.thegamer96",
+          "tags": [
+            "Fabric",
+            "实用",
+            "生物"
+          ],
+          "version": "26.1-26.1.2",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xptracker"
+        },
+        {
+          "title": "XP Farm (经验农场)",
+          "description": "收割农作物可获得额外经验值",
+          "author": "Dastych",
+          "tags": [
+            "食物",
+            "Fabric",
+            "实用",
+            "游戏机制"
+          ],
+          "version": "1.21.7-1.21.7",
+          "stats": {
+            "downloads": "—",
+            "updated": "2026-05-02 20:15:13"
+          },
+          "type": "link",
+          "url": "https://modrinth.com/mod/xp-farm"
+        }
+      ]
+    }
+  ],
+  "versions": [
+    "1.21.11",
+    "1.21.1",
+    "1.20.6",
+    "1.20.1",
+    "1.19.4",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ]
+}
