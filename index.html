@@ -510,7 +510,7 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
         <p style="font-size:0.7rem;color:#aaa;margin-bottom:10px">
             格式：标题 || 描述 || URL || 作者 || 版本 || 标签1,标签2<br>
             版本支持范围 (如 1.20-1.21)；标签可选<br>
-            每个卡片以句号(。)结尾
+            每行一个卡片，字段用 || 分隔（句号可选）
         </p>
 
         <!-- ✅ 新增文件选择区域 -->
@@ -938,28 +938,99 @@ typeBtns.forEach(b=>{b.addEventListener('click',()=>{setActiveTypeBtn(b.dataset.
 
 function renderDynamicTags(){if(!dynamicTagList)return;const allTags=extractAllTags().map(([tag])=>tag);const fixed=['Fabric','Forge','NeoForge'];const other=allTags.filter(t=>!fixed.includes(t));dynamicTagList.innerHTML=other.length?other.map(t=>`<button type="button" class="tag-btn" data-tag="${escapeHtml(t)}">${escapeHtml(t)}</button>`).join(''):'<span style="font-size:0.7rem;color:#aaa">暂无其他标签</span>';document.querySelectorAll('.dynamic-tag-list-wrap .tag-btn').forEach(b=>b.addEventListener('click',function(){const t=this.dataset.tag,cv=cardTagsInput.value.trim();cardTagsInput.value=cv?cv.split(',').map(s=>s.trim()).includes(t)?cv:cv+', '+t:t}))}
 
-function parseBatchText(){
-    let raw=batchTextarea.value.trim();
-    if(!raw)return alert('请输入文本');
-    raw=raw.replace(/\r\n/g,'\n').replace(/\r/g,'\n');
-    const lines=raw.split('\n').filter(l=>l.trim());
-    let added=0,errs=[];
-    lines.forEach((line,i)=>{
-        let cl=line.trim();
-        if(cl.endsWith('。'))cl=cl.slice(0,-1).trim();
-        if(!cl)return;
-        const parts=cl.split('||').map(s=>s.trim());
-        if(parts.length<5){ errs.push(`第${i+1}行:格式不完整（至少5个字段）`); return; }
-        const title=parts[0], desc=parts[1], url=parts[2], author=parts[3], ver=parts[4];
-        const tagsStr=parts.length>=6 ? parts[5] : '';
-        if(!title){ errs.push(`第${i+1}行:标题为空`); return; }
-        if(!url){ errs.push(`第${i+1}行:URL为空`); return; }
-        const tags=tagsStr ? tagsStr.split(',').map(s=>s.trim()).filter(s=>s) : [];
-        groupsData[currentGroupIndex].items.push({title,description:desc||url,author:author||'', tags, version:ver||undefined, stats:{downloads:'—', updated:getCurrentTimeString()}, type:'link', url});
+function parseBatchText() {
+    let raw = batchTextarea.value.trim();
+    if (!raw) return alert('请输入文本');
+    raw = raw.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+    const lines = raw.split('\n').filter(l => l.trim());
+
+    let added = 0;
+    let skipped = 0;
+    let skippedReasons = [];
+
+    lines.forEach((line, lineNum) => {
+        let cl = line.trim();
+        // 可选句号：如果有句号就去掉，没有也没关系
+        if (cl.endsWith('。')) cl = cl.slice(0, -1).trim();
+        if (!cl) {
+            skipped++;
+            return;
+        }
+
+        // 按 || 分割，并 trim 每个部分
+        const parts = cl.split('||').map(s => s.trim());
+
+        // 取标题（第1段），如果不存在则为空字符串
+        let rawTitle = parts[0] || '';
+        // 去除序号前缀，如 "1. "、"2. "、"10. " 等
+        rawTitle = rawTitle.replace(/^\d+\.\s*/, '');
+
+        // 如果没有标题，直接跳过
+        if (!rawTitle) {
+            skipped++;
+            if (skippedReasons.length < 5) {
+                skippedReasons.push(`第 ${lineNum + 1} 行: 标题为空，已跳过`);
+            }
+            return;
+        }
+
+        // 字段提取：允许任意长度，缺失的字段用空字符串代替
+        const desc   = parts[1] || '';
+        const url    = parts[2] || '';
+        const author = parts[3] || '';
+        const ver    = parts[4] || '';
+        const tagsStr = parts[5] || '';
+
+        // URL 不能为空
+        if (!url) {
+            skipped++;
+            if (skippedReasons.length < 5) {
+                skippedReasons.push(`第 ${lineNum + 1} 行: URL 为空，已跳过`);
+            }
+            return;
+        }
+
+        // 处理标签：逗号分隔，去掉空标签
+        const tags = tagsStr ? tagsStr.split(',').map(s => s.trim()).filter(s => s) : [];
+
+        // 描述如果为空，就用 URL 代替（可选，可以让卡片更友好）
+        const finalDesc = desc || url;
+
+        // 添加到当前分组
+        groupsData[currentGroupIndex].items.push({
+            title: rawTitle,
+            description: finalDesc,
+            author: author,
+            tags: tags,
+            version: ver || undefined,
+            stats: {
+                downloads: '—',
+                updated: getCurrentTimeString()
+            },
+            type: 'link',
+            url: url
+        });
         added++;
     });
-    if(errs.length) alert(`添加${added}个。错误:\n${errs.join('\n')}`); else alert(`成功添加${added}个卡片！`);
-    saveDataToStorage(); batchModal.classList.remove('active'); currentPage=1; renderAll();
+
+    if (added > 0) {
+        saveDataToStorage();
+        batchModal.classList.remove('active');
+        currentPage = 1;
+        renderAll();
+    }
+
+    let msg = `✅ 成功添加 ${added} 个卡片。`;
+    if (skipped > 0) {
+        msg += `\n⏭️ 跳过 ${skipped} 行无效数据。`;
+        if (skippedReasons.length) {
+            msg += `\n\n原因示例（前${skippedReasons.length}条）：\n${skippedReasons.join('\n')}`;
+        }
+        msg += `\n\n提示：每行格式为「标题 || 描述 || URL || 作者 || 版本 || 标签1,标签2」\n所有字段都可以为空（除标题和URL外），不需要句号结尾。`;
+    } else if (added === 0 && skipped > 0) {
+        msg = `⚠️ 没有有效的卡片数据，请检查格式。\n${skippedReasons.slice(0, 3).join('\n')}`;
+    }
+    alert(msg);
 }
 
 function openTextView(title,content){textModalTitle.innerText=title;textContentDisplay.innerHTML=escapeHtml(content).replace(/\n/g,'<br>');textModal.classList.add('active')}
