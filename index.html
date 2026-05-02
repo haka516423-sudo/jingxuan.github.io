@@ -756,10 +756,11 @@ function resetWallpaper(){
 }
 
 async function loadInitialData() {
-    const backend = localStorage.getItem('storage_backend');
-    
-    // 1. 如果上次用的是 IndexedDB，优先读它
-    if (backend === 'idb') {
+    // 1. 如果是管理员自动模式（从会话恢复），直接加载本地保存的数据
+    const autoAdmin = sessionStorage.getItem('adminModeAuto') === 'true';
+    if (autoAdmin) {
+        // 尝试从 IndexedDB 或 localStorage 加载之前保存的数据
+        let loaded = false;
         try {
             const stored = await loadFromIndexedDB();
             if (stored && stored.groupsData && Array.isArray(stored.groupsData)) {
@@ -767,31 +768,36 @@ async function loadInitialData() {
                 versions = stored.versions || versions;
                 currentDataSource = 'local';
                 hasLocalChanges = true;
-                updateDataSourceIndicator();
-                renderAll();
-                return;
+                loaded = true;
             }
         } catch(e) { console.warn('IndexedDB 读取失败', e); }
-    }
-    
-    // 2. 尝试从 localStorage 读取
-    const localRaw = localStorage.getItem('editable_groups_data');
-    if (localRaw) {
-        try {
-            const parsed = JSON.parse(localRaw);
-            if (parsed.groupsData && Array.isArray(parsed.groupsData)) {
-                groupsData = parsed.groupsData;
-                versions = parsed.versions || versions;
-                currentDataSource = 'local';
-                hasLocalChanges = true;
-                updateDataSourceIndicator();
-                renderAll();
-                return;
+        if (!loaded) {
+            const s = localStorage.getItem('editable_groups_data');
+            if (s) {
+                try {
+                    const parsed = JSON.parse(s);
+                    if (parsed.groupsData && Array.isArray(parsed.groupsData)) {
+                        groupsData = parsed.groupsData;
+                        versions = parsed.versions || versions;
+                        currentDataSource = 'local';
+                        hasLocalChanges = true;
+                        loaded = true;
+                    }
+                } catch(e) {}
             }
-        } catch(e) { console.warn('localStorage 解析失败', e); }
+        }
+        if (!loaded) {
+            groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
+            currentDataSource = 'default';
+            hasLocalChanges = false;
+        }
+        updateDataSourceIndicator();
+        renderAll();
+        return;
     }
-    
-    // 3. 回退到云端 data.json
+
+    // 2. 普通模式：优先从云端 data.json 获取
+    let cloudSuccess = false;
     try {
         const res = await fetch('data.json?v=' + Date.now());
         if (res.ok) {
@@ -801,23 +807,56 @@ async function loadInitialData() {
                 if (json.versions && Array.isArray(json.versions)) versions = json.versions;
                 currentDataSource = 'cloud';
                 hasLocalChanges = false;
-                saveVersions();
-                await saveDataToStorage();  // 缓存到本地（自动选存储）
+                saveVersions();        // 保存版本到 localStorage（小数据）
+                await saveDataToStorage(); // 缓存到本地（自动选 IndexedDB 或 localStorage）
                 updateDataSourceIndicator();
                 renderAll();
-                return;
+                cloudSuccess = true;
             }
         }
-    } catch(e) {}
-    
-    // 4. 最终默认数据
-    groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
-    versions = [...DEFAULT_VERSIONS];
-    currentDataSource = 'default';
-    hasLocalChanges = false;
-    updateDataSourceIndicator();
-    renderAll();
+    } catch(e) { console.warn('云端加载失败', e); }
+
+    // 3. 云端失败，尝试从本地存储加载
+    if (!cloudSuccess) {
+        let localLoaded = false;
+        try {
+            const stored = await loadFromIndexedDB();
+            if (stored && stored.groupsData && Array.isArray(stored.groupsData)) {
+                groupsData = stored.groupsData;
+                versions = stored.versions || versions;
+                currentDataSource = 'local';
+                hasLocalChanges = true;
+                localLoaded = true;
+            }
+        } catch(e) { console.warn('IndexedDB 读取失败', e); }
+        
+        if (!localLoaded) {
+            const s = localStorage.getItem('editable_groups_data');
+            if (s) {
+                try {
+                    const parsed = JSON.parse(s);
+                    if (parsed.groupsData && Array.isArray(parsed.groupsData)) {
+                        groupsData = parsed.groupsData;
+                        versions = parsed.versions || versions;
+                        currentDataSource = 'local';
+                        hasLocalChanges = true;
+                        localLoaded = true;
+                    }
+                } catch(e) {}
+            }
+        }
+        
+        if (!localLoaded) {
+            groupsData = JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));
+            versions = [...DEFAULT_VERSIONS];
+            currentDataSource = 'default';
+            hasLocalChanges = false;
+        }
+        updateDataSourceIndicator();
+        renderAll();
+    }
 }
+
 
 const groupContainer=document.getElementById('groupButtonsContainer'),cardsContainer=document.getElementById('cardsContainer'),searchInput=document.getElementById('searchInput'),dynamicTitle=document.getElementById('dynamicTitle'),versionListContainer=document.getElementById('versionListContainer'),addVersionBtn=document.getElementById('addVersionBtn'),tagListContainer=document.getElementById('tagListContainer'),clearTagFilterBtn=document.getElementById('clearTagFilterBtn'),sortSelect=document.getElementById('sortSelect'),viewToggleBtn=document.getElementById('viewToggleBtn'),pageSizeSelect=document.getElementById('pageSizeSelect'),duplicateToolbarContainer=document.getElementById('duplicateToolbarContainer'),paginationContainerTop=document.getElementById('paginationContainerTop'),paginationContainerBottom=document.getElementById('paginationContainerBottom');
 const modal=document.getElementById('cardModal'),cardTitleInput=document.getElementById('cardTitle'),cardDescInput=document.getElementById('cardDesc'),cardUrlInput=document.getElementById('cardUrl'),cardTextContent=document.getElementById('cardTextContent'),cardMindmapContent=document.getElementById('cardMindmapContent'),cardAuthorInput=document.getElementById('cardAuthor'),cardTagsInput=document.getElementById('cardTags'),cardVersionInput=document.getElementById('cardVersion'),cardDownloadsInput=document.getElementById('cardDownloads'),modalCancel=document.getElementById('modalCancel'),modalSave=document.getElementById('modalSave');
