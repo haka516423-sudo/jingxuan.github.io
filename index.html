@@ -216,13 +216,23 @@ body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}body[data-the
     background: var(--theme-accent);
     color: var(--text-on-accent);
 }
+
+/* 大屏幕下也强制独占一行 */
+.search-bar {
+    display: block;
+}
+.search-bar .search-wrapper {
+    margin-bottom: 10px;
+}
 /* 小屏幕时搜索框独占一行，其他控件自动换行且均匀分布 */
 @media (max-width: 700px) {
     .search-bar {
-        display: block;
+        flex-direction: column;
+        align-items: stretch;
     }
     .search-wrapper {
-        margin-bottom: 10px;
+        width: 100%;
+        margin-bottom: 8px;
     }
     .search-bar > button,
     .search-bar > select {
