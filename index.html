@@ -1503,71 +1503,57 @@ function getFirstLetter(title) {
 }
 
 // 导出当前 groupsData 中的所有卡片，按首字母分组打包为多个 JSON 文件
-// 导出当前 groupsData 中的所有卡片，按首字母分组打包为多个 JSON 文件（增强版，保证数组格式）
 async function exportGroupedByLetter() {
     // 收集所有卡片 (平铺，携带所属分组名)
     let allCards = [];
     for (let gIdx = 0; gIdx < groupsData.length; gIdx++) {
         const group = groupsData[gIdx];
         for (const card of group.items) {
-            // 深拷贝，避免后续修改影响原数据
-            const cleanCard = JSON.parse(JSON.stringify(card));
-            // 可选：清洗 tags 中的异常数据（例如去掉 'texture123' 这种无意义标签）
-            if (cleanCard.tags && Array.isArray(cleanCard.tags)) {
-                cleanCard.tags = cleanCard.tags.filter(t => !/^texture\d+$/i.test(t));
-            }
             allCards.push({
-                ...cleanCard,
+                ...card,
                 originalGroupName: group.groupName
             });
         }
     }
 
     // 按首字母分组
-    const map = new Map();
+    const map = new Map();  // key: letter, value: array
     for (const card of allCards) {
         const letter = getFirstLetter(card.title);
         if (!map.has(letter)) map.set(letter, []);
         map.get(letter).push(card);
     }
 
-    // 生成独立 JSON 文件 (A-Z, 0-9, other) —— 保证是数组格式
+    // 生成独立 JSON 文件 (A-Z, 0-9, other)
     for (const [letter, cards] of map.entries()) {
         let filename = '';
         if (letter === '0-9') filename = 'numbers.json';
         else if (letter === 'other') filename = 'data.json';
         else filename = `${letter}.json`;
-        
-        // 强制转换为数组（确保不会变成多对象拼接）
-        const arrayToExport = Array.isArray(cards) ? cards : [cards];
-        const jsonContent = JSON.stringify(arrayToExport, null, 2);
-        
-        // 校验是否真的是数组（防止意外）
-        if (!jsonContent.startsWith('[')) {
-            console.error(`${filename} 导出内容不是数组，尝试重新打包`);
-            const fixedArray = [].concat(...cards);
-            const fixedJson = JSON.stringify(fixedArray, null, 2);
-            const blob = new Blob([fixedJson], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            a.click();
-            URL.revokeObjectURL(url);
-        } else {
-            const blob = new Blob([jsonContent], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            a.click();
-            URL.revokeObjectURL(url);
-        }
-        await new Promise(r => setTimeout(r, 100));
+        const blob = new Blob([JSON.stringify(cards, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        a.click();
+        URL.revokeObjectURL(url);
+        await new Promise(r => setTimeout(r, 100)); // 避免浏览器阻止多个下载
     }
 
-    // 导出 diy.json 不变...
-    const diyData = { versions, groupsStructure: groupsData.map(g => ({ groupName: g.groupName, itemCount: g.items.length })), layoutSettings: { cardRadius: getComputedStyle(document.documentElement).getPropertyValue('--card-radius'), cardPadding: getComputedStyle(document.documentElement).getPropertyValue('--card-padding'), cardGap: getComputedStyle(document.documentElement).getPropertyValue('--card-gap') }, theme: document.body.getAttribute('data-theme'), glassOpacity: localStorage.getItem('glass_opacity') || '0.35', gradientAngle: localStorage.getItem('gradient_angle') || '135', exportTime: new Date().toISOString() };
+    // 导出 diy.json (包含版本列表、分组结构、布局设置、主题等)
+    const diyData = {
+        versions: versions,
+        groupsStructure: groupsData.map(g => ({ groupName: g.groupName, itemCount: g.items.length })),
+        layoutSettings: {
+            cardRadius: getComputedStyle(document.documentElement).getPropertyValue('--card-radius'),
+            cardPadding: getComputedStyle(document.documentElement).getPropertyValue('--card-padding'),
+            cardGap: getComputedStyle(document.documentElement).getPropertyValue('--card-gap')
+        },
+        theme: document.body.getAttribute('data-theme'),
+        glassOpacity: localStorage.getItem('glass_opacity') || '0.35',
+        gradientAngle: localStorage.getItem('gradient_angle') || '135',
+        exportTime: new Date().toISOString()
+    };
     const diyBlob = new Blob([JSON.stringify(diyData, null, 2)], { type: 'application/json' });
     const diyUrl = URL.createObjectURL(diyBlob);
     const diyA = document.createElement('a');
@@ -1578,7 +1564,6 @@ async function exportGroupedByLetter() {
 
     alert(`已导出 ${map.size} 个分组文件 + diy.json，请检查下载文件夹。`);
 }
-
 function resetToDefault(){if(confirm('重置所有数据？')){groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));versions=[...DEFAULT_VERSIONS];saveVersions();saveDataToStorage();currentGroupIndex=0;currentKeyword='';currentTagFilter=null;currentVersionFilter=null;currentPage=1;if(searchInput)searchInput.value='';renderAll()}}
 
 function updateLayout(){const rs=document.getElementById('radiusSlider'),ps=document.getElementById('paddingSlider'),gs=document.getElementById('gapSlider');if(!rs)return;['--card-radius',rs.value+'px','--card-padding',ps.value+'px','--card-gap',gs.value+'px'].forEach((v,i,a)=>{if(i%2===0)document.documentElement.style.setProperty(a[i],a[i+1])});['radiusVal',rs.value+'px','paddingVal',ps.value+'px','gapVal',gs.value+'px'].forEach((v,i,a)=>{if(i%2===0){const e=document.getElementById(a[i]);if(e)e.innerText=a[i+1]}});localStorage.setItem('layout_settings',JSON.stringify({radius:rs.value,padding:ps.value,gap:gs.value}))}
