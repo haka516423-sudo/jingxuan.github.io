@@ -280,22 +280,29 @@ async function updateRecordInDB(card){try{const db=await openDB();const tx=db.tr
 async function deleteRecordFromDB(id){try{const db=await openDB();const tx=db.transaction(RECORD_STORE,'readwrite');const store=tx.objectStore(RECORD_STORE);store.delete(id);await new Promise(r=>tx.oncomplete=r);}catch(e){console.warn('记录删除失败',e);}}
 async function clearAllRecordsDB(){try{const db=await openDB();const tx=db.transaction(RECORD_STORE,'readwrite');const store=tx.objectStore(RECORD_STORE);store.clear();await new Promise(r=>tx.oncomplete=r);}catch(e){console.warn('清空记录失败',e);}}
 
-// ========== 统一标签分割函数 ==========
-function splitTags(str){return (str||'').split(/[,，、;\s]+/).map(s=>s.trim()).filter(Boolean);}
+// ========== 精准标签拆分 ==========
+function isVersionTag(str){return /^\d+\.\d+(\.\d+)?(-\d+\.\d+(\.\d+)?)?$/.test(str);}
+function splitTags(str){return (str||'').split(/[,，、;；|\[\]\(\)\s]+/).map(s=>s.trim()).filter(Boolean);}
+function deepCleanTag(raw){
+  let s=raw.trim();
+  // 移除常见无意义前缀
+  s=s.replace(/^(模组加载器|加载器|标签|类型)[：:]\s*/i,'');
+  // 分词
+  let parts=splitTags(s);
+  // 过滤版本号，保留有意义的文本
+  return parts.filter(p=>!isVersionTag(p));
+}
 function normalizeTags(tags){
   if(!tags) return [];
   if(!Array.isArray(tags)){
-    // 如果标签是字符串，直接分割
-    return splitTags(tags);
+    return deepCleanTag(tags);
   }
-  // 如果是数组，检查是否有未拆分的元素
   let out=[];
   for(const t of tags){
-    const parts=splitTags(t);
-    out.push(...parts);
+    const cleaned=deepCleanTag(String(t));
+    out.push(...cleaned);
   }
-  // 去重并过滤空
-  return[...new Set(out.filter(Boolean))];
+  return [...new Set(out.filter(Boolean))];
 }
 
 // 一次性修复所有卡片的标签
