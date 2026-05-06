@@ -364,8 +364,13 @@ function renderCard(item,gi,ci,extra={}){
   let vHtml=item.version?`<div class="version-info">📌${escapeHtml(item.version)}</div>`:'';
   let sb='<span class="badge">📄记录</span>';
   if(gi!==-1){ sb=hasLocalChanges?'<span class="badge">💾本地</span>':(currentDataSource==='cloud'?'<span class="badge">☁️云端</span>':'<span class="badge">📄默认</span>'); }
+  // 修改：记录卡片始终显示编辑删除按钮，普通卡片仅管理员可见
   let actionsHtml=`<div class="card-actions"><input type="checkbox" class="card-checkbox" data-g="${gi}" data-c="${ci}" onclick="event.stopPropagation()">`;
-  if(isAdminMode){ actionsHtml+=`<span class="admin-only-btns"><button class="edit-btn" data-g="${gi}" data-c="${ci}">✏️</button><button class="delete-btn" data-g="${gi}" data-c="${ci}">🗑️</button></span>`; }
+  if(gi===-1){
+    actionsHtml+=`<button class="edit-btn" data-g="${gi}" data-c="${ci}">✏️</button><button class="delete-btn" data-g="${gi}" data-c="${ci}">🗑️</button>`;
+  }else if(isAdminMode){
+    actionsHtml+=`<span class="admin-only-btns"><button class="edit-btn" data-g="${gi}" data-c="${ci}">✏️</button><button class="delete-btn" data-g="${gi}" data-c="${ci}">🗑️</button></span>`;
+  }
   actionsHtml+=`</div>`;
   let dupBadge='';
   let contentHtml=(item.type==='text'&&item.textContent)?`<div class="card-description">${escapeHtml(item.textContent.replace(/<[^>]*>/g,'').substring(0,100))}${item.textContent.length>100?'...':''}</div>`:`<div class="card-description">${escapeHtml(item.description||'')}</div>`;
@@ -396,29 +401,36 @@ async function renderCards(){
   if(document.getElementById('selectAllCheckbox'))document.getElementById('selectAllCheckbox').checked=false;
   let isListView=localStorage.getItem('listViewPreference')==='true';if(isListView)container.classList.add('list-view');else container.classList.remove('list-view');
 }
+// ========== 删除卡片（管理员强制删除，无需确认） ==========
 async function deleteCard(gi,ci){
-  if(!isAdminMode)return;
-  if(gi===-1){ if(confirm('确定删除记录？')){ await deleteRecordFromDB(ci); currentPage=1; renderAll(); } return; }
-  if(confirm('确定删除？')){ groupsData[gi].items.splice(ci,1); saveDataToStorage(); currentPage=1; renderAll(); }
+  if(gi===-1){
+    // 记录卡片：管理员直接删除，非管理员需要确认
+    if(!isAdminMode){ if(!confirm('确定删除记录？')) return; }
+    await deleteRecordFromDB(ci);
+    currentPage=1; renderAll(); return;
+  }
+  // 普通分组：管理员强制删除，非管理员需要确认
+  if(!isAdminMode){ if(!confirm('确定删除？')) return; }
+  groupsData[gi].items.splice(ci,1);
+  saveDataToStorage(); currentPage=1; renderAll();
 }
 async function batchDeleteSelected(){
   if(!isAdminMode)return;
   let selected=document.querySelectorAll('.card-checkbox:checked');
   if(selected.length===0)return alert('未选择任何卡片');
-  if(confirm(`确定删除 ${selected.length} 张卡片？`)){
-    let promises=[];
-    selected.forEach(cb=>{
-      let g=parseInt(cb.dataset.g),c=cb.dataset.c;
-      if(g===-1){ promises.push(deleteRecordFromDB(c)); } else {
-        if(!groupsData[g]) return;
-        groupsData[g].items.splice(parseInt(c),1);
-      }
-    });
-    await Promise.all(promises);
-    saveDataToStorage(); currentPage=1; renderAll();
-  }
+  // 管理员强制删除，无需确认
+  let promises=[];
+  selected.forEach(cb=>{
+    let g=parseInt(cb.dataset.g),c=cb.dataset.c;
+    if(g===-1){ promises.push(deleteRecordFromDB(c)); } else {
+      if(!groupsData[g]) return;
+      groupsData[g].items.splice(parseInt(c),1);
+    }
+  });
+  await Promise.all(promises);
+  saveDataToStorage(); currentPage=1; renderAll();
 }
-function batchDeleteDuplicates(){if(!isAdminMode)return;let gi=currentGroupIndex,items=groupsData[gi].items,map=new Map();items.forEach((it,i)=>{let k=getTitleDedupKey(it.title);if(k){if(!map.has(k))map.set(k,[]);map.get(k).push(i);}});let toDel=[];for(let[,arr] of map)if(arr.length>1)toDel.push(...arr.slice(1));if(!toDel.length)return alert('没有多余重复卡片');if(confirm(`删除 ${toDel.length} 张多余重复卡片？`)){toDel.sort((a,b)=>b-a).forEach(i=>items.splice(i,1));saveDataToStorage();currentPage=1;renderAll();}}
+function batchDeleteDuplicates(){if(!isAdminMode)return;let gi=currentGroupIndex,items=groupsData[gi].items,map=new Map();items.forEach((it,i)=>{let k=getTitleDedupKey(it.title);if(k){if(!map.has(k))map.set(k,[]);map.get(k).push(i);}});let toDel=[];for(let[,arr] of map)if(arr.length>1)toDel.push(...arr.slice(1));if(!toDel.length)return alert('没有多余重复卡片');toDel.sort((a,b)=>b-a).forEach(i=>items.splice(i,1));saveDataToStorage();currentPage=1;renderAll();}
 async function recordSelectedCards(){
   let selected=document.querySelectorAll('.card-checkbox:checked');
   if(selected.length===0)return alert('没有选中任何卡片');
@@ -448,9 +460,26 @@ async function recordSelectedCards(){
   alert(`✅ 已将 ${records.length} 个卡片记录为独立记录卡片`);
 }
 function bindAdminCardBtns(){
-  if(!isAdminMode)return;
-  document.querySelectorAll('.edit-btn').forEach(btn=>{btn.addEventListener('click',async e=>{e.stopPropagation();let g=parseInt(btn.dataset.g),c=btn.dataset.c;if(g===-1){let record=await getRecordById(c);openEditModal(g,c,record||{});}else{openEditModal(g,c,groupsData[g]?.items[c]);}});});
-  document.querySelectorAll('.delete-btn').forEach(btn=>{btn.addEventListener('click',e=>{e.stopPropagation();let g=parseInt(btn.dataset.g),c=btn.dataset.c;deleteCard(g,c);});});
+  // 绑定所有编辑和删除按钮，记录卡片不受管理员限制
+  document.querySelectorAll('.edit-btn').forEach(btn=>{
+    let g=parseInt(btn.dataset.g);
+    if(g!==-1&&!isAdminMode) return;
+    btn.addEventListener('click',async e=>{
+      e.stopPropagation();
+      let g=parseInt(btn.dataset.g),c=btn.dataset.c;
+      if(g===-1){ let record=await getRecordById(c); openEditModal(g,c,record||{}); }
+      else{ openEditModal(g,c,groupsData[g]?.items[c]); }
+    });
+  });
+  document.querySelectorAll('.delete-btn').forEach(btn=>{
+    let g=parseInt(btn.dataset.g);
+    if(g!==-1&&!isAdminMode) return;
+    btn.addEventListener('click',e=>{
+      e.stopPropagation();
+      let g=parseInt(btn.dataset.g),c=btn.dataset.c;
+      deleteCard(g,c);
+    });
+  });
 }
 
 function splitHtmlToPages(html,nodesPerPage=14){const wrapper=document.createElement('div');wrapper.innerHTML=html;const children=Array.from(wrapper.childNodes).filter(n=>!(n.nodeType===3&&n.textContent.trim()===''));const pages=[];for(let i=0;i<children.length;i+=nodesPerPage){pages.push(children.slice(i,i+nodesPerPage));}if(pages.length===0)pages.push([]);return pages;}
