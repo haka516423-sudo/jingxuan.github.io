@@ -14,27 +14,40 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--card-radius:20px;--card-padding:20px;--card-gap:28px;--glass-opacity:0.35;--gradient-angle:135deg;--scrollbar-thumb:rgba(0,0,0,0.18);--text-primary:#1f2937;--text-secondary:#4b5563;--text-tertiary:#374151;--text-on-accent:#fff;--badge-bg:rgba(0,0,0,0.08);--badge-text:#1f2937;--tag-bg:rgba(0,0,0,0.06);--card-footer-text:#4b5563;--sidebar-text:#1f2d3d;--sidebar-title:#1f2d3d;--glass-bg:rgba(255,255,255,var(--glass-opacity));--vh:1vh}
+html{scrollbar-gutter:stable;scrollbar-width:thin;scrollbar-color:var(--scrollbar-thumb) transparent;overscroll-behavior:none}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:10px}
 body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto;min-height:100vh;min-height:calc(var(--vh, 1vh) * 100);padding:28px;background:#eef2f8;color:var(--text-primary);transition:background 0.25s;overflow-y:auto}
-body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c}
+body[data-theme="white"]{background:#eef2f8;--theme-accent:#5b6e8c;--scrollbar-thumb:rgba(0,0,0,0.18)}
 body[data-theme="black"]{background:#12151c;--theme-accent:#c0b7a6;--scrollbar-thumb:rgba(255,255,255,0.25)}
-body[data-theme="sunset"]{background:linear-gradient(135deg,#ff9a9e,#fecfef);--theme-accent:#d96c6e}
-body[data-theme="aurora"]{background:linear-gradient(135deg,#a1c4fd,#c2e9fb);--theme-accent:#3b82f6}
-body[data-theme="ocean"]{background:linear-gradient(var(--gradient-angle),#2b5876,#4e4376);--theme-accent:#7c83b9}
-body[data-theme="sakura"]{background:linear-gradient(135deg,#fbc2eb,#a6c1ee);--theme-accent:#c45692}
-body[data-theme="forest"]{background:linear-gradient(135deg,#b5d6a7,#9bbd8c);--theme-accent:#5c8a4a}
-body[data-theme="midnight"]{background:linear-gradient(135deg,#1f1c2c,#2a2a4a);--theme-accent:#9c88ff}
-body[data-theme="peach"]{background:linear-gradient(135deg,#ffe29a,#ffb7b2);--theme-accent:#d97846}
-body[data-theme="mint"]{background:linear-gradient(135deg,#c7e9fb,#b6e0fe);--theme-accent:#4a9e7c}
+body[data-theme="sunset"]{background:linear-gradient(135deg,#ff9a9e,#fecfef);--theme-accent:#d96c6e;--scrollbar-thumb:rgba(255,255,255,0.25)}
+body[data-theme="aurora"]{background:linear-gradient(135deg,#a1c4fd,#c2e9fb);--theme-accent:#3b82f6;--scrollbar-thumb:rgba(0,0,0,0.18)}
+body[data-theme="ocean"]{background:linear-gradient(var(--gradient-angle),#2b5876,#4e4376);--theme-accent:#7c83b9;--scrollbar-thumb:rgba(255,255,255,0.25)}
+body[data-theme="sakura"]{background:linear-gradient(135deg,#fbc2eb,#a6c1ee);--theme-accent:#c45692;--scrollbar-thumb:rgba(255,255,255,0.25)}
+body[data-theme="forest"]{background:linear-gradient(135deg,#b5d6a7,#9bbd8c);--theme-accent:#5c8a4a;--scrollbar-thumb:rgba(0,0,0,0.18)}
+body[data-theme="midnight"]{background:linear-gradient(135deg,#1f1c2c,#2a2a4a);--theme-accent:#9c88ff;--scrollbar-thumb:rgba(255,255,255,0.3)}
+body[data-theme="peach"]{background:linear-gradient(135deg,#ffe29a,#ffb7b2);--theme-accent:#d97846;--scrollbar-thumb:rgba(255,255,255,0.25)}
+body[data-theme="mint"]{background:linear-gradient(135deg,#c7e9fb,#b6e0fe);--theme-accent:#4a9e7c;--scrollbar-thumb:rgba(0,0,0,0.18)}
 #wallpaper-layer{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;background-size:cover}
 .app{max-width:1400px;margin:0 auto;display:flex;gap:28px;align-items:flex-start;min-height:calc(100vh - 56px)}
 .sidebar{flex:0 0 280px;backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.5);box-shadow:0 8px 20px rgba(0,0,0,0.08);padding:20px 14px;position:sticky;top:28px;border-radius:var(--card-radius);background:var(--glass-bg);height:calc(100vh - 56px);height:calc(var(--vh, 1vh) * 100 - 56px);display:flex;flex-direction:column;overflow:hidden}
 .sidebar-header{font-weight:600;padding-bottom:12px;border-bottom:1px solid rgba(0,0,0,0.08);margin-bottom:10px;display:flex;justify-content:space-between;color:var(--sidebar-title)}
 .sidebar-subheader{display:flex;justify-content:space-between;margin:0 0 8px 0;font-weight:500;color:var(--sidebar-text)}
-.groups-scroll-area{flex:1;min-height:0;overflow-y:auto;margin-bottom:8px}
+.groups-scroll-area{flex:1;min-height:0;overflow-y:auto;margin-bottom:8px;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--scrollbar-thumb) transparent}
+.groups-scroll-area::-webkit-scrollbar{width:5px}
+.groups-scroll-area::-webkit-scrollbar-track{background:transparent}
+.groups-scroll-area::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:10px}
 .version-section{flex:1;min-height:0;display:flex;flex-direction:column;margin:8px 0;max-height:100%}
-.version-scroll-area{flex:1;min-height:0;overflow-y:auto;position:relative;-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 10%,black 90%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0%,black 10%,black 90%,transparent 100%)}
+.version-scroll-area{flex:1;min-height:0;overflow-y:auto;position:relative;-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 8%,black 92%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0%,black 8%,black 92%,transparent 100%);overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--scrollbar-thumb) transparent}
+.version-scroll-area::-webkit-scrollbar{width:5px}
+.version-scroll-area::-webkit-scrollbar-track{background:transparent}
+.version-scroll-area::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:10px}
 .tag-section{flex:1;min-height:0;display:flex;flex-direction:column;margin-top:8px;max-height:100%}
-.tag-scroll-area{flex:1;min-height:0;overflow-y:auto}
+.tag-scroll-area{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 8%,black 92%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0%,black 8%,black 92%,transparent 100%);scrollbar-width:thin;scrollbar-color:var(--scrollbar-thumb) transparent}
+.tag-scroll-area::-webkit-scrollbar{width:5px}
+.tag-scroll-area::-webkit-scrollbar-track{background:transparent}
+.tag-scroll-area::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:10px}
 .sidebar-mini-btn,.sidebar-mini-delete-btn,.sidebar-mini-edit-btn{width:22px;height:22px;border-radius:22px;display:none;align-items:center;justify-content:center;font-size:0.8rem;cursor:pointer;border:none;outline:none}
 .admin-mode .sidebar-mini-btn,.admin-mode .sidebar-mini-delete-btn,.admin-mode .sidebar-mini-edit-btn{display:inline-flex}
 .sidebar-mini-btn{background:rgba(255,255,240,0.2)}
@@ -92,11 +105,17 @@ body[data-theme="mint"]{background:linear-gradient(135deg,#c7e9fb,#b6e0fe);--the
 .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);backdrop-filter:blur(12px);z-index:1000;justify-content:center;align-items:center}
 .modal.active{display:flex}
 .book-modal .modal-content{background:linear-gradient(145deg, #6b1a1a, #4a0e0e);border-radius:24px;box-shadow:0 30px 50px rgba(0,0,0,0.5),inset 0 1px 4px rgba(255,255,255,0.2);max-width:1200px;width:90%;position:relative;padding:24px 24px 0 24px;max-height:95vh;display:flex;flex-direction:column;overflow:visible}
-.book-content{background:#fdf8ed;background-image:radial-gradient(circle at 25% 40%, rgba(210,180,140,0.1) 2%, transparent 2.5%),radial-gradient(circle at 75% 60%, rgba(160,120,80,0.08) 1.5%, transparent 2%);background-size:40px 40px,30px 30px;border-radius:16px;box-shadow:inset 0 0 0 2px #f5eedd,0 10px 25px rgba(0,0,0,0.3);margin:0;padding:20px;padding-bottom:calc(20px + 1vh);flex:1;overflow-y:auto;display:flex;flex-direction:column;overflow-x:hidden;min-height:0}
+.book-content{background:#fdf8ed;background-image:radial-gradient(circle at 25% 40%, rgba(210,180,140,0.1) 2%, transparent 2.5%),radial-gradient(circle at 75% 60%, rgba(160,120,80,0.08) 1.5%, transparent 2%);background-size:40px 40px,30px 30px;border-radius:16px;box-shadow:inset 0 0 0 2px #f5eedd,0 10px 25px rgba(0,0,0,0.3);margin:0;padding:20px;padding-bottom:calc(20px + 1vh);flex:1;overflow-y:auto;display:flex;flex-direction:column;overflow-x:hidden;min-height:0;scrollbar-width:thin;scrollbar-color:rgba(100,70,40,0.4) transparent}
+.book-content::-webkit-scrollbar{width:5px}
+.book-content::-webkit-scrollbar-track{background:transparent}
+.book-content::-webkit-scrollbar-thumb{background:rgba(100,70,40,0.4);border-radius:10px}
 .pages-container{position:relative;display:flex;flex-direction:column;gap:20px;flex:1}
 .page-pair{display:flex;gap:30px;margin-bottom:0;align-items:stretch;position:relative;flex:1}
 .page-pair::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:2px;height:100%;background:#e67e22;z-index:1;pointer-events:none;opacity:0.8}
-.page{flex:1;background:transparent;border-radius:0;padding:0;box-shadow:none;display:flex;flex-direction:column;overflow-y:auto;max-height:none;position:relative}
+.page{flex:1;background:transparent;border-radius:0;padding:0;box-shadow:none;display:flex;flex-direction:column;overflow-y:auto;max-height:none;position:relative;scrollbar-width:thin;scrollbar-color:rgba(100,70,40,0.3) transparent}
+.page::-webkit-scrollbar{width:4px}
+.page::-webkit-scrollbar-track{background:transparent}
+.page::-webkit-scrollbar-thumb{background:rgba(100,70,40,0.3);border-radius:10px}
 .page-content{font-family:'Georgia','Times New Roman',serif;font-size:1rem;line-height:1.5;color:#2c2418;flex:1;min-height:60px;padding:0 1ch;word-break:break-word;overflow-wrap:break-word;margin-bottom:4px}
 .page-content img{max-width:100%;border-radius:12px;margin:12px 0;display:block;box-shadow:0 4px 12px rgba(0,0,0,0.1);cursor:pointer}
 .page-content a{color:#1e40af;text-decoration:underline;cursor:pointer}
@@ -119,11 +138,16 @@ body[data-theme="mint"]{background:linear-gradient(135deg,#c7e9fb,#b6e0fe);--the
 .control-group{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .control-group label{font-size:0.7rem;color:#ccc;width:50px}
 .control-group input{flex:1;background:rgba(255,255,255,0.2);border:none;border-radius:30px;padding:4px 8px;color:#fff}
-.modal-content{background:rgba(20,22,27,0.92);backdrop-filter:blur(24px);width:95%;max-width:1300px;max-height:105vh;overflow-y:auto;padding:24px;border:1px solid rgba(255,255,255,0.25);border-radius:28px;color:#f0f0f0}
+.modal-content{background:rgba(20,22,27,0.92);backdrop-filter:blur(24px);width:95%;max-width:1300px;max-height:105vh;overflow-y:auto;padding:24px;border:1px solid rgba(255,255,255,0.25);border-radius:28px;color:#f0f0f0;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.3) transparent}
+.modal-content::-webkit-scrollbar{width:5px}
+.modal-content::-webkit-scrollbar-track{background:transparent}
+.modal-content::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.3);border-radius:10px}
 #cardModal .modal-content{max-width:700px;max-height:105vh}
 #cardModal input,#cardModal textarea{width:100%;padding:12px 16px;margin-bottom:12px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.25);border-radius:16px;color:#fff}
-#cardTextContent{overflow-y:auto;scrollbar-width:none;-ms-overflow-style:none;resize:none}
-#cardTextContent::-webkit-scrollbar{display:none}
+#cardTextContent{overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.2) transparent;resize:none}
+#cardTextContent::-webkit-scrollbar{width:4px}
+#cardTextContent::-webkit-scrollbar-track{background:transparent}
+#cardTextContent::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.2);border-radius:10px}
 .type-btn-group{display:flex;gap:10px;margin-bottom:16px}
 .type-btn{background:rgba(255,255,240,0.2);border:none;padding:8px 16px;border-radius:40px;cursor:pointer;color:#eee}
 .type-btn.active{background:var(--theme-accent);color:white}
@@ -138,7 +162,7 @@ body[data-theme="mint"]{background:linear-gradient(135deg,#c7e9fb,#b6e0fe);--the
 #dynamicTagList::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.3);border-radius:10px}
 .modal-tag{background:rgba(255,255,255,0.15);color:#ccc;border:none;padding:4px 10px;border-radius:20px;font-size:0.7rem;cursor:pointer;margin-right:6px;display:inline-block;margin-bottom:4px}
 .modal-tag.active{background:var(--theme-accent);color:white}
-#modrinthResults{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:10px;max-height:60vh;overflow-y:auto}
+#modrinthResults{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:10px;max-height:60vh;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.3) transparent}
 #modrinthResults::-webkit-scrollbar{width:4px}
 #modrinthResults::-webkit-scrollbar-track{background:transparent}
 #modrinthResults::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.3);border-radius:10px}
@@ -166,9 +190,6 @@ body[data-theme="mint"]{background:linear-gradient(135deg,#c7e9fb,#b6e0fe);--the
 .modrinth-pagination span{color:#ccc;font-size:0.8rem;align-self:center}
 #bookCloseBtn{position:absolute;top:8px;right:8px;background:rgba(255,255,255,0.2);border:none;font-size:1.6rem;color:#fff;cursor:pointer;z-index:10;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:0.2s;backdrop-filter:blur(4px)}
 #bookCloseBtn:hover{background:rgba(255,255,255,0.35);transform:scale(1.05)}
-::-webkit-scrollbar{width:5px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.2);border-radius:10px}
 @media (max-width: 780px) {
   body { padding: 16px; }
   .app { flex-direction: column; gap: 20px; min-height: auto; }
@@ -295,7 +316,6 @@ async function updateRecordInDB(card){try{const db=await openDB();const tx=db.tr
 async function deleteRecordFromDB(id){try{const db=await openDB();const tx=db.transaction(RECORD_STORE,'readwrite');const store=tx.objectStore(RECORD_STORE);store.delete(id);await new Promise(r=>tx.oncomplete=r);}catch(e){console.warn('记录删除失败',e);}}
 async function clearAllRecordsDB(){try{const db=await openDB();const tx=db.transaction(RECORD_STORE,'readwrite');const store=tx.objectStore(RECORD_STORE);store.clear();await new Promise(r=>tx.oncomplete=r);}catch(e){console.warn('清空记录失败',e);}}
 
-// 本地可编辑数据改用 IndexedDB 存储，彻底避免 localStorage 5MB 限制
 async function saveDataToStorage(){
   try {
     const db = await openDB();
@@ -390,7 +410,6 @@ async function initLocalData(){
         groupsData = JSON.parse(storedGroups);
         versions = JSON.parse(storedVersions);
         normalizeAllTags();
-        // 迁移到 IndexedDB
         await saveDataToStorage();
         localStorage.removeItem('editable_groups_data');
         localStorage.removeItem('mc_versions');
@@ -455,7 +474,6 @@ function batchDeleteDuplicates(){if(!isAdminMode)return;let gi=currentGroupIndex
 async function recordSelectedCards(){ let selected=document.querySelectorAll('.card-checkbox:checked'); if(selected.length===0)return alert('没有选中任何卡片'); let records=[]; for(const cb of selected){ let g=parseInt(cb.dataset.g),c=cb.dataset.c; if(g===-1) continue; let card=groupsData[g]?.items[c]; if(card) records.push(`${card.title} || ${card.url||'(文本卡片)'}`); } if(!records.length) return alert('选中的卡片无法记录'); let textContent=records.join('\n'); let newCard={ id:'rec_'+Date.now()+'_'+Math.random().toString(36).slice(2), title:'📋 记录 '+new Date().toISOString().slice(0,10), description:'选中卡片记录', type:'text', textContent:textContent, author:'', tags:[], version:'', stats:{downloads:'—', updated:new Date().toISOString().slice(0,10)} }; await addRecordToDB(newCard); currentGroupIndex=-1; currentPage=1; renderAll(); alert(`✅ 已将 ${records.length} 个卡片记录为独立记录卡片`); }
 function bindAdminCardBtns(){ document.querySelectorAll('.edit-btn').forEach(btn=>{ let g=parseInt(btn.dataset.g); if(g!==-1&&!isAdminMode) return; btn.addEventListener('click',async e=>{ e.stopPropagation(); let g=parseInt(btn.dataset.g),c=btn.dataset.c; if(g===-1){ let record=await getRecordById(c); openEditModal(g,c,record||{}); }else{ openEditModal(g,c,groupsData[g]?.items[c]); } }); }); document.querySelectorAll('.delete-btn').forEach(btn=>{ let g=parseInt(btn.dataset.g); if(g!==-1&&!isAdminMode) return; btn.addEventListener('click',e=>{ e.stopPropagation(); let g=parseInt(btn.dataset.g),c=btn.dataset.c; deleteCard(g,c); }); }); }
 
-// 书籍分页/编辑相关函数保持不变
 function splitHtmlToPages(html,nodesPerPage=14){const wrapper=document.createElement('div');wrapper.innerHTML=html;const children=Array.from(wrapper.childNodes).filter(n=>!(n.nodeType===3&&n.textContent.trim()===''));const pages=[];for(let i=0;i<children.length;i+=nodesPerPage){pages.push(children.slice(i,i+nodesPerPage));}if(pages.length===0)pages.push([]);return pages;}
 function generatePagesContentFromTextContent(card){if(card.pagesContent&&Array.isArray(card.pagesContent)&&card.pagesContent.length>0){if(typeof card.pagesContent[0]==='string'){card.pagesContent=card.pagesContent.map(htmlStr=>{let wrapper=document.createElement('div');wrapper.innerHTML=htmlStr;let allNodes=Array.from(wrapper.childNodes);let leftNodes=allNodes.filter((_,idx)=>idx%2===0);let rightNodes=allNodes.filter((_,idx)=>idx%2!==0);return{leftHtml:leftNodes.map(n=>n.outerHTML||n.textContent).join(''),rightHtml:rightNodes.map(n=>n.outerHTML||n.textContent).join('')};});}return;}let fullHtml=card.textContent||'';let pages=splitHtmlToPages(fullHtml,14);card.pagesContent=pages.map(pgNodes=>{let leftNodes=pgNodes.filter((_,idx)=>idx%2===0);let rightNodes=pgNodes.filter((_,idx)=>idx%2!==0);return{leftHtml:leftNodes.map(n=>n.outerHTML||n.textContent).join(''),rightHtml:rightNodes.map(n=>n.outerHTML||n.textContent).join('')};});blankPageIndices=new Set();}
 function updateCardTextContent(card){if(card.pagesContent&&Array.isArray(card.pagesContent)){card.textContent=card.pagesContent.map(p=>p.leftHtml+p.rightHtml).join('');}}
@@ -524,7 +542,6 @@ document.getElementById('insertImageBtn')?.addEventListener('click',()=>insertIm
 async function saveCardFromModal(){ if(!editingCardInfo)return;let{gi,ci}=editingCardInfo; let tags=normalizeTags(document.getElementById('cardTags').value); let newCard={ title:document.getElementById('cardTitle').value.trim(), description:document.getElementById('cardDesc').value.trim(), type:currentCardType, url:currentCardType==='link'?document.getElementById('cardUrl').value.trim():'', textContent:currentCardType==='text'?document.getElementById('cardTextContent').value:'', author:gi===-1?'':(currentCardType==='link'?document.getElementById('cardAuthor').value.trim():''), tags:tags, version:gi===-1?'':(currentCardType==='link'?document.getElementById('cardVersion').value.trim()||undefined:undefined), stats:{downloads:gi===-1?'—':(currentCardType==='link'?document.getElementById('cardDownloads').value.trim()||'—':'—'), updated:new Date().toISOString().slice(0,10)} }; if(currentCardType==='link'&&gi!==-1){if(!newCard.url)return alert('需要网址');} else if(currentCardType==='text'){if(!newCard.textContent)return alert('需要文本内容');if(!newCard.description)newCard.description=newCard.textContent.substring(0,80);} if(!newCard.title)return alert('需要标题'); if(gi===-1){ newCard.id=editingCardInfo.card?.id||'rec_'+Date.now()+'_'+Math.random().toString(36).slice(2); await updateRecordInDB(newCard); } else { if(ci===undefined)groupsData[gi].items.push(newCard); else groupsData[gi].items[ci]=newCard; await saveDataToStorage(); } closeModal();renderAll(); }
 function closeModal(){document.getElementById('cardModal').classList.remove('active');editingCardInfo=null;}
 
-// Modrinth 搜索/翻译等保持不变
 let currentModrinthResults=[],modrinthCurrentPage=1,modrinthPageSize=12,modrinthSortKey='downloads-desc',lastQuery='',modrinthSelectedVersion=null,modrinthSelectedType=null;
 let translationMemoryCache=new Map();const TRANSLATION_DAILY_LIMIT=5000;
 function getTodayStr(){return new Date().toISOString().slice(0,10);}
