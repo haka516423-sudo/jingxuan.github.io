@@ -280,11 +280,38 @@ async function updateRecordInDB(card){try{const db=await openDB();const tx=db.tr
 async function deleteRecordFromDB(id){try{const db=await openDB();const tx=db.transaction(RECORD_STORE,'readwrite');const store=tx.objectStore(RECORD_STORE);store.delete(id);await new Promise(r=>tx.oncomplete=r);}catch(e){console.warn('记录删除失败',e);}}
 async function clearAllRecordsDB(){try{const db=await openDB();const tx=db.transaction(RECORD_STORE,'readwrite');const store=tx.objectStore(RECORD_STORE);store.clear();await new Promise(r=>tx.oncomplete=r);}catch(e){console.warn('清空记录失败',e);}}
 
+// ========== 统一标签分割函数 ==========
+function splitTags(str){return (str||'').split(/[,，、;\s]+/).map(s=>s.trim()).filter(Boolean);}
+function normalizeTags(tags){
+  if(!tags) return [];
+  if(!Array.isArray(tags)){
+    // 如果标签是字符串，直接分割
+    return splitTags(tags);
+  }
+  // 如果是数组，检查是否有未拆分的元素
+  let out=[];
+  for(const t of tags){
+    const parts=splitTags(t);
+    out.push(...parts);
+  }
+  // 去重并过滤空
+  return[...new Set(out.filter(Boolean))];
+}
+
+// 一次性修复所有卡片的标签
+function normalizeAllTags(){
+  for(const g of groupsData){
+    for(const item of g.items){
+      item.tags=normalizeTags(item.tags);
+    }
+  }
+}
+
 function getLetterKeyForTitle(title){if(!title)return'#';const fc=title.charAt(0).toUpperCase();if(/[A-Z]/.test(fc))return fc;return'#';}
 async function loadLetterJson(letter){try{const res=await fetch(`fenzu/${letter}.json`);if(!res.ok)return null;return await res.json();}catch(e){return null;}}
 function mergeGroupItems(groupMap,groupsArray){if(!groupsArray)return;for(const g of groupsArray){if(!groupMap.has(g.groupName))groupMap.set(g.groupName,[]);groupMap.get(g.groupName).push(...(g.items||[]));}}
 async function loadFromShards(saveToCache=false){
-  if(saveToCache){const cached=await getCachedShards();if(cached&&cached.groups&&cached.versions){groupsData=cached.groups;versions=cached.versions;currentDataSource="cloud";hasLocalChanges=false;updateDataSourceIndicator();renderAll();console.log('📦 已从IndexedDB缓存加载云端数据');return;}}
+  if(saveToCache){const cached=await getCachedShards();if(cached&&cached.groups&&cached.versions){groupsData=cached.groups;versions=cached.versions;normalizeAllTags();currentDataSource="cloud";hasLocalChanges=false;updateDataSourceIndicator();renderAll();console.log('📦 已从IndexedDB缓存加载云端数据');return;}}
   const progressBar=document.getElementById('shardProgressBar'), percentEl=document.getElementById('shardProgressPercent'), fillEl=document.getElementById('shardProgressFill');
   if(progressBar)progressBar.style.display='block';
   const letters='abcdefghijklmnopqrstuvwxyz'.split(''), groupMap=new Map(), versionsSet=new Set(DEFAULT_VERSIONS);
@@ -295,14 +322,14 @@ async function loadFromShards(saveToCache=false){
   const otherData=await loadLetterJson('other');
   if(otherData){mergeGroupItems(groupMap,otherData.groups); (otherData.versions||[]).forEach(v=>versionsSet.add(v));}
   updateProgress(27);
-  if(groupMap.size>0){ groupsData=Array.from(groupMap.entries()).map(([name,items])=>({groupName:name,items})); versions=Array.from(versionsSet).sort((a,b)=>b.localeCompare(a,undefined,{numeric:true})); currentDataSource="cloud"; hasLocalChanges=false;
+  if(groupMap.size>0){ groupsData=Array.from(groupMap.entries()).map(([name,items])=>({groupName:name,items})); versions=Array.from(versionsSet).sort((a,b)=>b.localeCompare(a,undefined,{numeric:true})); normalizeAllTags(); currentDataSource="cloud"; hasLocalChanges=false;
     if(saveToCache){ await setCachedShards({groups:groupsData,versions:versions}); }
   } else { if(!groupsData.length){groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA)); versions=[...DEFAULT_VERSIONS];} currentDataSource="local"; hasLocalChanges=true; }
   if(progressBar)progressBar.style.display='none';
   updateDataSourceIndicator(); renderAll();
 }
-function initLocalData(){ const storedGroups=localStorage.getItem('editable_groups_data'), storedVersions=localStorage.getItem('mc_versions'); if(storedGroups&&storedVersions){try{groupsData=JSON.parse(storedGroups); versions=JSON.parse(storedVersions); hasLocalChanges=true;}catch(e){initDefaultData();}}else{initDefaultData();} currentDataSource="local"; updateDataSourceIndicator(); renderAll(); }
-function initDefaultData(){groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));versions=[...DEFAULT_VERSIONS];hasLocalChanges=true;currentDataSource="default";}
+function initLocalData(){ const storedGroups=localStorage.getItem('editable_groups_data'), storedVersions=localStorage.getItem('mc_versions'); if(storedGroups&&storedVersions){try{groupsData=JSON.parse(storedGroups); versions=JSON.parse(storedVersions); normalizeAllTags(); hasLocalChanges=true;}catch(e){initDefaultData();}}else{initDefaultData();} currentDataSource="local"; updateDataSourceIndicator(); renderAll(); }
+function initDefaultData(){groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));versions=[...DEFAULT_VERSIONS];normalizeAllTags();hasLocalChanges=true;currentDataSource="default";}
 async function loadInitialData(){if(currentDataMode==='cloud'){await loadFromShards(true);}else{initLocalData();} restorePreferences();}
 
 function saveDataToStorage(){try{localStorage.setItem('editable_groups_data',JSON.stringify(groupsData));localStorage.setItem('mc_versions',JSON.stringify(versions));hasLocalChanges=true;updateDataSourceIndicator();return true;}catch(e){alert(e.name==='QuotaExceededError'?'存储失败：图片数据过大，超出浏览器本地存储限制（约5MB）。请压缩图片大小或减少图片数量。':'保存失败：'+e.message);return false;}}
@@ -376,7 +403,8 @@ function getTitleDedupKey(title){if(!title)return'';let withoutParens=title.repl
 function getDuplicateItems(gi){let items=groupsData[gi].items,map=new Map();items.forEach((it,i)=>{let k=getTitleDedupKey(it.title);if(k){if(!map.has(k))map.set(k,[]);map.get(k).push({...it,cardIdx:i});}});let d=[];for(let[,arr] of map)if(arr.length>1){arr.forEach((x,j)=>{d.push({...x,isFirstDuplicate:j===0,isDuplicate:true});});}return d;}
 async function getFilteredAndSortedItems(){if(currentSort==='duplicates')return[];let items=await getDisplayItems();let kw=currentKeyword.trim().toLowerCase();if(kw){let mode=document.getElementById('searchModeSelect')?.value||'all';items=items.filter(it=>{let titleMatch=it.title.toLowerCase().includes(kw);let authorMatch=(it.author||'').toLowerCase().includes(kw);if(mode==='title')return titleMatch;if(mode==='author')return authorMatch;return titleMatch||(it.description||'').toLowerCase().includes(kw)||authorMatch||(it.tags||[]).some(t=>t.toLowerCase().includes(kw))||(it.version&&it.version.toLowerCase().includes(kw));});}if(currentSort==='title-asc')items.sort((a,b)=>a.title.localeCompare(b.title));else if(currentSort==='date-desc')items.sort((a,b)=>(b.stats?.updated||'').localeCompare(a.stats?.updated||''));return items;}
 function renderCard(item,gi,ci,extra={}){
-  let tagsHtml=(item.tags||[]).map(t=>`<span class="badge">${escapeHtml(t)}</span>`).join('');
+  let tags=normalizeTags(item.tags);
+  let tagsHtml=tags.map(t=>`<span class="badge">${escapeHtml(t)}</span>`).join('');
   let vHtml=item.version?`<div class="version-info">📌${escapeHtml(item.version)}</div>`:'';
   let sb='<span class="badge">📄记录</span>';
   if(gi!==-1){ sb=hasLocalChanges?'<span class="badge">💾本地</span>':(currentDataSource==='cloud'?'<span class="badge">☁️云端</span>':'<span class="badge">📄默认</span>'); }
@@ -429,8 +457,6 @@ async function batchDeleteSelected(){
   await Promise.all(promises); saveDataToStorage(); currentPage=1; renderAll();
 }
 function batchDeleteDuplicates(){if(!isAdminMode)return;let gi=currentGroupIndex,items=groupsData[gi].items,map=new Map();items.forEach((it,i)=>{let k=getTitleDedupKey(it.title);if(k){if(!map.has(k))map.set(k,[]);map.get(k).push(i);}});let toDel=[];for(let[,arr] of map)if(arr.length>1)toDel.push(...arr.slice(1));if(!toDel.length)return alert('没有多余重复卡片');toDel.sort((a,b)=>b-a).forEach(i=>items.splice(i,1));saveDataToStorage();currentPage=1;renderAll();}
-// ========== 统一标签分割函数 ==========
-function splitTags(str){return (str||'').split(/[,，、;\s]+/).map(s=>s.trim()).filter(Boolean);}
 
 async function recordSelectedCards(){
   let selected=document.querySelectorAll('.card-checkbox:checked');
@@ -533,8 +559,9 @@ async function openEditModal(gi,ci,card){
   document.getElementById('cardUrl').value=card.url||'';
   document.getElementById('cardTextContent').value=card.textContent||'';
   if(gi===-1){ document.getElementById('linkOnlyFields').style.display='none'; } else {
+    let tags=normalizeTags(card.tags).join(',');
     document.getElementById('cardAuthor').value=type==='link'?card.author||'':'';
-    document.getElementById('cardTags').value=type==='link'?(card.tags||[]).join(','):'';
+    document.getElementById('cardTags').value=tags;
     document.getElementById('cardVersion').value=type==='link'?card.version||'':'';
     document.getElementById('cardDownloads').value=type==='link'?card.stats?.downloads||'':'';
     document.getElementById('linkOnlyFields').style.display='block';
@@ -548,7 +575,7 @@ const insertImageToTextarea=async(textareaId)=>{const input=document.createEleme
 document.getElementById('insertImageBtn')?.addEventListener('click',()=>insertImageToTextarea('cardTextContent'));
 async function saveCardFromModal(){
   if(!editingCardInfo)return;let{gi,ci}=editingCardInfo;
-  let tags = gi===-1?[]:splitTags(document.getElementById('cardTags').value);
+  let tags = normalizeTags(document.getElementById('cardTags').value);
   let newCard={
     title:document.getElementById('cardTitle').value.trim(),
     description:document.getElementById('cardDesc').value.trim(),
