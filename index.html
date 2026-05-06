@@ -15,7 +15,6 @@
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--card-radius:20px;--card-padding:20px;--card-gap:28px;--glass-opacity:0.35;--gradient-angle:135deg;--scrollbar-thumb:rgba(0,0,0,0.18);--text-primary:#1f2937;--text-secondary:#4b5563;--text-tertiary:#374151;--text-on-accent:#fff;--badge-bg:rgba(0,0,0,0.08);--badge-text:#1f2937;--tag-bg:rgba(0,0,0,0.06);--card-footer-text:#4b5563;--sidebar-text:#1f2d3d;--sidebar-title:#1f2d3d;--glass-bg:rgba(255,255,255,var(--glass-opacity));--vh:1vh}
 html{scrollbar-gutter:stable;scrollbar-width:thin;scrollbar-color:var(--scrollbar-thumb) transparent;overscroll-behavior:none}
-body.overflow-hidden{overflow:hidden}
 ::-webkit-scrollbar{width:6px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:10px}
@@ -528,7 +527,7 @@ function bindAdminCardBtns(){ document.querySelectorAll('.edit-btn').forEach(btn
 function splitHtmlToPages(html,nodesPerPage=14){const wrapper=document.createElement('div');wrapper.innerHTML=html;const children=Array.from(wrapper.childNodes).filter(n=>!(n.nodeType===3&&n.textContent.trim()===''));const pages=[];for(let i=0;i<children.length;i+=nodesPerPage){pages.push(children.slice(i,i+nodesPerPage));}if(pages.length===0)pages.push([]);return pages;}
 function generatePagesContentFromTextContent(card){if(card.pagesContent&&Array.isArray(card.pagesContent)&&card.pagesContent.length>0){if(typeof card.pagesContent[0]==='string'){card.pagesContent=card.pagesContent.map(htmlStr=>{let wrapper=document.createElement('div');wrapper.innerHTML=htmlStr;let allNodes=Array.from(wrapper.childNodes);let leftNodes=allNodes.filter((_,idx)=>idx%2===0);let rightNodes=allNodes.filter((_,idx)=>idx%2!==0);return{leftHtml:leftNodes.map(n=>n.outerHTML||n.textContent).join(''),rightHtml:rightNodes.map(n=>n.outerHTML||n.textContent).join('')};});}return;}let fullHtml=card.textContent||'';let pages=splitHtmlToPages(fullHtml,14);card.pagesContent=pages.map(pgNodes=>{let leftNodes=pgNodes.filter((_,idx)=>idx%2===0);let rightNodes=pgNodes.filter((_,idx)=>idx%2!==0);return{leftHtml:leftNodes.map(n=>n.outerHTML||n.textContent).join(''),rightHtml:rightNodes.map(n=>n.outerHTML||n.textContent).join('')};});blankPageIndices=new Set();}
 function updateCardTextContent(card){if(card.pagesContent&&Array.isArray(card.pagesContent)){card.textContent=card.pagesContent.map(p=>p.leftHtml+p.rightHtml).join('');}}
-function autoLinkify(html){if(!html)return html;return html.replace(/(?<!["'=>])\b(https?:\/\/[^\s<]+)/gi,'<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');}
+function autoLinkify(html){if(!html)return html;return html.replace(/(?<!["'=>])\b(https?:\/\/[^\s<]+)/gi,'<a href="$1" target="_blank" rel="noopener noreferrer">点击链接</a>');}
 function renderBookPage(){
   const card=currentEditingBookCard;
   if(!card) return;
