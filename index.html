@@ -496,16 +496,8 @@ document.getElementById('layoutSettingsBtn')?.addEventListener('click',()=>docum
 document.getElementById('resetLayoutBtn')?.addEventListener('click',()=>{document.getElementById('radiusSlider').value=20;document.getElementById('paddingSlider').value=20;document.getElementById('gapSlider').value=28;updateLayout();});
 document.getElementById('clearTagFilterBtn')?.addEventListener('click',()=>{currentTagFilter=null;renderTags();renderCards();renderGroups();});
 document.getElementById('viewToggleBtn')?.addEventListener('click',()=>{let btn=document.getElementById('viewToggleBtn');let isList=btn.innerText.includes('列表');if(isList){btn.innerText='🗂️ 卡片视图';localStorage.setItem('listViewPreference','false');}else{btn.innerText='📋 列表视图';localStorage.setItem('listViewPreference','true');}renderCards();});
-document.getElementById('sortSelect')?.addEventListener('change',e=>{
-  currentSort=e.target.value;
-  localStorage.setItem('sort_preference', currentSort);
-  currentPage=1; renderCards();
-});
-document.getElementById('pageSizeSelect')?.addEventListener('change',e=>{
-  pageSize=parseInt(e.target.value);
-  localStorage.setItem('pageSize_preference', e.target.value);
-  currentPage=1; renderCards();
-});
+document.getElementById('sortSelect')?.addEventListener('change',e=>{ currentSort=e.target.value; localStorage.setItem('sort_preference', currentSort); currentPage=1; renderCards(); });
+document.getElementById('pageSizeSelect')?.addEventListener('change',e=>{ pageSize=parseInt(e.target.value); localStorage.setItem('pageSize_preference', e.target.value); currentPage=1; renderCards(); });
 document.getElementById('searchInput')?.addEventListener('input',e=>{currentKeyword=e.target.value;currentPage=1;renderCards();});
 document.getElementById('clearSearchBtn')?.addEventListener('click',()=>{document.getElementById('searchInput').value='';currentKeyword='';renderCards();});
 document.getElementById('selectAllCheckbox')?.addEventListener('change',function(){document.querySelectorAll('.card-checkbox').forEach(cb=>cb.checked=this.checked);});
