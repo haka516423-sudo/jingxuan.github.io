@@ -166,7 +166,6 @@ body[data-theme="mint"]{background:linear-gradient(135deg,#c7e9fb,#b6e0fe);--the
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.2);border-radius:10px}
-
 @media (max-width: 780px) {
   body { padding: 16px; }
   .app { flex-direction: column; gap: 20px; min-height: auto; }
@@ -177,20 +176,30 @@ body[data-theme="mint"]{background:linear-gradient(135deg,#c7e9fb,#b6e0fe);--the
   .sidebar .tag-scroll-area { max-height: 130px; }
   .main { margin-top: 0; min-width: 100%; }
   .cards-grid { grid-template-columns: 1fr; }
+  .cards-grid.list-view { display: flex; flex-direction: column; gap: 10px; }
+  .card { padding: 14px; }
   .search-controls-row { flex-direction: column; align-items: stretch; }
-  .search-controls-row .view-toggle-btn,.search-controls-row .sort-select,.search-controls-row .page-size-select,.search-controls-row .admin-btn,.search-controls-row .palette-btn { width: 100%; text-align: center; }
+  .search-controls-row .view-toggle-btn, .search-controls-row .sort-select, .search-controls-row .page-size-select, .search-controls-row .admin-btn, .search-controls-row .palette-btn { width: 100%; text-align: center; }
   .admin-toolbar { flex-wrap: wrap; gap: 8px; }
+  .admin-toolbar label, .admin-toolbar button { font-size: 0.7rem; }
   .modal-content { max-width: 95%; padding: 16px; }
   #modrinthResults { grid-template-columns: 1fr; }
   .page-pair { flex-direction: column; gap: 10px; }
   .page-pair::after { display: none; }
   .card-actions .admin-only-btns { opacity: 1; }
   .top-pagination, .bottom-pagination { gap: 6px; flex-wrap: wrap; }
+  .pagination-button { padding: 6px 10px; font-size: 0.75rem; }
+  #bookModal .modal-content { padding: 12px 12px 0 12px; }
+  .book-content { padding: 14px; }
+  .control-dock { bottom: 16px; right: 16px; padding: 4px 8px; }
+  .control-dock button { width: 30px; height: 30px; font-size: 0.8rem; }
+  .palette-panel { width: 280px; max-height: 60vh; }
+  .data-source-indicator { font-size: 0.65rem; padding: 3px 8px; }
 }
 @media (max-width: 480px) {
   body { padding: 10px; }
   .card-title { font-size: 1rem; }
-  .search-box { padding: 10px 14px; }
+  .search-box { padding: 10px 14px; font-size: 0.9rem; }
   .version-list { grid-template-columns: repeat(3,1fr); }
   .tag-list { grid-template-columns: repeat(auto-fill,minmax(60px,1fr)); }
 }
@@ -248,8 +257,6 @@ body[data-theme="mint"]{background:linear-gradient(135deg,#c7e9fb,#b6e0fe);--the
 let groupsData=[],versions=[],currentGroupIndex=0,currentKeyword="",isAdminMode=false,currentSort="title-asc",currentPage=1,pageSize=50;
 let currentTagFilter=null,currentVersionFilter=null,hasLocalChanges=false,currentDataSource="cloud",currentDataMode="cloud",editingCardInfo=null,currentCardType="link";
 let currentEditingBookCard=null,currentSelectedImg=null,currentPageIndex=0,blankPageIndices=new Set(),isBookEditMode=false;
-const RECORD_GROUP_IDX = -1; // 记录分组特殊索引
-let recordGroupActive = false;
 
 function setVh(){let vh=window.innerHeight*0.01;document.documentElement.style.setProperty('--vh',`${vh}px`);}
 window.addEventListener('resize',setVh);setVh();
@@ -261,22 +268,24 @@ let batchImportRunning=false;
 
 // ========== IndexedDB 缓存 ==========
 const DB_NAME='JingxuanCache',STORE_NAME='shardCache',RECORD_STORE='recordStore';
-function openDB(){return new Promise((resolve,reject)=>{const req=indexedDB.open(DB_NAME,2);req.onupgradeneeded=e=>{const db=e.target.result;if(!db.objectStoreNames.contains(STORE_NAME))db.createObjectStore(STORE_NAME);if(!db.objectStoreNames.contains(RECORD_STORE))db.createObjectStore(RECORD_STORE,{keyPath:'id',autoIncrement:true});};req.onsuccess=e=>resolve(e.target.result);req.onerror=e=>reject(e.target.error);});}
+function openDB(version=2){return new Promise((resolve,reject)=>{const req=indexedDB.open(DB_NAME,version);req.onupgradeneeded=e=>{const db=e.target.result;if(!db.objectStoreNames.contains(STORE_NAME))db.createObjectStore(STORE_NAME);if(!db.objectStoreNames.contains(RECORD_STORE))db.createObjectStore(RECORD_STORE,{keyPath:'id'});};req.onsuccess=e=>resolve(e.target.result);req.onerror=e=>reject(e.target.error);});}
 async function getCachedShards(){try{const db=await openDB();const tx=db.transaction(STORE_NAME,'readonly');const store=tx.objectStore(STORE_NAME);const req=store.get('shardData');return new Promise((resolve)=>{req.onsuccess=e=>resolve(e.target.result);req.onerror=()=>resolve(null);});}catch(e){return null;}}
 async function setCachedShards(data){try{const db=await openDB();const tx=db.transaction(STORE_NAME,'readwrite');const store=tx.objectStore(STORE_NAME);store.put(data,'shardData');await new Promise(r=>tx.oncomplete=r);}catch(e){console.warn('IndexedDB写入失败',e);}}
 async function clearShardCache(){try{const db=await openDB();const tx=db.transaction(STORE_NAME,'readwrite');const store=tx.objectStore(STORE_NAME);store.delete('shardData');await new Promise(r=>tx.oncomplete=r);}catch(e){console.warn('IndexedDB清除失败',e);}}
-// 记录卡片操作
-async function getAllRecordCards(){try{const db=await openDB();const tx=db.transaction(RECORD_STORE,'readonly');const store=tx.objectStore(RECORD_STORE);const req=store.getAll();return new Promise((resolve)=>{req.onsuccess=e=>resolve(e.target.result||[]);req.onerror=()=>resolve([]);});}catch(e){return[];}}
-async function addRecordCard(card){try{const db=await openDB();const tx=db.transaction(RECORD_STORE,'readwrite');const store=tx.objectStore(RECORD_STORE);const id=await new Promise((resolve,reject)=>{const req=store.add(card);req.onsuccess=e=>resolve(e.target.result);req.onerror=e=>reject(e.target.error);});return id;}catch(e){console.warn('添加记录失败',e);return null;}}
-async function updateRecordCard(id,card){try{const db=await openDB();const tx=db.transaction(RECORD_STORE,'readwrite');const store=tx.objectStore(RECORD_STORE);store.put({...card,id:id});await new Promise(r=>tx.oncomplete=r);}catch(e){console.warn('更新记录失败',e);}}
-async function deleteRecordCard(id){try{const db=await openDB();const tx=db.transaction(RECORD_STORE,'readwrite');const store=tx.objectStore(RECORD_STORE);store.delete(id);await new Promise(r=>tx.oncomplete=r);}catch(e){console.warn('删除记录失败',e);}}
-async function clearRecordCards(){try{const db=await openDB();const tx=db.transaction(RECORD_STORE,'readwrite');const store=tx.objectStore(RECORD_STORE);store.clear();await new Promise(r=>tx.oncomplete=r);}catch(e){console.warn('清空记录失败',e);}}
+
+// ========== 记录卡片独立存储 (IndexedDB) ==========
+async function getAllRecords(){try{const db=await openDB();const tx=db.transaction(RECORD_STORE,'readonly');const store=tx.objectStore(RECORD_STORE);const req=store.getAll();return new Promise((resolve)=>{req.onsuccess=e=>resolve(e.target.result||[]);req.onerror=()=>resolve([]);});}catch(e){return[];}}
+async function getRecordById(id){const records=await getAllRecords();return records.find(r=>r.id===id);}
+async function addRecordToDB(card){try{const db=await openDB();const tx=db.transaction(RECORD_STORE,'readwrite');const store=tx.objectStore(RECORD_STORE);store.add(card);await new Promise(r=>tx.oncomplete=r);}catch(e){console.warn('记录写入失败',e);}}
+async function updateRecordInDB(card){try{const db=await openDB();const tx=db.transaction(RECORD_STORE,'readwrite');const store=tx.objectStore(RECORD_STORE);store.put(card);await new Promise(r=>tx.oncomplete=r);}catch(e){console.warn('记录更新失败',e);}}
+async function deleteRecordFromDB(id){try{const db=await openDB();const tx=db.transaction(RECORD_STORE,'readwrite');const store=tx.objectStore(RECORD_STORE);store.delete(id);await new Promise(r=>tx.oncomplete=r);}catch(e){console.warn('记录删除失败',e);}}
+async function clearAllRecordsDB(){try{const db=await openDB();const tx=db.transaction(RECORD_STORE,'readwrite');const store=tx.objectStore(RECORD_STORE);store.clear();await new Promise(r=>tx.oncomplete=r);}catch(e){console.warn('清空记录失败',e);}}
 
 function getLetterKeyForTitle(title){if(!title)return'#';const fc=title.charAt(0).toUpperCase();if(/[A-Z]/.test(fc))return fc;return'#';}
 async function loadLetterJson(letter){try{const res=await fetch(`fenzu/${letter}.json`);if(!res.ok)return null;return await res.json();}catch(e){return null;}}
 function mergeGroupItems(groupMap,groupsArray){if(!groupsArray)return;for(const g of groupsArray){if(!groupMap.has(g.groupName))groupMap.set(g.groupName,[]);groupMap.get(g.groupName).push(...(g.items||[]));}}
 async function loadFromShards(saveToCache=false){
-  if(saveToCache){const cached=await getCachedShards();if(cached&&cached.groups&&cached.versions){groupsData=cached.groups;versions=cached.versions;currentDataSource="cloud";hasLocalChanges=false;updateDataSourceIndicator();recordGroupActive=false;renderAll();console.log('📦 已从IndexedDB缓存加载云端数据');return;}}
+  if(saveToCache){const cached=await getCachedShards();if(cached&&cached.groups&&cached.versions){groupsData=cached.groups;versions=cached.versions;currentDataSource="cloud";hasLocalChanges=false;updateDataSourceIndicator();renderAll();console.log('📦 已从IndexedDB缓存加载云端数据');return;}}
   const progressBar=document.getElementById('shardProgressBar'), percentEl=document.getElementById('shardProgressPercent'), fillEl=document.getElementById('shardProgressFill');
   if(progressBar)progressBar.style.display='block';
   const letters='abcdefghijklmnopqrstuvwxyz'.split(''), groupMap=new Map(), versionsSet=new Set(DEFAULT_VERSIONS);
@@ -291,17 +300,16 @@ async function loadFromShards(saveToCache=false){
     if(saveToCache){ await setCachedShards({groups:groupsData,versions:versions}); }
   } else { if(!groupsData.length){groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA)); versions=[...DEFAULT_VERSIONS];} currentDataSource="local"; hasLocalChanges=true; }
   if(progressBar)progressBar.style.display='none';
-  recordGroupActive=false;
   updateDataSourceIndicator(); renderAll();
 }
-function initLocalData(){ const storedGroups=localStorage.getItem('editable_groups_data'), storedVersions=localStorage.getItem('mc_versions'); if(storedGroups&&storedVersions){try{groupsData=JSON.parse(storedGroups); versions=JSON.parse(storedVersions); hasLocalChanges=true;}catch(e){initDefaultData();}}else{initDefaultData();} currentDataSource="local"; updateDataSourceIndicator(); recordGroupActive=false; renderAll(); }
+function initLocalData(){ const storedGroups=localStorage.getItem('editable_groups_data'), storedVersions=localStorage.getItem('mc_versions'); if(storedGroups&&storedVersions){try{groupsData=JSON.parse(storedGroups); versions=JSON.parse(storedVersions); hasLocalChanges=true;}catch(e){initDefaultData();}}else{initDefaultData();} currentDataSource="local"; updateDataSourceIndicator(); renderAll(); }
 function initDefaultData(){groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));versions=[...DEFAULT_VERSIONS];hasLocalChanges=true;currentDataSource="default";}
 async function loadInitialData(){if(currentDataMode==='cloud'){await loadFromShards(true);}else{initLocalData();}}
 
 function saveDataToStorage(){try{localStorage.setItem('editable_groups_data',JSON.stringify(groupsData));localStorage.setItem('mc_versions',JSON.stringify(versions));hasLocalChanges=true;updateDataSourceIndicator();return true;}catch(e){alert(e.name==='QuotaExceededError'?'存储失败：图片数据过大，超出浏览器本地存储限制（约5MB）。请压缩图片大小或减少图片数量。':'保存失败：'+e.message);return false;}}
 function switchToLocalMode(){if(currentDataMode==='local'){alert('已经是本地模式');return;}if(saveDataToStorage()){currentDataMode='local';currentDataSource='local';document.getElementById('toggleDataSourceBtn').innerHTML='💾 本地模式';updateDataSourceIndicator();alert('已切换到本地模式，数据已保存到本地');}}
 function switchToCloudMode(){if(currentDataMode==='cloud'){alert('已经是云端模式');return;}if(confirm('切换到云端模式将重新加载服务器分片数据，本地未保存修改会丢失。是否继续？')){currentDataMode='cloud';document.getElementById('toggleDataSourceBtn').innerHTML='☁️ 云端模式';loadFromShards(true);alert('已切换到云端模式，正在从服务器加载分片...');}}
-function updateDataSourceIndicator(){ let dot=document.querySelector('#dataSourceIndicator .indicator-dot'),txt=document.getElementById('sourceText'); if(currentDataMode==='cloud'&&!hasLocalChanges){dot.className='indicator-dot cloud';txt.innerText='云端';} else if(currentDataMode==='local'){dot.className='indicator-dot local';txt.innerText='本地';} else{dot.className='indicator-dot default';txt.innerText='默认';} }
+function updateDataSourceIndicator(){ let dot=document.querySelector('#dataSourceIndicator .indicator-dot'),txt=document.getElementById('sourceText'); if(currentGroupIndex===-1){ dot.className='indicator-dot local'; txt.innerText='本地'; return; } if(currentDataMode==='cloud'&&!hasLocalChanges){dot.className='indicator-dot cloud';txt.innerText='云端';} else if(currentDataMode==='local'){dot.className='indicator-dot local';txt.innerText='本地';} else{dot.className='indicator-dot default';txt.innerText='默认';} }
 
 async function getImageBrightness(dataUrl){return new Promise((resolve)=>{const img=new Image();img.onload=()=>{const canvas=document.createElement('canvas');canvas.width=10;canvas.height=10;const ctx=canvas.getContext('2d');ctx.drawImage(img,0,0,10,10);const data=ctx.getImageData(0,0,10,10).data;let total=0;for(let i=0;i<data.length;i+=4){total+=0.299*data[i]+0.587*data[i+1]+0.114*data[i+2];}resolve(total/(100*255));};img.onerror=()=>resolve(0.5);img.src=dataUrl;});}
 function getColorBrightness(hex){let c=hex.replace('#','');let r=parseInt(c.substring(0,2),16),g=parseInt(c.substring(2,4),16),b=parseInt(c.substring(4,6),16);return(0.299*r+0.587*g+0.114*b)/255;}
@@ -329,91 +337,211 @@ async function exportShardsToZip(){
   const blob=await zip.generateAsync({type:'blob'});saveAs(blob,`fenzu_shards_${new Date().toISOString().slice(0,19)}.zip`);
 }
 
-function renderAll(){renderGroups();renderVersions();renderTags();renderCards();}
-function renderGroups(){let container=document.getElementById('groupButtonsContainer');if(!container)return;let html='';groupsData.forEach((g,i)=>{let ac=(i===currentGroupIndex&&!currentTagFilter&&!recordGroupActive)?'active':'';html+=`<div class="group-btn-row"><button class="group-btn ${ac}" data-idx="${i}">${escapeHtml(g.groupName)}</button>${isAdminMode?`<button class="sidebar-mini-edit-btn" data-idx="${i}">✎</button><button class="sidebar-mini-delete-btn" data-idx="${i}">×</button>`:''}</div>`;});html+=`<div class="group-btn-row"><button class="group-btn ${recordGroupActive?'active':''}" data-idx="${RECORD_GROUP_IDX}">📋 记录卡片</button></div>`;container.innerHTML=html;document.getElementById('dynamicTitle').innerText=recordGroupActive?'📋 记录卡片':(currentTagFilter?`标签:${currentTagFilter}`:(currentVersionFilter?`版本:${currentVersionFilter}`:(groupsData[currentGroupIndex]?.groupName||'Minecraft 模组')));attachGroupEvents();}
-function attachGroupEvents(){document.querySelectorAll('.group-btn').forEach(btn=>{btn.addEventListener('click',async()=>{let i=parseInt(btn.dataset.idx);if(i===RECORD_GROUP_IDX){recordGroupActive=true;currentTagFilter=null;currentVersionFilter=null;currentGroupIndex=0;currentKeyword='';document.getElementById('searchInput').value='';currentPage=1;renderAll();}else if(!isNaN(i)&&(i!==currentGroupIndex||recordGroupActive)){recordGroupActive=false;currentGroupIndex=i;currentKeyword='';document.getElementById('searchInput').value='';currentPage=1;renderAll();}});});if(!isAdminMode)return;document.querySelectorAll('.sidebar-mini-edit-btn').forEach(btn=>btn.addEventListener('click',e=>{e.stopPropagation();let i=parseInt(btn.dataset.idx);let newName=prompt('编辑分组名称',groupsData[i].groupName);if(newName&&newName.trim()&&newName.trim()!==groupsData[i].groupName){if(groupsData.some((g,idx)=>idx!==i&&g.groupName===newName.trim()))alert('分组名称已存在');else{groupsData[i].groupName=newName.trim();saveDataToStorage();renderAll();}}}));document.querySelectorAll('.sidebar-mini-delete-btn').forEach(btn=>btn.addEventListener('click',e=>{e.stopPropagation();let i=parseInt(btn.dataset.idx);if(groupsData.length<=1)return alert('至少保留一个分组');if(confirm(`删除「${groupsData[i].groupName}」？`)){groupsData.splice(i,1);if(currentGroupIndex>=groupsData.length)currentGroupIndex=groupsData.length-1;saveDataToStorage();renderAll();}}));document.getElementById('sidebarContainer').classList.toggle('admin-mode',isAdminMode);}
-function renderVersions(){let container=document.getElementById('versionListContainer');if(!container)return;let html='';versions.forEach((v,i)=>{let ac=currentVersionFilter===v?'active':'';html+=`<span class="version-tag ${ac}" data-ver="${escapeHtml(v)}">${escapeHtml(v)}${isAdminMode?`<button class="v-del-btn" data-idx="${i}">×</button>`:''}</span>`;});container.innerHTML=html||'<span>暂无版本</span>';document.querySelectorAll('.version-tag').forEach(el=>{el.addEventListener('click',e=>{if(e.target.classList.contains('v-del-btn'))return;let v=el.dataset.ver;currentVersionFilter=(currentVersionFilter===v)?null:v;renderVersions();currentPage=1;renderCards();renderGroups();});});if(isAdminMode){document.querySelectorAll('.v-del-btn').forEach(btn=>{btn.addEventListener('click',e=>{e.stopPropagation();let i=parseInt(btn.dataset.idx);if(confirm(`删除版本 ${versions[i]}?`)){versions.splice(i,1);if(currentVersionFilter===versions[i])currentVersionFilter=null;saveDataToStorage();renderVersions();renderCards();}});});}}
-function renderTags(){let container=document.getElementById('tagListContainer');if(!container)return;let tagMap=new Map();if(!recordGroupActive){for(let g of groupsData)for(let i of g.items)for(let t of(i.tags||[])){let k=t.trim();if(k)tagMap.set(k,(tagMap.get(k)||0)+1);}}let tags=Array.from(tagMap.entries()).sort((a,b)=>b[1]-a[1]);if(!tags.length){container.innerHTML='<div>暂无标签</div>';return;}let html='';for(let[t,c]of tags){let ac=currentTagFilter===t?'active':'';html+=`<button class="tag-btn ${ac}" data-tag="${escapeHtml(t)}">${escapeHtml(t)} (${c})</button>`;}container.innerHTML=html;document.getElementById('clearTagFilterBtn').style.display=currentTagFilter?'inline-flex':'none';document.querySelectorAll('.tag-btn').forEach(btn=>{btn.addEventListener('click',()=>{let t=btn.dataset.tag;currentTagFilter=(currentTagFilter===t)?null:t;renderTags();currentPage=1;renderCards();renderGroups();});});}
-async function getDisplayItems(){if(recordGroupActive){const records=await getAllRecordCards();return records.map(r=>({...r,type:'text',isRecord:true,recordId:r.id}));}let items=[];if(currentTagFilter){for(let g of groupsData)for(let i of g.items)if((i.tags||[]).includes(currentTagFilter))items.push(i);}else{items=groupsData[currentGroupIndex]?.items||[];}if(currentVersionFilter)items=items.filter(it=>isVersionInCard(it.version,currentVersionFilter));return items;}
+async function renderAll(){ await renderGroups(); renderVersions(); renderTags(); renderCards(); }
+async function renderGroups(){
+  let container=document.getElementById('groupButtonsContainer');if(!container)return;
+  let recordBtnHtml=`<div class="group-btn-row"><button class="group-btn ${currentGroupIndex===-1?'active':''}" data-idx="-1">📋 记录分组</button></div>`;
+  let html=recordBtnHtml;
+  groupsData.forEach((g,i)=>{ let ac=(i===currentGroupIndex&&!currentTagFilter)?'active':''; html+=`<div class="group-btn-row"><button class="group-btn ${ac}" data-idx="${i}">${escapeHtml(g.groupName)}</button><button class="sidebar-mini-edit-btn" data-idx="${i}">✎</button><button class="sidebar-mini-delete-btn" data-idx="${i}">×</button></div>`; });
+  container.innerHTML=html;
+  document.getElementById('dynamicTitle').innerText=currentTagFilter?`标签:${currentTagFilter}`:(currentVersionFilter?`版本:${currentVersionFilter}`:(currentGroupIndex===-1?'📋 记录分组':groupsData[currentGroupIndex]?.groupName||'Minecraft 模组'));
+  attachGroupEvents();
+}
+function attachGroupEvents(){document.querySelectorAll('.group-btn').forEach(btn=>btn.addEventListener('click',()=>{let i=parseInt(btn.dataset.idx);if(!isNaN(i)&&i!==currentGroupIndex){currentGroupIndex=i;currentKeyword='';document.getElementById('searchInput').value='';currentPage=1;renderAll();}}));if(!isAdminMode)return;document.querySelectorAll('.sidebar-mini-edit-btn').forEach(btn=>btn.addEventListener('click',e=>{e.stopPropagation();let i=parseInt(btn.dataset.idx);let newName=prompt('编辑分组名称',groupsData[i].groupName);if(newName&&newName.trim()&&newName.trim()!==groupsData[i].groupName){if(groupsData.some((g,idx)=>idx!==i&&g.groupName===newName.trim()))alert('分组名称已存在');else{groupsData[i].groupName=newName.trim();saveDataToStorage();renderAll();}}}));document.querySelectorAll('.sidebar-mini-delete-btn').forEach(btn=>btn.addEventListener('click',e=>{e.stopPropagation();let i=parseInt(btn.dataset.idx);if(groupsData.length<=1)return alert('至少保留一个分组');if(confirm(`删除「${groupsData[i].groupName}」？`)){groupsData.splice(i,1);if(currentGroupIndex>=groupsData.length)currentGroupIndex=groupsData.length-1;saveDataToStorage();renderAll();}}));document.getElementById('sidebarContainer').classList.toggle('admin-mode',isAdminMode);}
+function renderVersions(){let container=document.getElementById('versionListContainer');if(!container)return;let html='';versions.forEach((v,i)=>{let ac=currentVersionFilter===v?'active':'';html+=`<span class="version-tag ${ac}" data-ver="${escapeHtml(v)}">${escapeHtml(v)}<button class="v-del-btn" data-idx="${i}">×</button></span>`;});container.innerHTML=html||'<span>暂无版本</span>';document.querySelectorAll('.version-tag').forEach(el=>{el.addEventListener('click',e=>{if(e.target.classList.contains('v-del-btn'))return;let v=el.dataset.ver;currentVersionFilter=(currentVersionFilter===v)?null:v;renderVersions();currentPage=1;renderCards();renderGroups();});});if(isAdminMode){document.querySelectorAll('.v-del-btn').forEach(btn=>{btn.addEventListener('click',e=>{e.stopPropagation();let i=parseInt(btn.dataset.idx);if(confirm(`删除版本 ${versions[i]}?`)){versions.splice(i,1);if(currentVersionFilter===versions[i])currentVersionFilter=null;saveDataToStorage();renderVersions();renderCards();}});});}}
+function renderTags(){let container=document.getElementById('tagListContainer');if(!container)return;let tagMap=new Map();for(let g of groupsData)for(let i of g.items)for(let t of(i.tags||[])){let k=t.trim();if(k)tagMap.set(k,(tagMap.get(k)||0)+1);}
+  let tags=Array.from(tagMap.entries()).sort((a,b)=>b[1]-a[1]);if(!tags.length){container.innerHTML='<div>暂无标签</div>';return;}let html='';for(let[t,c]of tags){let ac=currentTagFilter===t?'active':'';html+=`<button class="tag-btn ${ac}" data-tag="${escapeHtml(t)}">${escapeHtml(t)} (${c})</button>`;}container.innerHTML=html;document.getElementById('clearTagFilterBtn').style.display=currentTagFilter?'inline-flex':'none';document.querySelectorAll('.tag-btn').forEach(btn=>{btn.addEventListener('click',()=>{let t=btn.dataset.tag;currentTagFilter=(currentTagFilter===t)?null:t;renderTags();currentPage=1;renderCards();renderGroups();});});}
+async function getDisplayItems(){
+  if(currentGroupIndex===-1){ let records=await getAllRecords(); if(currentVersionFilter) records=records.filter(it=>isVersionInCard(it.version,currentVersionFilter)); if(currentTagFilter) records=records.filter(it=>(it.tags||[]).includes(currentTagFilter)); return records; }
+  let items=[];if(currentTagFilter){for(let g of groupsData)for(let i of g.items)if((i.tags||[]).includes(currentTagFilter))items.push(i);}else{items=groupsData[currentGroupIndex]?.items||[];}if(currentVersionFilter)items=items.filter(it=>isVersionInCard(it.version,currentVersionFilter));return items;
+}
 function isVersionInCard(cardVer,filterVer){if(!cardVer||!filterVer)return false;let cv=cardVer.trim();if(cv.includes(','))return cv.split(',').some(v=>isVersionInCard(v.trim(),filterVer));if(cv.includes('-')){let[s,e]=cv.split('-').map(v=>v.trim());return s<=filterVer&&filterVer<=e;}return cv===filterVer;}
 function getTitleDedupKey(title){if(!title)return'';let withoutParens=title.replace(/\([^)]*\)|（[^）]*）/g,'');return withoutParens.replace(/[^a-zA-Z]/g,'').toLowerCase();}
-function getDuplicateItems(gi){if(recordGroupActive)return[];let items=groupsData[gi].items,map=new Map();items.forEach((it,i)=>{let k=getTitleDedupKey(it.title);if(k){if(!map.has(k))map.set(k,[]);map.get(k).push({...it,cardIdx:i});}});let d=[];for(let[,arr] of map)if(arr.length>1){arr.forEach((x,j)=>{d.push({...x,isFirstDuplicate:j===0,isDuplicate:true});});}return d;}
-async function getFilteredAndSortedItems(){if(recordGroupActive){const records=await getAllRecordCards();return records.map(r=>({...r,type:'text',isRecord:true,recordId:r.id}));}if(currentSort==='duplicates')return[];let items=await getDisplayItems();let kw=currentKeyword.trim().toLowerCase();if(kw){let mode=document.getElementById('searchModeSelect')?.value||'all';items=items.filter(it=>{let titleMatch=it.title.toLowerCase().includes(kw);let authorMatch=(it.author||'').toLowerCase().includes(kw);if(mode==='title')return titleMatch;if(mode==='author')return authorMatch;return titleMatch||(it.description||'').toLowerCase().includes(kw)||authorMatch||(it.tags||[]).some(t=>t.toLowerCase().includes(kw))||(it.version&&it.version.toLowerCase().includes(kw));});}if(currentSort==='title-asc')items.sort((a,b)=>a.title.localeCompare(b.title));else if(currentSort==='date-desc')items.sort((a,b)=>(b.stats?.updated||'').localeCompare(a.stats?.updated||''));return items;}
+function getDuplicateItems(gi){let items=groupsData[gi].items,map=new Map();items.forEach((it,i)=>{let k=getTitleDedupKey(it.title);if(k){if(!map.has(k))map.set(k,[]);map.get(k).push({...it,cardIdx:i});}});let d=[];for(let[,arr] of map)if(arr.length>1){arr.forEach((x,j)=>{d.push({...x,isFirstDuplicate:j===0,isDuplicate:true});});}return d;}
+async function getFilteredAndSortedItems(){if(currentSort==='duplicates')return[];let items=await getDisplayItems();let kw=currentKeyword.trim().toLowerCase();if(kw){let mode=document.getElementById('searchModeSelect')?.value||'all';items=items.filter(it=>{let titleMatch=it.title.toLowerCase().includes(kw);let authorMatch=(it.author||'').toLowerCase().includes(kw);if(mode==='title')return titleMatch;if(mode==='author')return authorMatch;return titleMatch||(it.description||'').toLowerCase().includes(kw)||authorMatch||(it.tags||[]).some(t=>t.toLowerCase().includes(kw))||(it.version&&it.version.toLowerCase().includes(kw));});}if(currentSort==='title-asc')items.sort((a,b)=>a.title.localeCompare(b.title));else if(currentSort==='date-desc')items.sort((a,b)=>(b.stats?.updated||'').localeCompare(a.stats?.updated||''));return items;}
 function renderCard(item,gi,ci,extra={}){
   let tagsHtml=(item.tags||[]).map(t=>`<span class="badge">${escapeHtml(t)}</span>`).join('');
   let vHtml=item.version?`<div class="version-info">📌${escapeHtml(item.version)}</div>`:'';
-  let sb='';if(!item.isRecord){sb=hasLocalChanges?'<span class="badge">💾本地</span>':(currentDataSource==='cloud'?'<span class="badge">☁️云端</span>':'<span class="badge">📄默认</span>');}else{sb='<span class="badge">📋记录</span>';}
-  let actionsHtml=`<div class="card-actions"><input type="checkbox" class="card-checkbox" data-g="${item.isRecord?'record':gi}" data-c="${item.isRecord?item.recordId:ci}" onclick="event.stopPropagation()">`;
-  if(isAdminMode||item.isRecord){
-    actionsHtml+=`<span class="admin-only-btns" style="opacity:1"><button class="edit-btn" data-g="${item.isRecord?'record':gi}" data-c="${item.isRecord?item.recordId:ci}" data-is-record="${item.isRecord?'1':'0'}">✏️</button><button class="delete-btn" data-g="${item.isRecord?'record':gi}" data-c="${item.isRecord?item.recordId:ci}" data-is-record="${item.isRecord?'1':'0'}">🗑️</button></span>`;
-  }
+  let sb='<span class="badge">📄记录</span>';
+  if(gi!==-1){ sb=hasLocalChanges?'<span class="badge">💾本地</span>':(currentDataSource==='cloud'?'<span class="badge">☁️云端</span>':'<span class="badge">📄默认</span>'); }
+  let actionsHtml=`<div class="card-actions"><input type="checkbox" class="card-checkbox" data-g="${gi}" data-c="${ci}" onclick="event.stopPropagation()">`;
+  if(isAdminMode){ actionsHtml+=`<span class="admin-only-btns"><button class="edit-btn" data-g="${gi}" data-c="${ci}">✏️</button><button class="delete-btn" data-g="${gi}" data-c="${ci}">🗑️</button></span>`; }
   actionsHtml+=`</div>`;
-  let dupBadge=extra.isDuplicate?`<div class="card-duplicate-badge">${extra.isFirstDuplicate?'重复(保留)':'重复(可删除)'}</div>`:'';
+  let dupBadge='';
   let contentHtml=(item.type==='text'&&item.textContent)?`<div class="card-description">${escapeHtml(item.textContent.replace(/<[^>]*>/g,'').substring(0,100))}${item.textContent.length>100?'...':''}</div>`:`<div class="card-description">${escapeHtml(item.description||'')}</div>`;
-  return `<div class="card${extra.isDuplicate?' duplicate':''}" data-g="${item.isRecord?'record':gi}" data-c="${item.isRecord?item.recordId:ci}" data-type="${item.type||'link'}" data-url="${escapeHtml(item.url||'')}" data-title="${escapeHtml(item.title)}" data-author="${escapeHtml(item.author)}" data-version="${escapeHtml(item.version||'')}" data-downloads="${escapeHtml(item.stats?.downloads||'')}"><div class="card-title">${escapeHtml(item.title)}</div>${contentHtml}<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px">${tagsHtml}${vHtml}${sb}</div><div class="card-footer"><span>👤${escapeHtml(item.author)}</span><span>📥${item.stats?.downloads||'—'} 🕒${item.stats?.updated||''}</span></div>${dupBadge}${actionsHtml}</div>`;
+  return `<div class="card" data-g="${gi}" data-c="${ci}" data-type="${item.type||'link'}" data-url="${escapeHtml(item.url||'')}" data-title="${escapeHtml(item.title)}" data-author="${escapeHtml(item.author)}" data-version="${escapeHtml(item.version||'')}" data-downloads="${escapeHtml(item.stats?.downloads||'')}"><div class="card-title">${escapeHtml(item.title)}</div>${contentHtml}<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px">${tagsHtml}${vHtml}${sb}</div><div class="card-footer"><span>👤${escapeHtml(item.author)}</span><span>📥${item.stats?.downloads||'—'} 🕒${item.stats?.updated||''}</span></div>${dupBadge}${actionsHtml}</div>`;
 }
 function getCardLocation(target){for(let g=0;g<groupsData.length;g++)for(let i=0;i<groupsData[g].items.length;i++)if(groupsData[g].items[i]===target)return{groupIdx:g,cardIdx:i};return{groupIdx:-1,cardIdx:-1};}
 function buildPaginationHtml(totalPages){return`<button class="pagination-button prev-page" ${currentPage===1?'disabled':''}>◀ 上一页</button><span>第 ${currentPage} / ${totalPages} 页</span><button class="pagination-button next-page" ${currentPage===totalPages?'disabled':''}>下一页 ▶</button>`;}
-function bindPaginationEvents(container){if(!container)return;container.querySelector('.prev-page')?.addEventListener('click',()=>{if(currentPage>1){currentPage--;renderCards();}});container.querySelector('.next-page')?.addEventListener('click',async()=>{let totalPages=Math.ceil((await getFilteredAndSortedItems()).length/pageSize)||1;if(currentPage<totalPages){currentPage++;renderCards();}});}
-async function renderCards(){let container=document.getElementById('cardsContainer');if(!container)return;let duplicateContainer=document.getElementById('duplicateToolbarContainer');if(currentSort==='duplicates'&&!recordGroupActive){let dupes=getDuplicateItems(currentGroupIndex);if(!dupes.length){container.innerHTML='<div class="no-results">✨ 当前分组没有重复卡片</div>';if(duplicateContainer)duplicateContainer.innerHTML='';document.getElementById('topPagination').innerHTML='';document.getElementById('bottomPagination').innerHTML='';return;}container.innerHTML=dupes.map(d=>renderCard(d,currentGroupIndex,d.cardIdx,{isDuplicate:true,isFirstDuplicate:d.isFirstDuplicate})).join('');if(duplicateContainer)duplicateContainer.innerHTML='<div class="duplicate-toolbar"><button id="batchDeleteDuplicatesBtn" class="cancel-btn">🗑️ 批量删除多余重复卡片</button></div>';document.getElementById('batchDeleteDuplicatesBtn')?.addEventListener('click',()=>{let gi=currentGroupIndex,items=groupsData[gi].items,map=new Map();items.forEach((it,i)=>{let k=getTitleDedupKey(it.title);if(k){if(!map.has(k))map.set(k,[]);map.get(k).push(i);}});let toDel=[];for(let[,arr] of map)if(arr.length>1)toDel.push(...arr.slice(1));if(toDel.length&&confirm(`删除${toDel.length}张多余重复卡片？`)){toDel.sort((a,b)=>b-a);toDel.forEach(i=>items.splice(i,1));saveDataToStorage();currentPage=1;renderAll();}});document.getElementById('topPagination').innerHTML='';document.getElementById('bottomPagination').innerHTML='';bindAdminCardBtns();bindCardClicks();return;}let allItems=await getFilteredAndSortedItems();let totalPages=Math.ceil(allItems.length/pageSize)||1;if(currentPage>totalPages)currentPage=totalPages;let start=(currentPage-1)*pageSize;let pageItems=allItems.slice(start,start+pageSize);if(!pageItems.length){container.innerHTML='<div class="no-results">✨ 没有找到相关内容</div>';if(duplicateContainer)duplicateContainer.innerHTML='';document.getElementById('topPagination').innerHTML='';document.getElementById('bottomPagination').innerHTML='';return;}container.innerHTML=pageItems.map(item=>{if(item.isRecord)return renderCard(item,'record',item.recordId,{});let loc=getCardLocation(item);if(loc.groupIdx!==-1)return renderCard(item,loc.groupIdx,loc.cardIdx,{});return'';}).join('');if(duplicateContainer)duplicateContainer.innerHTML='';let pagHtml=buildPaginationHtml(totalPages);document.getElementById('topPagination').innerHTML=pagHtml;document.getElementById('bottomPagination').innerHTML=pagHtml;bindPaginationEvents(document.getElementById('topPagination'));bindPaginationEvents(document.getElementById('bottomPagination'));bindAdminCardBtns();bindCardClicks();if(document.getElementById('selectAllCheckbox'))document.getElementById('selectAllCheckbox').checked=false;let isListView=localStorage.getItem('listViewPreference')==='true';if(isListView)container.classList.add('list-view');else container.classList.remove('list-view');}
-async function deleteCard(gi,ci,isRecord=false){if(isRecord){if(confirm('确定删除这条记录？')){await deleteRecordCard(ci);renderAll();}return;}if(!isAdminMode)return;if(confirm('确定删除？')){groupsData[gi].items.splice(ci,1);saveDataToStorage();currentPage=1;renderAll();}}
-async function batchDeleteSelected(){if(!isAdminMode&&!recordGroupActive)return;let selected=document.querySelectorAll('.card-checkbox:checked');if(selected.length===0)return alert('未选择任何卡片');if(confirm(`确定删除 ${selected.length} 张卡片？`)){for(const cb of selected){let g=cb.dataset.g,isRecord=g==='record';let c=cb.dataset.c;if(isRecord){await deleteRecordCard(parseInt(c));}else{let gi=parseInt(g),ci=parseInt(c);groupsData[gi].items.splice(ci,1);}}if(!recordGroupActive)saveDataToStorage();currentPage=1;renderAll();}}
-function batchDeleteDuplicates(){if(!isAdminMode)return;if(recordGroupActive)return;let gi=currentGroupIndex,items=groupsData[gi].items,map=new Map();items.forEach((it,i)=>{let k=getTitleDedupKey(it.title);if(k){if(!map.has(k))map.set(k,[]);map.get(k).push(i);}});let toDel=[];for(let[,arr] of map)if(arr.length>1)toDel.push(...arr.slice(1));if(!toDel.length)return alert('没有多余重复卡片');if(confirm(`删除 ${toDel.length} 张多余重复卡片？`)){toDel.sort((a,b)=>b-a).forEach(i=>items.splice(i,1));saveDataToStorage();currentPage=1;renderAll();}}
-async function recordSelectedCards(){let selected=document.querySelectorAll('.card-checkbox:checked');if(selected.length===0)return alert('没有选中任何卡片');let records=[];selected.forEach(cb=>{let g=cb.dataset.g,isRecord=g==='record';let c=cb.dataset.c;if(isRecord){records.push(`记录卡片 ${c}\n`);return;}let gi=parseInt(g),ci=parseInt(c);let card=groupsData[gi].items[ci];records.push(`${card.title} || ${card.url||'(文本卡片)'}`);});let textContent=records.join('\n');let newCard={title:'📋 记录 ' + new Date().toISOString().slice(0,10),description:'选中卡片记录',type:'text',textContent:textContent,author:'',tags:[],version:'',stats:{downloads:'—',updated:new Date().toISOString().slice(0,10)}};await addRecordCard(newCard);renderAll();alert(`✅ 已将 ${selected.length} 个卡片记录为文本卡片`);}
-function bindAdminCardBtns(){if(!isAdminMode&&!recordGroupActive)return;document.querySelectorAll('.edit-btn').forEach(btn=>{btn.addEventListener('click',e=>{e.stopPropagation();let isRecord=btn.dataset.isRecord==='1';let g=isRecord?'record':parseInt(btn.dataset.g),c=isRecord?parseInt(btn.dataset.c):parseInt(btn.dataset.c);if(isRecord){openRecordEditModal(c);}else{openEditModal(g,c,groupsData[g].items[c]);}});});document.querySelectorAll('.delete-btn').forEach(btn=>{btn.addEventListener('click',e=>{e.stopPropagation();let isRecord=btn.dataset.isRecord==='1';let g=isRecord?'record':parseInt(btn.dataset.g),c=isRecord?parseInt(btn.dataset.c):parseInt(btn.dataset.c);deleteCard(g,c,isRecord);});});}
+function bindPaginationEvents(container){if(!container)return;container.querySelector('.prev-page')?.addEventListener('click',async()=>{if(currentPage>1){currentPage--;await renderCards();}});container.querySelector('.next-page')?.addEventListener('click',async()=>{let items=await getFilteredAndSortedItems();let totalPages=Math.ceil(items.length/pageSize)||1;if(currentPage<totalPages){currentPage++;await renderCards();}});}
+async function renderCards(){
+  let container=document.getElementById('cardsContainer');if(!container)return;
+  let duplicateContainer=document.getElementById('duplicateToolbarContainer');
+  if(currentSort==='duplicates'&&currentGroupIndex!==-1){let dupes=getDuplicateItems(currentGroupIndex);if(!dupes.length){container.innerHTML='<div class="no-results">✨ 当前分组没有重复卡片</div>';if(duplicateContainer)duplicateContainer.innerHTML='';document.getElementById('topPagination').innerHTML='';document.getElementById('bottomPagination').innerHTML='';return;}container.innerHTML=dupes.map(d=>renderCard(d,currentGroupIndex,d.cardIdx,{isDuplicate:true,isFirstDuplicate:d.isFirstDuplicate})).join('');if(duplicateContainer)duplicateContainer.innerHTML='<div class="duplicate-toolbar"><button id="batchDeleteDuplicatesBtn" class="cancel-btn">🗑️ 批量删除多余重复卡片</button></div>';document.getElementById('batchDeleteDuplicatesBtn')?.addEventListener('click',()=>{let gi=currentGroupIndex,items=groupsData[gi].items,map=new Map();items.forEach((it,i)=>{let k=getTitleDedupKey(it.title);if(k){if(!map.has(k))map.set(k,[]);map.get(k).push(i);}});let toDel=[];for(let[,arr] of map)if(arr.length>1)toDel.push(...arr.slice(1));if(toDel.length&&confirm(`删除${toDel.length}张多余重复卡片？`)){toDel.sort((a,b)=>b-a);toDel.forEach(i=>items.splice(i,1));saveDataToStorage();currentPage=1;renderAll();}});document.getElementById('topPagination').innerHTML='';document.getElementById('bottomPagination').innerHTML='';bindAdminCardBtns();bindCardClicks();return;}
+  let allItems=await getFilteredAndSortedItems();
+  let totalPages=Math.ceil(allItems.length/pageSize)||1;if(currentPage>totalPages)currentPage=totalPages;
+  let start=(currentPage-1)*pageSize;let pageItems=allItems.slice(start,start+pageSize);
+  if(!pageItems.length){container.innerHTML='<div class="no-results">✨ 没有找到相关内容</div>';if(duplicateContainer)duplicateContainer.innerHTML='';document.getElementById('topPagination').innerHTML='';document.getElementById('bottomPagination').innerHTML='';return;}
+  container.innerHTML=pageItems.map(item=>{
+    if(currentGroupIndex===-1) return renderCard(item,-1,item.id);
+    let loc=getCardLocation(item);
+    if(loc.groupIdx!==-1) return renderCard(item,loc.groupIdx,loc.cardIdx);
+    return'';
+  }).join('');
+  if(duplicateContainer)duplicateContainer.innerHTML='';
+  let pagHtml=buildPaginationHtml(totalPages);
+  document.getElementById('topPagination').innerHTML=pagHtml;document.getElementById('bottomPagination').innerHTML=pagHtml;
+  bindPaginationEvents(document.getElementById('topPagination'));bindPaginationEvents(document.getElementById('bottomPagination'));
+  bindAdminCardBtns();bindCardClicks();
+  if(document.getElementById('selectAllCheckbox'))document.getElementById('selectAllCheckbox').checked=false;
+  let isListView=localStorage.getItem('listViewPreference')==='true';if(isListView)container.classList.add('list-view');else container.classList.remove('list-view');
+}
+async function deleteCard(gi,ci){
+  if(!isAdminMode)return;
+  if(gi===-1){ if(confirm('确定删除记录？')){ await deleteRecordFromDB(ci); currentPage=1; renderAll(); } return; }
+  if(confirm('确定删除？')){ groupsData[gi].items.splice(ci,1); saveDataToStorage(); currentPage=1; renderAll(); }
+}
+async function batchDeleteSelected(){
+  if(!isAdminMode)return;
+  let selected=document.querySelectorAll('.card-checkbox:checked');
+  if(selected.length===0)return alert('未选择任何卡片');
+  if(confirm(`确定删除 ${selected.length} 张卡片？`)){
+    let promises=[];
+    selected.forEach(cb=>{
+      let g=parseInt(cb.dataset.g),c=cb.dataset.c;
+      if(g===-1){ promises.push(deleteRecordFromDB(c)); } else {
+        if(!groupsData[g]) return;
+        groupsData[g].items.splice(parseInt(c),1);
+      }
+    });
+    await Promise.all(promises);
+    saveDataToStorage(); currentPage=1; renderAll();
+  }
+}
+function batchDeleteDuplicates(){if(!isAdminMode)return;let gi=currentGroupIndex,items=groupsData[gi].items,map=new Map();items.forEach((it,i)=>{let k=getTitleDedupKey(it.title);if(k){if(!map.has(k))map.set(k,[]);map.get(k).push(i);}});let toDel=[];for(let[,arr] of map)if(arr.length>1)toDel.push(...arr.slice(1));if(!toDel.length)return alert('没有多余重复卡片');if(confirm(`删除 ${toDel.length} 张多余重复卡片？`)){toDel.sort((a,b)=>b-a).forEach(i=>items.splice(i,1));saveDataToStorage();currentPage=1;renderAll();}}
+async function recordSelectedCards(){
+  let selected=document.querySelectorAll('.card-checkbox:checked');
+  if(selected.length===0)return alert('没有选中任何卡片');
+  let records=[];
+  for(const cb of selected){
+    let g=parseInt(cb.dataset.g),c=cb.dataset.c;
+    if(g===-1) continue;
+    let card=groupsData[g]?.items[c];
+    if(card) records.push(`${card.title} || ${card.url||'(文本卡片)'}`);
+  }
+  if(!records.length) return alert('选中的卡片无法记录');
+  let textContent=records.join('\n');
+  let newCard={
+    id: 'rec_'+Date.now()+'_'+Math.random().toString(36).slice(2),
+    title:'📋 记录 ' + new Date().toISOString().slice(0,10),
+    description:'选中卡片记录',
+    type:'text',
+    textContent:textContent,
+    author:'',
+    tags:[],
+    version:'',
+    stats:{downloads:'—',updated:new Date().toISOString().slice(0,10)}
+  };
+  await addRecordToDB(newCard);
+  currentGroupIndex=-1; currentPage=1;
+  renderAll();
+  alert(`✅ 已将 ${records.length} 个卡片记录为独立记录卡片`);
+}
+function bindAdminCardBtns(){
+  if(!isAdminMode)return;
+  document.querySelectorAll('.edit-btn').forEach(btn=>{btn.addEventListener('click',async e=>{e.stopPropagation();let g=parseInt(btn.dataset.g),c=btn.dataset.c;if(g===-1){let record=await getRecordById(c);openEditModal(g,c,record||{});}else{openEditModal(g,c,groupsData[g]?.items[c]);}});});
+  document.querySelectorAll('.delete-btn').forEach(btn=>{btn.addEventListener('click',e=>{e.stopPropagation();let g=parseInt(btn.dataset.g),c=btn.dataset.c;deleteCard(g,c);});});
+}
 
 function splitHtmlToPages(html,nodesPerPage=14){const wrapper=document.createElement('div');wrapper.innerHTML=html;const children=Array.from(wrapper.childNodes).filter(n=>!(n.nodeType===3&&n.textContent.trim()===''));const pages=[];for(let i=0;i<children.length;i+=nodesPerPage){pages.push(children.slice(i,i+nodesPerPage));}if(pages.length===0)pages.push([]);return pages;}
 function generatePagesContentFromTextContent(card){if(card.pagesContent&&Array.isArray(card.pagesContent)&&card.pagesContent.length>0){if(typeof card.pagesContent[0]==='string'){card.pagesContent=card.pagesContent.map(htmlStr=>{let wrapper=document.createElement('div');wrapper.innerHTML=htmlStr;let allNodes=Array.from(wrapper.childNodes);let leftNodes=allNodes.filter((_,idx)=>idx%2===0);let rightNodes=allNodes.filter((_,idx)=>idx%2!==0);return{leftHtml:leftNodes.map(n=>n.outerHTML||n.textContent).join(''),rightHtml:rightNodes.map(n=>n.outerHTML||n.textContent).join('')};});}return;}let fullHtml=card.textContent||'';let pages=splitHtmlToPages(fullHtml,14);card.pagesContent=pages.map(pgNodes=>{let leftNodes=pgNodes.filter((_,idx)=>idx%2===0);let rightNodes=pgNodes.filter((_,idx)=>idx%2!==0);return{leftHtml:leftNodes.map(n=>n.outerHTML||n.textContent).join(''),rightHtml:rightNodes.map(n=>n.outerHTML||n.textContent).join('')};});blankPageIndices=new Set();}
 function updateCardTextContent(card){if(card.pagesContent&&Array.isArray(card.pagesContent)){card.textContent=card.pagesContent.map(p=>p.leftHtml+p.rightHtml).join('');}}
 function autoLinkify(html){if(!html)return html;return html.replace(/(?<!["'=>])\b(https?:\/\/[^\s<]+)/gi,'<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');}
 function renderBookPage(){
-  const card=groupsData[currentEditingBookCard.gi].items[currentEditingBookCard.ci];
-  let pageData=card.pagesContent[currentPageIndex]||{leftHtml:'',rightHtml:''};
+  const card=currentEditingBookCard;
+  if(!card) return;
+  let pageData=card.pagesContent?.[currentPageIndex]||{leftHtml:'',rightHtml:''};
   pageData.leftHtml=autoLinkify(pageData.leftHtml);pageData.rightHtml=autoLinkify(pageData.rightHtml);
   const isBlank=blankPageIndices.has(currentPageIndex);const showMeta=currentPageIndex===0&&!isBlank;
   const metadataHtml=showMeta?`<div class="metadata-area"><div class="meta-item"><span class="meta-label">📖 标题：</span>${escapeHtml(card.title)}</div><div class="meta-item"><span class="meta-label">✍️ 作者：</span>${escapeHtml(card.author||'')}</div><div class="meta-item"><span class="meta-label">📌 版本：</span>${escapeHtml(card.version||'')}</div><div class="meta-item"><span class="meta-label">📥 下载：</span>${escapeHtml(card.stats?.downloads||'')}</div></div>`:'';
   document.getElementById('pagesContainer').innerHTML=`<div class="page-pair"><div class="page" id="leftPage">${metadataHtml}<div class="page-content" contenteditable="${isBookEditMode?'true':'false'}">${pageData.leftHtml}</div></div><div class="page" id="rightPage"><div class="page-content" contenteditable="${isBookEditMode?'true':'false'}">${pageData.rightHtml}</div></div></div>`;
   attachImageClickHandler();
 }
-function persistBookPages(){if(!currentEditingBookCard)return;const card=groupsData[currentEditingBookCard.gi].items[currentEditingBookCard.ci];card.blankPageIndices=Array.from(blankPageIndices);updateCardTextContent(card);}
-function openBookPreview(title,cardLocation){currentEditingBookCard=cardLocation;const card=groupsData[cardLocation.gi].items[cardLocation.ci];if(!card.pagesContent||!Array.isArray(card.pagesContent)||card.pagesContent.length===0){generatePagesContentFromTextContent(card);}else if(typeof card.pagesContent[0]==='string'){generatePagesContentFromTextContent(card);}blankPageIndices=new Set(card.blankPageIndices||[]);isBookEditMode=isAdminMode;currentPageIndex=0;document.getElementById('imageSettingsPopup').classList.remove('show');renderBookPage();const prevBtn=document.getElementById('bookPrevBtn');const nextBtn=document.getElementById('bookNextBtn');const addBtn=document.getElementById('bookAddPageBtn');const indicator=document.getElementById('bookPageIndicator');const update=()=>{prevBtn.disabled=currentPageIndex===0;nextBtn.disabled=currentPageIndex===card.pagesContent.length-1;indicator.innerText=`第 ${currentPageIndex+1} / ${card.pagesContent.length} 页`;};prevBtn.onclick=()=>{if(currentPageIndex>0){saveCurrentPageEdits();currentPageIndex--;renderBookPage();update();}};nextBtn.onclick=()=>{if(currentPageIndex<card.pagesContent.length-1){saveCurrentPageEdits();currentPageIndex++;renderBookPage();update();}};if(isAdminMode){addBtn.style.display='flex';addBtn.onclick=()=>{saveCurrentPageEdits();card.pagesContent.push({leftHtml:'',rightHtml:''});currentPageIndex=card.pagesContent.length-1;blankPageIndices.add(currentPageIndex);renderBookPage();update();};}else{addBtn.style.display='none';}update();document.getElementById('bookModal').classList.add('active');document.getElementById('controlDock').style.display=isBookEditMode?'flex':'none';attachImageClickHandler();setupImagePreview();}
-function saveCurrentPageEdits(){if(!currentEditingBookCard)return;const card=groupsData[currentEditingBookCard.gi].items[currentEditingBookCard.ci];const leftDiv=document.querySelector('#leftPage .page-content');const rightDiv=document.querySelector('#rightPage .page-content');if(leftDiv&&rightDiv){card.pagesContent[currentPageIndex]={leftHtml:leftDiv.innerHTML,rightHtml:rightDiv.innerHTML};if(leftDiv.innerHTML.trim()===''&&rightDiv.innerHTML.trim()===''&&!blankPageIndices.has(currentPageIndex)){blankPageIndices.add(currentPageIndex);}else if((leftDiv.innerHTML.trim()!==''||rightDiv.innerHTML.trim()!=='')&&blankPageIndices.has(currentPageIndex)){blankPageIndices.delete(currentPageIndex);}}}
+function persistBookPages(){if(!currentEditingBookCard)return;const card=currentEditingBookCard;card.blankPageIndices=Array.from(blankPageIndices);updateCardTextContent(card);}
+async function openBookPreview(title,cardLocation){
+  let card;
+  if(cardLocation.gi===-1){ card=await getRecordById(cardLocation.ci); if(!card) return; } else { card=groupsData[cardLocation.gi]?.items[cardLocation.ci]; if(!card) return; }
+  currentEditingBookCard=card;
+  if(!card.pagesContent||!Array.isArray(card.pagesContent)||card.pagesContent.length===0){generatePagesContentFromTextContent(card);}else if(typeof card.pagesContent[0]==='string'){generatePagesContentFromTextContent(card);}
+  blankPageIndices=new Set(card.blankPageIndices||[]);isBookEditMode=isAdminMode;currentPageIndex=0;document.getElementById('imageSettingsPopup').classList.remove('show');renderBookPage();
+  const prevBtn=document.getElementById('bookPrevBtn');const nextBtn=document.getElementById('bookNextBtn');const addBtn=document.getElementById('bookAddPageBtn');const indicator=document.getElementById('bookPageIndicator');
+  const update=()=>{prevBtn.disabled=currentPageIndex===0;nextBtn.disabled=currentPageIndex===card.pagesContent.length-1;indicator.innerText=`第 ${currentPageIndex+1} / ${card.pagesContent.length} 页`;};
+  prevBtn.onclick=()=>{if(currentPageIndex>0){saveCurrentPageEdits();currentPageIndex--;renderBookPage();update();}};
+  nextBtn.onclick=()=>{if(currentPageIndex<card.pagesContent.length-1){saveCurrentPageEdits();currentPageIndex++;renderBookPage();update();}};
+  if(isAdminMode){addBtn.style.display='flex';addBtn.onclick=()=>{saveCurrentPageEdits();card.pagesContent.push({leftHtml:'',rightHtml:''});currentPageIndex=card.pagesContent.length-1;blankPageIndices.add(currentPageIndex);renderBookPage();update();};}else{addBtn.style.display='none';}
+  update();document.getElementById('bookModal').classList.add('active');document.getElementById('controlDock').style.display=isBookEditMode?'flex':'none';attachImageClickHandler();setupImagePreview();
+}
+function saveCurrentPageEdits(){if(!currentEditingBookCard)return;const card=currentEditingBookCard;const leftDiv=document.querySelector('#leftPage .page-content');const rightDiv=document.querySelector('#rightPage .page-content');if(leftDiv&&rightDiv){card.pagesContent[currentPageIndex]={leftHtml:leftDiv.innerHTML,rightHtml:rightDiv.innerHTML};if(leftDiv.innerHTML.trim()===''&&rightDiv.innerHTML.trim()===''&&!blankPageIndices.has(currentPageIndex)){blankPageIndices.add(currentPageIndex);}else if((leftDiv.innerHTML.trim()!==''||rightDiv.innerHTML.trim()!=='')&&blankPageIndices.has(currentPageIndex)){blankPageIndices.delete(currentPageIndex);}}}
 function attachImageClickHandler(){const imgs=document.querySelectorAll('#leftPage .page-content img, #rightPage .page-content img');imgs.forEach(img=>{img.onclick=(e)=>{e.stopPropagation();currentSelectedImg=img;let w=img.style.width?parseInt(img.style.width):(img.style.maxWidth?parseInt(img.style.maxWidth):70);let h=img.style.height&&img.style.height!=='auto'?parseInt(img.style.height):70;const heightAuto=!img.style.height||img.style.height==='auto';document.getElementById('lockAspectCheckbox').checked=heightAuto;document.getElementById('imgHeight').disabled=heightAuto;document.getElementById('heightVal').innerText=heightAuto?'auto':h+'%';document.getElementById('imgWidth').value=w;if(!heightAuto)document.getElementById('imgHeight').value=h;document.getElementById('widthVal').innerText=w+'%';let x=0,y=0;const match=img.style.transform?.match(/translate\(([-\d]+)px,\s*([-\d]+)px\)/);if(match){x=parseInt(match[1]);y=parseInt(match[2]);}document.getElementById('imgX').value=x;document.getElementById('imgY').value=y;document.getElementById('imageSettingsPopup').classList.add('show');};});}
 function setupImagePreview(){const widthSlider=document.getElementById('imgWidth');const heightSlider=document.getElementById('imgHeight');const lockCheck=document.getElementById('lockAspectCheckbox');const imgXInput=document.getElementById('imgX');const imgYInput=document.getElementById('imgY');const apply=()=>{if(!currentSelectedImg)return;const w=parseInt(widthSlider.value);const locked=lockCheck.checked;currentSelectedImg.style.width=w+'%';if(locked){currentSelectedImg.style.height='auto';heightSlider.disabled=true;document.getElementById('heightVal').innerText='auto';}else{const h=parseInt(heightSlider.value);currentSelectedImg.style.height=h+'%';document.getElementById('heightVal').innerText=h+'%';heightSlider.disabled=false;}const x=parseInt(imgXInput.value)||0;const y=parseInt(imgYInput.value)||0;currentSelectedImg.style.transform=`translate(${x}px, ${y}px)`;};widthSlider.oninput=()=>{document.getElementById('widthVal').innerText=widthSlider.value+'%';apply();};heightSlider.oninput=()=>{document.getElementById('heightVal').innerText=heightSlider.value+'%';apply();};lockCheck.onchange=()=>{if(lockCheck.checked){heightSlider.disabled=true;}else{heightSlider.disabled=false;}apply();};imgXInput.oninput=apply;imgYInput.oninput=apply;apply();}
 async function compressImage(file,maxWidth=800,quality=0.5){return new Promise((resolve)=>{const reader=new FileReader();reader.onload=()=>{const dataUrl=reader.result;const img=new Image();img.onload=()=>{const canvas=document.createElement('canvas');let width=img.width,height=img.height;if(width>maxWidth){height=height*maxWidth/width;width=maxWidth;}canvas.width=width;canvas.height=height;const ctx=canvas.getContext('2d');ctx.drawImage(img,0,0,width,height);try{const compressed=canvas.toDataURL('image/jpeg',quality);resolve(compressed);}catch(e){resolve(dataUrl);}};img.onerror=()=>{resolve(dataUrl);};img.src=dataUrl;};reader.onerror=()=>{resolve(URL.createObjectURL(file));};reader.readAsDataURL(file);});}
 document.getElementById('dockInsertImgBtn')?.addEventListener('click',async()=>{if(!isAdminMode||!isBookEditMode)return;const input=document.createElement('input');input.type='file';input.accept='image/*';input.onchange=async(e)=>{const file=e.target.files[0];if(!file)return;try{const compressed=await compressImage(file);const active=document.activeElement;let targetDiv=null;if(active&&(active.closest('#leftPage .page-content')||active.closest('#rightPage .page-content'))){targetDiv=active.closest('.page-content');}else{targetDiv=document.querySelector('#leftPage .page-content');}if(targetDiv&&targetDiv.isContentEditable){const sel=window.getSelection();if(sel.rangeCount>0){const range=sel.getRangeAt(0);range.deleteContents();const frag=range.createContextualFragment(`<img src="${compressed}" style="max-width:70%;display:block;margin:10px auto;border-radius:12px;cursor:pointer">`);range.insertNode(frag);range.collapse(false);}else{targetDiv.innerHTML+=`<img src="${compressed}" style="max-width:70%;display:block;margin:10px auto;border-radius:12px;cursor:pointer">`;}}else{if(targetDiv)targetDiv.innerHTML+=`<img src="${compressed}" style="max-width:70%;display:block;margin:10px auto;border-radius:12px;cursor:pointer">`;}attachImageClickHandler();setupImagePreview();}catch(err){alert('图片插入失败：'+err.message);}};input.click();});
-document.getElementById('dockSaveBtn')?.addEventListener('click',()=>{if(!isAdminMode||!isBookEditMode)return;saveCurrentPageEdits();persistBookPages();if(saveDataToStorage()){isBookEditMode=false;document.querySelector('#leftPage .page-content')?.setAttribute('contenteditable','false');document.querySelector('#rightPage .page-content')?.setAttribute('contenteditable','false');document.getElementById('controlDock').style.display='none';document.getElementById('imageSettingsPopup').classList.remove('show');renderAll();alert('✅ 内容已保存，进入阅读模式');}else{alert('保存失败，图片可能过大');}});
+document.getElementById('dockSaveBtn')?.addEventListener('click',async()=>{if(!isAdminMode||!isBookEditMode)return;saveCurrentPageEdits();persistBookPages();if(currentGroupIndex===-1){await updateRecordInDB(currentEditingBookCard);} else { saveDataToStorage(); } isBookEditMode=false;document.querySelector('#leftPage .page-content')?.setAttribute('contenteditable','false');document.querySelector('#rightPage .page-content')?.setAttribute('contenteditable','false');document.getElementById('controlDock').style.display='none';document.getElementById('imageSettingsPopup').classList.remove('show');renderAll();alert('✅ 内容已保存，进入阅读模式');});
 document.getElementById('dockImageSettingsBtn')?.addEventListener('click',()=>{document.getElementById('imageSettingsPopup').classList.toggle('show');});
-function closeBookModalAndSave(){if(isAdminMode&&isBookEditMode&&currentEditingBookCard){saveCurrentPageEdits();persistBookPages();saveDataToStorage();renderAll();}document.getElementById('bookModal').classList.remove('active');currentEditingBookCard=null;document.getElementById('imageSettingsPopup').classList.remove('show');document.getElementById('controlDock').style.display='none';isBookEditMode=false;}
+function closeBookModalAndSave(){if(isAdminMode&&isBookEditMode&&currentEditingBookCard){saveCurrentPageEdits();persistBookPages();if(currentGroupIndex===-1){updateRecordInDB(currentEditingBookCard);} else { saveDataToStorage(); } renderAll();}document.getElementById('bookModal').classList.remove('active');currentEditingBookCard=null;document.getElementById('imageSettingsPopup').classList.remove('show');document.getElementById('controlDock').style.display='none';isBookEditMode=false;}
 document.getElementById('bookCloseBtn')?.addEventListener('click',(e)=>{e.stopPropagation();closeBookModalAndSave();});
-function bindCardClicks(){document.querySelectorAll('.card').forEach(card=>{card.addEventListener('click',e=>{if(e.target.closest('.card-actions')||e.target.type==='checkbox'||e.target.closest('a'))return;let type=card.dataset.type;let url=card.dataset.url;let title=card.dataset.title;let g=card.dataset.g,isRecord=g==='record';let c=card.dataset.c;if(isRecord){openRecordBookPreview(title,parseInt(c));return;}let gi=parseInt(g),ci=parseInt(c);if(type==='link'&&url)window.open(url,'_blank');else if(type==='text')openBookPreview(title,{gi,ci});});});}
+async function bindCardClicks(){document.querySelectorAll('.card').forEach(card=>{card.addEventListener('click',async e=>{if(e.target.closest('.card-actions')||e.target.type==='checkbox'||e.target.closest('a'))return;let type=card.dataset.type;let url=card.dataset.url;let title=card.dataset.title;let g=parseInt(card.dataset.g),c=card.dataset.c;if(type==='link'&&url)window.open(url,'_blank');else if(type==='text')await openBookPreview(title,{gi:g,ci:c});});});}
 
-function renderDynamicTags(){let allTags=[];if(!recordGroupActive){for(let g of groupsData)for(let i of g.items)for(let t of(i.tags||[]))if(t&&!['Fabric','Forge','NeoForge'].includes(t)&&!allTags.includes(t))allTags.push(t);}let container=document.getElementById('dynamicTagList');if(container)container.innerHTML=allTags.map(t=>`<button class="dynamic-tag-btn" data-tag="${escapeHtml(t)}">${escapeHtml(t)}</button>`).join('');document.querySelectorAll('.dynamic-tag-btn').forEach(btn=>btn.addEventListener('click',()=>{let cur=document.getElementById('cardTags').value.trim();let tag=btn.dataset.tag;document.getElementById('cardTags').value=cur?cur.split(',').map(s=>s.trim()).includes(tag)?cur:cur+', '+tag:tag;}));}
-function openEditModal(gi,ci,card){editingCardInfo={gi,ci,card:{...card},isRecord:false};document.getElementById('modalTitle').innerText=ci===undefined?'新增卡片':'编辑卡片';document.getElementById('cardTitle').value=card.title||'';document.getElementById('cardDesc').value=card.description||'';let type=card.type||'link';setActiveTypeBtn(type);document.getElementById('linkContentArea').style.display=type==='link'?'block':'none';document.getElementById('textContentArea').style.display=type==='text'?'block':'none';document.getElementById('cardUrl').value=card.url||'';document.getElementById('cardTextContent').value=card.textContent||'';document.getElementById('cardAuthor').value=type==='link'?card.author||'':'';document.getElementById('cardTags').value=type==='link'?(card.tags||[]).join(','):'';document.getElementById('cardVersion').value=type==='link'?card.version||'':'';document.getElementById('cardDownloads').value=type==='link'?card.stats?.downloads||'':'';renderDynamicTags();document.querySelectorAll('.preset-tag-btn').forEach(btn=>{btn.onclick=()=>{let cur=document.getElementById('cardTags').value.trim();let tag=btn.dataset.tag;document.getElementById('cardTags').value=cur?cur.split(',').map(s=>s.trim()).includes(tag)?cur:cur+', '+tag:tag;};});document.getElementById('cardModal').classList.add('active');}
-function openRecordEditModal(recordId){fetchRecordCard(recordId).then(card=>{editingCardInfo={gi:-1,ci:recordId,card:{...card,isRecord:true,recordId:recordId},isRecord:true};document.getElementById('modalTitle').innerText='编辑记录卡片';document.getElementById('cardTitle').value=card.title||'';document.getElementById('cardDesc').value=card.description||'';let type=card.type||'text';setActiveTypeBtn(type);document.getElementById('linkContentArea').style.display='none';document.getElementById('textContentArea').style.display='block';document.getElementById('cardUrl').value='';document.getElementById('cardTextContent').value=card.textContent||'';document.getElementById('cardAuthor').value='';document.getElementById('cardTags').value='';document.getElementById('cardVersion').value='';document.getElementById('cardDownloads').value='';renderDynamicTags();document.getElementById('cardModal').classList.add('active');});}
-async function fetchRecordCard(id){const db=await openDB();const tx=db.transaction(RECORD_STORE,'readonly');const store=tx.objectStore(RECORD_STORE);return new Promise((resolve,reject)=>{const req=store.get(id);req.onsuccess=e=>resolve(e.target.result);req.onerror=e=>reject(e.target.error);});}
+function renderDynamicTags(){let allTags=[];for(let g of groupsData)for(let i of g.items)for(let t of(i.tags||[]))if(t&&!['Fabric','Forge','NeoForge'].includes(t)&&!allTags.includes(t))allTags.push(t);let container=document.getElementById('dynamicTagList');if(container)container.innerHTML=allTags.map(t=>`<button class="dynamic-tag-btn" data-tag="${escapeHtml(t)}">${escapeHtml(t)}</button>`).join('');document.querySelectorAll('.dynamic-tag-btn').forEach(btn=>btn.addEventListener('click',()=>{let cur=document.getElementById('cardTags').value.trim();let tag=btn.dataset.tag;document.getElementById('cardTags').value=cur?cur.split(',').map(s=>s.trim()).includes(tag)?cur:cur+', '+tag:tag;}));}
+async function openEditModal(gi,ci,card){
+  editingCardInfo={gi,ci,card:{...card}};
+  document.getElementById('modalTitle').innerText=ci===undefined?'新增卡片':'编辑卡片';
+  document.getElementById('cardTitle').value=card.title||'';
+  document.getElementById('cardDesc').value=card.description||'';
+  let type=card.type||'link';setActiveTypeBtn(type);
+  document.getElementById('linkContentArea').style.display=type==='link'?'block':'none';
+  document.getElementById('textContentArea').style.display=type==='text'?'block':'none';
+  document.getElementById('cardUrl').value=card.url||'';
+  document.getElementById('cardTextContent').value=card.textContent||'';
+  if(gi===-1){ document.getElementById('linkOnlyFields').style.display='none'; } else {
+    document.getElementById('cardAuthor').value=type==='link'?card.author||'':'';
+    document.getElementById('cardTags').value=type==='link'?(card.tags||[]).join(','):'';
+    document.getElementById('cardVersion').value=type==='link'?card.version||'':'';
+    document.getElementById('cardDownloads').value=type==='link'?card.stats?.downloads||'':'';
+    document.getElementById('linkOnlyFields').style.display='block';
+  }
+  renderDynamicTags();
+  document.querySelectorAll('.preset-tag-btn').forEach(btn=>{btn.onclick=()=>{let cur=document.getElementById('cardTags').value.trim();let tag=btn.dataset.tag;document.getElementById('cardTags').value=cur?cur.split(',').map(s=>s.trim()).includes(tag)?cur:cur+', '+tag:tag;};});
+  document.getElementById('cardModal').classList.add('active');
+}
 function setActiveTypeBtn(type){document.querySelectorAll('.type-btn').forEach(b=>b.classList.toggle('active',b.dataset.type===type));currentCardType=type;document.getElementById('linkContentArea').style.display=type==='link'?'block':'none';document.getElementById('textContentArea').style.display=type==='text'?'block':'none';document.getElementById('linkOnlyFields').style.display=type==='link'?'block':'none';}
 const insertImageToTextarea=async(textareaId)=>{const input=document.createElement('input');input.type='file';input.accept='image/*';input.onchange=async(e)=>{const file=e.target.files[0];if(!file)return;try{const compressed=await compressImage(file);const textarea=document.getElementById(textareaId);const cursorPos=textarea.selectionStart;const before=textarea.value.substring(0,cursorPos);const after=textarea.value.substring(cursorPos);textarea.value=before+`<img src="${compressed}" style="max-width:100%;border-radius:8px;margin:8px 0">`+after;textarea.dispatchEvent(new Event('input'));}catch(err){alert('图片压缩失败，已插入原图');}};input.click();};
 document.getElementById('insertImageBtn')?.addEventListener('click',()=>insertImageToTextarea('cardTextContent'));
-async function saveCardFromModal(){if(!editingCardInfo)return;let{gi,ci,card,isRecord}=editingCardInfo;
+async function saveCardFromModal(){
+  if(!editingCardInfo)return;let{gi,ci}=editingCardInfo;
   let newCard={
     title:document.getElementById('cardTitle').value.trim(),
     description:document.getElementById('cardDesc').value.trim(),
     type:currentCardType,
     url:currentCardType==='link'?document.getElementById('cardUrl').value.trim():'',
     textContent:currentCardType==='text'?document.getElementById('cardTextContent').value:'',
-    author:currentCardType==='link'?document.getElementById('cardAuthor').value.trim():'',
-    tags:currentCardType==='link'?document.getElementById('cardTags').value.split(',').map(s=>s.trim()).filter(s=>s):[],
-    version:currentCardType==='link'?document.getElementById('cardVersion').value.trim()||undefined:undefined,
-    stats:{downloads:currentCardType==='link'?document.getElementById('cardDownloads').value.trim()||'—':'—',updated:new Date().toISOString().slice(0,10)}
+    author:gi===-1?'':(currentCardType==='link'?document.getElementById('cardAuthor').value.trim():''),
+    tags:gi===-1?[]:(currentCardType==='link'?document.getElementById('cardTags').value.split(',').map(s=>s.trim()).filter(s=>s):[]),
+    version:gi===-1?'':(currentCardType==='link'?document.getElementById('cardVersion').value.trim()||undefined:undefined),
+    stats:{downloads:gi===-1?'—':(currentCardType==='link'?document.getElementById('cardDownloads').value.trim()||'—':'—'),updated:new Date().toISOString().slice(0,10)}
   };
+  if(currentCardType==='link'&&gi!==-1){if(!newCard.url)return alert('需要网址');}
+  else if(currentCardType==='text'){if(!newCard.textContent)return alert('需要文本内容');if(!newCard.description)newCard.description=newCard.textContent.substring(0,80);}
   if(!newCard.title)return alert('需要标题');
-  if(isRecord){await updateRecordCard(ci,newCard);}else{
-    if(currentCardType==='link'){if(!newCard.url)return alert('需要网址');}else{if(!newCard.textContent)return alert('需要文本内容');if(!newCard.description)newCard.description=newCard.textContent.substring(0,80);}
+  if(gi===-1){
+    newCard.id = editingCardInfo.card?.id || 'rec_'+Date.now()+'_'+Math.random().toString(36).slice(2);
+    await updateRecordInDB(newCard);
+  } else {
     if(ci===undefined)groupsData[gi].items.push(newCard);else groupsData[gi].items[ci]=newCard;
     saveDataToStorage();
   }
-  closeModal();renderAll();}
+  closeModal();renderAll();
+}
 function closeModal(){document.getElementById('cardModal').classList.remove('active');editingCardInfo=null;}
 
 let currentModrinthResults=[],modrinthCurrentPage=1,modrinthPageSize=12,modrinthSortKey='downloads-desc',lastQuery='',modrinthSelectedVersion=null,modrinthSelectedType=null;
@@ -436,8 +564,8 @@ function populateModrinthTypeFilter(){let container=document.getElementById('mod
 
 function buildPalette(){let sg=document.getElementById('solidColorGrid'),gg=document.getElementById('gradientColorGrid');if(sg){let colors=['#eef2f8','#12151c','#fce9e6','#fef0e0','#fef9e0','#eaf4ea','#e0f2f5','#e3edfa','#f0e9fc','#ffe0f0','#d9e6f2','#f5e6d3'];sg.innerHTML='';colors.forEach(c=>{let sw=document.createElement('div');sw.className='color-swatch';sw.style.backgroundColor=c;sw.addEventListener('click',()=>{document.getElementById('wallpaper-layer').style.backgroundImage='';document.body.classList.remove('custom-bg');document.body.style.background=c;let l=getColorBrightness(c);setContrastTheme(l<0.5);localStorage.setItem('custom_bg_color',c);localStorage.removeItem('custom_bg_image');});sg.appendChild(sw);});}if(gg){let grads=['linear-gradient(135deg,#ff9a9e,#fecfef)','linear-gradient(135deg,#a1c4fd,#c2e9fb)','linear-gradient(135deg,#2b5876,#4e4376)','linear-gradient(135deg,#fbc2eb,#a6c1ee)','linear-gradient(135deg,#b5d6a7,#9bbd8c)','linear-gradient(135deg,#1f1c2c,#2a2a4a)','linear-gradient(135deg,#ffe29a,#ffb7b2)','linear-gradient(135deg,#c7e9fb,#b6e0fe)'];let themes=['sunset','aurora','ocean','sakura','forest','midnight','peach','mint'];gg.innerHTML='';grads.forEach((g,i)=>{let sw=document.createElement('div');sw.className='color-swatch';sw.style.background=g;sw.addEventListener('click',()=>{document.getElementById('wallpaper-layer').style.backgroundImage='';document.body.classList.remove('custom-bg');document.body.style.background='';setTheme(themes[i]);localStorage.removeItem('custom_bg_image');localStorage.removeItem('custom_bg_color');});gg.appendChild(sw);});}}
 function exportData(){let data=JSON.stringify({groups:groupsData,versions:versions},null,2);let blob=new Blob([data],{type:'application/json'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`backup_${new Date().toISOString().slice(0,19)}.json`;a.click();URL.revokeObjectURL(blob);}
-async function resetToDefault(){if(confirm('重置所有数据？')){await clearShardCache();groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));versions=[...DEFAULT_VERSIONS];saveDataToStorage();currentGroupIndex=0;currentKeyword='';currentTagFilter=null;currentVersionFilter=null;currentPage=1;document.getElementById('searchInput').value='';recordGroupActive=false;renderAll();}}
-async function clearAllCache(){if(confirm('清除所有本地缓存并刷新（记录卡片不受影响）？')){await clearShardCache();localStorage.clear();sessionStorage.clear();location.reload();}}
+async function resetToDefault(){if(confirm('重置所有数据？')){await clearShardCache();await clearAllRecordsDB();groupsData=JSON.parse(JSON.stringify(DEFAULT_GROUPS_DATA));versions=[...DEFAULT_VERSIONS];saveDataToStorage();currentGroupIndex=0;currentKeyword='';currentTagFilter=null;currentVersionFilter=null;currentPage=1;document.getElementById('searchInput').value='';renderAll();}}
+async function clearAllCache(){if(confirm('清除所有本地缓存并刷新？')){await clearShardCache();await clearAllRecordsDB();localStorage.clear();sessionStorage.clear();location.reload();}}
 function updateLayout(){let r=document.getElementById('radiusSlider')?.value,p=document.getElementById('paddingSlider')?.value,g=document.getElementById('gapSlider')?.value;if(r)document.documentElement.style.setProperty('--card-radius',r+'px');if(p)document.documentElement.style.setProperty('--card-padding',p+'px');if(g)document.documentElement.style.setProperty('--card-gap',g+'px');document.getElementById('radiusVal').innerText=r+'px';document.getElementById('paddingVal').innerText=p+'px';document.getElementById('gapVal').innerText=g+'px';localStorage.setItem('layout_settings',JSON.stringify({radius:r,padding:p,gap:g}));}
 function escapeHtml(s){if(!s)return'';return s.replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'})[m]);}
 
@@ -465,7 +593,7 @@ document.getElementById('modrinthSearchExec')?.addEventListener('click',()=>{sea
 document.getElementById('modrinthSortSelect')?.addEventListener('change',e=>{modrinthSortKey=e.target.value;renderModrinthPage();});
 document.getElementById('modrinthPageSize')?.addEventListener('change',e=>{modrinthPageSize=parseInt(e.target.value);modrinthCurrentPage=1;renderModrinthPage();});
 document.getElementById('adminBtn')?.addEventListener('click',()=>{let p=prompt('管理员密码:');if(p==='admin123'){isAdminMode=true;document.getElementById('adminToolbar').style.display='flex';document.getElementById('addGroupBtn').style.display='inline-flex';renderAll();}else alert('密码错误');});
-document.getElementById('exitAdminBtn')?.addEventListener('click',()=>{if(isBookEditMode&&currentEditingBookCard) closeBookModalAndSave();if(confirm('退出编辑模式，是否重新从云端加载最新数据（记录卡片保留）？')){localStorage.removeItem('editable_groups_data');localStorage.removeItem('mc_versions');location.reload();}else{isAdminMode=false;document.getElementById('adminToolbar').style.display='none';document.getElementById('addGroupBtn').style.display='';document.getElementById('sidebarContainer').classList.remove('admin-mode');renderAll();} });
+document.getElementById('exitAdminBtn')?.addEventListener('click',()=>{if(isBookEditMode&&currentEditingBookCard) closeBookModalAndSave();if(confirm('退出编辑模式，是否重新从云端加载最新数据？')){localStorage.removeItem('editable_groups_data');localStorage.removeItem('mc_versions');location.reload();}else{isAdminMode=false;document.getElementById('adminToolbar').style.display='none';document.getElementById('addGroupBtn').style.display='';document.getElementById('sidebarContainer').classList.remove('admin-mode');renderAll();} });
 document.getElementById('addGroupBtn')?.addEventListener('click',()=>{if(!isAdminMode)return;let n=prompt('分组名称');if(n&&!groupsData.some(g=>g.groupName===n.trim())){groupsData.push({groupName:n.trim(),items:[]});saveDataToStorage();currentGroupIndex=groupsData.length-1;renderAll();}});
 document.getElementById('addVersionBtn')?.addEventListener('click',()=>{if(!isAdminMode)return;let v=prompt('版本号');if(v&&!versions.includes(v)){versions.push(v);versions.sort((a,b)=>b.localeCompare(a,undefined,{numeric:true}));saveDataToStorage();renderVersions();}});
 document.getElementById('addCardBtn')?.addEventListener('click',()=>{if(isAdminMode)openEditModal(currentGroupIndex,undefined,{title:'',description:'',url:'',author:'',tags:[],version:'',stats:{downloads:'—',updated:new Date().toISOString().slice(0,10)},type:'link',textContent:''});});
