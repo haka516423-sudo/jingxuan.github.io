@@ -318,11 +318,7 @@ async function initBackground(){
   if(img){
     document.getElementById('wallpaper-layer').style.backgroundImage=`url(${img})`;
     document.body.classList.add('custom-bg');
-    try{
-      let l=await getImageBrightness(img);
-      setContrastTheme(l<0.5);
-      localStorage.setItem('custom_bg_is_dark',l<0.5?'true':'false');
-    }catch(e){setContrastTheme(false);}
+    try{let l=await getImageBrightness(img);setContrastTheme(l<0.5);localStorage.setItem('custom_bg_is_dark',l<0.5?'true':'false');}catch(e){setContrastTheme(false);}
   }else{
     let color=localStorage.getItem('custom_bg_color');
     if(color){
@@ -433,6 +429,9 @@ async function batchDeleteSelected(){
   await Promise.all(promises); saveDataToStorage(); currentPage=1; renderAll();
 }
 function batchDeleteDuplicates(){if(!isAdminMode)return;let gi=currentGroupIndex,items=groupsData[gi].items,map=new Map();items.forEach((it,i)=>{let k=getTitleDedupKey(it.title);if(k){if(!map.has(k))map.set(k,[]);map.get(k).push(i);}});let toDel=[];for(let[,arr] of map)if(arr.length>1)toDel.push(...arr.slice(1));if(!toDel.length)return alert('没有多余重复卡片');toDel.sort((a,b)=>b-a).forEach(i=>items.splice(i,1));saveDataToStorage();currentPage=1;renderAll();}
+// ========== 统一标签分割函数 ==========
+function splitTags(str){return (str||'').split(/[,，、;\s]+/).map(s=>s.trim()).filter(Boolean);}
+
 async function recordSelectedCards(){
   let selected=document.querySelectorAll('.card-checkbox:checked');
   if(selected.length===0)return alert('没有选中任何卡片');
@@ -549,6 +548,7 @@ const insertImageToTextarea=async(textareaId)=>{const input=document.createEleme
 document.getElementById('insertImageBtn')?.addEventListener('click',()=>insertImageToTextarea('cardTextContent'));
 async function saveCardFromModal(){
   if(!editingCardInfo)return;let{gi,ci}=editingCardInfo;
+  let tags = gi===-1?[]:splitTags(document.getElementById('cardTags').value);
   let newCard={
     title:document.getElementById('cardTitle').value.trim(),
     description:document.getElementById('cardDesc').value.trim(),
@@ -556,7 +556,7 @@ async function saveCardFromModal(){
     url:currentCardType==='link'?document.getElementById('cardUrl').value.trim():'',
     textContent:currentCardType==='text'?document.getElementById('cardTextContent').value:'',
     author:gi===-1?'':(currentCardType==='link'?document.getElementById('cardAuthor').value.trim():''),
-    tags:gi===-1?[]:(currentCardType==='link'?document.getElementById('cardTags').value.split(',').map(s=>s.trim()).filter(s=>s):[]),
+    tags:tags,
     version:gi===-1?'':(currentCardType==='link'?document.getElementById('cardVersion').value.trim()||undefined:undefined),
     stats:{downloads:gi===-1?'—':(currentCardType==='link'?document.getElementById('cardDownloads').value.trim()||'—':'—'),updated:new Date().toISOString().slice(0,10)}
   };
@@ -599,7 +599,6 @@ async function clearAllCache(){if(confirm('清除所有本地缓存并刷新？'
 function updateLayout(){let r=document.getElementById('radiusSlider')?.value,p=document.getElementById('paddingSlider')?.value,g=document.getElementById('gapSlider')?.value;if(r)document.documentElement.style.setProperty('--card-radius',r+'px');if(p)document.documentElement.style.setProperty('--card-padding',p+'px');if(g)document.documentElement.style.setProperty('--card-gap',g+'px');document.getElementById('radiusVal').innerText=r+'px';document.getElementById('paddingVal').innerText=p+'px';document.getElementById('gapVal').innerText=g+'px';localStorage.setItem('layout_settings',JSON.stringify({radius:r,padding:p,gap:g}));}
 function escapeHtml(s){if(!s)return'';return s.replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'})[m]);}
 
-// ========== 偏好保存与恢复 ==========
 function restorePreferences(){
   let sortPref = localStorage.getItem('sort_preference');
   if(sortPref){
@@ -622,7 +621,7 @@ function setBatchButtonsEnabled(enabled){ document.getElementById('batchParseBtn
 function resetBatchUI(){ document.getElementById('batchProgress').style.display='none'; document.getElementById('batchProgressFill').style.width='0%'; document.getElementById('batchProgressPercent').innerText='0%'; document.getElementById('batchErrorLog').style.display='none'; document.getElementById('batchFinishBtn').style.display='none'; document.getElementById('batchParseBtn').style.display='inline-block'; document.getElementById('batchFileCount').style.display='none'; document.getElementById('batchFileCount').innerText=''; }
 document.getElementById('batchFileBtn')?.addEventListener('click',()=>document.getElementById('batchFileInput').click());
 document.getElementById('batchFileInput')?.addEventListener('change',async(e)=>{ const files=e.target.files; if(!files.length) return; setBatchButtonsEnabled(false); let content=''; for(const file of files){ try{ const text=await file.text(); content+=(content?'\n':'')+text; } catch(err){ alert(`读取文件 ${file.name} 失败：${err.message}`); } } const textarea=document.getElementById('batchTextarea'); if(textarea.value.trim()&&content.trim()) textarea.value=textarea.value.trim()+'\n'+content.trim(); else if(content.trim()) textarea.value=content.trim(); const countEl=document.getElementById('batchFileCount'); if(countEl){ countEl.style.display='inline'; countEl.innerHTML=`已选择 ${files.length} 个文件`; const names=Array.from(files).map(f=>f.name).slice(0,10).join(', '); countEl.title=Array.from(files).map(f=>f.name).join(', '); } setBatchButtonsEnabled(true); e.target.value=''; });
-document.getElementById('batchParseBtn')?.addEventListener('click', async ()=>{ if(batchImportRunning) return; const raw=document.getElementById('batchTextarea').value; if(!raw) return; batchImportRunning=true; setBatchButtonsEnabled(false); const progressDiv=document.getElementById('batchProgress'); const fill=document.getElementById('batchProgressFill'); const percent=document.getElementById('batchProgressPercent'); const errorLog=document.getElementById('batchErrorLog'); if(progressDiv) progressDiv.style.display='block'; if(errorLog) errorLog.style.display='none'; const lines=raw.split(/\r?\n/); const skipped=[]; const validCards=[]; for(let i=0;i<lines.length;i++){ const lineNum=i+1; const line=lines[i].trim(); if(!line) continue; const cleanedLine=line.replace(/^\d+[\.\、\s]+/, ''); const parts=cleanedLine.split('||').map(s=>s.trim()); if(parts.length<3){ skipped.push({line:cleanedLine, reason:'字段不足（至少需要标题、描述、URL）'}); continue; } const title=parts[0], url=parts[2]; if(!title||!url){ skipped.push({line:cleanedLine, reason:'标题或URL为空'}); continue; } validCards.push({ title:title, description:parts[1]||url, url:url, author:parts[3]||'', version:parts[4]||'', tags:parts[5]?parts[5].split(',').map(t=>t.trim()).filter(Boolean):[] }); } const totalValid=validCards.length; if(totalValid===0){ if(progressDiv) progressDiv.style.display='none'; alert('没有有效的数据行'); batchImportRunning=false; setBatchButtonsEnabled(true); return; } const BATCH_SIZE=15; let added=0; for(let i=0;i<totalValid;i+=BATCH_SIZE){ if(!batchImportRunning) break; const batch=validCards.slice(i,i+BATCH_SIZE); for(const card of batch){ groupsData[currentGroupIndex].items.push({ title:card.title, description:card.description, url:card.url, author:card.author, tags:card.tags, version:card.version, type:'link', stats:{ downloads:'—', updated:new Date().toISOString().slice(0,10) } }); } added+=batch.length; const pct=Math.round(added/totalValid*100); if(fill) fill.style.width=pct+'%'; if(percent) percent.innerText=pct+'%'; await new Promise(r=>setTimeout(r,30)); } saveDataToStorage(); renderAll(); let msg=`成功导入 ${added} 张卡片。`; if(skipped.length>0){ msg+=`\n跳过 ${skipped.length} 行无效数据。`; const example=skipped.slice(0,5).map(s=>`行内容：${s.line.substring(0,30)}... 原因：${s.reason}`).join('<br>'); if(errorLog){ errorLog.innerHTML=example+(skipped.length>5?`<br>...等共${skipped.length}条`:''); errorLog.style.display='block'; } } document.getElementById('batchParseBtn').style.display='none'; document.getElementById('batchFinishBtn').style.display='inline-block'; batchImportRunning=false; setBatchButtonsEnabled(true); });
+document.getElementById('batchParseBtn')?.addEventListener('click', async ()=>{ if(batchImportRunning) return; const raw=document.getElementById('batchTextarea').value; if(!raw) return; batchImportRunning=true; setBatchButtonsEnabled(false); const progressDiv=document.getElementById('batchProgress'); const fill=document.getElementById('batchProgressFill'); const percent=document.getElementById('batchProgressPercent'); const errorLog=document.getElementById('batchErrorLog'); if(progressDiv) progressDiv.style.display='block'; if(errorLog) errorLog.style.display='none'; const lines=raw.split(/\r?\n/); const skipped=[]; const validCards=[]; for(let i=0;i<lines.length;i++){ const lineNum=i+1; const line=lines[i].trim(); if(!line) continue; const cleanedLine=line.replace(/^\d+[\.\、\s]+/, ''); const parts=cleanedLine.split('||').map(s=>s.trim()); if(parts.length<3){ skipped.push({line:cleanedLine, reason:'字段不足（至少需要标题、描述、URL）'}); continue; } const title=parts[0], url=parts[2]; if(!title||!url){ skipped.push({line:cleanedLine, reason:'标题或URL为空'}); continue; } validCards.push({ title:title, description:parts[1]||url, url:url, author:parts[3]||'', version:parts[4]||'', tags:splitTags(parts[5]) }); } const totalValid=validCards.length; if(totalValid===0){ if(progressDiv) progressDiv.style.display='none'; alert('没有有效的数据行'); batchImportRunning=false; setBatchButtonsEnabled(true); return; } const BATCH_SIZE=15; let added=0; for(let i=0;i<totalValid;i+=BATCH_SIZE){ if(!batchImportRunning) break; const batch=validCards.slice(i,i+BATCH_SIZE); for(const card of batch){ groupsData[currentGroupIndex].items.push({ title:card.title, description:card.description, url:card.url, author:card.author, tags:card.tags, version:card.version, type:'link', stats:{ downloads:'—', updated:new Date().toISOString().slice(0,10) } }); } added+=batch.length; const pct=Math.round(added/totalValid*100); if(fill) fill.style.width=pct+'%'; if(percent) percent.innerText=pct+'%'; await new Promise(r=>setTimeout(r,30)); } saveDataToStorage(); renderAll(); let msg=`成功导入 ${added} 张卡片。`; if(skipped.length>0){ msg+=`\n跳过 ${skipped.length} 行无效数据。`; const example=skipped.slice(0,5).map(s=>`行内容：${s.line.substring(0,30)}... 原因：${s.reason}`).join('<br>'); if(errorLog){ errorLog.innerHTML=example+(skipped.length>5?`<br>...等共${skipped.length}条`:''); errorLog.style.display='block'; } } document.getElementById('batchParseBtn').style.display='none'; document.getElementById('batchFinishBtn').style.display='inline-block'; batchImportRunning=false; setBatchButtonsEnabled(true); });
 document.getElementById('batchFinishBtn')?.addEventListener('click',()=>{ document.getElementById('batchTextarea').value=''; resetBatchUI(); document.getElementById('batchModal').classList.remove('active'); });
 document.getElementById('batchCancelBtn')?.addEventListener('click',()=>{ if(batchImportRunning){ batchImportRunning=false; return; } document.getElementById('batchModal').classList.remove('active'); resetBatchUI(); });
 document.getElementById('toggleDataSourceBtn')?.addEventListener('click',()=>{if(currentDataMode==='cloud')switchToLocalMode();else switchToCloudMode();});
