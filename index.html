@@ -281,6 +281,7 @@ body[data-theme="mint"]{background:linear-gradient(135deg,#c7e9fb,#b6e0fe);--the
 let groupsData=[],versions=[],currentGroupIndex=0,currentKeyword="",isAdminMode=false,currentSort="title-asc",currentPage=1,pageSize=50;
 let currentTagFilter=null,currentVersionFilter=null,hasLocalChanges=false,currentDataSource="cloud",currentDataMode="cloud",editingCardInfo=null,currentCardType="link";
 let currentEditingBookCard=null,currentSelectedImg=null,currentPageIndex=0,blankPageIndices=new Set(),isBookEditMode=false;
+let currentBgIsDark = false; // 记录当前背景的实际深浅，避免依赖 data-theme
 
 function setVh(){let vh=window.innerHeight*0.01;document.documentElement.style.setProperty('--vh',`${vh}px`);}
 window.addEventListener('resize',setVh);setVh();
@@ -429,12 +430,25 @@ function updateDataSourceIndicator(){ let dot=document.querySelector('#dataSourc
 
 async function getImageBrightness(dataUrl){return new Promise((resolve)=>{const img=new Image();img.onload=()=>{const canvas=document.createElement('canvas');canvas.width=10;canvas.height=10;const ctx=canvas.getContext('2d');ctx.drawImage(img,0,0,10,10);const data=ctx.getImageData(0,0,10,10).data;let total=0;for(let i=0;i<data.length;i+=4){total+=0.299*data[i]+0.587*data[i+1]+0.114*data[i+2];}resolve(total/(100*255));};img.onerror=()=>resolve(0.5);img.src=dataUrl;});}
 function getColorBrightness(hex){let c=hex.replace('#','');let r=parseInt(c.substring(0,2),16),g=parseInt(c.substring(2,4),16),b=parseInt(c.substring(4,6),16);return(0.299*r+0.587*g+0.114*b)/255;}
-function setContrastTheme(isDark){let root=document.documentElement;if(isDark){root.style.setProperty('--text-primary','#f0e6d2');root.style.setProperty('--text-secondary','#cbd5e1');root.style.setProperty('--text-tertiary','#e5e7eb');root.style.setProperty('--badge-bg','rgba(255,255,240,0.25)');root.style.setProperty('--badge-text','#f0e6d2');root.style.setProperty('--tag-bg','rgba(255,255,240,0.2)');root.style.setProperty('--sidebar-text','#f5f0e0');root.style.setProperty('--sidebar-title','#f5f0e0');root.style.setProperty('--card-footer-text','#d1d5db');root.style.setProperty('--glass-bg',`rgba(255,255,255,${document.getElementById('opacitySlider')?.value||0.35})`);}else{root.style.setProperty('--text-primary','#1f2937');root.style.setProperty('--text-secondary','#4b5563');root.style.setProperty('--text-tertiary','#374151');root.style.setProperty('--badge-bg','rgba(0,0,0,0.08)');root.style.setProperty('--badge-text','#1f2937');root.style.setProperty('--tag-bg','rgba(0,0,0,0.06)');root.style.setProperty('--sidebar-text','#1f2d3d');root.style.setProperty('--sidebar-title','#1f2d3d');root.style.setProperty('--card-footer-text','#4b5563');root.style.setProperty('--glass-bg',`rgba(0,0,0,${document.getElementById('opacitySlider')?.value||0.35})`);}}
+function setContrastTheme(isDark){
+  currentBgIsDark = isDark; // 记录实际深浅
+  let root=document.documentElement;
+  if(isDark){
+    root.style.setProperty('--text-primary','#f0e6d2');root.style.setProperty('--text-secondary','#cbd5e1');root.style.setProperty('--text-tertiary','#e5e7eb');
+    root.style.setProperty('--badge-bg','rgba(255,255,240,0.25)');root.style.setProperty('--badge-text','#f0e6d2');root.style.setProperty('--tag-bg','rgba(255,255,240,0.2)');
+    root.style.setProperty('--sidebar-text','#f5f0e0');root.style.setProperty('--sidebar-title','#f5f0e0');root.style.setProperty('--card-footer-text','#d1d5db');
+    root.style.setProperty('--glass-bg',`rgba(255,255,255,${document.getElementById('opacitySlider')?.value||0.35})`);
+  }else{
+    root.style.setProperty('--text-primary','#1f2937');root.style.setProperty('--text-secondary','#4b5563');root.style.setProperty('--text-tertiary','#374151');
+    root.style.setProperty('--badge-bg','rgba(0,0,0,0.08)');root.style.setProperty('--badge-text','#1f2937');root.style.setProperty('--tag-bg','rgba(0,0,0,0.06)');
+    root.style.setProperty('--sidebar-text','#1f2d3d');root.style.setProperty('--sidebar-title','#1f2d3d');root.style.setProperty('--card-footer-text','#4b5563');
+    root.style.setProperty('--glass-bg',`rgba(0,0,0,${document.getElementById('opacitySlider')?.value||0.35})`);
+  }
+}
 async function initBackground(){ let img=localStorage.getItem('custom_bg_image'); if(img){ document.getElementById('wallpaper-layer').style.backgroundImage=`url(${img})`; document.body.classList.add('custom-bg'); try{ let l=await getImageBrightness(img); setContrastTheme(l<0.5); localStorage.setItem('custom_bg_is_dark',l<0.5?'true':'false'); }catch(e){ setContrastTheme(false); } }else{ let color=localStorage.getItem('custom_bg_color'); if(color){ document.body.style.background=color; let l=getColorBrightness(color); setContrastTheme(l<0.5); }else{ let saved=localStorage.getItem('glass_custom_theme'); setTheme(saved||'white'); } } }
 function setTheme(theme){document.body.setAttribute('data-theme',theme);let isDark=theme==='black'||theme==='ocean'||theme==='midnight'||theme==='sunset'||theme==='peach';setContrastTheme(isDark);let am={white:'#5b6e8c',black:'#c0b7a6',sunset:'#d96c6e',aurora:'#3b82f6',ocean:'#7c83b9',sakura:'#c45692',forest:'#5c8a4a',midnight:'#9c88ff',peach:'#d97846',mint:'#4a9e7c'};document.body.style.setProperty('--theme-accent',am[theme]||'#5b6e8c');localStorage.setItem('glass_custom_theme',theme);}
 async function saveWallpaper(file){return new Promise((resolve)=>{const reader=new FileReader();reader.onload=async function(e){let dataUrl=e.target.result;const img=new Image();img.onload=async function(){const canvas=document.createElement('canvas');let w=img.width,h=img.height;if(w>1920){h=h*1920/w;w=1920;}canvas.width=w;canvas.height=h;const ctx=canvas.getContext('2d');ctx.drawImage(img,0,0,w,h);const compressed=canvas.toDataURL('image/jpeg',0.8);document.getElementById('wallpaper-layer').style.backgroundImage=`url(${compressed})`;document.body.classList.add('custom-bg');localStorage.setItem('custom_bg_image',compressed);localStorage.removeItem('custom_bg_color');let l=await getImageBrightness(compressed);setContrastTheme(l<0.5);localStorage.setItem('custom_bg_is_dark',l<0.5?'true':'false');resolve();};img.src=dataUrl;};reader.readAsDataURL(file);});}
 function resetWallpaper(){document.getElementById('wallpaper-layer').style.backgroundImage='';document.body.classList.remove('custom-bg');localStorage.removeItem('custom_bg_image');localStorage.removeItem('custom_bg_is_dark');let color=localStorage.getItem('custom_bg_color');if(color){ let l=getColorBrightness(color); setContrastTheme(l<0.5); }else{ setTheme(localStorage.getItem('glass_custom_theme')||'white'); }}
-
 function splitGroupsIntoShards(){ const shardMap=new Map();'ABCDEFGHIJKLMNOPQRSTUVWXYZ#'.split('').forEach(l=>shardMap.set(l,new Map())); for(const group of groupsData){for(const card of group.items){ const letter=getLetterKeyForTitle(card.title);const groupMap=shardMap.get(letter); if(!groupMap.has(group.groupName))groupMap.set(group.groupName,[]);groupMap.get(group.groupName).push(card); }} const result={}; for(const[letter,groupMap]of shardMap.entries()){const groupsArray=[];for(const[name,items]of groupMap.entries()){if(items.length)groupsArray.push({groupName:name,items});}result[letter]={groups:groupsArray,versions};} return result; }
 async function exportShardsToZip(){ const shards=splitGroupsIntoShards();const zip=new JSZip();const folder=zip.folder('fenzu'); 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach(letter=>{const data=shards[letter]||{groups:[],versions};folder.file(`${letter.toLowerCase()}.json`,JSON.stringify(data,null,2));}); if(shards['#']?.groups.length){folder.file('other.json',JSON.stringify(shards['#'],null,2));} const blob=await zip.generateAsync({type:'blob'});saveAs(blob,`fenzu_shards_${new Date().toISOString().slice(0,19)}.zip`); }
 
@@ -575,7 +589,15 @@ function resetBatchUI(){ document.getElementById('batchProgress').style.display=
 document.getElementById('toggleDataSourceBtn')?.addEventListener('click',()=>{if(currentDataMode==='cloud')switchToLocalMode();else switchToCloudMode();});
 document.getElementById('paletteBtn')?.addEventListener('click',e=>{e.stopPropagation();document.getElementById('palettePanel').classList.toggle('show');});
 document.addEventListener('click',e=>{let p=document.getElementById('palettePanel');if(p&&!p.contains(e.target)&&e.target.id!=='paletteBtn')p.classList.remove('show');});
-document.getElementById('opacitySlider')?.addEventListener('input',e=>{let v=e.target.value;document.body.style.setProperty('--glass-opacity',v);document.getElementById('opacityValue').innerText=v;localStorage.setItem('glass_opacity',v);let isDark=document.body.getAttribute('data-theme')==='black'||document.body.getAttribute('data-theme')==='ocean'||document.body.getAttribute('data-theme')==='midnight'||document.body.getAttribute('data-theme')==='sunset'||document.body.getAttribute('data-theme')==='peach';setContrastTheme(isDark);document.querySelectorAll('.search-box').forEach(el=>el.style.backgroundColor=`rgba(255,255,255,${v})`);});
+document.getElementById('opacitySlider')?.addEventListener('input',e=>{
+  let v=e.target.value;
+  document.body.style.setProperty('--glass-opacity',v);
+  document.getElementById('opacityValue').innerText=v;
+  localStorage.setItem('glass_opacity',v);
+  // 使用记录的当前背景深浅标志，而非 data-theme，确保壁纸/纯色切换后仍正确
+  setContrastTheme(currentBgIsDark);
+  document.querySelectorAll('.search-box').forEach(el=>el.style.backgroundColor=`rgba(255,255,255,${v})`);
+});
 document.getElementById('angleSlider')?.addEventListener('input',e=>{let v=e.target.value;document.body.style.setProperty('--gradient-angle',v+'deg');document.getElementById('angleValue').innerText=v+'°';localStorage.setItem('gradient_angle',v);});
 document.getElementById('uploadBgBtn')?.addEventListener('click',()=>document.getElementById('bgUpload').click());
 document.getElementById('bgUpload')?.addEventListener('change',async e=>{let f=e.target.files[0];if(f&&f.type.startsWith('image/')){await saveWallpaper(f);}e.target.value='';});
