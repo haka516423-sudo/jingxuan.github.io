@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes">
-<title>镜玄·资源搜索 | 侧边栏动态模糊</title>
+<title>镜玄·资源搜索 | 模态框搜索清爽版</title>
 <script src="https://cdn.jsdelivr.net/npm/d3@7.8.2"></script>
 <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.15.4/dist/browser/index.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.4"></script>
@@ -39,12 +39,12 @@ body[data-theme="mint"]{background:linear-gradient(135deg,#c7e9fb,#b6e0fe);--the
 .groups-scroll-area::-webkit-scrollbar-track{background:transparent}
 .groups-scroll-area::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:10px}
 .version-section{flex:1;min-height:0;display:flex;flex-direction:column;margin:8px 0;max-height:100%}
-.version-scroll-area{flex:1;min-height:0;overflow-y:auto;position:relative;/* 静态mask将由JS动态接管以实现顶部动态渐变模糊 */ scrollbar-width:thin;scrollbar-color:var(--scrollbar-thumb) transparent}
+.version-scroll-area{flex:1;min-height:0;overflow-y:auto;position:relative;scrollbar-width:thin;scrollbar-color:var(--scrollbar-thumb) transparent}
 .version-scroll-area::-webkit-scrollbar{width:5px}
 .version-scroll-area::-webkit-scrollbar-track{background:transparent}
 .version-scroll-area::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:10px}
 .tag-section{flex:1;min-height:0;display:flex;flex-direction:column;margin-top:8px;max-height:100%}
-.tag-scroll-area{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;/* 静态mask将由JS动态接管 */ scrollbar-width:thin;scrollbar-color:var(--scrollbar-thumb) transparent}
+.tag-scroll-area{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--scrollbar-thumb) transparent}
 .tag-scroll-area::-webkit-scrollbar{width:5px}
 .tag-scroll-area::-webkit-scrollbar-track{background:transparent}
 .tag-scroll-area::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:10px}
@@ -416,7 +416,7 @@ document.getElementById('insertImageBtn')?.addEventListener('click',()=>insertIm
 async function saveCardFromModal(){ if(!editingCardInfo)return;let{gi,ci}=editingCardInfo; let tags=normalizeTags(document.getElementById('cardTags').value); let newCard={ title:document.getElementById('cardTitle').value.trim(), description:document.getElementById('cardDesc').value.trim(), type:currentCardType, url:currentCardType==='link'?document.getElementById('cardUrl').value.trim():'', textContent:currentCardType==='text'?document.getElementById('cardTextContent').value:'', author:gi===-1?'':(currentCardType==='link'?document.getElementById('cardAuthor').value.trim():''), tags:tags, version:gi===-1?'':(currentCardType==='link'?document.getElementById('cardVersion').value.trim()||undefined:undefined), stats:{downloads:gi===-1?'—':(currentCardType==='link'?document.getElementById('cardDownloads').value.trim()||'—':'—'), updated:new Date().toISOString().slice(0,10)} }; if(currentCardType==='link'&&gi!==-1){if(!newCard.url)return alert('需要网址');} else if(currentCardType==='text'){if(!newCard.textContent)return alert('需要文本内容');if(!newCard.description)newCard.description=newCard.textContent.substring(0,80);} if(!newCard.title)return alert('需要标题'); if(gi===-1){ newCard.id=editingCardInfo.card?.id||'rec_'+Date.now()+'_'+Math.random().toString(36).slice(2); await updateRecordInDB(newCard); } else { if(ci===undefined)groupsData[gi].items.push(newCard); else groupsData[gi].items[ci]=newCard; await saveDataToStorage(); } closeModal();renderAll(); }
 function closeModal(){document.getElementById('cardModal').classList.remove('active');editingCardInfo=null;}
 
-/* 外部模组搜索（Modrinth + CurseForge） */
+/* 外部模组搜索（Modrinth + CurseForge）优化：每次点击搜索先清空旧数据重置页码 */
 let currentModrinthResults=[],modrinthCurrentPage=1,modrinthPageSize=12,modrinthSortKey='downloads-desc',lastQuery='',modrinthSelectedVersion=null,modrinthSelectedType=null;
 let translationMemoryCache=new Map();const TRANSLATION_DAILY_LIMIT=5000;
 function getTodayStr(){return new Date().toISOString().slice(0,10);}
@@ -434,8 +434,90 @@ function getCurseforgeApiKey(){ return localStorage.getItem('curseforge_api_key'
 function setCurseforgeApiKey(key){ localStorage.setItem('curseforge_api_key',key); }
 function showCurseforgeKeyInput(show){ document.getElementById('curseforgeKeyInput').style.display=show?'flex':'none'; }
 
-async function searchExternalMods(query){ if(currentSearchSource==='modrinth'){ await searchModrinth(query); return; } const apiKey=getCurseforgeApiKey(); if(!apiKey){ alert('请先输入 CurseForge API Key'); showCurseforgeKeyInput(true); return; } lastQuery=query; const autoTranslate=document.getElementById('autoTranslateCheckbox')?.checked; let finalQuery=query.trim(); if(finalQuery&&autoTranslate&&/[\u4e00-\u9fa5]/.test(finalQuery)){ document.getElementById('modrinthResults').innerHTML='<div style="padding:20px;text-align:center">🌐 翻译关键词中...</div>'; finalQuery=await translateToEnglish(finalQuery); } else { document.getElementById('modrinthResults').innerHTML='<div style="padding:20px;text-align:center">⏳ 搜索 CurseForge 中...</div>'; } try { let url=`${CURSEFORGE_API}?gameId=432&searchFilter=${encodeURIComponent(finalQuery)}&sortField=2&sortOrder=desc&pageSize=100&index=0`; let res=await fetch(url,{headers:{'x-api-key':apiKey}}); if(!res.ok) throw new Error('CurseForge API 请求失败，状态码：'+res.status); let data=await res.json(); let hits=data.data||[]; let enriched=await Promise.all(hits.map(async mod=>({ slug:mod.slug, title:autoTranslate?await translateToChinese(mod.name):mod.name, description:mod.summary||'', author:mod.authors?.[0]?.name||'未知', downloads:mod.downloadCount?`${(mod.downloadCount/1e6).toFixed(1)}M`:'?', version:mod.latestFiles?.[0]?.gameVersions?.join(', ')||'未知', tags:(mod.categories||[]).map(c=>c.name), url:`https://www.curseforge.com/minecraft/mc-mods/${mod.slug}`, date_modified:mod.dateModified }))); currentModrinthResults=enriched; modrinthCurrentPage=1; renderModrinthPage(); } catch(e){ document.getElementById('modrinthResults').innerHTML=`<div style="padding:20px;color:red;text-align:center">CurseForge 搜索失败: ${e.message}</div>`; } }
-async function searchModrinth(query){ lastQuery=query; const autoTranslate=document.getElementById('autoTranslateCheckbox')?.checked; let finalQuery=query.trim(); if(finalQuery&&autoTranslate&&/[\u4e00-\u9fa5]/.test(finalQuery)){ document.getElementById('modrinthResults').innerHTML='<div style="padding:20px;text-align:center">🌐 翻译关键词中...</div>'; finalQuery=await translateToEnglish(finalQuery); } else { document.getElementById('modrinthResults').innerHTML='<div style="padding:20px;text-align:center">⏳ 搜索中...</div>'; } try { let facets=[]; if(modrinthSelectedVersion) facets.push([`versions:${modrinthSelectedVersion}`]); if(modrinthSelectedType) facets.push([`project_type:${modrinthSelectedType}`]); let facetParam=facets.length?`&facets=${encodeURIComponent(JSON.stringify(facets))}`:''; let baseUrl=`https://api.modrinth.com/v2/search?limit=100${facetParam}`; if(finalQuery) baseUrl+=`&query=${encodeURIComponent(finalQuery)}`; let res=await fetch(baseUrl); let data=await res.json(); let hits=data.hits||[]; let enriched=await Promise.all(hits.map(async hit=>({ slug:hit.slug, title:autoTranslate?await translateToChinese(hit.title):hit.title, description:hit.description||'', author:hit.author, downloads:hit.downloads?`${(hit.downloads/1e6).toFixed(1)}M`:'?', version:getVersionRange(hit.versions), tags:hit.categories||[], url:`https://modrinth.com/mod/${hit.slug}`, date_modified:hit.date_modified }))); currentModrinthResults=enriched; modrinthCurrentPage=1; renderModrinthPage(); } catch(e){ document.getElementById('modrinthResults').innerHTML='<div style="padding:20px;color:red;text-align:center">搜索失败</div>'; } }
+async function searchExternalMods(query){ 
+    // 统一重置分页并清空残留旧结果
+    modrinthCurrentPage = 1;
+    if(currentSearchSource==='modrinth'){ 
+        await searchModrinth(query); 
+    } else { 
+        const apiKey=getCurseforgeApiKey(); 
+        if(!apiKey){ 
+            alert('请先输入 CurseForge API Key'); 
+            showCurseforgeKeyInput(true); 
+            return; 
+        } 
+        lastQuery=query; 
+        const autoTranslate=document.getElementById('autoTranslateCheckbox')?.checked; 
+        let finalQuery=query.trim(); 
+        // 清空结果显示区域并显示加载中
+        const resultsDiv = document.getElementById('modrinthResults');
+        if(resultsDiv) resultsDiv.innerHTML = '<div style="padding:20px;text-align:center">⏳ 搜索 CurseForge 中...</div>';
+        if(finalQuery&&autoTranslate&&/[\u4e00-\u9fa5]/.test(finalQuery)){ 
+            resultsDiv.innerHTML = '<div style="padding:20px;text-align:center">🌐 翻译关键词中...</div>';
+            finalQuery=await translateToEnglish(finalQuery); 
+        } 
+        try { 
+            let url=`${CURSEFORGE_API}?gameId=432&searchFilter=${encodeURIComponent(finalQuery)}&sortField=2&sortOrder=desc&pageSize=100&index=0`; 
+            let res=await fetch(url,{headers:{'x-api-key':apiKey}}); 
+            if(!res.ok) throw new Error('CurseForge API 请求失败，状态码：'+res.status); 
+            let data=await res.json(); 
+            let hits=data.data||[]; 
+            let enriched=await Promise.all(hits.map(async mod=>({ 
+                slug:mod.slug, 
+                title:autoTranslate?await translateToChinese(mod.name):mod.name, 
+                description:mod.summary||'', 
+                author:mod.authors?.[0]?.name||'未知', 
+                downloads:mod.downloadCount?`${(mod.downloadCount/1e6).toFixed(1)}M`:'?', 
+                version:mod.latestFiles?.[0]?.gameVersions?.join(', ')||'未知', 
+                tags:(mod.categories||[]).map(c=>c.name), 
+                url:`https://www.curseforge.com/minecraft/mc-mods/${mod.slug}`, 
+                date_modified:mod.dateModified 
+            }))); 
+            currentModrinthResults=enriched; 
+            renderModrinthPage(); 
+        } catch(e){ 
+            document.getElementById('modrinthResults').innerHTML=`<div style="padding:20px;color:red;text-align:center">CurseForge 搜索失败: ${e.message}</div>`; 
+        } 
+    } 
+}
+async function searchModrinth(query){ 
+    lastQuery=query; 
+    modrinthCurrentPage = 1;   // 重置页码，确保每次新搜索从第1页开始
+    const autoTranslate=document.getElementById('autoTranslateCheckbox')?.checked; 
+    let finalQuery=query.trim(); 
+    const resultsDiv = document.getElementById('modrinthResults');
+    if(resultsDiv) resultsDiv.innerHTML = '<div style="padding:20px;text-align:center">⏳ 搜索中...</div>';
+    if(finalQuery&&autoTranslate&&/[\u4e00-\u9fa5]/.test(finalQuery)){ 
+        resultsDiv.innerHTML = '<div style="padding:20px;text-align:center">🌐 翻译关键词中...</div>';
+        finalQuery=await translateToEnglish(finalQuery); 
+    } 
+    try { 
+        let facets=[]; 
+        if(modrinthSelectedVersion) facets.push([`versions:${modrinthSelectedVersion}`]); 
+        if(modrinthSelectedType) facets.push([`project_type:${modrinthSelectedType}`]); 
+        let facetParam=facets.length?`&facets=${encodeURIComponent(JSON.stringify(facets))}`:''; 
+        let baseUrl=`https://api.modrinth.com/v2/search?limit=100${facetParam}`; 
+        if(finalQuery) baseUrl+=`&query=${encodeURIComponent(finalQuery)}`; 
+        let res=await fetch(baseUrl); 
+        let data=await res.json(); 
+        let hits=data.hits||[]; 
+        let enriched=await Promise.all(hits.map(async hit=>({ 
+            slug:hit.slug, 
+            title:autoTranslate?await translateToChinese(hit.title):hit.title, 
+            description:hit.description||'', 
+            author:hit.author, 
+            downloads:hit.downloads?`${(hit.downloads/1e6).toFixed(1)}M`:'?', 
+            version:getVersionRange(hit.versions), 
+            tags:hit.categories||[], 
+            url:`https://modrinth.com/mod/${hit.slug}`, 
+            date_modified:hit.date_modified 
+        }))); 
+        currentModrinthResults=enriched; 
+        renderModrinthPage(); 
+    } catch(e){ 
+        document.getElementById('modrinthResults').innerHTML='<div style="padding:20px;color:red;text-align:center">搜索失败</div>'; 
+    } 
+}
 
 function sortModrinthResults(arr){let s=[...arr];if(modrinthSortKey==='downloads-desc')s.sort((a,b)=>(parseFloat(b.downloads)||0)-(parseFloat(a.downloads)||0));else if(modrinthSortKey==='title-asc')s.sort((a,b)=>a.title.localeCompare(b.title));else if(modrinthSortKey==='updated-desc')s.sort((a,b)=>(b.date_modified||'').localeCompare(a.date_modified||''));return s;}
 async function addModrinthCard(card){let newCard={title:card.title,description:card.description,author:card.author,tags:card.tags,version:card.version,stats:{downloads:card.downloads,updated:new Date().toISOString().slice(0,10)},type:'link',url:card.url};groupsData[currentGroupIndex].items.push(newCard);await saveDataToStorage();renderAll();}
@@ -458,7 +540,7 @@ function restorePreferences(){ let sortPref=localStorage.getItem('sort_preferenc
 function setBatchButtonsEnabled(enabled){ document.getElementById('batchParseBtn').disabled = !enabled; document.getElementById('batchFileBtn').disabled = !enabled; document.getElementById('batchCancelBtn').disabled = !enabled; }
 function resetBatchUI(){ document.getElementById('batchProgress').style.display='none'; document.getElementById('batchProgressFill').style.width='0%'; document.getElementById('batchProgressPercent').innerText='0%'; document.getElementById('batchErrorLog').style.display='none'; document.getElementById('batchFinishBtn').style.display='none'; document.getElementById('batchParseBtn').style.display='inline-block'; document.getElementById('batchFileCount').style.display='none'; document.getElementById('batchFileCount').innerText=''; }
 
-// ========== 动态顶部渐变模糊 (优化侧边栏滚动区域) ==========
+// ========== 动态顶部渐变模糊 ==========
 function initDynamicScrollMasks() {
     const scrollAreas = [
         document.querySelector('.groups-scroll-area'),
@@ -468,8 +550,6 @@ function initDynamicScrollMasks() {
     const applyDynamicMask = (el) => {
         if (!el) return;
         const scrollTop = el.scrollTop;
-        // 当滚动条位于顶部 (scrollTop <= 2) 时，移除顶部透明渐变，使内容完整可见；
-        // 一旦滚动离开顶部，恢复顶部渐隐效果（保持底部渐隐始终存在）
         if (scrollTop <= 2) {
             el.style.maskImage = 'linear-gradient(to bottom, black 0%, black 100%)';
             el.style.webkitMaskImage = 'linear-gradient(to bottom, black 0%, black 100%)';
@@ -480,16 +560,14 @@ function initDynamicScrollMasks() {
     };
     scrollAreas.forEach(area => {
         if (!area) return;
-        // 移除CSS中可能存在的静态mask，确保JS接管
         area.style.maskImage = '';
         area.style.webkitMaskImage = '';
         area.addEventListener('scroll', () => { applyDynamicMask(area); });
-        // 初始化时根据实际滚动位置设置
         applyDynamicMask(area);
     });
 }
 
-// 事件绑定
+// 事件绑定 (仅保留关键事件，避免重复声明，以下为原有事件)
 document.getElementById('toggleDataSourceBtn')?.addEventListener('click',()=>{if(currentDataMode==='cloud')switchToLocalMode();else switchToCloudMode();});
 document.getElementById('paletteBtn')?.addEventListener('click',e=>{e.stopPropagation();document.getElementById('palettePanel').classList.toggle('show');});
 document.addEventListener('click',e=>{let p=document.getElementById('palettePanel');if(p&&!p.contains(e.target)&&e.target.id!=='paletteBtn')p.classList.remove('show');});
@@ -507,7 +585,8 @@ document.getElementById('sourceCurseForgeBtn')?.addEventListener('click',()=>{ c
 document.getElementById('saveCurseforgeKeyBtn')?.addEventListener('click',()=>{ const key=document.getElementById('curseforgeApiKey').value.trim(); if(key){ setCurseforgeApiKey(key); alert('CurseForge API Key 已保存'); }else alert('请输入有效的 API Key'); });
 document.getElementById('modrinthCloseTop')?.addEventListener('click',()=>{document.getElementById('modrinthModal').classList.remove('active');unlockBodyScroll();});
 document.getElementById('modrinthModalClose')?.addEventListener('click',()=>{document.getElementById('modrinthModal').classList.remove('active');unlockBodyScroll();});
-document.getElementById('modrinthSearchExec')?.addEventListener('click',()=>{ const q = document.getElementById('modrinthQuery').value; if(q) searchExternalMods(q); });
+// 搜索按钮点击：确保清空旧结果且重置页码，已由 searchExternalMods 内部处理
+document.getElementById('modrinthSearchExec')?.addEventListener('click',()=>{ const q = document.getElementById('modrinthQuery').value; if(q) searchExternalMods(q); else searchExternalMods(''); });
 document.getElementById('modrinthSortSelect')?.addEventListener('change',e=>{modrinthSortKey=e.target.value;renderModrinthPage();});
 document.getElementById('modrinthPageSize')?.addEventListener('change',e=>{modrinthPageSize=parseInt(e.target.value);modrinthCurrentPage=1;renderModrinthPage();});
 
@@ -544,9 +623,7 @@ document.getElementById('batchFinishBtn')?.addEventListener('click',()=>{ docume
 document.getElementById('batchCancelBtn')?.addEventListener('click',()=>{ if(batchImportRunning){ batchImportRunning=false; return; } document.getElementById('batchModal').classList.remove('active'); resetBatchUI(); });
 
 let savedLayout=localStorage.getItem('layout_settings');if(savedLayout)try{let s=JSON.parse(savedLayout);if(document.getElementById('radiusSlider'))document.getElementById('radiusSlider').value=s.radius||20;if(document.getElementById('paddingSlider'))document.getElementById('paddingSlider').value=s.padding||20;if(document.getElementById('gapSlider'))document.getElementById('gapSlider').value=s.gap||28;updateLayout();}catch(e){updateLayout();}else updateLayout();
-loadInitialData().then(()=> {
-    initDynamicScrollMasks();  // 数据加载完成后启动动态渐变模糊
-});
+loadInitialData().then(()=> { initDynamicScrollMasks(); });
 buildPalette();initBackground();updateQuotaDisplay();
 setTimeout(()=>{let dl=document.getElementById('versionDatalist');if(dl)dl.innerHTML=ALL_KNOWN_VERSIONS.map(v=>`<option value="${escapeHtml(v)}">`).join('');},100);
 </script>
