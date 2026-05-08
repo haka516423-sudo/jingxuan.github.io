@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes">
-<title>镜玄·资源搜索 | 最终稳定版（自然双栏布局）</title>
+<title>镜玄·资源搜索 | 侧边栏动态模糊</title>
 <script src="https://cdn.jsdelivr.net/npm/d3@7.8.2"></script>
 <script src="https://cdn.jsdelivr.net/npm/markmap-lib@0.15.4/dist/browser/index.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/markmap-view@0.15.4"></script>
@@ -39,12 +39,12 @@ body[data-theme="mint"]{background:linear-gradient(135deg,#c7e9fb,#b6e0fe);--the
 .groups-scroll-area::-webkit-scrollbar-track{background:transparent}
 .groups-scroll-area::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:10px}
 .version-section{flex:1;min-height:0;display:flex;flex-direction:column;margin:8px 0;max-height:100%}
-.version-scroll-area{flex:1;min-height:0;overflow-y:auto;position:relative;-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 8%,black 92%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0%,black 8%,black 92%,transparent 100%);overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--scrollbar-thumb) transparent}
+.version-scroll-area{flex:1;min-height:0;overflow-y:auto;position:relative;/* 静态mask将由JS动态接管以实现顶部动态渐变模糊 */ scrollbar-width:thin;scrollbar-color:var(--scrollbar-thumb) transparent}
 .version-scroll-area::-webkit-scrollbar{width:5px}
 .version-scroll-area::-webkit-scrollbar-track{background:transparent}
 .version-scroll-area::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:10px}
 .tag-section{flex:1;min-height:0;display:flex;flex-direction:column;margin-top:8px;max-height:100%}
-.tag-scroll-area{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 8%,black 92%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0%,black 8%,black 92%,transparent 100%);scrollbar-width:thin;scrollbar-color:var(--scrollbar-thumb) transparent}
+.tag-scroll-area{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;/* 静态mask将由JS动态接管 */ scrollbar-width:thin;scrollbar-color:var(--scrollbar-thumb) transparent}
 .tag-scroll-area::-webkit-scrollbar{width:5px}
 .tag-scroll-area::-webkit-scrollbar-track{background:transparent}
 .tag-scroll-area::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:10px}
@@ -201,43 +201,8 @@ body[data-theme="mint"]{background:linear-gradient(135deg,#c7e9fb,#b6e0fe);--the
 .curseforge-key-input{margin-top:8px;display:flex;gap:8px;align-items:center}
 .curseforge-key-input input{flex:1;padding:6px 12px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:20px;color:#fff}
 .curseforge-key-input button{background:#6b7280;border:none;padding:4px 12px;border-radius:20px;color:white;cursor:pointer;font-size:0.7rem}
-@media (max-width: 780px) {
-  body { padding: 16px; }
-  .app { flex-direction: column; gap: 20px; min-height: auto; }
-  .sidebar { flex: 0 0 auto; width: 100%; height: auto; position: static; border-radius: var(--card-radius); padding: 16px 14px; margin-bottom: 0; }
-  .sidebar .groups-scroll-area { max-height: 180px; }
-  .sidebar .version-section { max-height: 130px; overflow: auto; }
-  .sidebar .tag-section { max-height: 150px; overflow: auto; }
-  .sidebar .tag-scroll-area { max-height: 130px; }
-  .main { margin-top: 0; min-width: 100%; }
-  .cards-grid { grid-template-columns: 1fr; }
-  .cards-grid.list-view { display: flex; flex-direction: column; gap: 10px; }
-  .card { padding: 14px; }
-  .search-controls-row { flex-direction: column; align-items: stretch; }
-  .search-controls-row .view-toggle-btn, .search-controls-row .sort-select, .search-controls-row .page-size-select, .search-controls-row .admin-btn, .search-controls-row .palette-btn { width: 100%; text-align: center; }
-  .admin-toolbar { flex-wrap: wrap; gap: 8px; }
-  .admin-toolbar label, .admin-toolbar button { font-size: 0.7rem; }
-  .modal-content { max-width: 95%; padding: 16px; }
-  #modrinthResults { grid-template-columns: 1fr; }
-  .page-pair { flex-direction: column; gap: 10px; }
-  .page-pair::after { display: none; }
-  .card-actions .admin-only-btns { opacity: 1; }
-  .top-pagination, .bottom-pagination { gap: 6px; flex-wrap: wrap; }
-  .pagination-button { padding: 6px 10px; font-size: 0.75rem; }
-  #bookModal .modal-content { padding: 12px 12px 0 12px; }
-  .book-content { padding: 14px; }
-  .control-dock { bottom: 16px; right: 16px; padding: 4px 8px; }
-  .control-dock button { width: 30px; height: 30px; font-size: 0.8rem; }
-  .palette-panel { width: 280px; max-height: 60vh; }
-  .data-source-indicator { font-size: 0.65rem; padding: 3px 8px; }
-}
-@media (max-width: 480px) {
-  body { padding: 10px; }
-  .card-title { font-size: 1rem; }
-  .search-box { padding: 10px 14px; font-size: 0.9rem; }
-  .version-list { grid-template-columns: repeat(3,1fr); }
-  .tag-list { grid-template-columns: repeat(auto-fill,minmax(60px,1fr)); }
-}
+@media (max-width: 780px){ body{ padding:16px; } .app{ flex-direction:column; gap:20px; min-height:auto; } .sidebar{ flex:0 0 auto; width:100%; height:auto; position:static; border-radius:var(--card-radius); padding:16px 14px; margin-bottom:0; } .sidebar .groups-scroll-area{ max-height:180px; } .sidebar .version-section{ max-height:130px; overflow:auto; } .sidebar .tag-section{ max-height:150px; overflow:auto; } .sidebar .tag-scroll-area{ max-height:130px; } .main{ margin-top:0; min-width:100%; } .cards-grid{ grid-template-columns:1fr; } .cards-grid.list-view{ display:flex; flex-direction:column; gap:10px; } .card{ padding:14px; } .search-controls-row{ flex-direction:column; align-items:stretch; } .search-controls-row .view-toggle-btn, .search-controls-row .sort-select, .search-controls-row .page-size-select, .search-controls-row .admin-btn, .search-controls-row .palette-btn{ width:100%; text-align:center; } .admin-toolbar{ flex-wrap:wrap; gap:8px; } .admin-toolbar label, .admin-toolbar button{ font-size:0.7rem; } .modal-content{ max-width:95%; padding:16px; } #modrinthResults{ grid-template-columns:1fr; } .page-pair{ flex-direction:column; gap:10px; } .page-pair::after{ display:none; } .card-actions .admin-only-btns{ opacity:1; } .top-pagination, .bottom-pagination{ gap:6px; flex-wrap:wrap; } .pagination-button{ padding:6px 10px; font-size:0.75rem; } #bookModal .modal-content{ padding:12px 12px 0 12px; } .book-content{ padding:14px; } .control-dock{ bottom:16px; right:16px; padding:4px 8px; } .control-dock button{ width:30px; height:30px; font-size:0.8rem; } .palette-panel{ width:280px; max-height:60vh; } .data-source-indicator{ font-size:0.65rem; padding:3px 8px; } }
+@media (max-width: 480px){ body{ padding:10px; } .card-title{ font-size:1rem; } .search-box{ padding:10px 14px; font-size:0.9rem; } .version-list{ grid-template-columns:repeat(3,1fr); } .tag-list{ grid-template-columns:repeat(auto-fill,minmax(60px,1fr)); } }
 </style>
 </head>
 <body data-theme="white">
@@ -262,14 +227,8 @@ body[data-theme="mint"]{background:linear-gradient(135deg,#c7e9fb,#b6e0fe);--the
 </div></div>
 <div id="modrinthModal" class="modal"><div class="modal-content">
 <h3 style="display:flex;justify-content:space-between;margin-bottom:12px;flex-shrink:0">🔍 搜索模组 <button id="modrinthCloseTop" style="background:none;border:none;font-size:1.5rem;color:#ccc;cursor:pointer">✖</button></h3>
-<div class="source-switch">
-  <button id="sourceModrinthBtn" class="source-btn active" data-source="modrinth">Modrinth</button>
-  <button id="sourceCurseForgeBtn" class="source-btn" data-source="curseforge">CurseForge</button>
-</div>
-<div id="curseforgeKeyInput" class="curseforge-key-input" style="display:none">
-  <input type="text" id="curseforgeApiKey" placeholder="输入 CurseForge API Key">
-  <button id="saveCurseforgeKeyBtn">保存</button>
-</div>
+<div class="source-switch"> <button id="sourceModrinthBtn" class="source-btn active" data-source="modrinth">Modrinth</button> <button id="sourceCurseForgeBtn" class="source-btn" data-source="curseforge">CurseForge</button> </div>
+<div id="curseforgeKeyInput" class="curseforge-key-input" style="display:none"> <input type="text" id="curseforgeApiKey" placeholder="输入 CurseForge API Key"> <button id="saveCurseforgeKeyBtn">保存</button> </div>
 <div class="modrinth-search-input" style="flex-shrink:0"><input type="text" id="modrinthQuery" placeholder="输入中文或英文关键词..."><button id="modrinthSearchExec">搜索</button></div>
 <div id="modrinthVersionTags" style="margin-bottom:8px;display:flex;flex-wrap:wrap;flex-shrink:0"></div>
 <div id="modrinthTypeTags" style="margin-bottom:8px;display:flex;flex-wrap:wrap;flex-shrink:0"></div>
@@ -281,21 +240,11 @@ body[data-theme="mint"]{background:linear-gradient(135deg,#c7e9fb,#b6e0fe);--the
 </div></div>
 <div id="bookModal" class="modal book-modal"><div class="modal-content"><button id="bookCloseBtn" title="关闭">✖</button><div class="book-content"><div id="pagesContainer" class="pages-container"></div></div><div class="book-navbar"><button id="bookPrevBtn" disabled>◀</button><span id="bookPageIndicator">第 1 / 1 页</span><button id="bookNextBtn" disabled>▶</button><button id="bookAddPageBtn" style="display:none;">+</button></div></div></div>
 <div id="controlDock" class="control-dock"><button id="dockInsertImgBtn" title="插入图片">🖼️</button><button id="dockSaveBtn" title="保存">💾</button><button id="dockImageSettingsBtn" title="图片调整">⚙️</button></div>
-<div id="imageSettingsPopup" class="control-panel-popup">
-  <div class="control-group"><label>宽度</label><input type="range" id="imgWidth" min="20" max="100" value="70"><span id="widthVal">70%</span></div>
-  <div class="control-group"><label>高度</label><input type="range" id="imgHeight" min="20" max="100" value="70"><span id="heightVal">70%</span></div>
-  <div class="control-group"><label>🔒锁定比例</label><input type="checkbox" id="lockAspectCheckbox"></div>
-  <div class="control-group"><label>X偏移</label><input type="number" id="imgX" value="0" style="width:80px"> px</div>
-  <div class="control-group"><label>Y偏移</label><input type="number" id="imgY" value="0" style="width:80px"> px</div>
-</div>
+<div id="imageSettingsPopup" class="control-panel-popup"><div class="control-group"><label>宽度</label><input type="range" id="imgWidth" min="20" max="100" value="70"><span id="widthVal">70%</span></div><div class="control-group"><label>高度</label><input type="range" id="imgHeight" min="20" max="100" value="70"><span id="heightVal">70%</span></div><div class="control-group"><label>🔒锁定比例</label><input type="checkbox" id="lockAspectCheckbox"></div><div class="control-group"><label>X偏移</label><input type="number" id="imgX" value="0" style="width:80px"> px</div><div class="control-group"><label>Y偏移</label><input type="number" id="imgY" value="0" style="width:80px"> px</div></div>
 <div id="cardModal" class="modal"><div class="modal-content"><h3 id="modalTitle">编辑卡片</h3><input id="cardTitle" placeholder="标题"><div class="type-btn-group"><button class="type-btn active" data-type="link">🔗 链接</button><button class="type-btn" data-type="text">📄 文本</button></div><textarea id="cardDesc" placeholder="描述" rows="2"></textarea><div id="linkContentArea"><input id="cardUrl" placeholder="网址"></div><div id="textContentArea" style="display:none"><div class="text-image-toolbar"><button id="insertImageBtn" class="insert-image-btn">🖼️ 插入图片</button><span style="font-size:0.65rem">自动压缩</span></div><textarea id="cardTextContent" placeholder="文本内容" rows="28"></textarea></div><div id="linkOnlyFields"><input id="cardAuthor" placeholder="作者"><input id="cardTags" placeholder="标签(逗号分隔)"><div id="presetTags"><button class="preset-tag-btn" data-tag="Fabric">Fabric</button><button class="preset-tag-btn" data-tag="Forge">Forge</button><button class="preset-tag-btn" data-tag="NeoForge">NeoForge</button></div><div class="dynamic-tag-area"><div>📌 常用标签</div><div id="dynamicTagList" class="dynamic-tag-list"></div></div><div style="margin-bottom:12px"><label>版本 (支持范围，如 1.20-1.21)</label><input list="versionDatalist" id="cardVersion" placeholder="例如 1.21.1"><datalist id="versionDatalist"></datalist></div><input id="cardDownloads" placeholder="下载量"></div><div class="modal-buttons"><button id="modalCancel" class="cancel-btn">取消</button><button id="openBatchImportBtn" class="cancel-btn" style="background:#8b5cf6">📋 批量导入</button><button id="modalSave" class="save-btn">保存</button></div></div></div>
 <div id="batchModal" class="modal"><div class="modal-content"><h3>📋 批量导入卡片</h3><p style="font-size:0.7rem">格式：标题 || 描述 || URL || 作者 || 版本 || 标签1,标签2</p>
 <textarea id="batchTextarea" style="width:100%;background:rgba(255,255,255,0.1);border-radius:12px;padding:8px;color:#fff;flex:1;min-height:100px;overflow-y:auto"></textarea>
-<div id="batchProgress" style="display:none;margin-top:8px">
-  <div style="display:flex;justify-content:space-between;font-size:0.7rem;color:#ccc"><span>解析进度</span><span id="batchProgressPercent">0%</span></div>
-  <div style="height:6px;background:rgba(255,255,255,0.2);border-radius:6px;margin-top:4px"><div id="batchProgressFill" style="width:0%;height:100%;background:var(--theme-accent);border-radius:6px;transition:width 0.2s"></div></div>
-  <div id="batchErrorLog" style="max-height:80px;overflow-y:auto;margin-top:6px;font-size:0.65rem;color:#fecaca;display:none;"></div>
-</div>
+<div id="batchProgress" style="display:none;margin-top:8px"><div style="display:flex;justify-content:space-between;font-size:0.7rem;color:#ccc"><span>解析进度</span><span id="batchProgressPercent">0%</span></div><div style="height:6px;background:rgba(255,255,255,0.2);border-radius:6px;margin-top:4px"><div id="batchProgressFill" style="width:0%;height:100%;background:var(--theme-accent);border-radius:6px;transition:width 0.2s"></div></div><div id="batchErrorLog" style="max-height:80px;overflow-y:auto;margin-top:6px;font-size:0.65rem;color:#fecaca;display:none;"></div></div>
 <div class="modal-buttons" style="margin-top:10px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
 <button id="batchFileBtn" class="cancel-btn" style="background:#4b5563">📁 选择文件</button>
 <span id="batchFileCount" style="font-size:0.7rem;color:#ccc;display:none"></span>
@@ -312,6 +261,7 @@ let currentTagFilter=null,currentVersionFilter=null,hasLocalChanges=false,curren
 let currentEditingBookCard=null,currentSelectedImg=null,currentPageIndex=0,blankPageIndices=new Set(),isBookEditMode=false;
 let currentBgIsDark = false;
 let currentSearchSource = 'modrinth';
+let isRecordingSelected = false; 
 
 function lockBodyScroll(){document.body.classList.add('overflow-hidden')}
 function unlockBodyScroll(){document.body.classList.remove('overflow-hidden')}
@@ -373,12 +323,8 @@ async function renderAll(){ await renderGroups(); renderVersions(); renderTags()
 async function renderGroups(){ let container=document.getElementById('groupButtonsContainer');if(!container)return; let recordBtnHtml=`<div class="group-btn-row"><button class="group-btn ${currentGroupIndex===-1?'active':''}" data-idx="-1">📋 记录分组</button></div>`; let html=recordBtnHtml; groupsData.forEach((g,i)=>{ let ac=(i===currentGroupIndex&&!currentTagFilter)?'active':''; html+=`<div class="group-btn-row"><button class="group-btn ${ac}" data-idx="${i}">${escapeHtml(g.groupName)}</button><button class="sidebar-mini-edit-btn" data-idx="${i}">✎</button><button class="sidebar-mini-delete-btn" data-idx="${i}">×</button></div>`; }); container.innerHTML=html; document.getElementById('dynamicTitle').innerText=currentTagFilter?`标签:${currentTagFilter}`:(currentVersionFilter?`版本:${currentVersionFilter}`:(currentGroupIndex===-1?'📋 记录分组':groupsData[currentGroupIndex]?.groupName||'Minecraft 模组')); attachGroupEvents(); }
 function attachGroupEvents(){document.querySelectorAll('.group-btn').forEach(btn=>btn.addEventListener('click',()=>{let i=parseInt(btn.dataset.idx);if(!isNaN(i)&&i!==currentGroupIndex){currentGroupIndex=i;currentKeyword='';document.getElementById('searchInput').value='';currentPage=1;renderAll();}}));if(!isAdminMode)return;document.querySelectorAll('.sidebar-mini-edit-btn').forEach(btn=>btn.addEventListener('click',e=>{e.stopPropagation();let i=parseInt(btn.dataset.idx);let newName=prompt('编辑分组名称',groupsData[i].groupName);if(newName&&newName.trim()&&newName.trim()!==groupsData[i].groupName){if(groupsData.some((g,idx)=>idx!==i&&g.groupName===newName.trim()))alert('分组名称已存在');else{groupsData[i].groupName=newName.trim();saveDataToStorage();renderAll();}}}));document.querySelectorAll('.sidebar-mini-delete-btn').forEach(btn=>btn.addEventListener('click',e=>{e.stopPropagation();let i=parseInt(btn.dataset.idx);if(groupsData.length<=1)return alert('至少保留一个分组');if(confirm(`删除「${groupsData[i].groupName}」？`)){groupsData.splice(i,1);if(currentGroupIndex>=groupsData.length)currentGroupIndex=groupsData.length-1;saveDataToStorage();renderAll();}}));document.getElementById('sidebarContainer').classList.toggle('admin-mode',isAdminMode);}
 function renderVersions(){let container=document.getElementById('versionListContainer');if(!container)return;let html='';versions.forEach((v,i)=>{let ac=currentVersionFilter===v?'active':'';html+=`<span class="version-tag ${ac}" data-ver="${escapeHtml(v)}"><span>${escapeHtml(v)}</span><button class="v-del-btn" data-idx="${i}">×</button></span>`;});container.innerHTML=html||'<span>暂无版本</span>';document.querySelectorAll('.version-tag').forEach(el=>{el.addEventListener('click',e=>{if(e.target.classList.contains('v-del-btn'))return;let v=el.dataset.ver;currentVersionFilter=(currentVersionFilter===v)?null:v;renderVersions();currentPage=1;renderCards();renderGroups();});});if(isAdminMode){document.querySelectorAll('.v-del-btn').forEach(btn=>{btn.addEventListener('click',e=>{e.stopPropagation();let i=parseInt(btn.dataset.idx);if(confirm(`删除版本 ${versions[i]}?`)){versions.splice(i,1);if(currentVersionFilter===versions[i])currentVersionFilter=null;saveDataToStorage();renderVersions();renderCards();}});});}}
-function renderTags(){let container=document.getElementById('tagListContainer');if(!container)return;let tagMap=new Map();for(let g of groupsData)for(let i of g.items)for(let t of(i.tags||[])){let k=t.trim();if(k)tagMap.set(k,(tagMap.get(k)||0)+1);}
-  let tags=Array.from(tagMap.entries()).sort((a,b)=>b[1]-a[1]);if(!tags.length){container.innerHTML='<div>暂无标签</div>';return;}let html='';for(let[t,c]of tags){let ac=currentTagFilter===t?'active':'';html+=`<button class="tag-btn ${ac}" data-tag="${escapeHtml(t)}">${escapeHtml(t)} (${c})</button>`;}container.innerHTML=html;document.getElementById('clearTagFilterBtn').style.display=currentTagFilter?'inline-flex':'none';document.querySelectorAll('.tag-btn').forEach(btn=>{btn.addEventListener('click',()=>{let t=btn.dataset.tag;currentTagFilter=(currentTagFilter===t)?null:t;renderTags();currentPage=1;renderCards();renderGroups();});});}
-async function getDisplayItems(){
-  if(currentGroupIndex===-1){ let records=await getAllRecords(); if(currentVersionFilter) records=records.filter(it=>isVersionInCard(it.version,currentVersionFilter)); if(currentTagFilter) records=records.filter(it=>(it.tags||[]).includes(currentTagFilter)); return records; }
-  let items=[];if(currentTagFilter){for(let g of groupsData)for(let i of g.items)if((i.tags||[]).includes(currentTagFilter))items.push(i);}else{items=groupsData[currentGroupIndex]?.items||[];}if(currentVersionFilter)items=items.filter(it=>isVersionInCard(it.version,currentVersionFilter));return items;
-}
+function renderTags(){let container=document.getElementById('tagListContainer');if(!container)return;let tagMap=new Map();for(let g of groupsData)for(let i of g.items)for(let t of(i.tags||[])){let k=t.trim();if(k)tagMap.set(k,(tagMap.get(k)||0)+1);} let tags=Array.from(tagMap.entries()).sort((a,b)=>b[1]-a[1]);if(!tags.length){container.innerHTML='<div>暂无标签</div>';return;}let html='';for(let[t,c]of tags){let ac=currentTagFilter===t?'active':'';html+=`<button class="tag-btn ${ac}" data-tag="${escapeHtml(t)}">${escapeHtml(t)} (${c})</button>`;}container.innerHTML=html;document.getElementById('clearTagFilterBtn').style.display=currentTagFilter?'inline-flex':'none';document.querySelectorAll('.tag-btn').forEach(btn=>{btn.addEventListener('click',()=>{let t=btn.dataset.tag;currentTagFilter=(currentTagFilter===t)?null:t;renderTags();currentPage=1;renderCards();renderGroups();});});}
+async function getDisplayItems(){ if(currentGroupIndex===-1){ let records=await getAllRecords(); if(currentVersionFilter) records=records.filter(it=>isVersionInCard(it.version,currentVersionFilter)); if(currentTagFilter) records=records.filter(it=>(it.tags||[]).includes(currentTagFilter)); return records; } let items=[];if(currentTagFilter){for(let g of groupsData)for(let i of g.items)if((i.tags||[]).includes(currentTagFilter))items.push(i);}else{items=groupsData[currentGroupIndex]?.items||[];}if(currentVersionFilter)items=items.filter(it=>isVersionInCard(it.version,currentVersionFilter));return items; }
 function isVersionInCard(cardVer,filterVer){if(!cardVer||!filterVer)return false;let cv=cardVer.trim();if(cv.includes(','))return cv.split(',').some(v=>isVersionInCard(v.trim(),filterVer));if(cv.includes('-')){let[s,e]=cv.split('-').map(v=>v.trim());return s<=filterVer&&filterVer<=e;}return cv===filterVer;}
 function getTitleDedupKey(title){if(!title)return'';let withoutParens=title.replace(/\([^)]*\)|（[^）]*）/g,'');return withoutParens.replace(/[^a-zA-Z]/g,'').toLowerCase();}
 function getDuplicateItems(gi){let items=groupsData[gi].items,map=new Map();items.forEach((it,i)=>{let k=getTitleDedupKey(it.title);if(k){if(!map.has(k))map.set(k,[]);map.get(k).push({...it,cardIdx:i});}});let d=[];for(let[,arr] of map)if(arr.length>1){arr.forEach((x,j)=>{d.push({...x,isFirstDuplicate:j===0,isDuplicate:true});});}return d;}
@@ -388,121 +334,68 @@ function getCardLocation(target){for(let g=0;g<groupsData.length;g++)for(let i=0
 function buildPaginationHtml(totalPages){return`<button class="pagination-button prev-page" ${currentPage===1?'disabled':''}>◀ 上一页</button><span>第 ${currentPage} / ${totalPages} 页</span><button class="pagination-button next-page" ${currentPage===totalPages?'disabled':''}>下一页 ▶</button>`;}
 function bindPaginationEvents(container){if(!container)return;container.querySelector('.prev-page')?.addEventListener('click',async()=>{if(currentPage>1){currentPage--;await renderCards();}});container.querySelector('.next-page')?.addEventListener('click',async()=>{let items;if(currentSort==='duplicates'&&currentGroupIndex!==-1){items=getDuplicateItems(currentGroupIndex);}else{items=await getFilteredAndSortedItems();}let totalPages=Math.ceil(items.length/pageSize)||1;if(currentPage<totalPages){currentPage++;await renderCards();}});}
 
-async function renderCards(){
-  let container=document.getElementById('cardsContainer');if(!container)return;
-  let duplicateContainer=document.getElementById('duplicateToolbarContainer');
-
-  if(currentSort==='duplicates'&&currentGroupIndex!==-1){
-    let dupes=getDuplicateItems(currentGroupIndex);
-    if(!dupes.length){
-      container.innerHTML='<div class="no-results">✨ 当前分组没有重复卡片</div>';
-      if(duplicateContainer)duplicateContainer.innerHTML='';
-      document.getElementById('topPagination').innerHTML='';
-      document.getElementById('bottomPagination').innerHTML='';
-      return;
-    }
-    let totalPages=Math.ceil(dupes.length/pageSize)||1;
-    if(currentPage>totalPages)currentPage=totalPages;
-    let start=(currentPage-1)*pageSize;
-    let pageDupes=dupes.slice(start,start+pageSize);
-    container.innerHTML=pageDupes.map(d=>renderCard(d,currentGroupIndex,d.cardIdx,{isDuplicate:true,isFirstDuplicate:d.isFirstDuplicate})).join('');
-    if(duplicateContainer)duplicateContainer.innerHTML='<div class="duplicate-toolbar"><button id="batchDeleteDuplicatesBtn" class="cancel-btn">🗑️ 批量删除多余重复卡片</button></div>';
-    document.getElementById('batchDeleteDuplicatesBtn')?.addEventListener('click',()=>{
-      let gi=currentGroupIndex,items=groupsData[gi].items,map=new Map();
-      items.forEach((it,i)=>{let k=getTitleDedupKey(it.title);if(k){if(!map.has(k))map.set(k,[]);map.get(k).push(i);}});
-      let toDel=[];for(let[,arr] of map)if(arr.length>1)toDel.push(...arr.slice(1));
-      if(toDel.length&&confirm(`删除${toDel.length}张多余重复卡片？`)){
-        toDel.sort((a,b)=>b-a);
-        toDel.forEach(i=>items.splice(i,1));
-        saveDataToStorage();
-        currentPage=1;renderAll();
-      }
-    });
-    let pagHtml=buildPaginationHtml(totalPages);
-    document.getElementById('topPagination').innerHTML=pagHtml;
-    document.getElementById('bottomPagination').innerHTML=pagHtml;
-    bindPaginationEvents(document.getElementById('topPagination'));
-    bindPaginationEvents(document.getElementById('bottomPagination'));
-    bindAdminCardBtns();bindCardClicks();
-    return;
-  }
-
-  let allItems=await getFilteredAndSortedItems();
-  let totalPages=Math.ceil(allItems.length/pageSize)||1;
-  if(currentPage>totalPages)currentPage=totalPages;
-  let start=(currentPage-1)*pageSize;
-  let pageItems=allItems.slice(start,start+pageSize);
-  if(!pageItems.length){
-    container.innerHTML='<div class="no-results">✨ 没有找到相关内容</div>';
-    if(duplicateContainer)duplicateContainer.innerHTML='';
-    document.getElementById('topPagination').innerHTML='';
-    document.getElementById('bottomPagination').innerHTML='';
-    return;
-  }
-  container.innerHTML=pageItems.map(item=>{
-    if(currentGroupIndex===-1) return renderCard(item,-1,item.id);
-    let loc=getCardLocation(item); if(loc.groupIdx!==-1) return renderCard(item,loc.groupIdx,loc.cardIdx);
-    return '';
-  }).join('');
-  if(duplicateContainer)duplicateContainer.innerHTML='';
-  let pagHtml=buildPaginationHtml(totalPages);
-  document.getElementById('topPagination').innerHTML=pagHtml;
-  document.getElementById('bottomPagination').innerHTML=pagHtml;
-  bindPaginationEvents(document.getElementById('topPagination'));
-  bindPaginationEvents(document.getElementById('bottomPagination'));
-  bindAdminCardBtns();bindCardClicks();
-  if(document.getElementById('selectAllCheckbox'))document.getElementById('selectAllCheckbox').checked=false;
-  let isListView=localStorage.getItem('listViewPreference')==='true';
-  if(isListView)container.classList.add('list-view');else container.classList.remove('list-view');
-}
-
-async function deleteCard(gi,ci){
-  if(gi===-1){ await deleteRecordFromDB(ci); currentPage=1; renderAll(); return; }
-  if(!isAdminMode) return;
-  groupsData[gi].items.splice(ci,1); saveDataToStorage(); currentPage=1; renderAll();
-}
-async function batchDeleteSelected(){
-  if(!isAdminMode)return;
-  let selected=document.querySelectorAll('.card-checkbox:checked');
-  if(selected.length===0)return alert('未选择任何卡片');
-  let promises=[]; selected.forEach(cb=>{let g=parseInt(cb.dataset.g),c=cb.dataset.c;if(g===-1){promises.push(deleteRecordFromDB(c));}else{if(!groupsData[g])return;groupsData[g].items.splice(parseInt(c),1);}});
-  await Promise.all(promises); saveDataToStorage(); currentPage=1; renderAll();
-}
+async function renderCards(){ let container=document.getElementById('cardsContainer');if(!container)return; let duplicateContainer=document.getElementById('duplicateToolbarContainer'); if(currentSort==='duplicates'&&currentGroupIndex!==-1){ let dupes=getDuplicateItems(currentGroupIndex); if(!dupes.length){ container.innerHTML='<div class="no-results">✨ 当前分组没有重复卡片</div>'; if(duplicateContainer)duplicateContainer.innerHTML=''; document.getElementById('topPagination').innerHTML=''; document.getElementById('bottomPagination').innerHTML=''; return; } let totalPages=Math.ceil(dupes.length/pageSize)||1; if(currentPage>totalPages)currentPage=totalPages; let start=(currentPage-1)*pageSize; let pageDupes=dupes.slice(start,start+pageSize); container.innerHTML=pageDupes.map(d=>renderCard(d,currentGroupIndex,d.cardIdx,{isDuplicate:true,isFirstDuplicate:d.isFirstDuplicate})).join(''); if(duplicateContainer)duplicateContainer.innerHTML='<div class="duplicate-toolbar"><button id="batchDeleteDuplicatesBtn" class="cancel-btn">🗑️ 批量删除多余重复卡片</button></div>'; document.getElementById('batchDeleteDuplicatesBtn')?.addEventListener('click',()=>{ let gi=currentGroupIndex,items=groupsData[gi].items,map=new Map(); items.forEach((it,i)=>{let k=getTitleDedupKey(it.title);if(k){if(!map.has(k))map.set(k,[]);map.get(k).push(i);}}); let toDel=[];for(let[,arr] of map)if(arr.length>1)toDel.push(...arr.slice(1)); if(toDel.length&&confirm(`删除${toDel.length}张多余重复卡片？`)){ toDel.sort((a,b)=>b-a); toDel.forEach(i=>items.splice(i,1)); saveDataToStorage(); currentPage=1;renderAll(); } }); let pagHtml=buildPaginationHtml(totalPages); document.getElementById('topPagination').innerHTML=pagHtml; document.getElementById('bottomPagination').innerHTML=pagHtml; bindPaginationEvents(document.getElementById('topPagination')); bindPaginationEvents(document.getElementById('bottomPagination')); bindAdminCardBtns();bindCardClicks(); return; } let allItems=await getFilteredAndSortedItems(); let totalPages=Math.ceil(allItems.length/pageSize)||1; if(currentPage>totalPages)currentPage=totalPages; let start=(currentPage-1)*pageSize; let pageItems=allItems.slice(start,start+pageSize); if(!pageItems.length){ container.innerHTML='<div class="no-results">✨ 没有找到相关内容</div>'; if(duplicateContainer)duplicateContainer.innerHTML=''; document.getElementById('topPagination').innerHTML=''; document.getElementById('bottomPagination').innerHTML=''; return; } container.innerHTML=pageItems.map(item=>{ if(currentGroupIndex===-1) return renderCard(item,-1,item.id); let loc=getCardLocation(item); if(loc.groupIdx!==-1) return renderCard(item,loc.groupIdx,loc.cardIdx); return ''; }).join(''); if(duplicateContainer)duplicateContainer.innerHTML=''; let pagHtml=buildPaginationHtml(totalPages); document.getElementById('topPagination').innerHTML=pagHtml; document.getElementById('bottomPagination').innerHTML=pagHtml; bindPaginationEvents(document.getElementById('topPagination')); bindPaginationEvents(document.getElementById('bottomPagination')); bindAdminCardBtns();bindCardClicks(); if(document.getElementById('selectAllCheckbox'))document.getElementById('selectAllCheckbox').checked=false; let isListView=localStorage.getItem('listViewPreference')==='true'; if(isListView)container.classList.add('list-view');else container.classList.remove('list-view'); }
+async function deleteCard(gi,ci){ if(gi===-1){ await deleteRecordFromDB(ci); currentPage=1; renderAll(); return; } if(!isAdminMode) return; groupsData[gi].items.splice(ci,1); saveDataToStorage(); currentPage=1; renderAll(); }
+async function batchDeleteSelected(){ if(!isAdminMode)return; let selected=document.querySelectorAll('.card-checkbox:checked'); if(selected.length===0)return alert('未选择任何卡片'); let promises=[]; selected.forEach(cb=>{let g=parseInt(cb.dataset.g),c=cb.dataset.c;if(g===-1){promises.push(deleteRecordFromDB(c));}else{if(!groupsData[g])return;groupsData[g].items.splice(parseInt(c),1);}}); await Promise.all(promises); saveDataToStorage(); currentPage=1; renderAll(); }
 function batchDeleteDuplicates(){if(!isAdminMode)return;let gi=currentGroupIndex,items=groupsData[gi].items,map=new Map();items.forEach((it,i)=>{let k=getTitleDedupKey(it.title);if(k){if(!map.has(k))map.set(k,[]);map.get(k).push(i);}});let toDel=[];for(let[,arr] of map)if(arr.length>1)toDel.push(...arr.slice(1));if(!toDel.length)return alert('没有多余重复卡片');toDel.sort((a,b)=>b-a).forEach(i=>items.splice(i,1));saveDataToStorage();currentPage=1;renderAll();}
 
 async function recordSelectedCards(){ let selected=document.querySelectorAll('.card-checkbox:checked'); if(selected.length===0)return alert('没有选中任何卡片'); let records=[]; for(const cb of selected){ let g=parseInt(cb.dataset.g),c=cb.dataset.c; if(g===-1) continue; let card=groupsData[g]?.items[c]; if(card) records.push(`${card.title} || ${card.url||'(文本卡片)'}`); } if(!records.length) return alert('选中的卡片无法记录'); let textContent=records.join('\n'); let newCard={ id:'rec_'+Date.now()+'_'+Math.random().toString(36).slice(2), title:'📋 记录 '+new Date().toISOString().slice(0,10), description:'选中卡片记录', type:'text', textContent:textContent, author:'', tags:[], version:'', stats:{downloads:'—', updated:new Date().toISOString().slice(0,10)} }; await addRecordToDB(newCard); currentGroupIndex=-1; currentPage=1; renderAll(); alert(`✅ 已将 ${records.length} 个卡片记录为独立记录卡片`); }
-async function recordSelectedModrinthCards(){ let selected=document.querySelectorAll('.modrinth-select-cb:checked'); if(selected.length===0)return alert('没有选中任何搜索结果'); let records=[]; for(const cb of selected){ let slug=cb.dataset.slug; let result=currentModrinthResults.find(r=>r.slug===slug); if(result) records.push(`${result.title} || ${result.url}`); } if(!records.length) return alert('无法找到选中的结果'); let textContent=records.join('\n'); let newCard={ id:'rec_modrinth_'+Date.now()+'_'+Math.random().toString(36).slice(2), title:'📋 搜索结果记录 '+new Date().toISOString().slice(0,10), description:'搜索结果记录', type:'text', textContent:textContent, author:'', tags:[], version:'', stats:{downloads:'—', updated:new Date().toISOString().slice(0,10)} }; await addRecordToDB(newCard); document.getElementById('modrinthModal').classList.remove('active'); unlockBodyScroll(); currentGroupIndex=-1; currentPage=1; renderAll(); alert(`✅ 已将 ${records.length} 个搜索结果记录为独立卡片`); }
+async function recordSelectedModrinthCards(){
+    if(isRecordingSelected) return;
+    const recordBtn = document.getElementById('modrinthRecordSelectedBtn');
+    if(recordBtn) recordBtn.disabled = true;
+    isRecordingSelected = true;
+    try {
+        let selected = document.querySelectorAll('.modrinth-select-cb:checked');
+        if(selected.length===0){ alert('没有选中任何搜索结果'); return; }
+        let records = [];
+        for(let cb of selected){
+            let slug = cb.dataset.slug;
+            let result = currentModrinthResults.find(r=>r.slug===slug);
+            if(result) records.push(`${result.title} || ${result.url}`);
+        }
+        if(!records.length) return alert('无法找到选中的结果');
+        let textContent = records.join('\n').trim();
+        let existingRecords = await getAllRecords();
+        let duplicate = existingRecords.some(rec => rec.type === 'text' && rec.textContent && rec.textContent.trim() === textContent);
+        if(duplicate){
+            alert('⚠️ 所选模组记录已存在，未新增重复卡片');
+            return;
+        }
+        let newCard = {
+            id:'rec_modrinth_'+Date.now()+'_'+Math.random().toString(36).slice(2),
+            title:'📋 搜索结果记录 '+new Date().toISOString().slice(0,10),
+            description:`包含 ${records.length} 个模组链接`,
+            type:'text',
+            textContent:textContent,
+            author:'', tags:[], version:'',
+            stats:{downloads:'—', updated:new Date().toISOString().slice(0,10)}
+        };
+        await addRecordToDB(newCard);
+        document.getElementById('modrinthModal').classList.remove('active');
+        unlockBodyScroll();
+        currentGroupIndex = -1;
+        currentPage = 1;
+        renderAll();
+        alert(`✅ 已将 ${records.length} 个搜索结果记录为独立卡片 (已去重)`);
+    } catch(err){
+        console.error(err);
+        alert('记录失败: '+err.message);
+    } finally {
+        isRecordingSelected = false;
+        if(recordBtn) recordBtn.disabled = false;
+    }
+}
 function bindAdminCardBtns(){ document.querySelectorAll('.edit-btn').forEach(btn=>{ let g=parseInt(btn.dataset.g); if(g!==-1&&!isAdminMode) return; btn.addEventListener('click',async e=>{ e.stopPropagation(); let g=parseInt(btn.dataset.g),c=btn.dataset.c; if(g===-1){ let record=await getRecordById(c); openEditModal(g,c,record||{}); }else{ openEditModal(g,c,groupsData[g]?.items[c]); } }); }); document.querySelectorAll('.delete-btn').forEach(btn=>{ let g=parseInt(btn.dataset.g); if(g!==-1&&!isAdminMode) return; btn.addEventListener('click',e=>{ e.stopPropagation(); let g=parseInt(btn.dataset.g),c=btn.dataset.c; deleteCard(g,c); }); }); }
 
-/* 保持原有的图书预览等功能未变 */
+/* 图书预览相关函数未做改动，保持原有 */
 function splitHtmlToPages(html,nodesPerPage=14){const wrapper=document.createElement('div');wrapper.innerHTML=html;const children=Array.from(wrapper.childNodes).filter(n=>!(n.nodeType===3&&n.textContent.trim()===''));const pages=[];for(let i=0;i<children.length;i+=nodesPerPage){pages.push(children.slice(i,i+nodesPerPage));}if(pages.length===0)pages.push([]);return pages;}
 function generatePagesContentFromTextContent(card){if(card.pagesContent&&Array.isArray(card.pagesContent)&&card.pagesContent.length>0){if(typeof card.pagesContent[0]==='string'){card.pagesContent=card.pagesContent.map(htmlStr=>{let wrapper=document.createElement('div');wrapper.innerHTML=htmlStr;let allNodes=Array.from(wrapper.childNodes);let leftNodes=allNodes.filter((_,idx)=>idx%2===0);let rightNodes=allNodes.filter((_,idx)=>idx%2!==0);return{leftHtml:leftNodes.map(n=>n.outerHTML||n.textContent).join(''),rightHtml:rightNodes.map(n=>n.outerHTML||n.textContent).join('')};});}return;}let fullHtml=card.textContent||'';let pages=splitHtmlToPages(fullHtml,14);card.pagesContent=pages.map(pgNodes=>{let leftNodes=pgNodes.filter((_,idx)=>idx%2===0);let rightNodes=pgNodes.filter((_,idx)=>idx%2!==0);return{leftHtml:leftNodes.map(n=>n.outerHTML||n.textContent).join(''),rightHtml:rightNodes.map(n=>n.outerHTML||n.textContent).join('')};});blankPageIndices=new Set();}
 function updateCardTextContent(card){if(card.pagesContent&&Array.isArray(card.pagesContent)){card.textContent=card.pagesContent.map(p=>p.leftHtml+p.rightHtml).join('');}}
 function autoLinkify(html){if(!html)return html;return html.replace(/(?<!["'=>])\b(https?:\/\/[^\s<]+)/gi,'<a href="$1" target="_blank" rel="noopener noreferrer">点击链接</a>');}
-function renderBookPage(){
-  const card=currentEditingBookCard;
-  if(!card) return;
-  let pageData=card.pagesContent?.[currentPageIndex]||{leftHtml:'',rightHtml:''};
-  pageData.leftHtml=autoLinkify(pageData.leftHtml);pageData.rightHtml=autoLinkify(pageData.rightHtml);
-  const isBlank=blankPageIndices.has(currentPageIndex);const showMeta=currentPageIndex===0&&!isBlank;
-  const metadataHtml=showMeta?`<div class="metadata-area"><div class="meta-item"><span class="meta-label">📖 标题：</span>${escapeHtml(card.title)}</div><div class="meta-item"><span class="meta-label">✍️ 作者：</span>${escapeHtml(card.author||'')}</div><div class="meta-item"><span class="meta-label">📌 版本：</span>${escapeHtml(card.version||'')}</div><div class="meta-item"><span class="meta-label">📥 下载：</span>${escapeHtml(card.stats?.downloads||'')}</div></div>`:'';
-  document.getElementById('pagesContainer').innerHTML=`<div class="page-pair"><div class="page" id="leftPage">${metadataHtml}<div class="page-content" contenteditable="${isBookEditMode?'true':'false'}">${pageData.leftHtml}</div></div><div class="page" id="rightPage"><div class="page-content" contenteditable="${isBookEditMode?'true':'false'}">${pageData.rightHtml}</div></div></div>`;
-  attachImageClickHandler();
-}
-function persistBookPages(){if(!currentEditingBookCard)return;const card=currentEditingBookCard;card.blankPageIndices=Array.from(blankPageIndices);updateCardTextContent(card);}
-async function openBookPreview(title,cardLocation){
-  let card;
-  if(cardLocation.gi===-1){ card=await getRecordById(cardLocation.ci); if(!card) return; } else { card=groupsData[cardLocation.gi]?.items[cardLocation.ci]; if(!card) return; }
-  currentEditingBookCard=card;
-  if(!card.pagesContent||!Array.isArray(card.pagesContent)||card.pagesContent.length===0){generatePagesContentFromTextContent(card);}else if(typeof card.pagesContent[0]==='string'){generatePagesContentFromTextContent(card);}
-  blankPageIndices=new Set(card.blankPageIndices||[]);isBookEditMode=isAdminMode;currentPageIndex=0;document.getElementById('imageSettingsPopup').classList.remove('show');renderBookPage();
-  const prevBtn=document.getElementById('bookPrevBtn');const nextBtn=document.getElementById('bookNextBtn');const addBtn=document.getElementById('bookAddPageBtn');const indicator=document.getElementById('bookPageIndicator');
-  const update=()=>{prevBtn.disabled=currentPageIndex===0;nextBtn.disabled=currentPageIndex===card.pagesContent.length-1;indicator.innerText=`第 ${currentPageIndex+1} / ${card.pagesContent.length} 页`;};
-  prevBtn.onclick=()=>{if(currentPageIndex>0){saveCurrentPageEdits();currentPageIndex--;renderBookPage();update();}};
-  nextBtn.onclick=()=>{if(currentPageIndex<card.pagesContent.length-1){saveCurrentPageEdits();currentPageIndex++;renderBookPage();update();}};
-  if(isAdminMode){addBtn.style.display='flex';addBtn.onclick=()=>{saveCurrentPageEdits();card.pagesContent.push({leftHtml:'',rightHtml:''});currentPageIndex=card.pagesContent.length-1;blankPageIndices.add(currentPageIndex);renderBookPage();update();};}else{addBtn.style.display='none';}
-  update();document.getElementById('bookModal').classList.add('active');lockBodyScroll();document.getElementById('controlDock').style.display=isBookEditMode?'flex':'none';attachImageClickHandler();setupImagePreview();
-}
+function renderBookPage(){ const card=currentEditingBookCard; if(!card) return; let pageData=card.pagesContent?.[currentPageIndex]||{leftHtml:'',rightHtml:''}; pageData.leftHtml=autoLinkify(pageData.leftHtml); pageData.rightHtml=autoLinkify(pageData.rightHtml); const isBlank=blankPageIndices.has(currentPageIndex); const showMeta=currentPageIndex===0&&!isBlank; const metadataHtml=showMeta?`<div class="metadata-area"><div class="meta-item"><span class="meta-label">📖 标题：</span>${escapeHtml(card.title)}</div><div class="meta-item"><span class="meta-label">✍️ 作者：</span>${escapeHtml(card.author||'')}</div><div class="meta-item"><span class="meta-label">📌 版本：</span>${escapeHtml(card.version||'')}</div><div class="meta-item"><span class="meta-label">📥 下载：</span>${escapeHtml(card.stats?.downloads||'')}</div></div>`:''; document.getElementById('pagesContainer').innerHTML=`<div class="page-pair"><div class="page" id="leftPage">${metadataHtml}<div class="page-content" contenteditable="${isBookEditMode?'true':'false'}">${pageData.leftHtml}</div></div><div class="page" id="rightPage"><div class="page-content" contenteditable="${isBookEditMode?'true':'false'}">${pageData.rightHtml}</div></div></div>`; attachImageClickHandler(); }
+function persistBookPages(){ if(!currentEditingBookCard)return; const card=currentEditingBookCard; card.blankPageIndices=Array.from(blankPageIndices); updateCardTextContent(card); }
+async function openBookPreview(title,cardLocation){ let card; if(cardLocation.gi===-1){ card=await getRecordById(cardLocation.ci); if(!card) return; } else { card=groupsData[cardLocation.gi]?.items[cardLocation.ci]; if(!card) return; } currentEditingBookCard=card; if(!card.pagesContent||!Array.isArray(card.pagesContent)||card.pagesContent.length===0){ generatePagesContentFromTextContent(card); } else if(typeof card.pagesContent[0]==='string'){ generatePagesContentFromTextContent(card); } blankPageIndices=new Set(card.blankPageIndices||[]); isBookEditMode=isAdminMode; currentPageIndex=0; document.getElementById('imageSettingsPopup').classList.remove('show'); renderBookPage(); const prevBtn=document.getElementById('bookPrevBtn'); const nextBtn=document.getElementById('bookNextBtn'); const addBtn=document.getElementById('bookAddPageBtn'); const indicator=document.getElementById('bookPageIndicator'); const update=()=>{ prevBtn.disabled=currentPageIndex===0; nextBtn.disabled=currentPageIndex===card.pagesContent.length-1; indicator.innerText=`第 ${currentPageIndex+1} / ${card.pagesContent.length} 页`; }; prevBtn.onclick=()=>{ if(currentPageIndex>0){ saveCurrentPageEdits(); currentPageIndex--; renderBookPage(); update(); } }; nextBtn.onclick=()=>{ if(currentPageIndex<card.pagesContent.length-1){ saveCurrentPageEdits(); currentPageIndex++; renderBookPage(); update(); } }; if(isAdminMode){ addBtn.style.display='flex'; addBtn.onclick=()=>{ saveCurrentPageEdits(); card.pagesContent.push({leftHtml:'',rightHtml:''}); currentPageIndex=card.pagesContent.length-1; blankPageIndices.add(currentPageIndex); renderBookPage(); update(); }; } else { addBtn.style.display='none'; } update(); document.getElementById('bookModal').classList.add('active'); lockBodyScroll(); document.getElementById('controlDock').style.display=isBookEditMode?'flex':'none'; attachImageClickHandler(); setupImagePreview(); }
 function saveCurrentPageEdits(){if(!currentEditingBookCard)return;const card=currentEditingBookCard;const leftDiv=document.querySelector('#leftPage .page-content');const rightDiv=document.querySelector('#rightPage .page-content');if(leftDiv&&rightDiv){card.pagesContent[currentPageIndex]={leftHtml:leftDiv.innerHTML,rightHtml:rightDiv.innerHTML};if(leftDiv.innerHTML.trim()===''&&rightDiv.innerHTML.trim()===''&&!blankPageIndices.has(currentPageIndex)){blankPageIndices.add(currentPageIndex);}else if((leftDiv.innerHTML.trim()!==''||rightDiv.innerHTML.trim()!=='')&&blankPageIndices.has(currentPageIndex)){blankPageIndices.delete(currentPageIndex);}}}
 function attachImageClickHandler(){const imgs=document.querySelectorAll('#leftPage .page-content img, #rightPage .page-content img');imgs.forEach(img=>{img.onclick=(e)=>{e.stopPropagation();currentSelectedImg=img;let w=img.style.width?parseInt(img.style.width):(img.style.maxWidth?parseInt(img.style.maxWidth):70);let h=img.style.height&&img.style.height!=='auto'?parseInt(img.style.height):70;const heightAuto=!img.style.height||img.style.height==='auto';document.getElementById('lockAspectCheckbox').checked=heightAuto;document.getElementById('imgHeight').disabled=heightAuto;document.getElementById('heightVal').innerText=heightAuto?'auto':h+'%';document.getElementById('imgWidth').value=w;if(!heightAuto)document.getElementById('imgHeight').value=h;document.getElementById('widthVal').innerText=w+'%';let x=0,y=0;const match=img.style.transform?.match(/translate\(([-\d]+)px,\s*([-\d]+)px\)/);if(match){x=parseInt(match[1]);y=parseInt(match[2]);}document.getElementById('imgX').value=x;document.getElementById('imgY').value=y;document.getElementById('imageSettingsPopup').classList.add('show');};});}
 function setupImagePreview(){const widthSlider=document.getElementById('imgWidth');const heightSlider=document.getElementById('imgHeight');const lockCheck=document.getElementById('lockAspectCheckbox');const imgXInput=document.getElementById('imgX');const imgYInput=document.getElementById('imgY');const apply=()=>{if(!currentSelectedImg)return;const w=parseInt(widthSlider.value);const locked=lockCheck.checked;currentSelectedImg.style.width=w+'%';if(locked){currentSelectedImg.style.height='auto';heightSlider.disabled=true;document.getElementById('heightVal').innerText='auto';}else{const h=parseInt(heightSlider.value);currentSelectedImg.style.height=h+'%';document.getElementById('heightVal').innerText=h+'%';heightSlider.disabled=false;}const x=parseInt(imgXInput.value)||0;const y=parseInt(imgYInput.value)||0;currentSelectedImg.style.transform=`translate(${x}px, ${y}px)`;};widthSlider.oninput=()=>{document.getElementById('widthVal').innerText=widthSlider.value+'%';apply();};heightSlider.oninput=()=>{document.getElementById('heightVal').innerText=heightSlider.value+'%';apply();};lockCheck.onchange=()=>{if(lockCheck.checked){heightSlider.disabled=true;}else{heightSlider.disabled=false;}apply();};imgXInput.oninput=apply;imgYInput.oninput=apply;apply();}
@@ -541,82 +434,8 @@ function getCurseforgeApiKey(){ return localStorage.getItem('curseforge_api_key'
 function setCurseforgeApiKey(key){ localStorage.setItem('curseforge_api_key',key); }
 function showCurseforgeKeyInput(show){ document.getElementById('curseforgeKeyInput').style.display=show?'flex':'none'; }
 
-async function searchExternalMods(query){
-  if(currentSearchSource==='modrinth'){ await searchModrinth(query); return; }
-  const apiKey=getCurseforgeApiKey();
-  if(!apiKey){ alert('请先输入 CurseForge API Key'); showCurseforgeKeyInput(true); return; }
-  lastQuery=query;
-  const autoTranslate=document.getElementById('autoTranslateCheckbox')?.checked;
-  let finalQuery=query.trim();
-  if(finalQuery&&autoTranslate&&/[\u4e00-\u9fa5]/.test(finalQuery)){
-    document.getElementById('modrinthResults').innerHTML='<div style="padding:20px;text-align:center">🌐 翻译关键词中...</div>';
-    finalQuery=await translateToEnglish(finalQuery);
-  } else {
-    document.getElementById('modrinthResults').innerHTML='<div style="padding:20px;text-align:center">⏳ 搜索 CurseForge 中...</div>';
-  }
-  try {
-    let url=`${CURSEFORGE_API}?gameId=432&searchFilter=${encodeURIComponent(finalQuery)}&sortField=2&sortOrder=desc&pageSize=100&index=0`;
-    let res=await fetch(url,{headers:{'x-api-key':apiKey}});
-    if(!res.ok) throw new Error('CurseForge API 请求失败，状态码：'+res.status);
-    let data=await res.json();
-    let hits=data.data||[];
-    let enriched=await Promise.all(hits.map(async mod=>({
-      slug:mod.slug,
-      title:autoTranslate?await translateToChinese(mod.name):mod.name,
-      description:mod.summary||'',
-      author:mod.authors?.[0]?.name||'未知',
-      downloads:mod.downloadCount?`${(mod.downloadCount/1e6).toFixed(1)}M`:'?',
-      version:mod.latestFiles?.[0]?.gameVersions?.join(', ')||'未知',
-      tags:(mod.categories||[]).map(c=>c.name),
-      url:`https://www.curseforge.com/minecraft/mc-mods/${mod.slug}`,
-      date_modified:mod.dateModified
-    })));
-    currentModrinthResults=enriched;
-    modrinthCurrentPage=1;
-    renderModrinthPage();
-  } catch(e) {
-    document.getElementById('modrinthResults').innerHTML=`<div style="padding:20px;color:red;text-align:center">CurseForge 搜索失败: ${e.message}</div>`;
-  }
-}
-
-async function searchModrinth(query){
-  lastQuery=query;
-  const autoTranslate=document.getElementById('autoTranslateCheckbox')?.checked;
-  let finalQuery=query.trim();
-  if(finalQuery&&autoTranslate&&/[\u4e00-\u9fa5]/.test(finalQuery)){
-    document.getElementById('modrinthResults').innerHTML='<div style="padding:20px;text-align:center">🌐 翻译关键词中...</div>';
-    finalQuery=await translateToEnglish(finalQuery);
-  } else {
-    document.getElementById('modrinthResults').innerHTML='<div style="padding:20px;text-align:center">⏳ 搜索中...</div>';
-  }
-  try {
-    let facets=[];
-    if(modrinthSelectedVersion) facets.push([`versions:${modrinthSelectedVersion}`]);
-    if(modrinthSelectedType) facets.push([`project_type:${modrinthSelectedType}`]);
-    let facetParam=facets.length?`&facets=${encodeURIComponent(JSON.stringify(facets))}`:'';
-    let baseUrl=`https://api.modrinth.com/v2/search?limit=100${facetParam}`;
-    if(finalQuery) baseUrl+=`&query=${encodeURIComponent(finalQuery)}`;
-    let res=await fetch(baseUrl);
-    let data=await res.json();
-    let hits=data.hits||[];
-    let enriched=await Promise.all(hits.map(async hit=>({
-      slug:hit.slug,
-      title:autoTranslate?await translateToChinese(hit.title):hit.title,
-      description:hit.description||'',
-      author:hit.author,
-      downloads:hit.downloads?`${(hit.downloads/1e6).toFixed(1)}M`:'?',
-      version:getVersionRange(hit.versions),
-      tags:hit.categories||[],
-      url:`https://modrinth.com/mod/${hit.slug}`,
-      date_modified:hit.date_modified
-    })));
-    currentModrinthResults=enriched;
-    modrinthCurrentPage=1;
-    renderModrinthPage();
-  } catch(e) {
-    document.getElementById('modrinthResults').innerHTML='<div style="padding:20px;color:red;text-align:center">搜索失败</div>';
-  }
-}
+async function searchExternalMods(query){ if(currentSearchSource==='modrinth'){ await searchModrinth(query); return; } const apiKey=getCurseforgeApiKey(); if(!apiKey){ alert('请先输入 CurseForge API Key'); showCurseforgeKeyInput(true); return; } lastQuery=query; const autoTranslate=document.getElementById('autoTranslateCheckbox')?.checked; let finalQuery=query.trim(); if(finalQuery&&autoTranslate&&/[\u4e00-\u9fa5]/.test(finalQuery)){ document.getElementById('modrinthResults').innerHTML='<div style="padding:20px;text-align:center">🌐 翻译关键词中...</div>'; finalQuery=await translateToEnglish(finalQuery); } else { document.getElementById('modrinthResults').innerHTML='<div style="padding:20px;text-align:center">⏳ 搜索 CurseForge 中...</div>'; } try { let url=`${CURSEFORGE_API}?gameId=432&searchFilter=${encodeURIComponent(finalQuery)}&sortField=2&sortOrder=desc&pageSize=100&index=0`; let res=await fetch(url,{headers:{'x-api-key':apiKey}}); if(!res.ok) throw new Error('CurseForge API 请求失败，状态码：'+res.status); let data=await res.json(); let hits=data.data||[]; let enriched=await Promise.all(hits.map(async mod=>({ slug:mod.slug, title:autoTranslate?await translateToChinese(mod.name):mod.name, description:mod.summary||'', author:mod.authors?.[0]?.name||'未知', downloads:mod.downloadCount?`${(mod.downloadCount/1e6).toFixed(1)}M`:'?', version:mod.latestFiles?.[0]?.gameVersions?.join(', ')||'未知', tags:(mod.categories||[]).map(c=>c.name), url:`https://www.curseforge.com/minecraft/mc-mods/${mod.slug}`, date_modified:mod.dateModified }))); currentModrinthResults=enriched; modrinthCurrentPage=1; renderModrinthPage(); } catch(e){ document.getElementById('modrinthResults').innerHTML=`<div style="padding:20px;color:red;text-align:center">CurseForge 搜索失败: ${e.message}</div>`; } }
+async function searchModrinth(query){ lastQuery=query; const autoTranslate=document.getElementById('autoTranslateCheckbox')?.checked; let finalQuery=query.trim(); if(finalQuery&&autoTranslate&&/[\u4e00-\u9fa5]/.test(finalQuery)){ document.getElementById('modrinthResults').innerHTML='<div style="padding:20px;text-align:center">🌐 翻译关键词中...</div>'; finalQuery=await translateToEnglish(finalQuery); } else { document.getElementById('modrinthResults').innerHTML='<div style="padding:20px;text-align:center">⏳ 搜索中...</div>'; } try { let facets=[]; if(modrinthSelectedVersion) facets.push([`versions:${modrinthSelectedVersion}`]); if(modrinthSelectedType) facets.push([`project_type:${modrinthSelectedType}`]); let facetParam=facets.length?`&facets=${encodeURIComponent(JSON.stringify(facets))}`:''; let baseUrl=`https://api.modrinth.com/v2/search?limit=100${facetParam}`; if(finalQuery) baseUrl+=`&query=${encodeURIComponent(finalQuery)}`; let res=await fetch(baseUrl); let data=await res.json(); let hits=data.hits||[]; let enriched=await Promise.all(hits.map(async hit=>({ slug:hit.slug, title:autoTranslate?await translateToChinese(hit.title):hit.title, description:hit.description||'', author:hit.author, downloads:hit.downloads?`${(hit.downloads/1e6).toFixed(1)}M`:'?', version:getVersionRange(hit.versions), tags:hit.categories||[], url:`https://modrinth.com/mod/${hit.slug}`, date_modified:hit.date_modified }))); currentModrinthResults=enriched; modrinthCurrentPage=1; renderModrinthPage(); } catch(e){ document.getElementById('modrinthResults').innerHTML='<div style="padding:20px;color:red;text-align:center">搜索失败</div>'; } }
 
 function sortModrinthResults(arr){let s=[...arr];if(modrinthSortKey==='downloads-desc')s.sort((a,b)=>(parseFloat(b.downloads)||0)-(parseFloat(a.downloads)||0));else if(modrinthSortKey==='title-asc')s.sort((a,b)=>a.title.localeCompare(b.title));else if(modrinthSortKey==='updated-desc')s.sort((a,b)=>(b.date_modified||'').localeCompare(a.date_modified||''));return s;}
 async function addModrinthCard(card){let newCard={title:card.title,description:card.description,author:card.author,tags:card.tags,version:card.version,stats:{downloads:card.downloads,updated:new Date().toISOString().slice(0,10)},type:'link',url:card.url};groupsData[currentGroupIndex].items.push(newCard);await saveDataToStorage();renderAll();}
@@ -638,6 +457,37 @@ function restorePreferences(){ let sortPref=localStorage.getItem('sort_preferenc
 
 function setBatchButtonsEnabled(enabled){ document.getElementById('batchParseBtn').disabled = !enabled; document.getElementById('batchFileBtn').disabled = !enabled; document.getElementById('batchCancelBtn').disabled = !enabled; }
 function resetBatchUI(){ document.getElementById('batchProgress').style.display='none'; document.getElementById('batchProgressFill').style.width='0%'; document.getElementById('batchProgressPercent').innerText='0%'; document.getElementById('batchErrorLog').style.display='none'; document.getElementById('batchFinishBtn').style.display='none'; document.getElementById('batchParseBtn').style.display='inline-block'; document.getElementById('batchFileCount').style.display='none'; document.getElementById('batchFileCount').innerText=''; }
+
+// ========== 动态顶部渐变模糊 (优化侧边栏滚动区域) ==========
+function initDynamicScrollMasks() {
+    const scrollAreas = [
+        document.querySelector('.groups-scroll-area'),
+        document.querySelector('.version-scroll-area'),
+        document.querySelector('.tag-scroll-area')
+    ].filter(Boolean);
+    const applyDynamicMask = (el) => {
+        if (!el) return;
+        const scrollTop = el.scrollTop;
+        // 当滚动条位于顶部 (scrollTop <= 2) 时，移除顶部透明渐变，使内容完整可见；
+        // 一旦滚动离开顶部，恢复顶部渐隐效果（保持底部渐隐始终存在）
+        if (scrollTop <= 2) {
+            el.style.maskImage = 'linear-gradient(to bottom, black 0%, black 100%)';
+            el.style.webkitMaskImage = 'linear-gradient(to bottom, black 0%, black 100%)';
+        } else {
+            el.style.maskImage = 'linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%)';
+            el.style.webkitMaskImage = 'linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%)';
+        }
+    };
+    scrollAreas.forEach(area => {
+        if (!area) return;
+        // 移除CSS中可能存在的静态mask，确保JS接管
+        area.style.maskImage = '';
+        area.style.webkitMaskImage = '';
+        area.addEventListener('scroll', () => { applyDynamicMask(area); });
+        // 初始化时根据实际滚动位置设置
+        applyDynamicMask(area);
+    });
+}
 
 // 事件绑定
 document.getElementById('toggleDataSourceBtn')?.addEventListener('click',()=>{if(currentDataMode==='cloud')switchToLocalMode();else switchToCloudMode();});
@@ -694,9 +544,11 @@ document.getElementById('batchFinishBtn')?.addEventListener('click',()=>{ docume
 document.getElementById('batchCancelBtn')?.addEventListener('click',()=>{ if(batchImportRunning){ batchImportRunning=false; return; } document.getElementById('batchModal').classList.remove('active'); resetBatchUI(); });
 
 let savedLayout=localStorage.getItem('layout_settings');if(savedLayout)try{let s=JSON.parse(savedLayout);if(document.getElementById('radiusSlider'))document.getElementById('radiusSlider').value=s.radius||20;if(document.getElementById('paddingSlider'))document.getElementById('paddingSlider').value=s.padding||20;if(document.getElementById('gapSlider'))document.getElementById('gapSlider').value=s.gap||28;updateLayout();}catch(e){updateLayout();}else updateLayout();
-loadInitialData();buildPalette();initBackground();updateQuotaDisplay();
+loadInitialData().then(()=> {
+    initDynamicScrollMasks();  // 数据加载完成后启动动态渐变模糊
+});
+buildPalette();initBackground();updateQuotaDisplay();
 setTimeout(()=>{let dl=document.getElementById('versionDatalist');if(dl)dl.innerHTML=ALL_KNOWN_VERSIONS.map(v=>`<option value="${escapeHtml(v)}">`).join('');},100);
-document.addEventListener('click',function(e){ if(e.target.id==='modrinthRecordSelectedBtn') recordSelectedModrinthCards(); });
 </script>
 </body>
 </html>
